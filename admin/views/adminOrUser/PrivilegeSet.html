@@ -10,19 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="../assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <script src="../assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>assets/js/jquery.min.js"></script>
 
 </head>
 
 <body data-type="widgets">
-    <script src="../assets/js/theme.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script>
     <div class="am-g tpl-g">
 
 
@@ -35,7 +35,7 @@
                 <div class="container-fluid am-cf">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                         <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 管理员 | 用户 <small> - 权限管理 </small></div>
-                        <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+                        <p class="page-header-description">这个是后台所有权限管理，权限导航显示是在左侧导航菜单显示设置！</p>
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
 
                             <!-- 新增权限 开始 -->
                             <div class="am-btn-group am-btn-group-xs">
-                                <a id="add_rule" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 400, height: 225}" class="am-btn am-btn-secondary"><span class="am-icon-plus"></span> 新增权限</a>
+                                <a id="add_rule" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 440, height: 280}" class="am-btn am-btn-secondary"><span class="am-icon-plus"></span> 新增权限</a>
                             </div>
 
                             <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
@@ -59,7 +59,7 @@
                                         <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
                                     </div>
                                     <div class="am-modal-bd">
-                                        <form class="am-form tpl-form-line-form" action=" " method="post" enctype="multipart/form-data">
+                                        <form class="am-form tpl-form-line-form" action="<?php echo site_url('Member/add_power');?>" method="post" enctype="multipart/form-data">
                                             <div class="am-form-group am-cf">
                                                 <label class="am-u-sm-3 am-form-label">权限名 ：</label>
                                                 <div class="am-u-sm-8 am-u-end">
@@ -72,13 +72,21 @@
                                             <div class="am-form-group am-cf">
                                                 <label class="am-u-sm-3 am-form-label">权限 ：</label>
                                                 <div class="am-u-sm-8 am-u-end">
-                                                    <input type="text" name="controller" required="" minlength="2" maxlength="50" onblur="validate(this,2,50,1)">
+                                                    <input type="text" name="url" required="" minlength="2" maxlength="50" onblur="validate(this,2,50,1)">
+                                                </div>
+                                                <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
+                                                <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
+                                            </div>
+                                             <div class="am-form-group am-cf">
+                                                <label class="am-u-sm-3 am-form-label">icon样式 ：</label>
+                                                <div class="am-u-sm-8 am-u-end">
+                                                    <input type="text" name="style" required="" minlength="2" maxlength="50" onblur="validate(this,2,50,1)">
                                                 </div>
                                                 <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
                                                 <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
                                             </div>
                                             <div class="am-form-group am-btn-group-xs">
-                                                <input type="hidden" name="m_id" value="0">
+                                                <input type="hidden" name="pid" value="0">
                                                 <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
                                                 <button type="submit" class="am-btn am-btn-secondary">提交</button>
                                             </div>
@@ -93,25 +101,34 @@
                                 <thead>
                                     <tr>
                                         <th style="width:35%">权限名 </th>
-                                        <th style="width:40%">权限 </th>
+                                        <th style="width:30%">权限 </th>
+                                        <th style="width:10%">导航显示 </th>
                                         <th style="width:25%">操作 </th>
                                     </tr>
                                 </thead>
                                 <tbody id="doc-modal-list">
+                                    <?php foreach($list as $key=>$val):?>
                                     <tr class="trClass">
-                                        <td class="am-text-middle qxname">├ <span>系统设置</span></td>
-                                        <td class="am-text-middle qxctlr">systemSet</td>
+                                        <?php if($val['pid'] == 0):?>
+                                        <td class="am-text-middle qxname">├ <span><?php echo $val['name'];?></span></td>
+                                        <?php else:?>
+                                        <td class="am-text-middle qxname"><?php echo str_repeat(' &nbsp;&nbsp; &nbsp;&nbsp; ',$val['lev']),' └─  ';?><span><?php echo $val['name'];?></span></td>
+                                        <?php endif;?>
+                                        <td class="am-text-middle qxctlr"><?php echo $val['url'];?></td>
+                                        <input type="hidden" value="<?php echo $val['status'];?>" class="status" />
+                                        <td class="am-text-middle "><?php if($val['status'] == 1){echo "显示";}else{echo "不显示";};?></td>
                                         <td class="am-text-middle">
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">
-                                                    <a data-id="1" href="#" class="insert am-btn am-btn-secondary"><span class="am-icon-plus"></span> 添加子权限</a>
-                                                    <a data-id="1" href="#" class="update  am-btn am-btn-warning"><span class="am-icon-edit"></span> 修改</a>
-                                                    <a data-id="1" href="#" class="delete am-btn am-btn-danger"><span class="am-icon-trash"></span> 删除</a>
+                                                    <a data-id="<?php echo $val['id']?>" href="#" class="insert am-btn am-btn-secondary"><span class="am-icon-plus"></span> 添加子权限</a>
+                                                    <a data-id="<?php echo $val['id']?>" href="#" class="update  am-btn am-btn-warning"><span class="am-icon-edit"></span> 修改</a>
+                                                    <a data-id="<?php echo $val['id']?>" href="#" class="delete am-btn am-btn-danger"><span class="am-icon-trash"></span> 删除</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-
+                                    <?php endforeach;?>
+<!-- 
                                     <tr class="trClass">
                                         <td class="am-text-middle qxname">├<span>财务管理</span></td>
                                         <td class="am-text-middle qxctlr">finance</td>
@@ -151,7 +168,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr> -->
 
                                 </tbody>
                             </table>
@@ -165,7 +182,7 @@
 
 
                 <!-- 弹框开始 -->
-                
+                
 
 
 
@@ -192,6 +209,16 @@
                                 <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
                                 <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
                             </div>
+                            <div class="am-form-group am-cf">
+                                <label class="am-u-sm-3 am-form-label">导航显示 ：</label>
+                                <div class="am-u-sm-8 am-u-end">
+                                    <!-- onblur="validate(this,2,50,1)" -->
+                                    <input type="radio" name="status" value="1" required="">显示
+                                    <input type="radio" name="status" value="0" required="">不显示
+                                </div>
+                                <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
+                                <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
+                            </div>
 
                         </div>
                         <div class="am-modal-footer">
@@ -211,15 +238,20 @@
                                         var $link = $(this.relatedTarget).one('a');
                                         var addtName = $('#addtName').val();
                                         var addController = $('#addController').val();
+                                        var status = $("input[name='status']:checked").val();   
 
                                         // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id')+ addtName+ addController:
                                         //     'mull';
                                         // alert(msg);
-                                        var data = { updateName: updateName, updateController: updateController, id: $link.data('id') }
-                                        console.log(data)
-                                        $.post("URL", data, function (result) {
+                                        var data = { name: addtName, url: addController,status: status, pid: $link.data('id') }
+                                        $.post("<?php echo site_url('Member/add_power_level');?>", data, function (result) {
                                             // $("span").html(result);
-                                            window.location.reload()
+                                            if(result == 1){
+                                                window.location.reload()
+                                             }else{
+                                                 alert('操作失败！');
+                                                 window.location.reload()
+                                             }
                                         });
                                     },
                                     closeOnConfirm: false,
@@ -257,6 +289,17 @@
                                 <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
                                 <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
                             </div>
+                            <div class="am-form-group am-cf">
+                                <label class="am-u-sm-3 am-form-label">导航显示 ：</label>
+                                <div class="am-u-sm-8 am-u-end">
+                                    <!-- onblur="validate(this,2,50,1)" -->
+                                    <input type="radio" name="status" value="1" required="">显示
+                                    <input type="radio" name="status" value="0" required="">不显示
+                                </div>
+                                <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
+                                <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
+                            </div>
+
                         </div>
                         <div class="am-modal-footer">
                             <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -271,19 +314,24 @@
                             on('click', function () {
                                 $('#updateName').val($(this).parentsUntil('tbody').find('.qxname span').html())
                                 $('#updateController').val($(this).parentsUntil('tbody').find('.qxctlr').html())
+                                var updatastatus = $(this).parentsUntil('tbody').find('.status').val()
+                                $("input[name='status'][value='"+updatastatus+"']").attr("checked",true);  
                                 $('#my-update-confirm').modal({
                                     relatedTarget: this,
                                     onConfirm: function (options) {
                                         var $link = $(this.relatedTarget).one('a');
                                         var updateName = $('#updateName').val();
                                         var updateController = $('#updateController').val();
+                                        var status = $("input[name='status']:checked").val();   
+
                                         // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
                                         //     'mull';
                                         // alert(msg);
-                                        var data = { updateName: updateName, updateController: updateController, id: $link.data('id') }
+                                        var data = { name: updateName, url: updateController,status:status ,id: $link.data('id') }
                                         console.log(data)
-                                        $.post("URL", data, function (result) {
-                                            $("span").html(result);
+                                        $.post("<?php echo site_url('Member/edit_power');?>", data, function (result) {
+                                          //  $("span").html(result);
+                                            // console.log(result)
                                             window.location.reload()
                                         });
                                     },
@@ -327,9 +375,14 @@
                                         //     'mull';
                                         // alert(msg);
 
-                                        $.post("URL", { id: $link.data('id') }, function (result) {
+                                        $.post("<?php echo site_url('Member/del_power');?>", { id: $link.data('id') }, function (result) {
                                             // $("span").html(result);
+                                            if(result == 1){
                                             window.location.reload()
+                                            }else{
+                                                alert('删除失败');
+                                                window.location.reload()
+                                            }
                                         });
                                     },
                                     closeOnConfirm: false,
@@ -353,10 +406,10 @@
         </div>
     </div>
     </div>
-    <script src="../assets/js/amazeui.min.js"></script>
-    <script src="../assets/js/amazeui.datatables.min.js"></script>
-    <script src="../assets/js/dataTables.responsive.min.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.datatables.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/app.js"></script>
 
 </body>
 

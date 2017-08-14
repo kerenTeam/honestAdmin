@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="../assets/css/app.css">
+        <script src="../assets/js/jquery-1.7.2.min.js"></script>
+    </head>
+    <body data-type="widgets">
+        <script src="../assets/js/theme.js"></script>
+
+                    <div class="container-fluid am-cf">
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 管理员 | 用户 <small> - 用户组管理 - 编辑权限 </small></div>
+                            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                            <div class="widget am-cf">
+                                <div class="widget-head am-cf">
+                                    <div class="widget-title  am-cf">权限列表</div>
+                                </div>
+                                <br>
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                                    <div class="am-form-group">
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+                                                <a id="getValue" class="am-btn am-btn-secondary"><span class="am-icon-plus"></span> 提交</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-u-sm-12">
+                                    <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black ">
+                                        <thead>
+                                            <tr>
+                                                <th>权限名 </th>
+                                                <th>权限 </th>
+                                                <th class="tablecheck">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <a  class="am-btn am-btn-success"><input type="checkbox" id="all"> 全选 </a>
+                                                        <a  class="am-btn am-btn-secondary"><input type="checkbox" id="reverse"> 反选 </a>
+                                                    </div>
+                                                </th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody id="list">
+                                            <tr class="trClass">
+                                                <td class="am-text-middle">├系统设置</td>
+                                                <td class="am-text-middle">systemSet</td>
+                                                <td class="am-text-middle">
+                                                    <input type="checkbox" value="1" class="commentBox" name="commentBox" >
+                                                </td>
+                                            </tr>
+                                            <tr class="trClass">
+                                                <td class="am-text-middle">│ &nbsp;&nbsp; &nbsp;&nbsp; └─ 权限管理</td>
+                                                <td class="am-text-middle">systemSet/SystemSet/memberLimit</td>
+                                                <td class="am-text-middle">
+                                                    <input type="checkbox" value="11" class="commentBox" name="commentBox" >
+                                                </td>
+                                            </tr>
+                                            <tr class="trClass">
+                                                <td class="am-text-middle">│ &nbsp;&nbsp; &nbsp;&nbsp; └─ APP设置</td>
+                                                <td class="am-text-middle">systemSet/SystemSet/app_version</td>
+                                                <td class="am-text-middle">
+                                                    <input type="checkbox" value="53" class="commentBox" name="commentBox" >
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+        <script>  
+        $(function () {
+            //全选或全不选
+            $("#all").click(function(){   
+                if(this.checked){   
+                    $("#list :checkbox").attr("checked", true);  
+                }else{   
+                    $("#list :checkbox").attr("checked", false);
+                }   
+            }); 
+
+            //反选 
+            $("#reverse").click(function () { 
+                $("#list :checkbox").each(function () {  
+                    $(this).attr("checked", !$(this).attr("checked"));  
+                });
+
+            });
+            
+
+            //获取选中选项的值
+            $("#getValue").click(function(){
+                var valArr = new Array;
+                $("#list :checkbox[checked]").each(function(i){
+                    valArr[i] = $(this).val();
+                });
+                var data = valArr.join(',');
+                $.post("URL", data, function (result) {
+                        $("span").html(result);
+                   window.location.reload()
+                });
+            });
+        }); 
+
+</script> 
+    </body>
+</html>

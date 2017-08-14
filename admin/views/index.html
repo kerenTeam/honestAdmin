@@ -83,24 +83,24 @@
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
                 <!-- 侧边切换 -->
-                <div class="am-fl tpl-header-switch-button am-icon-list" id="toggleNavbar" >
+                <!-- <div class="am-fl tpl-header-switch-button am-icon-list" id="toggleNavbar" >
                     <span>
 
                 </span>
-                </div>
+                </div> -->
                 <!-- 搜索 -->
-                <div class="am-fl tpl-header-search">
+                <!-- <div class="am-fl tpl-header-search">
                     <form class="tpl-header-search-form" action="javascript:;">
                         <button class="tpl-header-search-btn am-icon-search"></button>
                         <input class="tpl-header-search-box" type="text" placeholder="搜索内容...">
                     </form>
-                </div>
+                </div> -->
                 <!-- 其它功能-->
                 <div class="am-fr tpl-header-navbar">
                     <ul>
                         <!-- 欢迎语 -->
                         <li class="am-text-sm tpl-header-navbar-welcome">
-                            <a href="javascript:;">欢迎你, <span> <b> 清风明月 </b> </span> </a>
+                            <a href="javascript:;">欢迎你, <span> <b> <?php echo $_SESSION['users']['username'];?> </b> </span> </a>
                         </li>
 
                         <!-- 新邮件 -->
@@ -210,7 +210,7 @@
 
                         <!-- 退出 -->
                         <li class="am-text-sm">
-                            <a href="javascript:;">
+                            <a href="<?php echo site_url('Login/login_out');?>">
                                 <span class="am-icon-sign-out"></span> 退出
                             </a>
                         </li>
@@ -266,13 +266,13 @@
                     <ul class="sidebar-nav sidebar-nav-sub">
 
                         <li class="sidebar-nav-link">
-                            <a target="text" href="./adminOrUser/PrivilegeSet.html">
+                            <a target="text" href="<?php echo site_url('Member/power');?>">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 权限管理
                             </a>
                         </li>
                         
                         <li class="sidebar-nav-link">
-                            <a target="text" href="./adminOrUser/userGorunpSet.html">
+                            <a target="text" href="<?php echo site_url('Member/userGroup');?>">
                                 <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户组管理
                             </a>
                         </li>
@@ -501,7 +501,7 @@
 
         <!-- 内容区域 -->
      
-        <iframe src="./main.html" name="text" target="_self" style="height:100vh;width:99%;overflow-y: scroll;" > </iframe>
+        <iframe src="<?php echo site_url().$page;?>" name="text" target="_self" style="height:100vh;width:99%;overflow-y: scroll;" > </iframe>
        
 
     </div>
