@@ -61,11 +61,11 @@
                             <div class="am-modal-bd">
                                 <!-- 本地生活 信息展示类 -->
 
-                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="URL" method="post" data-am-validator="" novalidate="novalidate">
+                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('Member/add_userGroup');?>" method="post" data-am-validator="" novalidate="novalidate">
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
                                         <label class="am-u-sm-3 am-form-label">组 名 <span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
+                                            <input type="text" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="group_name" minlength="2" maxlength="10"
                                                 value="" required="" onblur="validate(this,2,10,1)">
 
                                         </div>
@@ -75,7 +75,7 @@
                                     <div class="am-form-group am-cf am-form-icon am-form-feedback am-form-success">
                                         <label class="am-u-sm-3 am-form-label">别 名 <span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" placeholder="请输入别名,不超过十个字符" name="username" minlength="2" maxlength="10" required="" onblur="validate(this,2,10,2)"
+                                            <input type="text" placeholder="请输入别名,不超过十个字符" name="alias" minlength="2" maxlength="10" required="" onblur="validate(this,2,10,2)"
                                                 class="am-field-valid">
 
                                         </div>
@@ -144,27 +144,29 @@
                                 </tr>
                             </thead>
                             <tbody id="doc-modal-list">
+                                <?php foreach($lists as $key=>$val):?>
                                 <tr class="trClass">
-                                    <td class="am-text-middle">001</td>
-                                    <td class="groupName am-text-middle">材料检测信息备案管理部</td>
+                                    <td class="am-text-middle"><?php echo $val['gid'];?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['group_name'];?></td>
 
-                                    <td class="aliasName am-text-middle">备案部</td>
+                                    <td class="aliasName am-text-middle"><?php echo $val['alias'];?></td>
                                     <td class="groupType am-text-middle">客户管理、合同管理、行业分类管理</td>
                                     <td class="am-text-middle">
-
-                                        <img src="<?php echo base_url('public/');?>assets/img/b.jpeg" class="groupPic am-img-responsive" width="80px" alt="">
+                                        <input type="hidden" name="pic" class="groupPic" value="">
+                                        <img src="<?php echo base_urL().$val['icon'];?>" class="groupPic am-img-responsive" width="80px" alt="">
 
                                     </td>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a data-id="001" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
-                                            <a data-id="001" data-am-modal="{target: '#save-permission-modal', closeViaDimmer: 0, width: 950}"><i class="am-icon-pencil"></i> 编辑权限  </a>
-                                            <a data-id="001" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
+                                            <a data-id="<?php echo $val['gid'];?>" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
+                                            <a data-id="<?php echo $val['gid'];?>" data-am-modal="{target: '#save-permission-modal', closeViaDimmer: 0, width: 950}"><i class="am-icon-pencil"></i> 编辑权限  </a>
+                                            <a data-id="<?php echo $val['gid'];?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
                                         </div>
                                     </td>
                                 </tr>
+                                <?php endforeach;?>
 
-                                <tr class="trClass">
+                                <!-- <tr class="trClass">
                                     <td class="am-text-middle">002</td>
                                     <td class="groupName am-text-middle">002材料检测信息备案管理部</td>
 
@@ -202,7 +204,7 @@
                                         </div>
                                     </td>
                                 </tr>
-
+ -->
 
                             </tbody>
                         </table>
@@ -213,15 +215,7 @@
 
                     <div class="am-u-lg-12 am-cf">
                         <div class="am-fr">
-                            <ul class="am-pagination tpl-pagination">
-                                <li class="am-disabled"><a href="#">«</a></li>
-                                <li class="am-active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
+                           <?php echo $pages;?>
                         </div>
                     </div>
 
@@ -245,12 +239,15 @@
                     <div class="am-modal am-modal-confirm" tabindex="-1" id="my-update-confirm">
                         <div class="am-modal-dialog">
                             <div class="am-modal-hd">修改组信息</div>
+                            <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('Member/edit_userGroup');?>" method="post">
+
                             <div class="am-modal-bd am-form tpl-form-line-form">
+                                        <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
 
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
                                         <label class="am-u-sm-3 am-form-label">组 名 <span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" id="groupName" name="groupName"  class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符"  minlength="2" maxlength="10"
+                                            <input type="text" id="groupName" name="group_name"  class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符"  minlength="2" maxlength="10"
                                                 required="" onblur="validate(this,2,10,1)">
 
                                         </div>
@@ -260,7 +257,7 @@
                                     <div class="am-form-group am-cf am-form-icon am-form-feedback am-form-success">
                                         <label class="am-u-sm-3 am-form-label">别 名 <span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" id="aliasName" name="aliasName"  placeholder="请输入别名,不超过十个字符"  minlength="2" maxlength="10" required="" onblur="validate(this,2,10,2)"
+                                            <input type="text" id="aliasName" name="alias"  placeholder="请输入别名,不超过十个字符"  minlength="2" maxlength="10" required="" onblur="validate(this,2,10,2)"
                                                 class="am-field-valid">
 
                                         </div>
@@ -269,12 +266,12 @@
                                     </div>
 
                                     <div class="am-form-group am-cf am-form-icon am-form-feedback">
-                                        <label class="am-u-sm-3 am-form-label">头 像 <span class="red">*</span>：</label>
+                                        <label class="am-u-sm-3 am-form-label">icon 标志<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8 am-u-end">
                                             <div class="wx_type_img">
                                                 <!-- 图片实时预览 -->
                                                 <div id="preview" class="preview">
-                                                    <img style="border-radius: 3px;" src="<?php echo base_url('public/');?>assets/img/logo.png" class="am-img-responsive cardView">
+                                                    <img style="border-radius: 3px;" id="groupPic" src="<?php echo base_url('public/');?>assets/img/logo.png" class="am-img-responsive cardView">
                                                 </div>
                                                 <br>
                                                 
@@ -301,13 +298,15 @@
                                         </div>
 
                                     </div>
+                                                                    <button type="submit" class="am-modal-btn">确定</button>
+
 
 
                             </div>
                             <div class="am-modal-footer">
                                 <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-                                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <script>
@@ -317,26 +316,33 @@
                                 on('click', function () {
                                     $('#groupName').val($(this).parentsUntil('tbody').find('.groupName').html())
                                     $('#aliasName').val($(this).parentsUntil('tbody').find('.aliasName').html())
-                                    $('#groupPic').val($(this).parentsUntil('tbody').find('.groupPic').html())
+                                 //   $('#groupPic').val($(this).parentsUntil('tbody').find('.groupPic').html())
+                                    $("#groupPic").attr('src',$('.groupPic')[0].src); 
 
-                                    $('#updateController').val($(this).parentsUntil('tbody').find('.qxctlr').html())
                                     $('#my-update-confirm').modal({
                                         relatedTarget: this,
                                         onConfirm: function (options) {
                                             var $link = $(this.relatedTarget).one('a');
                                             var groupName = $('#groupName').val();
                                             var aliasName = $('#aliasName').val();
-                                            var groupPic = $('#groupPic').val();
-
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            alert(msg);
-                                            var data = { groupName: groupName, aliasName: aliasName,groupPic:groupPic, id: $link.data('id') }
+                                            var groupPic = $('#groupPic')[0].src;
+                                            var data = { group_name: groupName, alias: aliasName,icon:groupPic, gid: $link.data('id') }
                                             console.log(data)
-                                            $.post("URL", data, function (result) {
-                                                $("span").html(result);
-                                                window.location.reload()
-                                            });
+                                            
+                                            // $.post("<?php echo site_url('Member/edit_userGroup');?>", data, function (result) {
+                                            //     console.log(result);
+                                            //     if(result == 1){
+                                            //     // $("span").html(result);
+                                            //     window.location.reload()
+                                            //     }else if(result == 3){
+                                            //         alert('图片上传失败！')
+                                            //         window.location.reload()
+                                            //     }else{
+                                            //         alert('操作失败');
+                                            //         window.location.reload()
+
+                                            //     }
+                                            // });
                                         },
 
                                         closeOnConfirm: false,

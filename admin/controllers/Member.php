@@ -10,6 +10,7 @@ class Member extends Public_Controller {
 
     public $table = "system_nav";
     public $member = "user_member";
+    public $userGroup = "user_group";
     
     function __construct() {
         parent::__construct();
@@ -165,7 +166,7 @@ class Member extends Public_Controller {
 
     //用户组
     function userGroup(){
-        $config['per_page'] = 10;
+        $config['per_page'] = 1;
 
 		//获取页码
 
@@ -216,17 +217,126 @@ class Member extends Public_Controller {
 		$config['last_link']= '末页';
 		$config['num_links'] = 4;
     	
-		$total = count($this->public_model->select($this->member,''));
+		$total = count($this->public_model->select($this->userGroup,''));
    		$config['total_rows'] = $total;
  
 		$this->load->library('pagination');//加载ci pagination类
-		$listpage =  $this->public_model->select_page('jy_admin_user',$current_page,$config['per_page'],'');
+		$listpage =  $this->public_model->select_page($this->userGroup,$current_page,$config['per_page'],'addtime');
 		$this->pagination->initialize($config);
 
 		$data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
 
         $this->load->view('adminOrUser/userGroupSet.html',$data);
     }
+
+    //新增权限组
+    function add_userGroup(){
+        if($_POST){
+            $data = $this->input->post();
+            if(!empty($_FILES['img']['name'])){
+                    $config['upload_path']      = 'upload/icon/';
+                    $config['allowed_types']    = 'gif|jpg|png|jpeg|webp';
+                    $config['max_size']     = 2048;
+                    $config['file_name'] = date('Y-m-d_His');
+
+                    $this->load->library('upload', $config);
+
+                    // 上传
+
+                    if(!$this->upload->do_upload('img')) {
+
+                        echo "<script>alert('图片上传失败！');window.location.href='".site_url('Member/userGroup')."'</script>";exit;
+                    }else{
+                        $data['icon'] = 'upload/icon/'.$this->upload->data('file_name');
+                    }
+            }
+            if($this->public_model->insert($this->userGroup,$data)){
+                //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"新增用户组成功,用户组名称为".$data['group_name'],
+                );
+                add_system_log($arr);
+                
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/userGroup')."'</script>";
+            }else{
+                  //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"新增用户组失败,用户组名称为".$data['group_name'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Member/userGroup')."'</script>";
+            }
+        }else{
+            $this->load->view('404.html');
+        }
+    }
+
+    //  编辑用户组
+    function edit_userGroup(){
+        var_dump($_POST);
+        exit;
+        if($_POST){
+            $data = $this->input->post();
+            if(!empty($_FILES['img']['name'])){
+                    $config['upload_path']      = 'upload/icon/';
+                    $config['allowed_types']    = 'gif|jpg|png|jpeg|webp';
+                    $config['max_size']     = 2048;
+                    $config['file_name'] = date('Y-m-d_His');
+
+                    $this->load->library('upload', $config);
+
+                    // 上传
+
+                    if(!$this->upload->do_upload('img')) {
+
+                        echo "3";exit;
+                    }else{
+                        $data['icon'] = 'upload/icon/'.$this->upload->data('file_name');
+                    }
+            }
+            if($this->public_model->updata($this->userGroup,'gid',$data['gid'],$data)){
+                //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"修改用户组成功,用户组名称为".$data['group_name'],
+                );
+                add_system_log($arr);
+                
+               echo '1';
+            }else{
+                  //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"修改用户组失败,用户组名称为".$data['group_name'],
+                );
+                add_system_log($arr);
+               echo '2';
+            }
+        }else{
+           echo "2";
+        }
+    }
+
+
+
 
 }
 
