@@ -20,12 +20,41 @@ class Welcome extends Public_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-
+   public $table = "system_nav";
+   public $userGroup = "user_group";
 
 	//后台首页
 	public function index()
 	{
 
+		//获取用户信息
+		$users = $_SESSION['users'];
+
+		//判断是否是超级管理员
+		if($users['super_admin'] == '1'){
+			//获取所有权限
+			$list = $this->public_model->select($this->table,'');
+			$menus = subtree($list);
+        	//$power = json_encode(subtree($list),JSON_UNESCAPED_UNICODE);
+		}else{
+			//获取用户组权限
+			$power = $this->public_model->select_info($this->userGroup,'gid',$users['gid']);
+			$menus = json_decode($power['perm'],true);
+		}
+		$menus_data = array();
+		
+		$_SESSION['power'] = json_encode($menus);
+		foreach($menus as $key=>$value){
+			if($value['status'] == '1'){
+				if($value['pid'] == '0'){
+					$menus_data[$value['id']]['value'] = $value;
+				}else{
+					$menus_data[$value['pid']]['value']['chick'][] = $value;
+				}
+			}
+		}
+
+		$data['menus'] = $menus_data;
 		$data['page'] = 'Welcome/main';
 		$this->load->view('index.html',$data);
 	}

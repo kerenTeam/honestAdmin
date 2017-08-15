@@ -332,7 +332,12 @@
                                         $.post("<?php echo site_url('Member/edit_power');?>", data, function (result) {
                                           //  $("span").html(result);
                                             // console.log(result)
+                                            if(result ==1){
                                             window.location.reload()
+                                            }else{
+                                                alert('操作失败！');
+                                                window.location.reload()
+                                            }
                                         });
                                     },
 

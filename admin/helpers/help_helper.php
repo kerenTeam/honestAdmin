@@ -4,7 +4,7 @@ function subtree($arr,$a = '',$id=0,$lev=1) {
     $subs = array(); // 子孙数组
     foreach($arr as $k=>$v) {
         if(!empty($a)){
-            if(in_array($v['id'],$a)){
+            if(deep_in_array($v['url'],$a)){
                  $v['true'] = '1';
             }else{
                 $v['true'] = '0';
@@ -18,6 +18,26 @@ function subtree($arr,$a = '',$id=0,$lev=1) {
     }
     return $subs;
 }
+function deep_in_array($value, $array) {   
+    foreach($array as $item) {   
+        if(!is_array($item)) {   
+            if ($item == $value) {  
+                return true;  
+            } else {  
+                continue;   
+            }  
+        }   
+            
+        if(in_array($value, $item)) {  
+            return true;      
+        } else if(deep_in_array($value, $item)) {  
+            return true;      
+        }  
+    }   
+    return false;   
+}
+
+
 //返回ip
 function get_client_ip() {
     $ip = $_SERVER['REMOTE_ADDR'];

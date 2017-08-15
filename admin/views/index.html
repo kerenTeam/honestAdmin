@@ -258,7 +258,34 @@
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
                     </a>
                 </li>
-                <li class="sidebar-nav-link">
+                <?php foreach($menus as $val):?>
+                    <?php if(isset($val['value']['chick'])):?>
+                         <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title">
+                        <i class="<?php echo $val['value']['style'];?> sidebar-nav-link-logo"></i> <?php echo $val['value']['name'];?>
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <?php foreach($val['value']['chick'] as $v):?>
+                        <li class="sidebar-nav-link">
+                            <a target="text" href="<?php echo site_url().$v['url'];?>">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> <?php echo $v['name'];?>
+                            </a>
+                        </li>
+                        <?php endforeach;?>
+                        
+                       
+                    </ul>
+                </li>
+                    <?php else:?>
+                        <li class="sidebar-nav-link">
+                            <a target="text" href="<?php echo site_url().$val['value']['url'];?>">
+                                <i class="<?php echo $val['value']['style'];?> sidebar-nav-link-logo"></i><?php echo $val['value']['name'];?>
+                            </a>
+                        </li>
+                    <?php endif;?>
+                <?php endforeach;?>
+                <!-- <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title">
                         <i class="am-icon-user-secret sidebar-nav-link-logo"></i> 管理员 | 用户
                         <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
@@ -401,9 +428,9 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
-                 <li class="sidebar-nav-link">
+                 <!-- <li class="sidebar-nav-link">
                     <a target="text" href="tables.html">
                         <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
                     </a>
@@ -424,7 +451,7 @@
                         <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
 
                     </a>
-                </li>  
+                </li>   -->
 
 
                 <li class="sidebar-nav-heading">Other<span class="sidebar-nav-heading-info"> 其他功能</span></li>

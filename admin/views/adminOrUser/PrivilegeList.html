@@ -8,15 +8,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="renderer" content="webkit">
         <meta http-equiv="Cache-Control" content="no-siteapp" />
-        <link rel="icon" type="image/png" href="../assets/i/favicon.png">
-        <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+        <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
         <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-        <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-        <link rel="stylesheet" href="../assets/css/app.css">
-        <script src="../assets/js/jquery-1.7.2.min.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+        <script src="<?php echo base_url('public/');?>assets/js/jquery-1.7.2.min.js"></script>
     </head>
     <body data-type="widgets">
-        <script src="../assets/js/theme.js"></script>
+        <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script>
 
                     <div class="container-fluid am-cf">
                         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -56,27 +56,19 @@
                                             </tr>
                                         </thead>
                                         <tbody id="list">
+                                            <?php foreach($list as $key=>$val):?>
                                             <tr class="trClass">
-                                                <td class="am-text-middle">├系统设置</td>
-                                                <td class="am-text-middle">systemSet</td>
+                                               <?php if($val['pid'] == 0):?>
+                                                <td class="am-text-middle qxname">├ <span><?php echo $val['name'];?></span></td>
+                                                <?php else:?>
+                                                <td class="am-text-middle qxname"><?php echo str_repeat(' &nbsp;&nbsp; &nbsp;&nbsp; ',$val['lev']),' └─  ';?><span><?php echo $val['name'];?></span></td>
+                                                <?php endif;?>
+                                                <td class="am-text-middle"><?php echo $val['url'];?></td>
                                                 <td class="am-text-middle">
-                                                    <input type="checkbox" value="1" class="commentBox" name="commentBox" >
+                                                    <input type="checkbox" value="<?php echo $val['id'];?>" class="commentBox" name="commentBox[]" >
                                                 </td>
                                             </tr>
-                                            <tr class="trClass">
-                                                <td class="am-text-middle">│ &nbsp;&nbsp; &nbsp;&nbsp; └─ 权限管理</td>
-                                                <td class="am-text-middle">systemSet/SystemSet/memberLimit</td>
-                                                <td class="am-text-middle">
-                                                    <input type="checkbox" value="11" class="commentBox" name="commentBox" >
-                                                </td>
-                                            </tr>
-                                            <tr class="trClass">
-                                                <td class="am-text-middle">│ &nbsp;&nbsp; &nbsp;&nbsp; └─ APP设置</td>
-                                                <td class="am-text-middle">systemSet/SystemSet/app_version</td>
-                                                <td class="am-text-middle">
-                                                    <input type="checkbox" value="53" class="commentBox" name="commentBox" >
-                                                </td>
-                                            </tr>
+                                            <?php endforeach;?>
                                         </tbody>
                                         
                                     </table>
@@ -112,10 +104,20 @@
                 $("#list :checkbox[checked]").each(function(i){
                     valArr[i] = $(this).val();
                 });
-                var data = valArr.join(',');
-                $.post("URL", data, function (result) {
-                        $("span").html(result);
-                   window.location.reload()
+                var powerid = valArr.join(',');
+
+                var arr = { perm:powerid,gid:'<?php echo $id;?>'}
+                $.post("<?php echo site_url('Member/group_power');?>", arr, function (result) {
+                    console.log(result);
+                    if(result == 1){
+                        alert('操作成功！');
+                         window.location.reload()
+                    }else{
+                        alert('操作失败！');
+                         window.location.reload()
+                    }
+                //         $("span").html(result);
+                //    window.location.reload()
                 });
             });
         }); 

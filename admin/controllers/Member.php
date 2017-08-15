@@ -261,7 +261,6 @@ class Member extends Public_Controller {
                     'log_message'=>"新增用户组成功,用户组名称为".$data['group_name'],
                 );
                 add_system_log($arr);
-                
                 echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/userGroup')."'</script>";
             }else{
                   //日志
@@ -283,8 +282,7 @@ class Member extends Public_Controller {
 
     //  编辑用户组
     function edit_userGroup(){
-        var_dump($_POST);
-        exit;
+    
         if($_POST){
             $data = $this->input->post();
             if(!empty($_FILES['img']['name'])){
@@ -299,7 +297,7 @@ class Member extends Public_Controller {
 
                     if(!$this->upload->do_upload('img')) {
 
-                        echo "3";exit;
+                        echo "<script>alert('图片上传失败！');window.location.href='".site_url('/Member/userGroup')."'</script>";exit;
                     }else{
                         $data['icon'] = 'upload/icon/'.$this->upload->data('file_name');
                     }
@@ -316,7 +314,7 @@ class Member extends Public_Controller {
                 );
                 add_system_log($arr);
                 
-               echo '1';
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/userGroup')."'</script>";
             }else{
                   //日志
                 $arr = array(
@@ -328,13 +326,77 @@ class Member extends Public_Controller {
                     'log_message'=>"修改用户组失败,用户组名称为".$data['group_name'],
                 );
                 add_system_log($arr);
-               echo '2';
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Member/userGroup')."'</script>";
             }
         }else{
-           echo "2";
+           $this->load->view('404.html');
         }
     }
 
+    //设置权限
+    function edit_group_power(){
+        $id = intval($this->uri->segment(3));
+     
+        $data['id'] = $id;
+        //获取所有权限
+        $list = $this->public_model->select($this->table,'');
+        
+        $user_group = json_decode($_SESSION['power'],true);
+        $a = subtree($list,$user_group);
+        echo "<pre>";
+        var_dump($a);
+       // $power = json_decode($user_group['perm'],true);
+     
+
+        $data['list'] = subtree($list);
+        $this->load->view('adminOrUser/PrivilegeList.html',$data);
+    }
+
+    //设置权限
+    function group_power(){
+        if($_POST){
+            $data = $this->input->post();
+
+            $power = explode(',',$data['perm']);
+            $arr = array();
+            //获取权限详情
+            foreach($power as $v){
+                $arr[] = $this->public_model->select_info($this->table,'id',$v);
+            }
+            $updata['perm'] = json_encode($arr,JSON_UNESCAPED_UNICODE);
+            if($this->public_model->updata($this->userGroup,'gid',$data['gid'],$updata)){
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"修改用户组权限成功,用户组名称id为".$data['gid'],
+                );
+                add_system_log($arr);
+                echo "1";
+            }else{
+                  $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"修改用户组权限失败,用户组名称id为".$data['gid'],
+                );
+                add_system_log($arr);
+                echo "2";
+            }
+        }else{
+            echo "2";
+        }
+
+    }
+
+    //删除分组
+    function del_userGroup(){
+        
+    }
 
 
 
