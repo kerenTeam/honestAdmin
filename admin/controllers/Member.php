@@ -166,7 +166,7 @@ class Member extends Public_Controller {
 
     //用户组
     function userGroup(){
-        $config['per_page'] = 1;
+        $config['per_page'] = 10;
 
 		//获取页码
 
@@ -341,14 +341,12 @@ class Member extends Public_Controller {
         //获取所有权限
         $list = $this->public_model->select($this->table,'');
         
-        $user_group = json_decode($_SESSION['power'],true);
-        $a = subtree($list,$user_group);
-        echo "<pre>";
-        var_dump($a);
-       // $power = json_decode($user_group['perm'],true);
-     
+        $user_group = $this->public_model->select_info($this->userGroup,'gid',$id);
+        $pw = json_decode($user_group['perm'],true);
 
-        $data['list'] = subtree($list);
+        $a = subtree($list,$pw);
+
+        $data['list'] = $a;
         $this->load->view('adminOrUser/PrivilegeList.html',$data);
     }
 
@@ -370,13 +368,13 @@ class Member extends Public_Controller {
                     'user_id'=>$_SESSION['users']['user_id'],
                     'username'=>$_SESSION['users']['username'],
                     'log_ip'=>get_client_ip(),
-                    'log_status'=>'0',
+                    'log_status'=>'1',
                     'log_message'=>"修改用户组权限成功,用户组名称id为".$data['gid'],
                 );
                 add_system_log($arr);
                 echo "1";
             }else{
-                  $arr = array(
+                $arr = array(
                     'log_url'=>$this->uri->uri_string(),
                     'user_id'=>$_SESSION['users']['user_id'],
                     'username'=>$_SESSION['users']['username'],
@@ -395,10 +393,57 @@ class Member extends Public_Controller {
 
     //删除分组
     function del_userGroup(){
-        
+        if($_POST){
+            $id = $this->input->post('id');
+            if($id == '1'){
+                echo "3";
+                exit;
+            }
+            if($this->public_model->delete($this->userGroup,'gid',$id)){
+                 $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"删除用户组成功,用户组id为".$id,
+                );
+                add_system_log($arr);
+                echo "1";
+            }else{
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"删除用户组失败,用户组id为".$id,
+                );
+                add_system_log($arr);
+                echo "2";
+            }
+        }else{
+            echo "2";
+        }
     }
 
+    //用户列表
+    function user_List(){
 
+
+        $this->load->view('adminOrUser/usersList.html');
+    }
+
+    //新增用户
+    function add_user(){
+        if($_POST){
+            var_dump($_POST);
+        }else{
+            //获取所有用户组
+            $data['group'] = $this->public_model->select($this->userGroup,'');
+            $this->load->view('adminOrUser/userInfomation/info.html',$data);
+        }
+    }
 
 }
 

@@ -41,6 +41,7 @@ class Welcome extends Public_Controller {
 			$power = $this->public_model->select_info($this->userGroup,'gid',$users['gid']);
 			$menus = json_decode($power['perm'],true);
 		}
+	
 		$menus_data = array();
 		
 		$_SESSION['power'] = json_encode($menus);

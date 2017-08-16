@@ -116,6 +116,7 @@
                                         <?php endif;?>
                                         <td class="am-text-middle qxctlr"><?php echo $val['url'];?></td>
                                         <input type="hidden" value="<?php echo $val['status'];?>" class="status" />
+                                        <input type="hidden" value="<?php echo $val['style'];?>" class="style" />
                                         <td class="am-text-middle "><?php if($val['status'] == 1){echo "显示";}else{echo "不显示";};?></td>
                                         <td class="am-text-middle">
                                             <div class="am-btn-toolbar">
@@ -290,6 +291,16 @@
                                 <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
                             </div>
                             <div class="am-form-group am-cf">
+                                <label class="am-u-sm-3 am-form-label">icon样式 ：</label>
+                                <div class="am-u-sm-8 am-u-end">
+                                    <!-- onblur="validate(this,2,50,1)" -->
+                                    <input type="text" name="style" id="style" placeholder="子权限可不填">
+                                    
+                                </div>
+                                <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
+                                <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
+                            </div>
+                            <div class="am-form-group am-cf">
                                 <label class="am-u-sm-3 am-form-label">导航显示 ：</label>
                                 <div class="am-u-sm-8 am-u-end">
                                     <!-- onblur="validate(this,2,50,1)" -->
@@ -299,6 +310,7 @@
                                 <small class="am-u-sm-1 red redtips1" style="display: none;"><i class="am-icon-close"></i></small>
                                 <small class="am-u-sm-1 green blacktips1" style="display: none;"><i class="am-icon-check"></i></small>
                             </div>
+
 
                         </div>
                         <div class="am-modal-footer">
@@ -314,6 +326,7 @@
                             on('click', function () {
                                 $('#updateName').val($(this).parentsUntil('tbody').find('.qxname span').html())
                                 $('#updateController').val($(this).parentsUntil('tbody').find('.qxctlr').html())
+                                $('#style').val($(this).parentsUntil('tbody').find('.style').val())
                                 var updatastatus = $(this).parentsUntil('tbody').find('.status').val()
                                 $("input[name='status'][value='"+updatastatus+"']").attr("checked",true);  
                                 $('#my-update-confirm').modal({
@@ -322,12 +335,13 @@
                                         var $link = $(this.relatedTarget).one('a');
                                         var updateName = $('#updateName').val();
                                         var updateController = $('#updateController').val();
+                                        var style = $('#style').val();
                                         var status = $("input[name='status']:checked").val();   
 
                                         // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
                                         //     'mull';
                                         // alert(msg);
-                                        var data = { name: updateName, url: updateController,status:status ,id: $link.data('id') }
+                                        var data = { name: updateName, url: updateController,status:status ,style:style,id: $link.data('id') }
                                         console.log(data)
                                         $.post("<?php echo site_url('Member/edit_power');?>", data, function (result) {
                                           //  $("span").html(result);

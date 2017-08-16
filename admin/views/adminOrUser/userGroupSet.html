@@ -156,9 +156,9 @@
                                     </td>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a data-id="001" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
+                                            <a data-id="<?php echo $val['gid'];?>" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
                                             <a class="modal" data-id="<?php echo site_url('Member/edit_group_power/').$val['gid'];?>" data-am-modal="{target: '#save-permission-modal', closeViaDimmer: 0, width: 950}"><i class="am-icon-pencil"></i> 编辑权限  </a>
-                                            <a data-id="001" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
+                                            <a data-id="<?php echo $val['gid'];?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -294,9 +294,7 @@
                                             var aliasName = $('#aliasName').val();
                                             var groupPic = $('#groupPic').val();
 
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            //alert(msg);
+                                  
                                             var data = { groupName: groupName, aliasName: aliasName,groupPic:groupPic, id: $link.data('id') }
                                           //  console.log(data)
                                             // $.post("URL", data, function (result) {
@@ -337,13 +335,21 @@
                                         relatedTarget: this,
                                         onConfirm: function (options) {
                                             var $link = $(this.relatedTarget).one('a');
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            alert(msg);
-
-                                            $.post("URL", { id: $link.data('id') }, function (result) {
+                                            // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                                            //     'mull';
+                                            // alert(msg);
+                                            
+                                            $.post("<?php echo site_url('Member/del_userGroup');?>", { id: $link.data('id') }, function (result) {
                                                 // $("span").html(result);
-                                                window.location.reload()
+                                                if(result == 1){
+                                                    window.location.reload()
+                                                }else if(result == 3){
+                                                    alert('超级管理员组不能删除');
+                                                    window.location.reload()
+                                                }else{
+                                                    alert('操作失败');
+                                                    window.location.reload()
+                                                }
                                             });
                                         },
                                         closeOnConfirm: false,

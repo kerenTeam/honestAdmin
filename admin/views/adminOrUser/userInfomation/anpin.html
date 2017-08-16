@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <meta name="keywords" content="index">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link rel="icon" type="image/png" href="../../assets/i/favicon.png">
+        <link rel="apple-touch-icon-precomposed" href="../../assets/i/app-icon72x72@2x.png">
+        <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+        <link rel="stylesheet" href="../../assets/css/amazeui.min.css" />
+        <link rel="stylesheet" href="../../assets/css/app.css">
+        <script src="../../assets/js/jquery-1.7.2.min.js"></script>
+        <script src="../../assets/js/amazeui.min.js"></script>
+        <style>
+            label{color: #e6e6e6}
+             fieldset {
+                padding: 2.15em 1.325em 1.95em;
+            } 
+            .baiseDiv option{color: #555 !important;}
+            .baiseDiv select{color: #fff !important;}
+            .theme-black .tpl-form-line-form .am-form-label{color: #fff}
+        </style>
+    </head>
+    <body data-type="widgets">
+        <script src="../../assets/js/theme.js"></script>
+
+            <div class="container-fluid am-cf ">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 管理员 | 用户 <small> - 用户列表 - 👨‍💼 &nbsp; 安评师 </small></div>
+                    <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="am-u-sm-12">
+                            <form action="" class="am-form tpl-form-line-form" data-am-validator>
+                                <fieldset>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">姓名: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label>性别： </label>
+                                        <label class="am-radio-inline">
+                                            <input type="radio"  value="" name="docVlGender" required> 男
+                                        </label>
+                                        <label class="am-radio-inline">
+                                            <input type="radio" name="docVlGender"> 女
+                                        </label>
+                                        <label class="am-radio-inline">
+                                            <input type="radio" name="docVlGender"> 其他
+                                        </label>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-age-2">证书编号：</label>
+                                        <input type="number" class=""  id="doc-vld-age-2" placeholder="输入证书编号" required />
+                                    </div>
+                                    <div class="am-form-group baiseDiv">
+                                        <label for="doc-select-1">级别</label>
+                                        <select  id="doc-select-1">
+                                            <option value="option1">一级</option>
+                                            <option value="option2">二级</option>
+                                            <option value="option3">三级</option>
+                                        </select>
+                                        <span class="am-form-caret"></span>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-age-2">从业编号：</label>
+                                        <input type="number" class=""  id="doc-vld-age-2" placeholder="输入证书编号" required />
+                                    </div>
+                                    <div class="am-form-group baiseDiv">
+                                        <label for="doc-select-1">注册性质</label>
+                                        <select id="doc-select-1">
+                                            <option value="option1">专职</option>
+                                            <option value="option2">兼职</option>
+                                        </select>
+                                        <span class="am-form-caret"></span>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">单位名称: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入单位名称（至少 2 个字符）" required/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">注册期限起: </label>
+                                        <input type="text" class="am-form-field" placeholder="日历组件" data-am-datepicker="{theme: 'success'}" readonly/>
+                                    </div>
+                                     <div class="am-form-group">
+                                        <label for="doc-vld-name-2">注册期限止: </label>
+                                        <input type="text" class="am-form-field" placeholder="日历组件" data-am-datepicker="{theme: 'success'}" readonly/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">认定专业1: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入专业（至少 2 个字符）" required/>
+                                    </div>
+                                     <div class="am-form-group">
+                                        <label class="am-form-label">认定依据: </label>
+                                        <ul class="am-avg-sm-2 ">
+                                            <li> <label class="am-checkbox-inline">
+                                                        <input type="checkbox" value="橘子" name="docVlCb" minchecked="2" maxchecked="4" required> 本科毕业证
+                                                    </label> </li>
+                                            <li> <label class="am-checkbox-inline">
+                                                        <input type="checkbox" value="苹果" name="docVlCb"> 安全评价师国家职业资格证书1级
+                                                    </label> </li>
+                                            <li> <label class="am-checkbox-inline">
+                                                        <input type="checkbox" value="菠萝" name="docVlCb"> 安全评价师国家职业资格证书2级
+                                                    </label> </li>
+                                            <li> <label class="am-checkbox-inline">
+                                                        <input type="checkbox" value="芒果" name="docVlCb"> 安全评价师国家职业资格证书3级
+                                                    </label> </li>
+                                            <li> <label class="am-checkbox-inline">
+                                                        <input type="checkbox" value="芒果" name="docVlCb"> 安全评价师国家职业资格证书3级
+                                                    </label> </li>
+                                        </ul>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">认定专业2: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入专业（至少 2 个字符）" required/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">认定专业3: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入专业（至少 2 个字符）" required/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">AP注册密码: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入密码（至少 2 个字符）" required/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">AP再教育密码: </label>
+                                        <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入密码（至少 2 个字符）" required/>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-ta-2">备注：</label>
+                                        <textarea id="doc-vld-ta-2" minlength="10" maxlength="100"></textarea>
+                                    </div>
+
+                                    <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+
+    </body>
+</html>

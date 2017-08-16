@@ -10,20 +10,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <script src="../assets/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>assets/js/jquery.min.js"></script>
 
 
-
+    <style>
+        #doc-modal-list .modal {
+            border: none !important;
+        }
+    </style>
 </head>
 
 <body data-type="widgets">
-    <script src="../assets/js/theme.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script>
     <div class="am-g tpl-g">
 
 
@@ -34,12 +38,12 @@
             <div class="container-fluid am-cf">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                     <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 管理员 | 用户 <small> - 权限管理 </small></div>
-                    <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+                    <p class="page-header-description"> 管理员进入界面 会显示 审核按钮 点击 审核 按钮更新下面的数据为 待审核职员 , userList 操作会有 通过审核 的按钮  </p>
                 </div>
             </div>
             <div class="row-content am-cf">
 
-                <div class="row">
+                <div class="row">·
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
@@ -49,28 +53,31 @@
                             </div>
                             <div class="widget-body  am-fr">
 
+
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-                                    <div class="am-form-group">
-                                        <div class="am-btn-toolbar">
-                                            <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                        <div class="am-form-group">
+                                            <div class="am-btn-toolbar">
+                                                <div class="am-btn-group am-btn-group-xs">
+                                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button>
+                                                     <!-- 非管理人员 无此按钮-->
+                                                    <button type="button" class="am-btn am-btn-default am-btn-warning"><a style="color:#fff" ><span class="am-icon-archive"></span> 审核 </a></button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
+
+                   
+
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                                     <div class="am-form-group tpl-table-list-select">
                                         <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有类别</option>
-                                        <option value="option2">IT业界</option>
-                                        <option value="option3">数码产品</option>
-                                        <option value="option3">笔记本电脑</option>
-                                        <option value="option3">平板电脑</option>
-                                        <option value="option3">只能手机</option>
-                                        <option value="option3">超极本</option>
+                                        <option value="option1">所有职能</option>
+                                        <option value="option2">安评师</option>
+                                        <option value="option3">检测师</option>
+                                        <option value="option3">资料备份员</option>
+                                        <option value="option3">技术工程师</option>
+                                        <option value="option3">出纳</option>
+                                        <option value="option3">商务</option>
                                         </select>
                                     </div>
                                 </div>
@@ -78,8 +85,8 @@
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
                                         <input type="text" class="am-form-field ">
                                         <span class="am-input-group-btn">
-            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-          </span>
+                                    <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                                </span>
                                     </div>
                                 </div>
 
@@ -87,123 +94,119 @@
                                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
                                         <thead>
                                             <tr>
-                                                <th>文章缩略图</th>
-                                                <th>文章标题</th>
-                                                <th>作者</th>
-                                                <th>时间</th>
-                                                <th>操作</th>
+                                                <th width='2%'>头像</th>
+                                                <th width='5%'>姓名</th>
+                                                <th width='8%'>职能组</th>
+                                                <th width='8%'>在职状态</th>
+                                                <th width='8%'>专兼职</th>
+                                                <th width='10%'>QQ</th>
+                                                <th width='15%'>邮箱</th>
+                                                <th>详细信息</th>
+                                                <!-- 非管理人员 width="6%" -->
+                                                <th width='12%'>操作</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="doc-modal-list">
                                             <tr class="gradeX">
                                                 <td>
-                                                    <img src="../assets/img/k.jpg" class="tpl-table-line-img" alt="">
+                                                    <img src="<?php echo base_url('public/');?>assets/img/a.jpeg " class="tpl-table-line-img" style="width:3.5em" alt="">
                                                 </td>
-                                                <td class="am-text-middle">Amaze UI 模式窗口</td>
-                                                <td class="am-text-middle">张鹏飞</td>
-                                                <td class="am-text-middle">2016-09-26</td>
+                                                <td class="am-text-middle">刘东</td>
+                                                <td class="am-text-middle">技术人员</td>
+                                                <td class="am-text-middle"> <span style="color:aquamarine">在职</span>
+                                                    <!-- <span style="color:brown">| 离职</span> --></td>
+                                                <td class="am-text-middle"> <span style="color:aquamarine">专职</span>
+                                                    <!--  <span style="color:bisque">| 兼职</span>--></td>
+                                                <td class="am-text-middle">304278936</td>
+                                                <td class="am-text-middle">304278936@qq.com</td>
+
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
+
+                                                        <a class="modal" data-id="./userInfomation/info.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:aqua "> <i class="am-icon-pencil"></i> 详细信息 </a>
+                                                        <a class="modal" data-id="./userInfomation/correspondence.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
+                                                        <a class="modal" data-id="./userInfomation/laborContract.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:azure "> <i class="am-icon-pencil"></i> 劳动合同 </a>
+                                                        <a class="modal" data-id="./userInfomation/education.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
+                                                        <a class="modal" data-id="./userInfomation/zhiwei.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:yellowgreen"> <i class="am-icon-pencil"></i> 职卫师 </a>
+                                                        <a class="modal" data-id="./userInfomation/zhuan.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:blueviolet"> <i class="am-icon-pencil"></i> 注安师 </a>
+                                                        <a class="modal" data-id="./userInfomation/anpin.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:cadetblue"> <i class="am-icon-pencil"></i> 安评师 </a>
+                                                        <a class="modal" data-id="./userInfomation/expert.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style="color:darksalmon"> <i class="am-icon-pencil"></i> 专 家  </a>
+
+                                                    </div>
+                                                </td>
+
+                                                <td class="am-text-middle">
+                                                    <div class="tpl-table-black-operation">
+
+                                                        <a href="javascript:;" data-id="1" class="delete tpl-table-black-operation-del">
                                                             <i class="am-icon-trash"></i> 删除
+                                                        </a>
+                                                        <!-- 非管理人员 无此按钮-->
+                                                        <a href="javascript:;" data-id="1" class="check" style="color:green">
+                                                            <i class="am-icon-check"></i> 过审
                                                         </a>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <!-- <tr class="even gradeC"> -->
+
                                             <tr class="even gradeC">
                                                 <td>
-                                                    <img src="../assets/img/k.jpg" class="tpl-table-line-img" alt="">
+                                                    <img src="<?php echo base_url('public/');?>assets/img/a.jpeg " class="tpl-table-line-img" style="width:3.5em" alt="">
                                                 </td>
-                                                <td class="am-text-middle">有适配微信小程序的计划吗</td>
-                                                <td class="am-text-middle">天纵之人</td>
-                                                <td class="am-text-middle">2016-09-26</td>
+                                                <td class="am-text-middle">刘东</td>
+                                                <td class="am-text-middle">技术人员</td>
+                                                <td class="am-text-middle"> <span style="color:aquamarine">在职</span>
+                                                    <!-- <span style="color:brown">| 离职</span> --></td>
+                                                <td class="am-text-middle"> <span style="color:aquamarine">专职</span>
+                                                    <!--  <span style="color:bisque">| 兼职</span>--></td>
+                                                <td class="am-text-middle">304278936</td>
+                                                <td class="am-text-middle">304278936@qq.com</td>
+
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
+
+
+                                                        <a class="modal" data-id="./userInfomation/info.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:aqua "> <i class="am-icon-pencil"></i> 详细信息 </a>
+                                                        <a class="modal" data-id="./userInfomation/correspondence.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
+                                                        <a class="modal" data-id="./userInfomation/laborContract.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:azure "> <i class="am-icon-pencil"></i> 劳动合同 </a>
+                                                        <a class="modal" data-id="./userInfomation/education.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
+                                                        <a class="modal" data-id="./userInfomation/zhiwei.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 职卫师 </a>
+                                                        <a class="modal" data-id="./userInfomation/zhuan.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 注安师 </a>
+                                                        <a class="modal" data-id="./userInfomation/anpin.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 安评师 </a>
+                                                        <a class="modal" data-id="./userInfomation/expert.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 专 家  </a>
+
                                                     </div>
                                                 </td>
-                                            </tr>
-                                            <tr class="gradeX">
-                                                <td>
-                                                    <img src="../assets/img/k.jpg" class="tpl-table-line-img" alt="">
-                                                </td>
-                                                <td class="am-text-middle">请问有没有amazeui 分享插件</td>
-                                                <td class="am-text-middle">王宽师</td>
-                                                <td class="am-text-middle">2016-09-26</td>
+
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>
-                                                    <img src="../assets/img/k.jpg" class="tpl-table-line-img" alt="">
-                                                </td>
-                                                <td class="am-text-middle">关于input输入框的问题</td>
-                                                <td class="am-text-middle">着迷</td>
-                                                <td class="am-text-middle">2016-09-26</td>
-                                                <td class="am-text-middle">
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="even gradeC">
-                                                <td>
-                                                    <img src="../assets/img/k.jpg" class="tpl-table-line-img" alt="">
-                                                </td>
-                                                <td class="am-text-middle">有没有发现官网上的下载包不好用</td>
-                                                <td class="am-text-middle">醉里挑灯看键</td>
-                                                <td class="am-text-middle">2016-09-26</td>
-                                                <td class="am-text-middle">
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
+
+                                                        <a href="javascript:;" data-id="1" class=" delete tpl-table-black-operation-del">
+                                                                        <i class="am-icon-trash"></i> 删除
+                                                                    </a>
                                                     </div>
                                                 </td>
                                             </tr>
 
-                                            <tr class="even gradeC">
-                                                <td>
-                                                    <img src="../assets/img/k.jpg" class="tpl-table-line-img" alt="">
-                                                </td>
-                                                <td class="am-text-middle">我建议WEB版本文件引入问题</td>
-                                                <td class="am-text-middle">罢了</td>
-                                                <td class="am-text-middle">2016-09-26</td>
-                                                <td class="am-text-middle">
-                                                    <div class="tpl-table-black-operation">
-                                                        <a href="javascript:;">
-                                                            <i class="am-icon-pencil"></i> 编辑
-                                                        </a>
-                                                        <a href="javascript:;" class="tpl-table-black-operation-del">
-                                                            <i class="am-icon-trash"></i> 删除
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+
+
                                             <!-- more data -->
                                         </tbody>
                                     </table>
@@ -216,7 +219,7 @@
                                             <li class="am-active"><a href="#">1</a></li>
                                             <li><a href="#">2</a></li>
                                             <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">4</a></li>·
                                             <li><a href="#">5</a></li>
                                             <li><a href="#">»</a></li>
                                         </ul>
@@ -231,8 +234,50 @@
 
 
 
+
+
         <!-- 弹框开始 -->
         
+        <div class="am-modal am-modal-no-btn" tabindex="-1" id="addUser">
+                <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                  <div class="am-modal-hd" style="color:aliceblue  !important"> 新增
+                    <a href="javascript: void(0)" class="am-close am-close-spin"  style="color:#fff !important" data-am-modal-close>&times;</a>
+                  </div>
+                  <div class="am-modal-bd">
+                    
+                    <iframe src="<?php echo site_url('Member/add_user');?>" name="text" target="_self" style="height:100vh;width:100%;overflow-y: scroll;" > </iframe>
+
+                  </div>
+                </div>
+        </div>
+
+        
+
+        <div class="am-modal am-modal-no-btn" tabindex="-1" id="userInfomation-modal">
+            <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                <div class="am-modal-hd" style="color:aliceblue  !important"> 详细信息
+                    <a href="javascript: void(0)" class="am-close am-close-spin" style="color:#fff !important" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd">
+
+                    <iframe src="./userInfomation/info.html" name="text" target="_self" style="height:100vh;width:100%;overflow-y: scroll;"> </iframe>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('#doc-modal-list').find('.modal')
+                    .on('click', function () {
+                        $('iframe').attr('src', $(this).attr("data-id"));
+                    });
+            });
+        </script>
+
+
+
+
 
 
 
@@ -382,41 +427,85 @@
 
 
         <script>
-                               // TODO 删除
-                               $(function () {
-                                   $('#doc-modal-list').find('.delete').add('#doc-confirm-toggle').
-                                       on('click', function () {
-                                           $('#my-delete-confirm').modal({
-                                               relatedTarget: this,
-                                               onConfirm: function (options) {
-                                                   var $link = $(this.relatedTarget).one('a');
-                                                   // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                   //     'mull';
-                                                   // alert(msg);
+            // TODO 删除
+            $(function () {
+                $('#doc-modal-list').find('.delete').add('#doc-confirm-toggle').
+                    on('click', function () {
+                        $('#my-delete-confirm').modal({
+                            relatedTarget: this,
+                            onConfirm: function (options) {
+                                var $link = $(this.relatedTarget).one('a');
+                                var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                                    'mull';
+                                alert(msg);
 
-                                                   $.post("URL", { id: $link.data('id') }, function (result) {
-                                                       // $("span").html(result);
-                                                       window.location.reload()
-                                                   });
-                                               },
-                                               closeOnConfirm: false,
-                                               onCancel: function () {
-                                                   // alert('onCancel');
-                                               }
-                                           });
-                                       });
-                               });
+                                $.post("URL", { id: $link.data('id') }, function (result) {
+                                    // $("span").html(result);
+                                    window.location.reload()
+                                });
+                            },
+                            closeOnConfirm: false,
+                            onCancel: function () {
+                                // alert('onCancel');
+                            }
+                        });
+                    });
+            });
         </script>
+
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="my-check-confirm">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">过审核提示</div>
+                <div class="am-modal-bd">
+                    你，确定该职员通过审核吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            // TODO 删除
+            $(function () {
+                $('#doc-modal-list').find('.check').add('#doc-confirm-toggle').
+                    on('click', function () {
+                        $('#my-check-confirm').modal({
+                            relatedTarget: this,
+                            onConfirm: function (options) {
+                                var $link = $(this.relatedTarget).one('a');
+                                var msg = $link.length ? '该职员 ID 为 ' + $link.data('id') :
+                                    'mull';
+                                alert(msg);
+
+                                $.post("URL", { id: $link.data('id') }, function (result) {
+                                    // $("span").html(result);
+                                    window.location.reload()
+                                });
+                            },
+                            closeOnConfirm: false,
+                            onCancel: function () {
+                                // alert('onCancel');
+                            }
+                        });
+                    });
+            });
+        </script>
+
+
 
         <!-- 弹框结束 -->
 
 
 
 
+
     </div>
     </div>
-    <script src="../assets/js/amazeui.min.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/app.js"></script>
 
 </body>
 

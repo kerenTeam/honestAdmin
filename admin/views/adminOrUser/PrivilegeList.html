@@ -65,7 +65,7 @@
                                                 <?php endif;?>
                                                 <td class="am-text-middle"><?php echo $val['url'];?></td>
                                                 <td class="am-text-middle">
-                                                    <input type="checkbox" value="<?php echo $val['id'];?>" class="commentBox" name="commentBox[]" >
+                                                    <input type="checkbox" value="<?php echo $val['id'];?>" class="commentBox" name="commentBox[]"  <?php if(isset($val['true'])){if($val['true'] == 1){echo "checked";}}?> >
                                                 </td>
                                             </tr>
                                             <?php endforeach;?>

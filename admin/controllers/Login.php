@@ -39,7 +39,7 @@ class Login extends CI_Controller
     }
     //退出登录
     function login_out(){
-        unset($_SESSION['users']);
+        unset($_SESSION['users'],$_SESSION['power']);
         redirect('login/login_up');
 
     }
