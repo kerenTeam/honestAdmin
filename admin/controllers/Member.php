@@ -437,7 +437,55 @@ class Member extends Public_Controller {
     //新增用户
     function add_user(){
         if($_POST){
-            var_dump($_POST);
+            $data = $this->input->post();
+            if(!empty($_FILES['img']['name'])){
+                $config['upload_path']      = 'upload/avater/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|webp';
+                $config['max_size']     = 2048;
+                $config['file_name'] = date('Y-m-d_His');
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('img')) {
+
+                    echo "<script>alert('图片上传失败！');window.location.href='".site_url('Member/user_List')."'</script>";exit;
+                }else{
+                    $data['avatar'] = 'upload/avater/'.$this->upload->data('file_name');
+                }
+            }
+            if($this->public_model->insert($this->member,$data)){
+                //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"新增用户成功,用户名称为".$data['username'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/userGroup')."'</script>";
+            }else{
+                  //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"新增用户组失败,用户组名称为".$data['group_name'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Member/userGroup')."'</script>";
+            }
+
+
+
+
+
+
         }else{
             //获取所有用户组
             $data['group'] = $this->public_model->select($this->userGroup,'');
