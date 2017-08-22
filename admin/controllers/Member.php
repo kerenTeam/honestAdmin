@@ -245,7 +245,7 @@ class Member extends Public_Controller {
 
                     if(!$this->upload->do_upload('img')) {
 
-                        echo "<script>alert('图片上传失败！');window.location.href='".site_url('Member/userGroup')."'</script>";exit;
+                        echo "<script>alert('图片上传失败！');window.location.href='".site_url('/Member/userGroup')."'</script>";exit;
                     }else{
                         $data['icon'] = 'upload/icon/'.$this->upload->data('file_name');
                     }
@@ -429,9 +429,73 @@ class Member extends Public_Controller {
 
     //用户列表
     function user_List(){
+        //返回所有用户组
+        $userGroup = $this->public_model->select($this->userGroup,'');
+
+        //返回所有用户信息
+        // var_dumP($userGroup);
+        $config['per_page'] = 10;
+        
+        //获取页码
+
+        $current_page=intval($this->uri->segment(3));//index.php 后数第4个/
+
+        //var_dump($current_page);
+
+            //配置
+
+        $config['base_url'] = site_url('/Member/user_List');
+
+        //分页配置
+
+        $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+        $config['full_tag_close'] = '</ul>';
+
+        $config['first_tag_open'] = '<li>';
+
+        $config['first_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li>';
+
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li>';
+
+        $config['next_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['last_tag_open'] = '<li>';
+
+        $config['last_tag_close'] = '</li>';
+
+        $config['num_tag_open'] = '<li>';
+
+        $config['num_tag_close'] = '</li>';
+
+        $config['first_link']= '首页';
+
+        $config['next_link']= '»';
+
+        $config['prev_link']= '«';
+
+        $config['last_link']= '末页';
+        $config['num_links'] = 4;
+        
+        $total = count($this->public_model->select($this->member,''));
+        $config['total_rows'] = $total;
+    
+        $this->load->library('pagination');//加载ci pagination类
+        $listpage =  $this->public_model->select_page($this->member,$current_page,$config['per_page'],'addtime');
+        $this->pagination->initialize($config);
+
+        $data = array('lists'=>$listpage,'userGroup'=>$userGroup,'pages' => $this->pagination->create_links());
 
 
-        $this->load->view('adminOrUser/usersList.html');
+        $this->load->view('adminOrUser/usersList.html',$data);
     }
 
     //新增用户
@@ -450,11 +514,13 @@ class Member extends Public_Controller {
 
                 if(!$this->upload->do_upload('img')) {
 
-                    echo "<script>alert('图片上传失败！');window.location.href='".site_url('Member/user_List')."'</script>";exit;
+                    echo "<script>alert('图片上传失败！');window.location.href='".site_url('/Member/user_List')."'</script>";exit;
                 }else{
                     $data['avatar'] = 'upload/avater/'.$this->upload->data('file_name');
                 }
             }
+            
+            $data['password'] = md5('123456');
             if($this->public_model->insert($this->member,$data)){
                 //日志
                 $arr = array(
@@ -466,7 +532,7 @@ class Member extends Public_Controller {
                     'log_message'=>"新增用户成功,用户名称为".$data['username'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/userGroup')."'</script>";
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
             }else{
                   //日志
                 $arr = array(
@@ -475,23 +541,91 @@ class Member extends Public_Controller {
                     'username'=>$_SESSION['users']['username'],
                     'log_ip'=>get_client_ip(),
                     'log_status'=>'0',
-                    'log_message'=>"新增用户组失败,用户组名称为".$data['group_name'],
+                    'log_message'=>"新增用户失败,用户名称为".$data['username'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作失败！');window.location.href='".site_url('/Member/userGroup')."'</script>";
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Member/user_List')."'</script>";
             }
-
-
-
-
-
-
         }else{
             //获取所有用户组
             $data['group'] = $this->public_model->select($this->userGroup,'');
             $this->load->view('adminOrUser/userInfomation/info.html',$data);
         }
     }
+
+    //用户个人信息修改
+    function edit_user(){
+        if($_POST){
+            $data = $this->input->post();
+            if(!empty($_FILES['img']['name'])){
+                $config['upload_path']      = 'upload/avater/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|webp';
+                $config['max_size']     = 2048;
+                $config['file_name'] = date('Y-m-d_His');
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('img')) {
+
+                    echo "<script>alert('图片上传失败！');window.location.href='".site_url('/Member/user_List')."'</script>";exit;
+                }else{
+                    $data['avatar'] = 'upload/avater/'.$this->upload->data('file_name');
+                }
+            }
+            if($this->public_model->updata($this->member,$data)){
+                //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"编辑用户成功,用户名称为".$data['username'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+            }else{
+                  //日志
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"编辑用户失败,用户名称为".$data['username'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Member/user_List')."'</script>";
+            }
+        }else{
+            $id = intval($this->uri->segment('3'));
+            //获取所有用户组
+            $data['group'] = $this->public_model->select($this->userGroup,'');
+            $data['users'] = $this->public_model->select_info($this->member,'user_id',$id);
+            $this->load->view('adminOrUser/userInfomation/userinfo.html',$data);
+        }
+    }
+
+    //通讯录
+    function user_communication(){
+        if($_POST){
+
+        }else{
+            
+        }
+    }
+
+
+
+
+    //导入用户信息
+    function impolt_userExcel(){
+
+    }
+
+
 
 }
 

@@ -71,13 +71,10 @@
                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
                                     <div class="am-form-group tpl-table-list-select">
                                         <select data-am-selected="{btnSize: 'sm'}">
-                                        <option value="option1">所有职能</option>
-                                        <option value="option2">安评师</option>
-                                        <option value="option3">检测师</option>
-                                        <option value="option3">资料备份员</option>
-                                        <option value="option3">技术工程师</option>
-                                        <option value="option3">出纳</option>
-                                        <option value="option3">商务</option>
+                                        <?php foreach($userGroup as $val):?>
+                                            <option value="<?php echo $val['gid'];?>"><?php echo $val['group_name'];?></option>
+                                        <?php endforeach;?>
+                                      
                                         </select>
                                     </div>
                                 </div>
@@ -107,23 +104,29 @@
                                             </tr>
                                         </thead>
                                         <tbody id="doc-modal-list">
+                                            <?php foreach($lists as $val):?>
                                             <tr class="gradeX">
+                                                
                                                 <td>
+                                                    <?php if(empty($val['avatar'])):?>
                                                     <img src="<?php echo base_url('public/');?>assets/img/a.jpeg " class="tpl-table-line-img" style="width:3.5em" alt="">
+                                                    <?php else:?>
+                                                    <img src="<?php echo base_url().$val['avatar'];?>"  class="tpl-table-line-img" style="width:3.5em">
+                                                    <?php endif;?>
                                                 </td>
-                                                <td class="am-text-middle">刘东</td>
-                                                <td class="am-text-middle">技术人员</td>
-                                                <td class="am-text-middle"> <span style="color:aquamarine">在职</span>
+                                                <td class="am-text-middle"><?php echo $val['username'];?></td>
+                                                <td class="am-text-middle"><?php echo $val['incumbency'];?></td>
+                                                <td class="am-text-middle"> <span style="color:aquamarine"><?php echo $val['incumbency'];?></span>
                                                     <!-- <span style="color:brown">| 离职</span> --></td>
-                                                <td class="am-text-middle"> <span style="color:aquamarine">专职</span>
+                                                <td class="am-text-middle"> <span style="color:aquamarine"><?php if($val['part'] == 1){echo "专职";}else{echo "兼职"; };?></span>
                                                     <!--  <span style="color:bisque">| 兼职</span>--></td>
-                                                <td class="am-text-middle">304278936</td>
-                                                <td class="am-text-middle">304278936@qq.com</td>
+                                                <td class="am-text-middle"><?php echo $val['qq'];?></td>
+                                                <td class="am-text-middle"><?php echo $val['email'];?></td>
 
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
 
-                                                        <a class="modal" data-id="./userInfomation/info.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                        <a class="modal" data-id="<?php echo site_url('/Member/edit_user/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:aqua "> <i class="am-icon-pencil"></i> 详细信息 </a>
                                                         <a class="modal" data-id="./userInfomation/correspondence.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
@@ -150,60 +153,16 @@
                                                             <i class="am-icon-trash"></i> 删除
                                                         </a>
                                                         <!-- 非管理人员 无此按钮-->
+                                                        <?php if($val['status'] == 0):?>
                                                         <a href="javascript:;" data-id="1" class="check" style="color:green">
                                                             <i class="am-icon-check"></i> 过审
                                                         </a>
+                                                        <?php endif;?>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <?php endforeach;?>
                                             <!-- <tr class="even gradeC"> -->
-
-                                            <tr class="even gradeC">
-                                                <td>
-                                                    <img src="<?php echo base_url('public/');?>assets/img/a.jpeg " class="tpl-table-line-img" style="width:3.5em" alt="">
-                                                </td>
-                                                <td class="am-text-middle">刘东</td>
-                                                <td class="am-text-middle">技术人员</td>
-                                                <td class="am-text-middle"> <span style="color:aquamarine">在职</span>
-                                                    <!-- <span style="color:brown">| 离职</span> --></td>
-                                                <td class="am-text-middle"> <span style="color:aquamarine">专职</span>
-                                                    <!--  <span style="color:bisque">| 兼职</span>--></td>
-                                                <td class="am-text-middle">304278936</td>
-                                                <td class="am-text-middle">304278936@qq.com</td>
-
-                                                <td class="am-text-middle">
-                                                    <div class="tpl-table-black-operation">
-
-
-                                                        <a class="modal" data-id="./userInfomation/info.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:aqua "> <i class="am-icon-pencil"></i> 详细信息 </a>
-                                                        <a class="modal" data-id="./userInfomation/correspondence.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
-                                                        <a class="modal" data-id="./userInfomation/laborContract.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:azure "> <i class="am-icon-pencil"></i> 劳动合同 </a>
-                                                        <a class="modal" data-id="./userInfomation/education.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
-                                                        <a class="modal" data-id="./userInfomation/zhiwei.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 职卫师 </a>
-                                                        <a class="modal" data-id="./userInfomation/zhuan.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 注安师 </a>
-                                                        <a class="modal" data-id="./userInfomation/anpin.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 安评师 </a>
-                                                        <a class="modal" data-id="./userInfomation/expert.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style=" color:rgba(243, 243, 243, 0.15)"> <i class="am-icon-pencil"></i> 专 家  </a>
-
-                                                    </div>
-                                                </td>
-
-                                                <td class="am-text-middle">
-                                                    <div class="tpl-table-black-operation">
-
-                                                        <a href="javascript:;" data-id="1" class=" delete tpl-table-black-operation-del">
-                                                                        <i class="am-icon-trash"></i> 删除
-                                                                    </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
 
 
 
@@ -214,15 +173,7 @@
                                 <div class="am-u-lg-12 am-cf">
 
                                     <div class="am-fr">
-                                        <ul class="am-pagination tpl-pagination">
-                                            <li class="am-disabled"><a href="#">«</a></li>
-                                            <li class="am-active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>·
-                                            <li><a href="#">5</a></li>
-                                            <li><a href="#">»</a></li>
-                                        </ul>
+                                        <?php echo $pages;?>
                                     </div>
                                 </div>
                             </div>

@@ -56,7 +56,7 @@ class Welcome extends Public_Controller {
 		}
 
 		$data['menus'] = $menus_data;
-		$data['page'] = 'Welcome/main';
+		$data['page'] = '/Welcome/main';
 		$this->load->view('index.html',$data);
 	}
 
