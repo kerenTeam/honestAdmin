@@ -10,12 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/i/app-icon72x72@2x.png">
+    <base href="<?php echo base_url('public/');?>">
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="../../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <script src="../../assets/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/app.css">
+    <script src="assets/js/jquery-1.7.2.min.js"></script>
     <style>
         label {
             color: #e6e6e6
@@ -25,7 +26,7 @@
 </head>
 
 <body data-type="widgets">
-    <script src="../../assets/js/theme.js"></script>
+    <script src="assets/js/theme.js"></script>
 
     <div class="container-fluid am-cf ">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -37,67 +38,132 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="am-u-sm-12">
-                    <form action="" class="am-form tpl-form-line-form" data-am-validator>
+                    <?php if(!empty($users)):?>
+                    <form action="<?php echo site_url('/Member/user_laborContract');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
                         
                             <button class="am-btn am-btn-secondary" type="submit">提交</button>
-                        
-                            <fieldset>
+                            <input type="hidden" name="user_id" value="<?php echo $users['user_id'];?>">
+                            <input type="hidden" name="type" value="edit">
                             
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">员工编号: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
+                            <fieldset>
+                          
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">姓名: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="username" value="<?php echo $users['username'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">性别: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <select name="sex" id="">
+                                    <option value="男" <?php if($users['sex'] == "男"){echo "selected";}?>>男</option>
+                                    <option value="女" <?php if($users['sex'] == "女"){echo "selected";}?>>女</option>
+                                </select>
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">专兼职: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <select name="part" id="">
+                                    <option value="1"  <?php if($users['part'] == "1"){echo "selected";}?>>专职</option>
+                                    <option value="0" <?php if($users['part'] == "0"){echo "selected";}?>>兼职</option>
+                                </select>
                             </div>
 
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">身份证号码: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="card_id" value="<?php echo $users['card_id'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入身份证号码" required/>
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">出生年月: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="birth" value="<?php echo $users['birth'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入出生日期" required/>
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">入职时间: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="entry_time" value="<?php echo $users['entry_time'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入入职时间" required/>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">劳动合同起: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="compact_start" value="<?php echo $users['compact_start'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入劳动合同开始时间" required/>
                             </div>
                             
                             <div class="am-form-group">
                                     <label for="doc-vld-name-2">劳动合同止: </label>
-                                    <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                    <input type="text" name="compact_end" value="<?php echo $users['compact_end'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入劳动合同结束时间 " required/>
                             </div>
-                            <div class="am-form-group">
+                            <!-- <div class="am-form-group">
                                     <label for="doc-vld-name-2">合同文件: </label>
                                     <input type="file" id="file" name="file" multiple="multiple"  accept="xlsx,ppt,jpg,doc,csv">    
-                            </div>
+                            </div> -->
                             <div class="am-form-group">
                                     <label for="doc-vld-name-2">备注: </label>
-                                    <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                    <input type="text" name="remark" value="<?php echo $users['remark'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入备注" required/>
                             </div>
-                           
-                            
                         </fieldset>
                     </form>
+                    <?php else:?>
+                    <form action="<?php echo site_url('/Member/user_laborContract');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                            
+                                <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                                <input type="hidden" name="user_id" value="<?php echo $userid;?>">
+                                <input type="hidden" name="type" value="insert">
+                                <fieldset>
+                              
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">姓名: </label>
+                                    <input type="text" name="username" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">性别: </label>
+                                    <select name="sex" id="">
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                </div>
+    
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">专兼职: </label>
+                                    <select name="part" id="">
+                                        <option value="1">专职</option>
+                                        <option value="0">兼职</option>
+                                    </select>
+                                </div>
+    
+    
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">身份证号码: </label>
+                                    <input type="text" name="card_id" id="doc-vld-name-2" minlength="2" placeholder="输入身份证号码" required/>
+                                </div>
+    
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">出生年月: </label>
+                                    <input type="text" name="birth" id="doc-vld-name-2" minlength="2" placeholder="输入出生日期" required/>
+                                </div>
+    
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">入职时间: </label>
+                                    <input type="text" name="entry_time" id="doc-vld-name-2" minlength="2" placeholder="输入入职时间" required/>
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="doc-vld-name-2">劳动合同起: </label>
+                                    <input type="text" name="compact_start" id="doc-vld-name-2" minlength="2" placeholder="输入劳动合同开始时间" required/>
+                                </div>
+                                
+                                <div class="am-form-group">
+                                        <label for="doc-vld-name-2">劳动合同止: </label>
+                                        <input type="text" name="compact_end" id="doc-vld-name-2" minlength="2" placeholder="输入劳动合同结束时间 " required/>
+                                </div>
+                                <!-- <div class="am-form-group">
+                                        <label for="doc-vld-name-2">合同文件: </label>
+                                        <input type="file" id="file" name="file" multiple="multiple"  accept="xlsx,ppt,jpg,doc,csv">    
+                                </div> -->
+                                <div class="am-form-group">
+                                        <label for="doc-vld-name-2">备注: </label>
+                                        <input type="text" name="remark" id="doc-vld-name-2" minlength="2" placeholder="输入备注" required/>
+                                </div>
+                            </fieldset>
+                        </form>
+                    <?php endif;?>
                 </div>
             </div>
         </div>

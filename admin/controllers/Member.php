@@ -11,6 +11,8 @@ class Member extends Public_Controller {
     public $table = "system_nav";
     public $member = "user_member";
     public $userGroup = "user_group";
+    public $user_link = "user_contacts";//用户联系人
+    public $user_compact = "user_compact";//劳动合同
     
     function __construct() {
         parent::__construct();
@@ -611,12 +613,150 @@ class Member extends Public_Controller {
     //通讯录
     function user_communication(){
         if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_link,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增用户联系人成功,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增用户联系人失败,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_link,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"修改用户联系人成功,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"修改用户联系人失败,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
 
         }else{
-            
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_link,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/correspondence.html',$data);
         }
     }
 
+    //劳动合同
+    function user_laborContract(){
+        if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_compact,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增用户合同成功,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增用户合同失败,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_compact,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"修改用户合同成功,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"修改用户合同失败,用户名称为".$data['username'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
+        }else{
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_compact,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/laborContract.html',$data);
+        }
+    }
+
+    //学历信息
+    
+
+    //职业卫生
+
+    //注册安全
+
+    //安全评价
+
+    //专家
+
+    //用户过审
+
+    //删除用户
 
 
 

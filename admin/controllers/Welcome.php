@@ -22,6 +22,7 @@ class Welcome extends Public_Controller {
 	 */
    public $table = "system_nav";
    public $userGroup = "user_group";
+   public $member = "user_member";
 
 	//后台首页
 	public function index()

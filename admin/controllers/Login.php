@@ -18,7 +18,7 @@ class Login extends CI_Controller
                 $error['error'] = "用户名或密码不能为空！";
                 $this->load->view('login.html',$error);
             }else{
-                $user = $this->member_model->userinfo('username',$name);
+                $user = $this->member_model->userinfo('h_user_member','username',$name);
                 if(!empty($user)){
                     if($user['password'] != md5($password)){
                         $error['error'] = "密码错误!请重新登陆！";
