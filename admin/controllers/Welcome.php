@@ -27,19 +27,7 @@ class Welcome extends Public_Controller {
 	//后台首页
 	public function index()
 	{
-<<<<<<< HEAD
-		$data['menu'] = 'index';
-		$this->load->view('index.html',$data);
-	}
 
-	//
-	function content(){
-			
-			
-		$this->load->view('main.html');
-	}
-
-=======
 
 		//获取用户信息
 		$users = $_SESSION['users'];
@@ -80,7 +68,6 @@ class Welcome extends Public_Controller {
 	}
 
 	//
->>>>>>> 399a9047a26760d48a27fefbff7ffbb8d4a9f742
 
 
 
