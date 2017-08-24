@@ -62,6 +62,12 @@ function add_system_log($data){
 }
 
 
-
+//获取行业名称
+function get_industryTitle($id){
+    $CI = &get_instance();
+    $a = $CI->db->query("select * from h_category where id ='$id'");
+    $ret = $a->row_array();
+    return $ret['cate_name'];
+}
 
 ?>
