@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="<?php echo base_url('public/');?>assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>assets/js/jquery.min.js"></script>
+
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+
+            <div class="row-content am-cf">
+
+                <div class="container-fluid am-cf">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                        <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 管理员 | 用户 <small> - 用户组管理 </small></div>
+                        <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+                    </div>
+                </div>
+
+                <div class="widget-head am-cf">
+                    <div class="widget-title  am-cf" style="color:#ccc"> 用户组 列表</div>
+                </div>
+                <div class="widget-body  am-fr">
+                    <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                        <div class="am-form-group">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addAccount'}"><span class="am-icon-plus"></span> 新增</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="am-modal am-modal-confirm" tabindex="-1" id="addAccount">
+                        <div class="am-modal-dialog">
+                            <div class="am-modal-hd">新增管理员</div>
+                            <div class="am-modal-bd">
+                                <!-- 本地生活 信息展示类 -->
+
+                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('Member/add_userGroup');?>" method="post" data-am-validator="" novalidate="novalidate">
+                                    <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
+                                        <label class="am-u-sm-3 am-form-label">组 名 <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8">
+                                            <input type="text" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="group_name" minlength="2" maxlength="10"
+                                                value="" required >
+                                        </div>
+                                        <small class="am-u-sm-1"></small>
+                                        
+                                    </div>
+                                    <div class="am-form-group am-cf am-form-icon am-form-feedback am-form-success">
+                                        <label class="am-u-sm-3 am-form-label">别 名 <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8">
+                                            <input type="text" placeholder="请输入别名,不超过十个字符" name="alias" minlength="2" maxlength="10" required
+                                                class="am-field-valid">
+                                        </div>
+                                        <small class="am-u-sm-1"></small>
+                                       
+                                    </div>
+
+                                    <div class="am-form-group am-cf am-form-icon am-form-feedback">
+                                        <label class="am-u-sm-3 am-form-label">头 像 <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8 am-u-end">
+                                            <div class="wx_type_img">
+                                                <!-- 图片实时预览 -->
+                                                <div id="preview" class="preview">
+                                                    <img style="border-radius: 3px;" src="<?php echo base_url('public/');?>assets/img/logo.png" class="am-img-responsive cardView">
+                                                </div>
+                                                <br>
+                                                <input type="file" id="imgUpload" name="img" onchange="previewFile()" class="am-btn am-btn-secondary">
+                                            </div>
+                                            <script>
+                                                function previewFile() {
+                                                    var preview = document.querySelector('img');
+                                                    var file = document.querySelector('input[type=file]').files[0];
+                                                    console.log('fileqwee', file)
+                                                    var reader = new FileReader();
+                                                    reader.onloadend = function () {
+                                                        preview.src = reader.result;
+                                                    }
+                                                    if (file) {
+                                                        reader.readAsDataURL(file);
+                                                    } else {
+                                                        preview.src = "";
+                                                    }
+                                                }
+                                            </script>
+                                            <span class="deleteImg am-text-center">删除</span>
+                                            <span class="red" style="font-size: 14px;"> 提示：图片格式支持：png、jpg、jpeg、gif，图片大小不超过800kb；</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="am-form-group am-btn-group-xs">
+                                        <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
+                                        <button type="submit" class="am-btn am-btn-secondary">新增</button>
+                                    </div>
+                                </form>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- 内容 开始 -->
+                    <div class="am-u-sm-12">
+                        <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black ">
+                            <thead>
+                                <tr>
+                                    <th width='5%'>组 ID</th>
+                                    <th width='15%'>组名</th>
+                                    <th width='15%'>别名 </th>
+                                    <th width='50%'>组权限 </th>
+                                    <th width='15%'>组徽标 </th>
+                                    <th width='10%'>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doc-modal-list">
+                                <?php foreach($lists as $val):?>
+                                <tr class="trClass">
+                                    <td class="am-text-middle gid"><?php echo $val['gid'];?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['group_name'];?></td>
+
+                                    <td class="aliasName am-text-middle"><?php echo $val['alias'];?></td>
+                                    <td class="groupType am-text-middle">客户管理、合同管理、行业分类管理</td>
+                                    <td class="am-text-middle">
+
+                                        <img  class="ImgSrc" src="<?php echo base_url().$val['icon'];?>" class="groupPic am-img-responsive" width="80px" alt="">
+
+                                    </td>
+                                    <td class="am-text-middle">
+                                        <div class="tpl-table-black-operation">
+                                            <a data-id="<?php echo $val['gid'];?>" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
+                                            <a class="modal" data-id="<?php echo site_url('Member/edit_group_power/').$val['gid'];?>" data-am-modal="{target: '#save-permission-modal', closeViaDimmer: 0, width: 950}"><i class="am-icon-pencil"></i> 编辑权限  </a>
+                                            <a data-id="<?php echo $val['gid'];?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 内容 结束 -->
+
+                    <!-- 分页 开始 -->
+
+                    <div class="am-u-lg-12 am-cf">
+                        <div class="am-fr">
+                          <?php echo $pages;?>
+                        </div>
+                    </div>
+
+                    <!-- 分页 结束 -->
+
+                    <!-- 弹框开始 -->
+
+                    <div class="am-modal am-modal-no-btn" tabindex="-1" id="save-permission-modal">
+                      <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                        <div class="am-modal-hd" style="color:aliceblue  !important"> 权限修改 
+                          <a href="javascript: void(0)" class="am-close am-close-spin"  style="color:#fff !important" data-am-modal-close>&times;</a>
+                        </div>
+                        <div class="am-modal-bd">
+                          
+                          <iframe src="" name="text" target="_self" style="height:80vh;width:99%;overflow-y: scroll;" > </iframe>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <script>
+
+
+                        $(function () {
+                            $('#doc-modal-list').find('.modal')
+                                .on('click', function () {
+                                    // alert($(this).attr("data-id"))
+                                    $('iframe').attr('src',$(this).attr("data-id")); 
+                                });
+                        });
+                                
+                    </script>
+
+                    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-update-confirm">
+                        <div class="am-modal-dialog">
+                            <div class="am-modal-hd">修改组信息</div>
+
+                            
+                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('Member/edit_userGroup');?>" method="post" data-am-validator="" novalidate="novalidate">
+                                    <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
+                                        <label class="am-u-sm-3 am-form-label">组 名 <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8">
+                                            <input type="text" id="groupName" name="group_name"  class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符"  minlength="2" maxlength="10"
+                                                value="" required >
+                                        </div>
+                                        <small class="am-u-sm-1"></small>
+                                        
+                                    </div>
+                                    <div class="am-form-group am-cf am-form-icon am-form-feedback am-form-success">
+                                        <label class="am-u-sm-3 am-form-label">别 名 <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8">
+                                            <input type="text" id="aliasName" name="alias"  placeholder="请输入别名,不超过十个字符"  minlength="2" maxlength="10" required
+                                                class="am-field-valid">
+                                        </div>
+                                        <small class="am-u-sm-1"></small>
+                                       
+                                    </div>
+
+                                    <div class="am-form-group am-cf am-form-icon am-form-feedback">
+                                        <label class="am-u-sm-3 am-form-label">头 像 <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8 am-u-end">
+                                            <div class="wx_type_img">
+                                                <!-- 图片实时预览 -->
+                                                <div id="preview" class="preview">
+                                                    <img id="previewImgSrc" style="border-radius: 3px;" src="../assets/img/logo.png" class="am-img-responsive cardView">
+                                                </div>
+                                                <br>
+                                                <input type="file" id="imgUpload" name="img" onchange="previewFile1()" class="am-btn am-btn-secondary">
+                                            </div>
+                                            <script>
+                                                function previewFile1() {
+                                                    var preview = document.querySelector('img');
+                                                    var file = document.querySelector('input[type=file]').files[0];
+                                                    console.log('fileqwee', file)
+                                                    var reader = new FileReader();
+                                                    reader.onloadend = function () {
+                                                        preview.src = reader.result;
+                                                    }
+                                                    if (file) {
+                                                        reader.readAsDataURL(file);
+                                                    } else {
+                                                        preview.src = "";
+                                                    }
+                                                }
+                                            </script>
+                                            <span class="deleteImg am-text-center">删除</span>
+                                            <span class="red" style="font-size: 14px;"> 提示：图片格式支持：png、jpg、jpeg、gif，图片大小不超过800kb；</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="am-form-group am-btn-group-xs">
+                                        <input type="hidden" name="gid" id = "gid">
+                                        <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
+                                        <button type="submit" class="am-btn am-btn-secondary">提交</button>
+                                    </div>
+                                </form>
+
+                        </div>
+                    </div>
+                    <script>
+                        // TODO 修改
+                        $(function () {
+                            $('#doc-modal-list').find('.update').add('#doc-confirm-toggle').
+                                on('click', function () {
+                                    $('#groupName').val($(this).parentsUntil('tbody').find('.groupName').html())
+                                    $('#aliasName').val($(this).parentsUntil('tbody').find('.aliasName').html())
+                                    $('#groupPic').val($(this).parentsUntil('tbody').find('.groupPic').html())
+                                    $('#previewImgSrc').attr('src',$(this).parentsUntil('tbody').find('.ImgSrc').attr('src'))
+                                    $('#gid').val($(this).parentsUntil('tbody').find('.gid').html())
+                                    
+
+                                    $('#updateController').val($(this).parentsUntil('tbody').find('.qxctlr').html())
+                                    $('#my-update-confirm').modal({
+                                        relatedTarget: this,
+                                        onConfirm: function (options) {
+                                            var $link = $(this.relatedTarget).one('a');
+                                            var groupName = $('#groupName').val();
+                                            var aliasName = $('#aliasName').val();
+                                            var groupPic = $('#groupPic').val();
+
+                                  
+                                            var data = { groupName: groupName, aliasName: aliasName,groupPic:groupPic, id: $link.data('id') }
+                                          //  console.log(data)
+                                            // $.post("URL", data, function (result) {
+                                            //     $("span").html(result);
+                                            //     window.location.reload()
+                                            // });
+                                        },
+
+                                        closeOnConfirm: false,
+                                        onCancel: function () {
+                                            // alert('onCancel');
+                                        }
+                                    });
+                                });
+                        });
+                    </script>
+
+                    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-delete-confirm">
+                        <div class="am-modal-dialog">
+                            <div class="am-modal-hd">删除提示</div>
+                            <div class="am-modal-bd">
+                                你，确定要删除这条记录吗？
+                            </div>
+                            <div class="am-modal-footer">
+                                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <script>
+                        // TODO 删除
+                        $(function () {
+                            $('#doc-modal-list').find('.delete').add('#doc-confirm-toggle').
+                                on('click', function () {
+                                    $('#my-delete-confirm').modal({
+                                        relatedTarget: this,
+                                        onConfirm: function (options) {
+                                            var $link = $(this.relatedTarget).one('a');
+                                            // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                                            //     'mull';
+                                            // alert(msg);
+                                            
+                                            $.post("<?php echo site_url('Member/del_userGroup');?>", { id: $link.data('id') }, function (result) {
+                                                // $("span").html(result);
+                                                if(result == 1){
+                                                    window.location.reload()
+                                                }else if(result == 3){
+                                                    alert('超级管理员组不能删除');
+                                                    window.location.reload()
+                                                }else{
+                                                    alert('操作失败');
+                                                    window.location.reload()
+                                                }
+                                            });
+                                        },
+                                        closeOnConfirm: false,
+                                        onCancel: function () {
+                                            // alert('onCancel');
+                                        }
+                                    });
+                                });
+                        });
+                    </script>
+
+                    <!-- 弹框结束 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.datatables.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/app.js"></script>
+
+</body>
+
+</html>
