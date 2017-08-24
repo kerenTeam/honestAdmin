@@ -25,10 +25,19 @@ class Welcome extends Public_Controller {
 	//后台首页
 	public function index()
 	{
-		$data['page'] = "content.html";
 		$data['menu'] = 'index';
 		$this->load->view('index.html',$data);
 	}
+
+	//
+	function content(){
+			
+			
+		$this->load->view('main.html');
+	}
+
+
+
 
 	//管理员列表
 	function user_list(){
