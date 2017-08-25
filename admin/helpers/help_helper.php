@@ -1,5 +1,5 @@
 <?php
-
+//分类
 function subtree($arr,$a = '',$id=0,$lev=1) {
     $subs = array(); // 子孙数组
     foreach($arr as $k=>$v) {
@@ -61,6 +61,20 @@ function add_system_log($data){
     return true;
 }
 
+//判断权限是否拥有
+function if_user_power($q,$power){
+    $url = preg_replace('|[0-9]+|','',$q);
+    if(substr($url,-1) == '/'){
+        $url = substr($url,0,-1);
+    }
+    $user_power = json_decode($power,TRUE);
+    if(!deep_in_array($url,$user_power)){
+        return "0";
+        
+    }  else{
+        return '1';
+    }
+}
 
 
 

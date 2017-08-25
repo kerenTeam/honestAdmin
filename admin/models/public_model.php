@@ -41,7 +41,11 @@ class public_model extends CI_Model
         $query = $this->db->where($where,$data)->order_by($sort,'desc')->get($table);
         return $query->result_array();
     }
-
+    //带条件的分页查询
+    function select_page_where($table,$where,$data,$page,$size,$sort){
+        $query = $this->db->where($where,$data)->order_by($sort,'desc')->limit($size,$page)->get($table);
+        return $query->result_array();
+    }
 
 }
 

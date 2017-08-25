@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>assets/js/jquery-1.7.2.min.js"></script>
+
+    <style>
+        label {
+            color: #e6e6e6
+        }
+    </style>
+    <script>
+        console.log('来自iframe获取的数据', (window.location.href).split('?'))
+    </script>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script>
+
+    <div class="container-fluid am-cf ">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 客户管理 <small> - 单位列表 - &nbsp; 新增 </small></div>
+            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="am-u-sm-12">
+                    <form action="<?php echo site_url('/Customer/add_customer');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <fieldset>
+
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">名称: </label>
+                                <input type="text" name="title" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">行业: </label>
+                                <select name="industry" id="" >
+                                    <option value="">1</option>
+                                </select>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">地址: </label>
+                                <input type="text" name="address" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">邮编: </label>
+                                <input type="text" name="postcode" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">位置选择: </label>
+
+                                                      
+
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">电话1: </label>
+                                <input type="text" name="phone1" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">电话2: </label>
+                                <input type="text" name="phone2" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">传真: </label>
+                                <input type="text" name="facsimile" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">税号: </label>
+                                <input type="text" name='tax_on' id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">开户银行: </label>
+                                <input type="text" name="open_bank" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">账号: </label>
+                                <input type="text" name="bank_account" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">电子邮件: </label>
+                                <input type="text" name="email" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">网址: </label>
+                                <input type="text" name="http" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">其它: </label>
+                                <input type="text" name="remarks" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                            </div>
+                        </fieldset>
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        <br> &nbsp;
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
