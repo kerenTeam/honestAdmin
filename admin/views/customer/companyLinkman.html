@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <script src="../assets/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>assets/js/jquery-1.7.2.min.js"></script>
     <style>
         label {
             color: #e6e6e6
@@ -27,7 +27,7 @@
 </head>
 
 <body data-type="widgets">
-    <script src="../assets/js/theme.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script>
 
     <div class="container-fluid am-cf ">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -39,52 +39,66 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="am-u-sm-12">
-                    <form action="" class="am-form tpl-form-line-form" data-am-validator>
+                    <form action="<?php echo site_url('/Customer/add_customer_user');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
 
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
 
                         <fieldset>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">员工编号: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
+                            <input type="hidden" name="company_id" value="<?php echo $id;?>">
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">姓名: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="name" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
                             </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">专业: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
+                         
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">单位: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="company_name" id="doc-vld-name-2" minlength="2" placeholder="输入单位名称（至少 2 个字符）" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">部门: </label>
+                                <input type="text" name="department" id="doc-vld-name-2" minlength="2" placeholder="输入所属部门（至少 2 个字符）" required/>
                             </div>
 
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">职务: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="duties" id="doc-vld-name-2" minlength="2" placeholder="输入所在职务（至少 2 个字符）" required/>
                             </div>
 
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">职称: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-
+                          
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">电话1: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="phone" id="doc-vld-name-2" minlength="2" placeholder="输入联系电话（至少 2 个字符）" required/>
                             </div>
                             <div class="am-form-group">
-                                <label for="doc-vld-name-2">电话2: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <label for="doc-vld-name-2">QQ:: </label>
+                                <input type="text" name="qq" id="doc-vld-name-2" minlength="2" placeholder="输入联系QQ（至少 2 个字符）"/>
                             </div>
+                            <div class="am-form-group">
+                                    <label for="doc-vld-name-2">微信： </label>
+                                    <input type="text" name="wechat" id="doc-vld-name-2" minlength="2" placeholder="输入联系微信（至少 2 个字符）"/>
+                                </div>
+                            <div class="am-form-group">
+                                    <label for="doc-vld-name-2">邮箱： </label>
+                                    <input type="text" name="email" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                </div>
+                            <div class="am-form-group">
+                                    <label for="doc-vld-name-2">座机号： </label>
+                                    <input type="text" name="tel" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）"/>
+                                </div>
+                            <div class="am-form-group">
+                                    <label for="doc-vld-name-2">传真： </label>
+                                    <input type="text" name="facsimile" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）"/>
+                                </div>
+                            <div class="am-form-group">
+                                    <label for="doc-vld-name-2">本公司对口人 </label>
+                                    <input type="text" name="link_man" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）"/>
+                                </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">备注: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="remaks" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）"/>
                             </div>
 
                         </fieldset>

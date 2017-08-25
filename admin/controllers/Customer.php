@@ -6,6 +6,8 @@ class Customer extends Public_Controller
 {
 
     public $customer = 'customer';
+    public $customer_user = 'customer_contacts';
+    public $category = 'category';
     function __construct() {
         parent::__construct();
     }
@@ -69,7 +71,12 @@ class Customer extends Public_Controller
         $listpage =  $this->public_model->select_page($this->customer,$current_page,$config['per_page'],'');
         $this->pagination->initialize($config);
 
-        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
+        //获取行业类别
+        $industry = $this->public_model->select_where($this->category,'type','1','');
+  
+       
+       $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry);
+
 
         $this->load->view('customer/companySet.html',$data);
     }
@@ -78,14 +85,14 @@ class Customer extends Public_Controller
     //新增客户管理
     function add_customer(){
          //判断是是否具有权限
-        
+      
         if($_POST){ 
             $q = $this->uri->uri_string();
             $ret =  if_user_power($q,$_SESSION['power']);
             if($ret == '0'){
                echo "<script>alert('您暂无权限执行此操作！请联系系统管理员。');window.history.go(-1);</script>";
                exit;
-           }
+            }
             $data = $this->input->post();
             if($this->public_model->insert($this->customer,$data)){
                 $arr = array(
@@ -111,13 +118,56 @@ class Customer extends Public_Controller
                 echo "<script>alert('操作失败！');window.location.href='".site_url('/Customer/index')."'</script>";  
             }
         }else{
-            
-            $this->load->view('customer/newCompany.html');
+             //获取行业类别
+            $data['industry'] = $this->public_model->select_where($this->category,'type','1','');
+            $this->load->view('customer/newCompany.html',$data);
         }
         
     }
 
-    //编辑客户管理
+    //新增联系人
+    function add_customer_user(){
+    
+        if($_POST){
+            $q = $this->uri->uri_string();
+            $ret =  if_user_power($q,$_SESSION['power']);
+            if($ret == '0'){
+               echo "<script>alert('您暂无权限执行此操作！请联系系统管理员。');window.location.href='".site_url('/Customer/index')."'</script>";
+               exit;
+           }
+           $data = $this->input->post();
+           if($this->public_model->insert($this->customer_user,$data)){
+               $arr = array(
+                   'log_url'=>$this->uri->uri_string(),
+                   'user_id'=>$_SESSION['users']['user_id'],
+                   'username'=>$_SESSION['users']['username'],
+                   'log_ip'=>get_client_ip(),
+                   'log_status'=>'1',
+                   'log_message'=>"新增客户联系人成功,联系人名称为".$data['name'],
+               );
+               add_system_log($arr);
+               echo "<script>alert('操作成功！');window.location.href='".site_url('/Customer/index')."'</script>";  
+           }else{
+               $arr = array(
+                   'log_url'=>$this->uri->uri_string(),
+                   'user_id'=>$_SESSION['users']['user_id'],
+                   'username'=>$_SESSION['users']['username'],
+                   'log_ip'=>get_client_ip(),
+                   'log_status'=>'0',
+                   'log_message'=>"新增客户联系人失败,联系人名称为".$data['name'],
+               );
+               add_system_log($arr);
+               echo "<script>alert('操作失败！');window.location.href='".site_url('/Customer/index')."'</script>";  
+           }
+        }else{
+            $data['id'] = intval($this->uri->segment('3'));
+            $this->load->view('customer/companyLinkman.html',$data);
+        }
+    }
+
+    
+
+    
     
 
 }

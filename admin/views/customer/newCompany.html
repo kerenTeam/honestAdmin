@@ -56,7 +56,9 @@
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">行业: </label>
                                 <select name="industry" id="" >
-                                    <option value="">1</option>
+                                        <?php foreach($industry as $v):?>
+                                        <option value="<?php echo $v['id'];?>"><?php echo $v['cate_name'];?></option>
+                                        <?php endforeach;?>
                                 </select>
                             </div>
                             <div class="am-form-group">

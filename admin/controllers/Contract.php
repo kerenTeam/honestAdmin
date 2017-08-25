@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once(APPPATH.'controllers/Public_Controller.php');
 
-// 客户挂历
+// 合同管理
 class Contract extends Public_Controller
 {
 
@@ -86,6 +86,15 @@ class Contract extends Public_Controller
 
         
         $this->load->view('cont/contractAdmin.html',$data);
+    }
+
+    //新增客户
+    function add_contract(){
+        if($_POST){
+
+        }else{
+            echo "";
+        }
     }
 
 
