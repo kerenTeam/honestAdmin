@@ -28,6 +28,7 @@ class Welcome extends Public_Controller {
 	public function index()
 	{
 
+
 		//获取用户信息
 		$users = $_SESSION['users'];
 
