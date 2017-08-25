@@ -222,31 +222,32 @@
                                     <th>合同号</th>
                                     <th>合同名称</th>
                                     <th>合同金额</th>
-                                    <th>项目名称</th>
+                                    <!-- <th>项目名称</th> -->
                                     <th>签订人</th>
                                     <th>签订时间</th>
                                     <th>地点 </th>
                                     <th>军地</th>
                                     <th>板块</th>
                                     <th>行业</th>
-                                    <th>类型</th>
+                                    <!-- <th>类型</th> -->
                                     <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody id="doc-modal-list">
+                                <?php foreach($lists as $val):?>
                                 <tr class="trClass">
-                                    <td class="am-text-middle">001</td>
-                                    <td class="groupName am-text-middle">DH2444454</td>
-                                    <td class="groupName am-text-middle">钢铁合同</td>
-                                    <td class="groupName am-text-middle">10000</td>
-                                    <td class="groupName am-text-middle">钢铁xxxxxxxx合同</td>
-                                    <td class="groupName am-text-middle">萝莉控</td>
-                                    <td class="aliasName am-text-middle">2017-08-15 12:00:00 </td>
-                                    <td class="groupName am-text-middle">四川省</td>
-                                    <td class="groupName am-text-middle">保密</td>
-                                    <td class="groupName am-text-middle">钢铁行业</td>
-                                    <td class="groupName am-text-middle">材料</td> 
-                                    <td class="groupName am-text-middle">咨询</td> 
+                                    <td class="am-text-middle"><?php echo $val['contract_id']?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['contract_number']?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['title']?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['contract_price']?></td>
+                                    <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td> -->
+                                    <td class="groupName am-text-middle"><?php echo $val['sign_user']?></td>
+                                    <td class="aliasName am-text-middle"><?php echo $val['sign_date']?> </td>
+                                    <td class="groupName am-text-middle"><?php echo $val['province'].$val['city'].$val['area']?></td>
+                                    <td class="groupName am-text-middle"><?php if($val['army'] == '1'){echo "是";}else{echo "否";}?></td>
+                                    <td class="groupName am-text-middle"><?php get_industryTitle($val['plate'])?></td>
+                                    <td class="groupName am-text-middle"><?php get_industryTitle($val['industry'])?></td> 
+                                    <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td>  -->
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
                                             <a data-id="001" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
@@ -257,6 +258,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <?php endforeach;?>
                             
 
                             </tbody>
