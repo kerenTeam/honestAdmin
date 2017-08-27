@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-25 18:03:05
+Date: 2017-08-27 18:16:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,13 +61,17 @@ CREATE TABLE `h_contract` (
   `contract_price` varchar(100) DEFAULT NULL COMMENT '合同金额',
   `addtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '录入时间',
   `title` varchar(255) DEFAULT NULL COMMENT '合同名称',
+  `customer_id` int(10) DEFAULT NULL COMMENT '客户id',
+  `del_state` int(2) DEFAULT '0' COMMENT '删除状态   0正常   1删除',
   PRIMARY KEY (`contract_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_contract
 -- ----------------------------
-INSERT INTO `h_contract` VALUES ('1', '2017', '2017CD001', '四川', '成都', '高新', '1', '1', '1', '1', '2017-08-02', '海洋', '20000', '2017-08-25 09:20:02', '安全信息');
+INSERT INTO `h_contract` VALUES ('1', '2017', '2017CD001', '四川', '成都', '高新', '1', '1', '1', '1', '2017-08-02', '海洋', '20000', '2017-08-25 09:20:02', '安全信息', null, '0');
+INSERT INTO `h_contract` VALUES ('2', '2017', '2018', '安徽', '合肥市', '庐阳区', '9', '2', '0', '8', '2017-08-08', '23423', '234234', '2017-08-27 17:40:18', 'w32', '2', '1');
+INSERT INTO `h_contract` VALUES ('3', '2017', '2017083', '江苏', '南京市', '鼓楼区', '9', '1', '1', '7', '2017-08-10', '56456456', '1', '2017-08-27 17:44:52', 'sdfsdf', '2', '0');
 
 -- ----------------------------
 -- Table structure for h_customer
@@ -92,13 +96,16 @@ CREATE TABLE `h_customer` (
   `http` varchar(255) DEFAULT NULL COMMENT '网址',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   `linkman` varchar(255) DEFAULT NULL COMMENT '本公司对口人',
+  `state` int(1) DEFAULT '1' COMMENT '客户状态    0已删除    1正常',
+  `addtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_customer
 -- ----------------------------
-INSERT INTO `h_customer` VALUES ('1', '23', '', '123123', '123123', null, null, null, '12313', '1313', '12313', '12313', '123123', '12313', '12313', '12313123', '1313', null);
+INSERT INTO `h_customer` VALUES ('1', '23', '', '123123', '123123', null, null, null, '12313', '1313', '12313', '12313', '123123', '12313', '12313', '12313123', '1313', null, '0', '2017-08-27 11:28:04');
+INSERT INTO `h_customer` VALUES ('2', '测试1', '4', '123455', '21', null, null, null, '12121', '21212', '212', '2323', '213123', '123123', '23123', '123123', '123123', null, '1', '2017-08-27 11:28:04');
 
 -- ----------------------------
 -- Table structure for h_customer_contacts
@@ -125,7 +132,7 @@ CREATE TABLE `h_customer_contacts` (
 -- ----------------------------
 -- Records of h_customer_contacts
 -- ----------------------------
-INSERT INTO `h_customer_contacts` VALUES ('1', '1', 'ddf', '3432', 'sdfsdf', '234243', '23423', '3434', '234234', '234234234', 'dfsdf', 'sdfsdf', 'sdfsdfs', 'dsdfsdf');
+INSERT INTO `h_customer_contacts` VALUES ('1', '1', 'ddf1', '3432', 'sdfsdf', '234243', '23423', '3434', '234234', '234234234', 'dfsdf', 'sdfsdf', 'sdfsdfs', 'dsdfsdf');
 
 -- ----------------------------
 -- Table structure for h_project
@@ -174,7 +181,7 @@ CREATE TABLE `h_system_log` (
   `log_status` int(2) DEFAULT NULL COMMENT '操作状态',
   `log_message` varchar(500) DEFAULT NULL COMMENT '操作内容',
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_system_log
@@ -267,6 +274,26 @@ INSERT INTO `h_system_log` VALUES ('85', 'Member/add_power_level', '1', 'admin',
 INSERT INTO `h_system_log` VALUES ('86', 'Member/add_power_level', '1', 'admin', '2017-08-25 17:56:01', '::1', null, '1', '新增权限成功,权限名称为新增客户联系人');
 INSERT INTO `h_system_log` VALUES ('87', 'Member/group_power', '1', 'admin', '2017-08-25 17:56:23', '::1', null, '1', '修改用户组权限成功,用户组名称id为1');
 INSERT INTO `h_system_log` VALUES ('88', 'Customer/add_customer_user', '1', 'admin', '2017-08-25 17:58:01', '::1', null, '1', '新增客户联系人成功,联系人名称为ddf');
+INSERT INTO `h_system_log` VALUES ('89', 'Customer/add_customer', '1', 'admin', '2017-08-27 10:26:30', '::1', null, '1', '新增客户成功,客户名称为测试1');
+INSERT INTO `h_system_log` VALUES ('90', 'Member/add_power_level', '1', 'admin', '2017-08-27 11:29:15', '::1', null, '1', '新增权限成功,权限名称为修改客户联系人');
+INSERT INTO `h_system_log` VALUES ('91', 'Member/add_power_level', '1', 'admin', '2017-08-27 11:29:36', '::1', null, '1', '新增权限成功,权限名称为删除客户');
+INSERT INTO `h_system_log` VALUES ('92', 'Member/group_power', '1', 'admin', '2017-08-27 11:29:48', '::1', null, '1', '修改用户组权限成功,用户组名称id为1');
+INSERT INTO `h_system_log` VALUES ('93', 'Customer/edit_customer_user', '1', 'admin', '2017-08-27 11:30:25', '::1', null, '1', '修改客户联系人成功,联系人名称为ddf1');
+INSERT INTO `h_system_log` VALUES ('94', 'Customer/edit_customer_status', '1', 'admin', '2017-08-27 11:36:17', '::1', null, '1', '删除客户联系人成功,联系人id为1');
+INSERT INTO `h_system_log` VALUES ('95', 'Member/add_power_level', '1', 'admin', '2017-08-27 17:36:58', '::1', null, '1', '新增权限成功,权限名称为新增合同');
+INSERT INTO `h_system_log` VALUES ('96', 'Member/add_power_level', '1', 'admin', '2017-08-27 17:37:19', '::1', null, '1', '新增权限成功,权限名称为编辑合同');
+INSERT INTO `h_system_log` VALUES ('97', 'Member/add_power_level', '1', 'admin', '2017-08-27 17:37:49', '::1', null, '1', '新增权限成功,权限名称为删除合同');
+INSERT INTO `h_system_log` VALUES ('98', 'Member/group_power', '1', 'admin', '2017-08-27 17:38:00', '::1', null, '1', '修改用户组权限成功,用户组名称id为1');
+INSERT INTO `h_system_log` VALUES ('99', 'Contract/add_contract', '1', 'admin', '2017-08-27 17:40:18', '::1', null, '1', '新增合同成功,合同名称为w32');
+INSERT INTO `h_system_log` VALUES ('100', 'Contract/add_contract', '1', 'admin', '2017-08-27 17:44:52', '::1', null, '1', '新增合同成功,合同名称为456532456');
+INSERT INTO `h_system_log` VALUES ('101', 'Contract/edit_contract', '1', 'admin', '2017-08-27 17:47:04', '::1', null, '1', '修改合同成功,合同名称为sdfsdf');
+INSERT INTO `h_system_log` VALUES ('102', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:10:10', '::1', null, '1', '删除合同成功,合同id为');
+INSERT INTO `h_system_log` VALUES ('103', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:13:53', '::1', null, '1', '删除合同成功,合同id为');
+INSERT INTO `h_system_log` VALUES ('104', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:14:24', '::1', null, '1', '删除合同成功,合同id为');
+INSERT INTO `h_system_log` VALUES ('105', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:14:52', '::1', null, '1', '删除合同成功,合同id为1');
+INSERT INTO `h_system_log` VALUES ('106', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:14:57', '::1', null, '1', '删除合同成功,合同id为1');
+INSERT INTO `h_system_log` VALUES ('107', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:14:59', '::1', null, '1', '删除合同成功,合同id为1');
+INSERT INTO `h_system_log` VALUES ('108', 'Contract/del_contract_state', '1', 'admin', '2017-08-27 18:15:40', '::1', null, '1', '删除合同成功,合同id为2');
 
 -- ----------------------------
 -- Table structure for h_system_nav
@@ -282,7 +309,7 @@ CREATE TABLE `h_system_nav` (
   `url_type` varchar(200) DEFAULT NULL COMMENT 'url 类型',
   `style` varchar(255) DEFAULT NULL COMMENT '样式',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_system_nav
@@ -316,6 +343,11 @@ INSERT INTO `h_system_nav` VALUES ('30', '合同管理', '1', '0', '2017-08-25 0
 INSERT INTO `h_system_nav` VALUES ('31', '项目管理', '1', '0', '2017-08-25 09:05:41', 'Project/index', null, 'am-icon-tags');
 INSERT INTO `h_system_nav` VALUES ('32', '新增客户', '0', '2', '2017-08-25 16:30:36', 'Customer/add_customer', null, null);
 INSERT INTO `h_system_nav` VALUES ('33', '新增客户联系人', '0', '2', '2017-08-25 17:56:01', 'Customer/add_customer_user', null, null);
+INSERT INTO `h_system_nav` VALUES ('34', '修改客户联系人', '0', '2', '2017-08-27 11:29:15', 'Customer/edit_customer_user', null, null);
+INSERT INTO `h_system_nav` VALUES ('35', '删除客户', '0', '2', '2017-08-27 11:29:36', 'Customer/edit_customer_status', null, null);
+INSERT INTO `h_system_nav` VALUES ('36', '新增合同', '0', '30', '2017-08-27 17:36:58', 'Contract/add_contract', null, null);
+INSERT INTO `h_system_nav` VALUES ('37', '编辑合同', '0', '30', '2017-08-27 17:37:19', 'Contract/edit_contract', null, null);
+INSERT INTO `h_system_nav` VALUES ('38', '删除合同', '0', '30', '2017-08-27 17:37:49', 'Contract/del_contract_state', null, null);
 
 -- ----------------------------
 -- Table structure for h_user_compact
@@ -431,7 +463,7 @@ CREATE TABLE `h_user_group` (
 -- ----------------------------
 -- Records of h_user_group
 -- ----------------------------
-INSERT INTO `h_user_group` VALUES ('1', '超级管理员', '超级管理员', 'upload/icon/2017-08-15_093738.jpg', '1', '[{\"id\":\"1\",\"name\":\"管理员 | 用户\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":null,\"url\":\"member\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"3\",\"name\":\"权限管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-14 15:29:42\",\"url\":\"Member\\/power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"4\",\"name\":\"添加权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-14 15:31:18\",\"url\":\"Member\\/add_power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"9\",\"name\":\"编辑权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:35:43\",\"url\":\"Member\\/edit_power\",\"url_type\":null,\"style\":null},{\"id\":\"10\",\"name\":\"删除权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:36:05\",\"url\":\"Member\\/del_power\",\"url_type\":null,\"style\":null},{\"id\":\"11\",\"name\":\"成员组管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-15 11:37:22\",\"url\":\"Member\\/userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"12\",\"name\":\"新增成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:03:42\",\"url\":\"Member\\/add_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"13\",\"name\":\"编辑成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:22\",\"url\":\"Member\\/edit_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"14\",\"name\":\"删除成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:57\",\"url\":\"Member\\/del_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"15\",\"name\":\"修改成员组权限\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:05:45\",\"url\":\"Member\\/edit_group_power\",\"url_type\":null,\"style\":null},{\"id\":\"16\",\"name\":\"用户列表\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-16 10:29:49\",\"url\":\"Member\\/user_List\",\"url_type\":null,\"style\":null},{\"id\":\"2\",\"name\":\"客户管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-14 14:35:07\",\"url\":\"Customer\\/index\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"32\",\"name\":\"新增客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 16:30:36\",\"url\":\"Customer\\/add_customer\",\"url_type\":null,\"style\":null},{\"id\":\"33\",\"name\":\"新增客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 17:56:01\",\"url\":\"Customer\\/add_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"17\",\"name\":\"分类管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-24 15:00:23\",\"url\":\"Category\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"18\",\"name\":\"行业类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:20\",\"url\":\"Category\\/industry\",\"url_type\":null,\"style\":null},{\"id\":\"21\",\"name\":\"新增行业分类\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 15:26:00\",\"url\":\"Category\\/add_industry\",\"url_type\":null,\"style\":null},{\"id\":\"22\",\"name\":\"编辑行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:11:15\",\"url\":\"Category\\/edit_industry\",\"url_type\":null,\"style\":null},{\"id\":\"23\",\"name\":\"删除行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:15:58\",\"url\":\"Category\\/del_industry\",\"url_type\":null,\"style\":null},{\"id\":\"19\",\"name\":\"服务类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:58\",\"url\":\"Category\\/service\",\"url_type\":null,\"style\":null},{\"id\":\"24\",\"name\":\"新增服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:11:32\",\"url\":\"Category\\/add_service\",\"url_type\":null,\"style\":null},{\"id\":\"25\",\"name\":\"编辑服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:00\",\"url\":\"Category\\/edit_service\",\"url_type\":null,\"style\":null},{\"id\":\"26\",\"name\":\"删除服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:30\",\"url\":\"Category\\/del_service\",\"url_type\":null,\"style\":null},{\"id\":\"20\",\"name\":\"技术板块\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:02:32\",\"url\":\"Category\\/technology\",\"url_type\":null,\"style\":null},{\"id\":\"27\",\"name\":\"新增技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:12:56\",\"url\":\"Category\\/add_technology\",\"url_type\":null,\"style\":null},{\"id\":\"28\",\"name\":\"编辑技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:13:57\",\"url\":\"Category\\/edit_technology\",\"url_type\":null,\"style\":null},{\"id\":\"29\",\"name\":\"删除技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:14:33\",\"url\":\"Category\\/del_technology\",\"url_type\":null,\"style\":null},{\"id\":\"30\",\"name\":\"合同管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:03\",\"url\":\"Contract\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"31\",\"name\":\"项目管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:41\",\"url\":\"Project\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"}]', '2017-08-15 09:37:38');
+INSERT INTO `h_user_group` VALUES ('1', '超级管理员', '超级管理员', 'upload/icon/2017-08-15_093738.jpg', '1', '[{\"id\":\"1\",\"name\":\"管理员 | 用户\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":null,\"url\":\"member\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"3\",\"name\":\"权限管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-14 15:29:42\",\"url\":\"Member\\/power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"4\",\"name\":\"添加权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-14 15:31:18\",\"url\":\"Member\\/add_power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"9\",\"name\":\"编辑权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:35:43\",\"url\":\"Member\\/edit_power\",\"url_type\":null,\"style\":null},{\"id\":\"10\",\"name\":\"删除权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:36:05\",\"url\":\"Member\\/del_power\",\"url_type\":null,\"style\":null},{\"id\":\"11\",\"name\":\"成员组管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-15 11:37:22\",\"url\":\"Member\\/userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"12\",\"name\":\"新增成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:03:42\",\"url\":\"Member\\/add_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"13\",\"name\":\"编辑成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:22\",\"url\":\"Member\\/edit_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"14\",\"name\":\"删除成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:57\",\"url\":\"Member\\/del_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"15\",\"name\":\"修改成员组权限\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:05:45\",\"url\":\"Member\\/edit_group_power\",\"url_type\":null,\"style\":null},{\"id\":\"16\",\"name\":\"用户列表\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-16 10:29:49\",\"url\":\"Member\\/user_List\",\"url_type\":null,\"style\":null},{\"id\":\"2\",\"name\":\"客户管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-14 14:35:07\",\"url\":\"Customer\\/index\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"32\",\"name\":\"新增客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 16:30:36\",\"url\":\"Customer\\/add_customer\",\"url_type\":null,\"style\":null},{\"id\":\"33\",\"name\":\"新增客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 17:56:01\",\"url\":\"Customer\\/add_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"34\",\"name\":\"修改客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-27 11:29:15\",\"url\":\"Customer\\/edit_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"35\",\"name\":\"删除客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-27 11:29:36\",\"url\":\"Customer\\/edit_customer_status\",\"url_type\":null,\"style\":null},{\"id\":\"17\",\"name\":\"分类管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-24 15:00:23\",\"url\":\"Category\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"18\",\"name\":\"行业类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:20\",\"url\":\"Category\\/industry\",\"url_type\":null,\"style\":null},{\"id\":\"21\",\"name\":\"新增行业分类\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 15:26:00\",\"url\":\"Category\\/add_industry\",\"url_type\":null,\"style\":null},{\"id\":\"22\",\"name\":\"编辑行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:11:15\",\"url\":\"Category\\/edit_industry\",\"url_type\":null,\"style\":null},{\"id\":\"23\",\"name\":\"删除行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:15:58\",\"url\":\"Category\\/del_industry\",\"url_type\":null,\"style\":null},{\"id\":\"19\",\"name\":\"服务类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:58\",\"url\":\"Category\\/service\",\"url_type\":null,\"style\":null},{\"id\":\"24\",\"name\":\"新增服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:11:32\",\"url\":\"Category\\/add_service\",\"url_type\":null,\"style\":null},{\"id\":\"25\",\"name\":\"编辑服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:00\",\"url\":\"Category\\/edit_service\",\"url_type\":null,\"style\":null},{\"id\":\"26\",\"name\":\"删除服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:30\",\"url\":\"Category\\/del_service\",\"url_type\":null,\"style\":null},{\"id\":\"20\",\"name\":\"技术板块\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:02:32\",\"url\":\"Category\\/technology\",\"url_type\":null,\"style\":null},{\"id\":\"27\",\"name\":\"新增技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:12:56\",\"url\":\"Category\\/add_technology\",\"url_type\":null,\"style\":null},{\"id\":\"28\",\"name\":\"编辑技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:13:57\",\"url\":\"Category\\/edit_technology\",\"url_type\":null,\"style\":null},{\"id\":\"29\",\"name\":\"删除技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:14:33\",\"url\":\"Category\\/del_technology\",\"url_type\":null,\"style\":null},{\"id\":\"30\",\"name\":\"合同管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:03\",\"url\":\"Contract\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"36\",\"name\":\"新增合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:36:58\",\"url\":\"Contract\\/add_contract\",\"url_type\":null,\"style\":null},{\"id\":\"37\",\"name\":\"编辑合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:37:19\",\"url\":\"Contract\\/edit_contract\",\"url_type\":null,\"style\":null},{\"id\":\"38\",\"name\":\"删除合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:37:49\",\"url\":\"Contract\\/del_contract_state\",\"url_type\":null,\"style\":null},{\"id\":\"31\",\"name\":\"项目管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:41\",\"url\":\"Project\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"}]', '2017-08-15 09:37:38');
 INSERT INTO `h_user_group` VALUES ('3', '测试用户组', '测试用户组', 'upload/icon/2017-08-16_102343.png', '1', '[{\"id\":\"1\",\"name\":\"管理员 | 用户\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":null,\"url\":\"member\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"3\",\"name\":\"权限管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-14 15:29:42\",\"url\":\"Member\\/power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"4\",\"name\":\"添加权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-14 15:31:18\",\"url\":\"Member\\/add_power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"9\",\"name\":\"编辑权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:35:43\",\"url\":\"Member\\/edit_power\",\"url_type\":null,\"style\":null},{\"id\":\"10\",\"name\":\"删除权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:36:05\",\"url\":\"Member\\/del_power\",\"url_type\":null,\"style\":null}]', '2017-08-16 10:23:43');
 
 -- ----------------------------
