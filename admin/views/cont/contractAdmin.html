@@ -86,57 +86,40 @@
                                 <!-- 本地生活 信息展示类 -->
 
 
-                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('');?>" method="post" data-am-validator="" novalidate="novalidate">
+                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('/Contract/add_contract');?>" method="post" data-am-validator="" novalidate="novalidate">
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
                                         
-                                        <label class="am-u-sm-3 am-form-label">年度<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="number" class="am-field-error am-active" placeholder="请输入年度" name="contactMoney" min="0" value="" required >
-                                        </div>
-
                                         <label class="am-u-sm-3 am-form-label">客户<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <select data-am-selected="{searchBox: 1,maxHeight: 100}">
-                                              <option value="a">钢条</option>
-                                              <option value="b">谢谢谢</option>
-                                              <option value="o">让对方是否</option>
-                                              <option value="m">是的</option>
-                                              <option value="phone">iPhone</option>
-                                              <option value="im">iMac</option>
-                                              <option value="mbp">Macbook Pro</option>
+                                            <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="customer_id">
+                                                <?php foreach($customer as $val):?>
+                                              <option value="<?php echo $val['id'];?>"><?php echo $val['title'];?></option>
+                                              <?php endforeach;?>
                                             </select>
-                                        </div>
-                                        <label class="am-u-sm-3 am-form-label">合同号<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入合同号，至少2位数" name="contactName" minlength="2" value="" required >
                                         </div>
                                         
                                         <label class="am-u-sm-3 am-form-label">合同名称<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
+                                            <input type="text" name="title" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
                                                 value="" required >
                                         </div>
 
                                         <label class="am-u-sm-3 am-form-label">合同金额<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="number" class="am-field-error am-active" placeholder="请输入合同金额" name="contactMoney" min="0" value="" required >
+                                            <input type="number" name="contract_price" class="am-field-error am-active" placeholder="请输入合同金额" name="contactMoney" min="0" value="" required >
                                         </div>
 
-                                        <label class="am-u-sm-3 am-form-label">项目名称<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入项目名称，至少3个字" name="projectname" minlength="3" 
-                                                value="" required >
-                                        </div> 
+                                   
 
                                         <label class="am-u-sm-3 am-form-label">签订人<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="signname" minlength="2" 
+                                            <input type="text" name="sign_user" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="signname" minlength="2" 
                                                 value="" required >
                                         </div>     
 
                                         <label class="am-u-sm-3 am-form-label" for="doc-select-4">签订时间<span class="red">*</span>：</label>
                                          <div class="am-u-sm-8" id="doc-select-4" required>
-                                            <input type="text" class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
+                                            <input type="text" name='sign_date' class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
                                         </div>
                                          
                                         <label class="am-u-sm-3 am-form-label">地点<span class="red">*</span>：</label>
@@ -147,7 +130,7 @@
                                             <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" required>
                                                 <option value="">市</option>
                                             </select>
-                                            <select name="town" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="town" required>
+                                            <select name="area" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="town" required>
                                                 <option value="">区</option>
                                             </select>
                                         </div> 
@@ -157,43 +140,41 @@
                                         <label class="am-u-sm-3 am-form-label">军地<span class="red">*</span>：</label>
                                         <div class="am-u-sm-4" >
                                           <label class="am-radio-inline">
-                                            <input type="radio"  value="" name="docVlGender" required> 非秘密
+                                            <input type="radio"  value="0" name="army" required> 非秘密
                                           </label>
                                           <label class="am-radio-inline">
-                                            <input type="radio" name="docVlGender"> 保密
+                                            <input type="radio" name="army" value="1"> 保密
                                           </label> 
                                         </div>
 
                                     </div>
                                     <div class="am-form-group mutic">
                                          <label class="am-u-sm-3 am-form-label" for="doc-select-1">板块<span class="red">*</span>：</label>
-                                          <select id="doc-select-1" class="am-u-sm-8" required>
+                                          <select id="doc-select-1" name="plate" class="am-u-sm-8" required>
                                             <option value="">-=请选择一项=-</option>
-                                            <option value="option1">选项一...</option>
-                                            <option value="option2">选项二.....</option>
-                                            <option value="option3">选项三........</option>
+                                            <?php foreach($technology as $val ):?>
+                                            <option value="<?php echo $val['id'];?>"><?php echo $val['cate_name'];?></option>
+                                            <?php endforeach;?>
                                           </select>
                                           <span class="am-form-caret"></span>
                                     </div>
                                     <div class="am-form-group mutic">
                                           <label class="am-u-sm-3 am-form-label" for="doc-select-2">行业<span class="red">*</span>：</label>
-                                          <select id="doc-select-2" class="am-u-sm-8" required>
+                                          <select id="doc-select-2" name="industry" class="am-u-sm-8" required>
                                             <option value="">-=请选择一项=-</option>
-                                            <option value="option1">选项一...</option>
-                                            <option value="option2">选项二.....</option>
-                                            <option value="option3">选项三........</option>
+                                            <?php foreach($industry as $val ):?>
+                                            <option value="<?php echo $val['id'];?>"><?php echo $val['cate_name'];?></option>
+                                            <?php endforeach;?>
                                           </select>
                                           <span class="am-form-caret"></span>
                                     </div>
-                                  
-
                                     <div class="am-form-group mutic">
-                                          <label class="am-u-sm-3 am-form-label" for="doc-select-3">类型<span class="red">*</span>：</label>
-                                          <select class="am-u-sm-8" id="doc-select-3" required>
+                                          <label class="am-u-sm-3 am-form-label" for="doc-select-3">服务类型<span class="red">*</span>：</label>
+                                          <select class="am-u-sm-8" name="service_tyep" id="doc-select-3" required>
                                             <option value="">-=请选择一项=-</option>
-                                            <option value="option1">选项一...</option>
-                                            <option value="option2">选项二.....</option>
-                                            <option value="option3">选项三........</option>
+                                            <?php foreach($service as $val ):?>
+                                            <option value="<?php echo $val['id'];?>"><?php echo $val['cate_name'];?></option>
+                                            <?php endforeach;?>
                                           </select>
                                           <span class="am-form-caret"></span>
                                     </div>
@@ -219,6 +200,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>合同年限</th>
                                     <th>合同号</th>
                                     <th>合同名称</th>
                                     <th>合同金额</th>
@@ -229,7 +211,7 @@
                                     <th>军地</th>
                                     <th>板块</th>
                                     <th>行业</th>
-                                    <!-- <th>类型</th> -->
+                                    <th>服务类型</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -237,6 +219,7 @@
                                 <?php foreach($lists as $val):?>
                                 <tr class="trClass">
                                     <td class="am-text-middle"><?php echo $val['contract_id']?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['contract_year']?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_number']?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['title']?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_price']?></td>
@@ -245,16 +228,17 @@
                                     <td class="aliasName am-text-middle"><?php echo $val['sign_date']?> </td>
                                     <td class="groupName am-text-middle"><?php echo $val['province'].$val['city'].$val['area']?></td>
                                     <td class="groupName am-text-middle"><?php if($val['army'] == '1'){echo "是";}else{echo "否";}?></td>
-                                    <td class="groupName am-text-middle"><?php get_industryTitle($val['plate'])?></td>
-                                    <td class="groupName am-text-middle"><?php get_industryTitle($val['industry'])?></td> 
+                                    <td class="groupName am-text-middle"><?php echo get_industryTitle($val['plate']);?></td>
+                                    <td class="groupName am-text-middle"><?php echo get_industryTitle($val['industry']);?></td> 
+                                    <td class="groupName am-text-middle"><?php echo get_industryTitle($val['service_tyep']);?></td> 
                                     <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td>  -->
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a data-id="001" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
+                                            <a data-id="<?php echo site_url('/Contract/edit_contract/').$val['contract_id']?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
                                          
-                                            <a data-id="001" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
+                                            <a data-id="<?php echo $val['contract_id']?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
 
-                                            <a data-id="003" class=" tpl-table-black-operation-del tpl-del"> <i class="am-icon-check"></i> 完成 </a>
+                                            <!-- <a data-id="003" class=" tpl-table-black-operation-del tpl-del"> <i class="am-icon-check"></i> 完成 </a> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -270,15 +254,7 @@
 
                     <div class="am-u-lg-12 am-cf">
                         <div class="am-fr">
-                            <ul class="am-pagination tpl-pagination">
-                                <li class="am-disabled"><a href="#">«</a></li>
-                                <li class="am-active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
+                           <?php echo $pages;?>
                         </div>
                     </div>
 
@@ -290,50 +266,26 @@
 
                    
 
-                    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-update-confirm">
-                      
-                         <iframe src="editContact.html" name="text" target="_self" style="height:100%;width:50%;overflow-y: scroll;" > </iframe>
+                    <div class="am-modal am-modal-no-btn" tabindex="-1" id="userInfomation-modal">
+                        <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                            <div class="am-modal-hd" style="color:aliceblue  !important"> 详细信息
+                                <a href="javascript: void(0)" class="am-close am-close-spin" style="color:#fff !important" data-am-modal-close>&times;</a>
+                            </div>
+                            <div class="am-modal-bd">
+            
+                                <iframe src="" name="text" target="_self" style="height:100vh;width:100%;overflow-y: scroll;"> </iframe>
+            
+                            </div>
+                        </div>
                     </div>
                     <script>
-                        // TODO 修改
-                        $(function () {
-                            $('#doc-modal-list').find('.update').add('#doc-confirm-toggle').
-                                on('click', function () {
-                                    $('#groupName').val($(this).parentsUntil('tbody').find('.groupName').html())
-                                    // $('#aliasName').val($(this).parentsUntil('tbody').find('.aliasName').html())
-                                    // $('#groupPic').val($(this).parentsUntil('tbody').find('.groupPic').html())
-                                    // $('#previewImgSrc').attr('src',$(this).parentsUntil('tbody').find('.ImgSrc').attr('src'))
-                                    
-
-                                    // $('#updateController').val($(this).parentsUntil('tbody').find('.qxctlr').html())
-                                    $('#my-update-confirm').modal({
-                                        relatedTarget: this,
-                                        onConfirm: function (options) {
-                                            var $link = $(this.relatedTarget).one('a');
-                                            var groupName = $('#groupName').val();
-                                            // var aliasName = $('#aliasName').val();
-                                            // var groupPic = $('#groupPic').val();
-
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            alert(msg);
-                                            var data = { groupName: groupName, id: $link.data('id') }
-                                            console.log(data)
-                                            $.post("URL", data, function (result) {
-                                                $("span").html(result);
-                                                window.location.reload()
-                                            });
-                                        },
-
-                                        closeOnConfirm: false,
-                                        onCancel: function () {
-                                            // alert('onCancel');
-                                        }
+                            $(function () {
+                                $('#doc-modal-list').find('.modal')
+                                    .on('click', function () {
+                                        $('iframe').attr('src', $(this).attr("data-id"));
                                     });
-                                });
-                        });
-                    </script>
-
+                            });
+                        </script>
 
 
 
@@ -360,13 +312,21 @@
                                         relatedTarget: this,
                                         onConfirm: function (options) {
                                             var $link = $(this.relatedTarget).one('a');
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            alert(msg);
+                                          
 
-                                            $.post("URL", { id: $link.data('id') }, function (result) {
+                                            $.post("<?php echo site_url('/Contract/del_contract_state');?>", { id: $link.data('id'),del_state:1 }, function (result) {
                                                 // $("span").html(result);
-                                                window.location.reload()
+                                                if(result == 1){
+                                                    
+                                                    window.location.reload()
+
+                                                }else if(result == 3){
+                                                   alert('您还没有删除权限，请你联系管理员！');
+                                                    window.location.reload()
+                                                }else{
+                                                    alert('删除失败');
+                                                    window.location.reload()
+                                                }
                                             });
                                         },
                                         closeOnConfirm: false,
@@ -379,13 +339,6 @@
                     </script>
 
                     <!-- 弹框结束 -->
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>

@@ -10,18 +10,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <script src="../assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <script src="../assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>assets/js/jquery.min.js"></script>
 
 </head>
 <style type="text/css">
-    .areachoose select{
+    .areachoose select{ 
         width: 30%!important;
     }
     [class*=am-u-]+[class*=am-u-]:last-child{
@@ -33,7 +33,7 @@
     }
 </style>
 <body data-type="widgets" style="background-color: transparent;overflow-y: hidden;">
-    <script src="../assets/js/theme.js"></script> 
+    <script src="<?php echo base_url('public/');?>assets/js/theme.js"></script> 
 
         <!-- 内容区域 --> 
 
@@ -44,63 +44,52 @@
                             <div class="am-modal-bd">
                                 <!-- 本地生活 信息展示类 -->
 
-                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="URL" method="post" data-am-validator="" novalidate="novalidate">
+                                <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('/Contract/edit_contract');?>" method="post" data-am-validator="" novalidate="novalidate">
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
+                                        <input type="hidden" name="contract_id" value="<?php echo $contract['contract_id'];?>">
                                         <label class="am-u-sm-3 am-form-label">客户<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <select data-am-selected="{searchBox: 1,maxHeight: 100}">
-                                              <option value="a">钢条</option>
-                                              <option value="b">谢谢谢</option>
-                                              <option value="o">让对方是否</option>
-                                              <option value="m">是的</option>
-                                              <option value="phone">iPhone</option>
-                                              <option value="im">iMac</option>
-                                              <option value="mbp">Macbook Pro</option>
+                                            <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="customer_id">
+                                             <?php foreach($customer as $val):?>
+                                              <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['customer_id']){echo "selected";}?>><?php echo $val['title'];?></option>
+                                              <?php endforeach;?>
                                             </select>
-                                        </div>
-                                        <label class="am-u-sm-3 am-form-label">合同号<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入合同号，至少2位数" name="contactName" minlength="2" value="" required >
                                         </div>
                                         
                                         <label class="am-u-sm-3 am-form-label">合同名称<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
-                                                value="" required >
+                                            <input type="text" name="title" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
+                                                value="<?php echo $contract['title'];?>" required >
                                         </div>
 
                                         <label class="am-u-sm-3 am-form-label">合同金额<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="number" class="am-field-error am-active" placeholder="请输入合同金额" name="contactMoney" min="0" value="" required >
+                                            <input type="number" name="contract_price" value="<?php echo $contract['contract_price'];?>" class="am-field-error am-active" placeholder="请输入合同金额" min="0" required >
                                         </div>
 
-                                        <label class="am-u-sm-3 am-form-label">项目名称<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入项目名称，至少3个字" name="projectname" minlength="3" 
-                                                value="" required >
-                                        </div> 
+                                   
 
                                         <label class="am-u-sm-3 am-form-label">签订人<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="signname" minlength="2" 
-                                                value="" required >
+                                            <input type="text" name="sign_user" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" minlength="2" 
+                                            value="<?php echo $contract['sign_user'];?>" required >
                                         </div>     
 
                                         <label class="am-u-sm-3 am-form-label" for="doc-select-4">签订时间<span class="red">*</span>：</label>
                                          <div class="am-u-sm-8" id="doc-select-4" required>
-                                            <input type="text" class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
+                                            <input type="text" name='sign_date' value="<?php echo $contract['sign_date'];?>" class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
                                         </div>
                                          
                                         <label class="am-u-sm-3 am-form-label">地点<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8 areachoose" >
                                             <select name="province" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="province" required>
-                                                <option value="" >省</option>
+                                                <option value="<?php echo $contract['province'];?>" ><?php echo $contract['province'];?>省</option>
                                             </select>
                                             <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" required>
-                                                <option value="">市</option>
+                                                <option value="<?php echo $contract['city'];?>"><?php echo $contract['city'];?>市</option>
                                             </select>
-                                            <select name="town" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="town" required>
-                                                <option value="">区</option>
+                                            <select name="area" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="area" required>
+                                                <option value="<?php echo $contract['area'];?>"><?php echo $contract['area'];?>区</option>
                                             </select>
                                         </div> 
 
@@ -109,43 +98,41 @@
                                         <label class="am-u-sm-3 am-form-label">军地<span class="red">*</span>：</label>
                                         <div class="am-u-sm-4" >
                                           <label class="am-radio-inline">
-                                            <input type="radio"  value="" name="docVlGender" required> 非秘密
+                                            <input type="radio"  value="0" name="army" <?php if($contract['army'] == '0'){echo "checked";}?> > 非秘密
                                           </label>
                                           <label class="am-radio-inline">
-                                            <input type="radio" name="docVlGender"> 保密
+                                            <input type="radio" name="army" value="1" <?php if($contract['army'] == '1'){echo "checked";}?>> 保密
                                           </label> 
                                         </div>
 
                                     </div>
                                     <div class="am-form-group mutic">
                                          <label class="am-u-sm-3 am-form-label" for="doc-select-1">板块<span class="red">*</span>：</label>
-                                          <select id="doc-select-1" class="am-u-sm-8" required>
+                                          <select id="doc-select-1" name="plate" class="am-u-sm-8" required>
                                             <option value="">-=请选择一项=-</option>
-                                            <option value="option1">选项一...</option>
-                                            <option value="option2">选项二.....</option>
-                                            <option value="option3">选项三........</option>
+                                            <?php foreach($technology as $val ):?>
+                                            <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['plate']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
+                                            <?php endforeach;?>
                                           </select>
                                           <span class="am-form-caret"></span>
                                     </div>
                                     <div class="am-form-group mutic">
                                           <label class="am-u-sm-3 am-form-label" for="doc-select-2">行业<span class="red">*</span>：</label>
-                                          <select id="doc-select-2" class="am-u-sm-8" required>
+                                          <select id="doc-select-2" name="industry" class="am-u-sm-8" required>
                                             <option value="">-=请选择一项=-</option>
-                                            <option value="option1">选项一...</option>
-                                            <option value="option2">选项二.....</option>
-                                            <option value="option3">选项三........</option>
+                                            <?php foreach($industry as $val ):?>
+                                            <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['industry']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
+                                            <?php endforeach;?>
                                           </select>
                                           <span class="am-form-caret"></span>
                                     </div>
-                                  
-
                                     <div class="am-form-group mutic">
-                                          <label class="am-u-sm-3 am-form-label" for="doc-select-3">类型<span class="red">*</span>：</label>
-                                          <select class="am-u-sm-8" id="doc-select-3" required>
+                                          <label class="am-u-sm-3 am-form-label" for="doc-select-3">服务类型<span class="red">*</span>：</label>
+                                          <select class="am-u-sm-8" name="service_tyep" id="doc-select-3" required>
                                             <option value="">-=请选择一项=-</option>
-                                            <option value="option1">选项一...</option>
-                                            <option value="option2">选项二.....</option>
-                                            <option value="option3">选项三........</option>
+                                            <?php foreach($service as $val ):?>
+                                            <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['service_tyep']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
+                                            <?php endforeach;?>
                                           </select>
                                           <span class="am-form-caret"></span>
                                     </div>
@@ -153,7 +140,7 @@
 
                                     <div class="am-form-group am-btn-group-xs">
                                         <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
-                                        <button type="submit" class="am-btn am-btn-secondary">新增</button>
+                                        <button type="submit" class="am-btn am-btn-secondary">提交</button>
                                     </div>
                                 </form>
 
@@ -163,13 +150,13 @@
                         </div> 
   
  
-    <script src="../assets/js/amazeui.min.js"></script>
-    <script src="../assets/js/amazeui.datatables.min.js"></script>
-    <script src="../assets/js/dataTables.responsive.min.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/amazeui.datatables.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/app.js"></script>
     <!-- <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script> -->
-    <script src="../assets/js/area.js"></script>
-    <script src="../assets/js/select.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/area.js"></script>
+    <script src="<?php echo base_url('public/');?>assets/js/select.js"></script>
 </body>
 
 </html>
