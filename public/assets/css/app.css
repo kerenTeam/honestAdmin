@@ -1,3 +1,13 @@
+
+ ::-webkit-scrollbar {
+      width: 0px;
+      height: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.2);
+  }
 ul,
 li {
   list-style: none;
@@ -8,6 +18,30 @@ header {
   z-index: 1200;
   position: relative;
 }
+
+/* 文件上传按钮美化
+
+                                    <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file">
+                                        <span class="am-icon-archive"></span> 导入
+                                        <input name="" type="file" id="file"/> 
+                                    </a>  
+
+*/
+.file input {
+  position: absolute;
+  font-size: 100px;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
+.file:hover {
+  background: #AADFFD;
+  border-color: #78C3F3;
+  color: #004974;
+  text-decoration: none;
+}
+
+
 .red{
   color:red;
 }

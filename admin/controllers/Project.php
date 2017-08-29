@@ -233,4 +233,115 @@ class Project extends Public_Controller
             }
         }
 
+
+        //项目导入
+        function import_project(){
+            $name = date('Y-m-d');
+            $inputFileName = "upload/xls/" .$name .'.xls';
+            move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+            //引入类库
+            $this->load->library('excel');
+            if(!file_exists($inputFileName)){
+    
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+    
+                    exit;
+    
+            }
+            //导入excel文件类型 excel2007 or excel5
+            
+            $PHPReader = new PHPExcel_Reader_Excel2007();
+            
+            if(!$PHPReader->canRead($inputFileName)){
+                $PHPReader = new PHPExcel_Reader_Excel5();
+                if(!$PHPReader->canRead($inputFileName)){
+                    echo 'no Excel';
+                return;
+                }
+            }   
+            $yes = array();
+            $error = array();
+                          
+            
+            $PHPExcel = $PHPReader->load($inputFileName);
+    
+            $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+    
+            $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+    
+            $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+    
+            $erp_orders_id = array();  //声明数组
+         
+            for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+    
+                $data['contract_year'] = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+    
+                $data['contract_id'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+    
+                $data['contract_number'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取d列的值
+    
+                $data['province'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取d列的值
+    
+                $data['city'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取d列的值
+    
+                $data['area'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取d列的值
+    
+                $data['plate'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取d列的值
+    
+                $data['industry'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
+    
+                $data['army'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取d列的值
+    
+                $data['service_tyep'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
+               
+                $data['title'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
+                $data['contract_situation'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+                $data['sign_date'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
+                $data['sign_user'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
+                $data['customer_id'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
+                $data['estimate_price'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
+                $data['contract_price'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();//获取d列的值
+                $data['review_price'] = $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue();//获取d列的值
+                $data['prepay'] = $PHPExcel->getActiveSheet()->getCell("S".$currentRow)->getValue();//获取d列的值
+                $data['expenditure'] = $PHPExcel->getActiveSheet()->getCell("T".$currentRow)->getValue();//获取d列的值
+                $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("U".$currentRow)->getValue();//获取d列的值
+             
+                if($data['contract_number'] == NULL){
+    
+                        //删除临时文件
+                    @unlink($inputFileName);
+                    exit;
+    
+                } 
+                // var_dump($data);
+            
+               
+                //新增合同
+                // if($this->public_model->insert($this->contract,$data)){
+                //     $yes[] = $currentRow;
+                // }else{
+                //     $error[] = $currentRow;
+                // }
+    
+                exit;   
+             
+            }
+    
+            $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+            
+                       //日志
+            
+            $arr = array(
+                'log_url'=>$this->uri->uri_string(),
+                'user_id'=>$_SESSION['users']['user_id'],
+                'username'=>$_SESSION['users']['username'],
+                'log_ip'=>get_client_ip(),
+                'log_status'=>'1',
+                'log_message'=>"导入了商品信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+            );
+            add_system_log($arr);   
+            echo $arr['log_message'];
+        }
+
 }

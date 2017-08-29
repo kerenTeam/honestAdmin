@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-08-27 18:16:48
+Date: 2017-08-29 18:55:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,15 +63,54 @@ CREATE TABLE `h_contract` (
   `title` varchar(255) DEFAULT NULL COMMENT '合同名称',
   `customer_id` int(10) DEFAULT NULL COMMENT '客户id',
   `del_state` int(2) DEFAULT '0' COMMENT '删除状态   0正常   1删除',
+  `contract_situation` varchar(500) DEFAULT NULL COMMENT '合同情况',
+  `estimate_price` varchar(50) DEFAULT NULL COMMENT '预估金额',
+  `review_price` varchar(20) DEFAULT NULL COMMENT '约定评审费',
+  `prepay` varchar(20) DEFAULT NULL COMMENT '约定预付',
+  `expenditure` varchar(20) DEFAULT NULL COMMENT '约定代支',
+  `remaks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`contract_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=456 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_contract
 -- ----------------------------
-INSERT INTO `h_contract` VALUES ('1', '2017', '2017CD001', '四川', '成都', '高新', '1', '1', '1', '1', '2017-08-02', '海洋', '20000', '2017-08-25 09:20:02', '安全信息', null, '0');
-INSERT INTO `h_contract` VALUES ('2', '2017', '2018', '安徽', '合肥市', '庐阳区', '9', '2', '0', '8', '2017-08-08', '23423', '234234', '2017-08-27 17:40:18', 'w32', '2', '1');
-INSERT INTO `h_contract` VALUES ('3', '2017', '2017083', '江苏', '南京市', '鼓楼区', '9', '1', '1', '7', '2017-08-10', '56456456', '1', '2017-08-27 17:44:52', 'sdfsdf', '2', '0');
+INSERT INTO `h_contract` VALUES ('1', '2013', '13CD001', '四川', '成都', null, null, null, '1', null, '41275', '金红英', '195000', '2017-08-29 16:43:41', '中国电子科技集团公司第十研究所XXX生产能力建设项目（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('32', '2013', '13AB001', '四川', '阿坝', null, null, null, '0', null, '41275', '朱新国', '10000', '2017-08-29 16:43:41', '黑水县冰川加气站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('33', '2013', '13AB002', '四川', '阿坝', null, null, null, '0', null, '41275', '朱新国', '10000', '2017-08-29 16:43:41', '红原县白河液化气储配站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('23', '2013', '13BZH002', '四川', '成都', null, null, null, '0', null, '41275', '唐蓉生', '30000', '2017-08-29 16:43:41', '四川新路设备吊装工程有限公司（成都傲鼎新路件运输有限公司）安全生产标准化三级达标咨询（项目停止，不退款）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('2', '2013', '13CD002', '四川', '成都', null, null, null, '1', null, '41275', '金红英', '98000', '2017-08-29 16:43:41', '中国电子科技集团公司第十研究所XXX研制保障条件建设项目（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('3', '2013', '13CD003', '四川', '成都', null, null, null, '0', null, '41275', '公司', '5000', '2017-08-29 16:43:41', '四川鑫达实业有限公司青羊加油站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('4', '2013', '13CD004', '四川', '成都', null, null, null, '0', null, '41275', '朱新国', '35000', '2017-08-29 16:43:41', '家得润生态房屋有限公司（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('31', '2013', '13CD007', '四川', '成都', null, null, null, '0', null, '41275', '曹燕', '5000', '2017-08-29 16:43:41', '成都申华贸易有限公司经营危险化学品', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('35', '2013', '13CD008', '四川', '成都', null, null, null, '0', null, '41275', '曹燕', '8000', '2017-08-29 16:43:41', '成都荆竹花涂料有限公司危险化学品生产现状（无合同）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('36', '2013', '13CD009', '四川', '成都', null, null, null, '0', null, '41275', '公司', '3500', '2017-08-29 16:43:41', '中石化四川销售有限公司金牛永宏加油站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('37', '2013', '13CD010-1', '四川', '成都', null, null, null, '0', null, '41275', '金红英', '100000', '2017-08-29 16:43:41', '中嘉汽车制造（成都）有限公司（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('38', '2013', '13CD010-2', '四川', '成都', null, null, null, '0', null, '41275', '金红英', '150000', '2017-08-29 16:43:41', '中嘉汽车制造（成都）有限公司（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('40', '2013', '13CD011', '四川', '成都', null, null, null, '0', null, '41275', '公司', '2600', '2017-08-29 16:43:41', '双流县华阳经济区供销合作社', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('51', '2013', '13CD012', '四川', '成都', null, null, null, '0', null, '41306', '金红英', '25000', '2017-08-29 16:43:41', '成都时代立夫科技有限公司半导体及精密抛光材料项目（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('52', '2013', '13CD013', '四川', '成都', null, null, null, '0', null, '41306', '金红英', '25000', '2017-08-29 16:43:41', '成都时代立夫科技有限公司半导体及精密抛光材料项目（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('60', '2013', '13CD014-1', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站A站）（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('61', '2013', '13CD014-2', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站A站）（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('62', '2013', '13CD014-3', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站B站）（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('86', '2013', '13CD021', '四川', '成都', null, null, null, '0', null, '41334', '汪彪', '3500', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川成都石油分公司建工加油站（无合同）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('251', '2013', '13CD061', '四川', '成都', null, null, null, '0', null, '41426', '汪彪', '3500', '2017-08-29 16:43:41', '成都市市政十陵加油站（无合同）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('56', '2013', '13DY001', '四川', '德阳', null, null, null, '0', null, '41306', '天成', '95000', '2017-08-29 16:43:41', '四川汉龙新材料有限公司核电及重装高性能特种焊接材料产业化项目（含评审费）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('45', '2013', '13DZ001-1', '四川', '达州', null, null, null, '0', null, '41275', '郭三俊', '6000', '2017-08-29 16:43:41', '万源市方欣实业有限责任公司茶垭加油站新建项目', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('46', '2013', '13DZ001-2', '四川', '达州', null, null, null, '0', null, '41275', '郭三俊', '7000', '2017-08-29 16:43:41', '万源市方欣实业有限责任公司茶垭加油站新建项目', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('10', '2013', '13GA001', '四川', '广安', null, null, null, '0', null, '41275', '罗志远', '5000', '2017-08-29 16:43:41', '广安徐易商贸有限责任公司', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('5', '2013', '13LSZ001-1', '四川', '凉山州', null, null, null, '0', null, '41275', '陈光军', '17500', '2017-08-29 16:43:41', '凉山州通达科技有限公司会理县溢壕矿业开发有限公司箐门口尾矿矿库新建工程', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('6', '2013', '13LSZ001-2', '四川', '凉山州', null, null, null, '0', null, '41275', '陈光军', '17500', '2017-08-29 16:43:41', '凉山州通达科技有限公司会理县溢壕矿业开发有限公司箐门口尾矿矿库新建工程', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('11', '2013', '13LZ001', '四川', '泸州', null, null, null, '0', null, '41275', '朱新国', '5000', '2017-08-29 16:43:41', '中石化泸州头塘加油站安全现状', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('30', '2013', '13MY001', '四川', '绵阳', null, null, null, '0', null, '41275', '罗志远', '3500', '2017-08-29 16:43:41', '江油市绍伦商贸有限公司让水加油站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('455', '2013', '13MY021', '四川', '绵阳', null, null, null, '0', null, '41487', '汪彪', '3500', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川绵阳石油分公司山江加油站（无合同）', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('41', '2013', '13NC002-1', '四川', '南充', null, null, null, '0', null, '41275', '汪彪', '5000', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川南充石油分公司广安华蓥明月加油站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('42', '2013', '13NC002-2', '四川', '南充', null, null, null, '0', null, '41275', '汪彪', '5000', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川南充石油分公司广安华蓥明月加油站', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('53', '2013', '13NC003-1', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '4000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('54', '2013', '13NC003-2', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '4000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('55', '2013', '13NC004', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '8000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('34', '2013', '13TL001', '四川', '德阳', null, null, null, '0', null, '41275', '汪彪', '35000', '2017-08-29 16:43:41', '四川龙蟒磷化工有限公司铁路专用线及其附属设施安全现状评价', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('39', '2013', '13TL002', '四川', '自贡', null, null, null, '0', null, '41275', '朱新国', '26000', '2017-08-29 16:43:41', '中国石油四川自贡销售分公司舒平油库铁路专用线及附属设施安全现状', '1', '0', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for h_customer
@@ -141,30 +180,33 @@ DROP TABLE IF EXISTS `h_project`;
 CREATE TABLE `h_project` (
   `c_id` int(10) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '项目表',
-  `year` varchar(255) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `province` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
-  `town` varchar(255) DEFAULT NULL,
-  `contacts` varchar(255) DEFAULT NULL,
-  `contacts_address` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
-  `signing` varchar(255) DEFAULT NULL,
-  `signing_date` varchar(255) DEFAULT NULL,
-  `military` int(11) DEFAULT NULL,
-  `technology_id` int(11) DEFAULT NULL,
-  `service_id` int(11) DEFAULT NULL,
-  `industry_id` int(11) DEFAULT NULL,
+  `year` varchar(255) DEFAULT NULL COMMENT '年度',
+  `title` varchar(255) DEFAULT NULL COMMENT '项目名称',
+  `province` varchar(255) DEFAULT NULL COMMENT '省',
+  `city` varchar(255) DEFAULT NULL COMMENT '市',
+  `town` varchar(255) DEFAULT NULL COMMENT '区',
+  `contacts` varchar(255) DEFAULT NULL COMMENT '联系人',
+  `contacts_address` varchar(255) DEFAULT NULL COMMENT '联系人地址',
+  `phone` varchar(255) DEFAULT NULL COMMENT '联系电话',
+  `signing` varchar(255) DEFAULT NULL COMMENT '签订人',
+  `signing_date` varchar(255) DEFAULT NULL COMMENT '签订时间',
+  `military` int(11) DEFAULT NULL COMMENT '是否军工  1是  0 否',
+  `technology_id` int(11) DEFAULT NULL COMMENT '技术板块',
+  `service_id` int(11) DEFAULT NULL COMMENT '服务类型',
+  `industry_id` int(11) DEFAULT NULL COMMENT '行业',
   `addtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) DEFAULT NULL,
+  `cycle` varchar(255) DEFAULT NULL COMMENT '完成周期',
+  `requirement` varchar(255) DEFAULT NULL COMMENT '附带要求',
+  `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`,`c_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_project
 -- ----------------------------
-INSERT INTO `h_project` VALUES ('1', '1', '2017', '456787', '天津', '市辖区', '河西区', '345354', '3534', '34535', '53535', '2017-08-25', '1', '9', '7', '2', '2017-08-25 09:22:31', null);
-INSERT INTO `h_project` VALUES ('1', '2', '2017', '测试项目', '天津', '市辖区', '请选择', '测试人', '成都市中和镇', '1582877663', '刘3', '2017-08-25', '1', '9', '8', '4', '2017-08-25 10:40:27', null);
+INSERT INTO `h_project` VALUES ('1', '1', '2017', '456787', '天津', '市辖区', '河西区', '345354', '3534', '34535', '53535', '2017-08-25', '1', '9', '7', '2', '2017-08-25 09:22:31', null, null, null, null);
+INSERT INTO `h_project` VALUES ('1', '2', '2017', '测试项目', '天津', '市辖区', '请选择', '测试人', '成都市中和镇', '1582877663', '刘3', '2017-08-25', '1', '9', '8', '4', '2017-08-25 10:40:27', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for h_system_log
