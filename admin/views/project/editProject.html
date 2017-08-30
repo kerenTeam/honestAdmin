@@ -52,65 +52,66 @@
                                             <div class="am-u-sm-8">
                                                 <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="c_id">
                                                     <?php foreach($customer as $val):?>
-                                                    <option value="<?php echo $val['id'];?>"><?php echo $val['title']?></option>
+                                                    <option value="<?php echo $val['contract_id'];?>" <?php if($val['contract_id'] == $project['c_id']){echo "selected";}?>><?php echo mb_substr($val['title'],'0','10');?>...</option>
                                                      <?php endforeach;?> 
-                                                     <option value="1">成都默认</option>
                                                 </select>
                                             </div>
                                            
                                             <label class="am-u-sm-3 am-form-label">项目名称<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8">
-                                                <input type="text"  class=" am-field-error am-active" placeholder="请输入项目名称，至少3个字" name="title" minlength="3" 
+                                                <input type="text"  class=" am-field-error am-active" placeholder="请输入项目名称，至少3个字" name="title" value="<?php echo $project['title'];?>" minlength="3" 
                                                      required >
                                             </div> 
     
                                             <label class="am-u-sm-3 am-form-label">项目地点<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8 areachoose" >
                                                 <select name="province" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="province" required>
-                                                    <option value="" >省</option>
+                                                    <option value="<?php echo $project['province']?>" ><?php echo $project['province']?>省</option>
                                                 </select>
                                                 <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" required>
-                                                    <option value="">市</option>
+                                                    <option value="<?php echo $project['city']?>"><?php echo $project['city']?>市</option>
                                                 </select>
                                                 <select name="town" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="town" required>
-                                                    <option value="">区</option>
+                                                    <option value="<?php echo $project['town']?>"><?php echo $project['town']?>区</option>
                                                 </select>
                                             </div> 
                                             <label class="am-u-sm-3 am-form-label">联系人<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8">
                                                 <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="contacts" minlength="2" 
-                                                    value="" required >
+                                                    value="<?php echo $project['contacts']?>" required >
                                             </div>
     
                                             <label class="am-u-sm-3 am-form-label" for="doc-vld-528">联系人电话<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8">
-                                                <input type="text" name="phone"  id="doc-vld-528" class=" am-field-error am-active js-pattern-mobile" placeholder="phone" required/>
+                                                <input type="text" name="phone" value="<?php echo $project['phone']?>"  id="doc-vld-528" class=" am-field-error am-active js-pattern-mobile" placeholder="phone" required/>
                                             </div>
                                             <label class="am-u-sm-3 am-form-label">联系人地址<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8">
                                                 <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="contacts_address" minlength="2" 
-                                                    value="" required >
+                                                    value="<?php echo $project['contacts_address']?>" required >
                                             </div>  
-                                            <label class="am-u-sm-3 am-form-label">签订人<span class="red">*</span>：</label>
+                                            <label class="am-u-sm-3 am-form-label">完成周期：</label>
                                             <div class="am-u-sm-8">
-                                                <input type="text" name="signing" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="signname" minlength="2" 
-                                                    value="" required >
+                                                <input type="text" class=" am-field-error am-active"  value="<?php echo $project['cycle']?>" placeholder="请输入完成周期" name="cycle" >
                                             </div>
-    
-    
-                                            <label class="am-u-sm-3 am-form-label" for="doc-select-4">签订时间<span class="red">*</span>：</label>
-                                             <div class="am-u-sm-8" id="doc-select-4" required>
-                                                <input type="text" name="signing_date" class="am-field-error am-active am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
+                                            <label class="am-u-sm-3 am-form-label">附带要求：</label>
+                                            <div class="am-u-sm-8">
+                                                <input type="text" class=" am-field-error am-active"  value="<?php echo $project['requirement']?>" placeholder="请输入附带要求" name="requirement" >
                                             </div>
+                                            <label class="am-u-sm-3 am-form-label">备注：</label>
+                                            <div class="am-u-sm-8">
+                                                <textarea type="text" class=" am-field-error am-active" placeholder="请输入备注" name="remarks" ><?php echo $project['remarks'];?></textarea>
+                                            </div>
+                                           
                                         </div>
                                         <div class="am-form-group">
                                             <label class="am-u-sm-3 am-form-label">是否军工<span class="red">*</span>：</label>
                                             <div class="am-u-sm-4" >
                                               <label class="am-radio-inline">
-                                                <input type="radio"  value="1" name="military" required> 是
+                                                <input type="radio"  value="1" name="military" <?php if($project['military'] == "1"){echo "checked";}?> required> 是
                                               </label>
                                               <label class="am-radio-inline">
-                                                <input type="radio" name="military" value="0"> 否
+                                                <input type="radio" name="military" value="0" <?php if($project['military'] == "0"){echo "checked";}?>> 否
                                               </label> 
                                             </div>
     
@@ -120,7 +121,7 @@
                                               <select id="doc-select-1" name="technology_id" class="am-u-sm-8" required>
                                                 <option value="">-=请选择一项=-</option>
                                                 <?php foreach($technology as $val):?>
-                                                <option value="<?php echo $val['id'];?>"><?php echo $val['cate_name'];?></option>
+                                                <option value="<?php echo $val['id'];?>" <?php if($project['technology_id'] == $val['id']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
                                                 <?php endforeach;?>
                                               </select>
                                               <span class="am-form-caret"></span>
@@ -130,7 +131,7 @@
                                               <select id="doc-select-2" name="industry_id" class="am-u-sm-8" required>
                                                 <option value="">-=请选择一项=-</option>
                                                    <?php foreach($industry as $val):?>
-                                                    <option value="<?php echo $val['id'];?>"><?php echo $val['cate_name'];?></option>
+                                                    <option value="<?php echo $val['id'];?>" <?php if($project['industry_id'] == $val['id']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
                                                     <?php endforeach;?>
                                               </select>
                                               <span class="am-form-caret"></span>
@@ -142,7 +143,7 @@
                                               <select class="am-u-sm-8" id="doc-select-3" name="service_id" required>
                                                 <option value="">-=请选择一项=-</option>
                                                 <?php foreach($service as $val):?>
-                                                <option value="<?php echo $val['id'];?>"><?php echo $val['cate_name'];?></option>
+                                                <option value="<?php echo $val['id'];?>" <?php if($project['service_id'] == $val['id']){echo "selected";}?> ><?php echo $val['cate_name'];?></option>
                                                 <?php endforeach;?>
                                               </select>
                                               <span class="am-form-caret"></span>
@@ -152,8 +153,9 @@
                                          
 
                                     <div class="am-form-group am-btn-group-xs">
+                                        <input type="hidden" name="id" value="<?php echo $project['id'];?>">
                                         <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
-                                        <button type="submit" class="am-btn am-btn-secondary">新增</button>
+                                        <button type="submit" class="am-btn am-btn-secondary">提交</button>
                                     </div>
                                 </form>
 

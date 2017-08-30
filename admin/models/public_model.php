@@ -48,7 +48,14 @@ class public_model extends CI_Model
     }
 
     
-
+    //返回项目列表
+    function ret_select_project($page,$size){
+        $this->db->select('a.*, b.*');
+        $this->db->from('h_project a');
+        $this->db->join('h_contract b', 'b.contract_id = a.c_id','left');
+        $query = $this->db->where('del_state','0')->order_by('a.addtime','desc')->limit($size,$page)->get();
+        return $query->result_array(); 
+    }
 
 }
 

@@ -62,7 +62,10 @@
 
                                     <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file">
                                         <span class="am-icon-archive"></span> 导入
-                                        <input name="pics" type="file" id="projectFile"/> 
+                                        <input name="pics" type="file" id="projectFile" style="
+                                        width: 100%;
+                                        height: 100%;
+                                    "/> 
                                     </a>
                                 </div>
                                 <script>     
@@ -80,7 +83,8 @@
                                             processData: false,
                                             contentType: false,
                                             success: function (data) {
-                                                console.log(data)
+                                                alert(data);
+                                                window.location.reload()
                                             }
                                         });
                                     })
@@ -114,9 +118,8 @@
                                         <div class="am-u-sm-8">
                                             <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="c_id">
                                                 <?php foreach($customer as $val):?>
-                                                <option value="<?php echo $val['id'];?>"><?php echo $val['title']?></option>
+                                                <option value="<?php echo $val['contract_id'];?>"><?php echo mb_substr($val['title'],'0','10');?>...</option>
                                                  <?php endforeach;?> 
-                                                 <option value="1">成都默认</option>
                                             </select>
                                         </div>
                                        
@@ -140,7 +143,7 @@
                                         </div> 
                                         <label class="am-u-sm-3 am-form-label">联系人<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="contacts" minlength="2" 
+                                            <input type="text" class=" am-field-error am-active" placeholder="请输入联系人名称，至少2个字" name="contacts" minlength="2" 
                                                 value="" required >
                                         </div>
 
@@ -150,22 +153,21 @@
                                         </div>
                                         <label class="am-u-sm-3 am-form-label">联系人地址<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="contacts_address" minlength="2" 
+                                            <input type="text" class=" am-field-error am-active" placeholder="请输入联系人地址，至少2个字" name="contacts_address" minlength="2" 
                                                 value="" required >
                                         </div>  
-                                        <label class="am-u-sm-3 am-form-label">签订人<span class="red">*</span>：</label>
+                                        <label class="am-u-sm-3 am-form-label">完成周期：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" name="signing" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="signname" minlength="2" 
-                                                value="" required >
+                                            <input type="text" class=" am-field-error am-active" placeholder="请输入完成周期" name="cycle" >
                                         </div>
-
-
-                                        <label class="am-u-sm-3 am-form-label" for="doc-select-4">签订时间<span class="red">*</span>：</label>
-                                         <div class="am-u-sm-8" id="doc-select-4" required>
-                                            <input type="text" name="signing_date" class="am-field-error am-active am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
+                                        <label class="am-u-sm-3 am-form-label">附带要求：</label>
+                                        <div class="am-u-sm-8">
+                                            <input type="text" class=" am-field-error am-active" placeholder="请输入附带要求" name="requirement" >
                                         </div>
-
-                                        
+                                        <label class="am-u-sm-3 am-form-label">备注：</label>
+                                        <div class="am-u-sm-8">
+                                            <textarea type="text" class=" am-field-error am-active" placeholder="请输入备注" name="remarks" ></textarea>
+                                        </div>
 
                                     </div>
                                     <div class="am-form-group">
@@ -238,7 +240,6 @@
                                     <th>ID</th>
                                     <th>年度</th>
                                     <th>合同号</th>
-                                    <th>合同名称</th>
                                     <th>项目名称</th>
                                     <th>项目地点</th>
                                     <th>联系人</th>
@@ -258,26 +259,25 @@
                                 <tr class="trClass">
                                     <td class="am-text-middle"><?php echo $val['id'];?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['year'];?></td>
-                                    <td class="groupName am-text-middle"><?php echo $val['id'];?></td>
-                                    <td class="groupName am-text-middle"><?php echo $val['id'];?></td>
-                                    <td class="groupName am-text-middle"><?php echo $val['title'];?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['contract_number'];?></td>
+                                    <td class="groupName am-text-middle"><?php echo mb_substr($val['title'],'0','20');?>...</td>
                                     <td class="groupName am-text-middle"><?php echo $val['province'].$val['city'].$val['town'];?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contacts'];?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contacts_address'];?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['phone'];?></td>
-                                    <td class="aliasName am-text-middle"><?php echo $val['signing'];?></td>
-                                    <td class="groupName am-text-middle"><?php echo $val['signing_date'];?></td>
+                                    <td class="aliasName am-text-middle"><?php echo $val['sign_user'];?></td>
+                                    <td class="groupName am-text-middle"><?php echo $val['sign_date'];?></td>
                                     <td class="groupName am-text-middle"><?php if($val['military'] == 1){echo "是";}else{echo "否";}?></td>
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['technology_id']);?></td>
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['service_id']);?></td> 
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['industry_id']);?></td> 
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a data-id="<?php echo site_url('/Project/edit_project').$val['id'];?>" class="update "><i class="am-icon-pencil"></i> 编辑  </a>
+                                            <a data-id="<?php echo site_url('/Project/edit_project/').$val['id'];?>" data-am-modal="{target: '#edit-project-modal', closeViaDimmer: 0, width:600}" class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
                                          
                                             <a data-id="<?php echo $val['id'];?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
 
-                                            <a data-id="<?php echo $val['id'];?>" class=" tpl-table-black-operation-del tpl-del"> <i class="am-icon-check"></i> 审核 </a>
+                                            <!-- <a data-id="<?php echo $val['id'];?>" class=" tpl-table-black-operation-del tpl-del"> <i class="am-icon-check"></i> 审核 </a> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -303,51 +303,26 @@
                 
 
                    
-
-                    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-update-confirm">
-                      
-                         <iframe src="<?php echo site_url('/Project/edit_project');?>" name="text" target="_self" style="height:100%;width:50%;overflow-y: scroll;" > </iframe>
+                    <div class="am-modal am-modal-no-btn" tabindex="-1" id="edit-project-modal">
+                        <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                            <div class="am-modal-hd" style="color:aliceblue  !important"> 详细信息
+                                <a href="javascript: void(0)" class="am-close am-close-spin" style="color:#fff !important" data-am-modal-close>&times;</a>
+                            </div>
+                            <div class="am-modal-bd">
+            
+                                <iframe src="" name="text" target="_self" style="height:100vh;width:100%;overflow-y: scroll;"> </iframe>
+            
+                            </div>
+                        </div>
                     </div>
                     <script>
-                        // TODO 修改
-                        $(function () {
-                            $('#doc-modal-list').find('.update').add('#doc-confirm-toggle').
-                                on('click', function () {
-                                    $('#groupName').val($(this).parentsUntil('tbody').find('.groupName').html())
-                                    // $('#aliasName').val($(this).parentsUntil('tbody').find('.aliasName').html())
-                                    // $('#groupPic').val($(this).parentsUntil('tbody').find('.groupPic').html())
-                                    // $('#previewImgSrc').attr('src',$(this).parentsUntil('tbody').find('.ImgSrc').attr('src'))
-                                    
-
-                                    // $('#updateController').val($(this).parentsUntil('tbody').find('.qxctlr').html())
-                                    $('#my-update-confirm').modal({
-                                        relatedTarget: this,
-                                        onConfirm: function (options) {
-                                            var $link = $(this.relatedTarget).one('a');
-                                            var groupName = $('#groupName').val();
-                                            // var aliasName = $('#aliasName').val();
-                                            // var groupPic = $('#groupPic').val();
-
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            alert(msg);
-                                            var data = { groupName: groupName, id: $link.data('id') }
-                                            console.log(data)
-                                            $.post("URL", data, function (result) {
-                                                $("span").html(result);
-                                                window.location.reload()
-                                            });
-                                        },
-
-                                        closeOnConfirm: false,
-                                        onCancel: function () {
-                                            // alert('onCancel');
-                                        }
+                            $(function () {
+                                $('#doc-modal-list').find('.modal')
+                                    .on('click', function () {
+                                        $('iframe').attr('src', $(this).attr("data-id"));
                                     });
-                                });
-                        });
-                    </script>
-
+                            });
+                        </script>
 
 
 
@@ -374,11 +349,11 @@
                                         relatedTarget: this,
                                         onConfirm: function (options) {
                                             var $link = $(this.relatedTarget).one('a');
-                                            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                                                'mull';
-                                            alert(msg);
+                                            // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                                            //     'mull';
+                                            // alert(msg);
 
-                                            $.post("URL", { id: $link.data('id') }, function (result) {
+                                            $.post("<?php echo site_url('/Project/del_project');?>", { id: $link.data('id'),de_state:'1' }, function (result) {
                                                 // $("span").html(result);
                                                 window.location.reload()
                                             });
