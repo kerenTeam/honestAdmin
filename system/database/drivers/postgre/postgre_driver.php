@@ -6,7 +6,7 @@
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2016, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright	Copyright (c) 2014 - 2017, British Columbia Institute of Technology (http://bcit.ca/)
+ * @copyright	Copyright (c) 2014 - 2016, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	https://codeigniter.com
  * @since	Version 1.3.0
@@ -130,9 +130,9 @@ class CI_DB_postgre_driver extends CI_DB {
 		 */
 		foreach (array('connect_timeout', 'options', 'sslmode', 'service') as $key)
 		{
-			if (isset($this->$key) && is_string($this->$key) && $this->$key !== '')
+			if (isset($this->$key) && is_string($this->key) && $this->key !== '')
 			{
-				$this->dsn .= $key."='".$this->$key."' ";
+				$this->dsn .= $key."='".$this->key."' ";
 			}
 		}
 
@@ -163,6 +163,13 @@ class CI_DB_postgre_driver extends CI_DB {
 				return FALSE;
 			}
 
+			if (pg_set_client_encoding($this->conn_id, $this->char_set) !== 0)
+			{
+				log_message('error', "Database: Unable to set the configured connection charset ('{$this->char_set}').");
+				pg_close($this->conn_id);
+				return ($this->db->db_debug) ? $this->display_error('db_unable_to_set_charset', $this->char_set) : FALSE;
+			}
+
 			empty($this->schema) OR $this->simple_query('SET search_path TO '.$this->schema.',public');
 		}
 
@@ -185,19 +192,6 @@ class CI_DB_postgre_driver extends CI_DB {
 		{
 			$this->conn_id = FALSE;
 		}
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Set client character set
-	 *
-	 * @param	string	$charset
-	 * @return	bool
-	 */
-	protected function _db_set_charset($charset)
-	{
-		return (pg_set_client_encoding($this->conn_id, $charset) === 0);
 	}
 
 	// --------------------------------------------------------------------
@@ -288,7 +282,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 */
 	public function is_write_type($sql)
 	{
-		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#is', $sql))
+		if (preg_match('#^(INSERT|UPDATE).*RETURNING\s.+(\,\s?.+)*$#i', $sql))
 		{
 			return FALSE;
 		}
@@ -299,7 +293,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Platform-dependent string escape
+	 * Platform-dependant string escape
 	 *
 	 * @param	string
 	 * @return	string
@@ -471,7 +465,7 @@ class CI_DB_postgre_driver extends CI_DB {
 	 * Error
 	 *
 	 * Returns an array containing code and message of the last
-	 * database error that has occurred.
+	 * database error that has occured.
 	 *
 	 * @return	array
 	 */
@@ -550,13 +544,13 @@ class CI_DB_postgre_driver extends CI_DB {
 		$ids = array();
 		foreach ($values as $key => $val)
 		{
-			$ids[] = $val[$index]['value'];
+			$ids[] = $val[$index];
 
 			foreach (array_keys($val) as $field)
 			{
 				if ($field !== $index)
 				{
-					$final[$val[$field]['field']][] = 'WHEN '.$val[$index]['value'].' THEN '.$val[$field]['value'];
+					$final[$field][] = 'WHEN '.$val[$index].' THEN '.$val[$field];
 				}
 			}
 		}
@@ -564,12 +558,12 @@ class CI_DB_postgre_driver extends CI_DB {
 		$cases = '';
 		foreach ($final as $k => $v)
 		{
-			$cases .= $k.' = (CASE '.$val[$index]['field']."\n"
+			$cases .= $k.' = (CASE '.$index."\n"
 				.implode("\n", $v)."\n"
 				.'ELSE '.$k.' END), ';
 		}
 
-		$this->where($val[$index]['field'].' IN('.implode(',', $ids).')', NULL, FALSE);
+		$this->where($index.' IN('.implode(',', $ids).')', NULL, FALSE);
 
 		return 'UPDATE '.$table.' SET '.substr($cases, 0, -2).$this->_compile_wh('qb_where');
 	}
