@@ -7,9 +7,10 @@ class Public_Controller extends CI_Controller
         parent::__construct();
         //var_dump($_SESSION);
         date_default_timezone_set("Asia/Shanghai");
-
+      //  session_start();
         $this->load->model('public_model');
         $this->load->helper('help_helper');
+      //  var_dump($_SESSION['users']);
         if(!isset($_SESSION['users'])){
 			echo "<script>alert('您还没有登陆！');window.location.href='".site_url('/Login/login_up')."';</script>";
 			exit;

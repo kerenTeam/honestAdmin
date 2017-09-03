@@ -24,7 +24,10 @@ class Login extends CI_Controller
                         $error['error'] = "密码错误!请重新登陆！";
                         $this->load->view('login.html',$error);
                     }else{    
+
+
                         $this->session->set_userdata('users',$user);
+                       
                         redirect('Welcome/index');
                     }
                 }else{

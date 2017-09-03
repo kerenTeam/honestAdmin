@@ -84,4 +84,12 @@ function get_industryTitle($id){
     return $ret['cate_name'];
 }
 
+//获取职员组名称
+function get_user_group($gid){
+    $CI = &get_instance();
+    $a = $CI->db->query("select * from h_user_group where gid ='$gid'");
+    $ret = $a->row_array();
+    return $ret['group_name'];
+}
+
 ?>

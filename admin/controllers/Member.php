@@ -761,8 +761,113 @@ class Member extends Public_Controller {
 
 
     //导入用户信息
-    function impolt_userExcel(){
+    function import_userList(){
+        $name = date('Y-m-d');
+        $inputFileName = "upload/xls/" .$name .'.xls';
+        move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+        //引入类库
+        $this->load->library('excel');
+        if(!file_exists($inputFileName)){
 
+                echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+
+                exit;
+
+        }
+        //导入excel文件类型 excel2007 or excel5
+        
+        $PHPReader = new PHPExcel_Reader_Excel2007();
+        
+        if(!$PHPReader->canRead($inputFileName)){
+            $PHPReader = new PHPExcel_Reader_Excel5();
+            if(!$PHPReader->canRead($inputFileName)){
+                echo 'no Excel';
+            return;
+            }
+        }   
+        $yes = array();
+        $error = array();
+                      
+        
+        $PHPExcel = $PHPReader->load($inputFileName);
+
+        $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+
+        $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+
+        $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+
+
+     
+        for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+
+            $data['username'] = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+            //合同号
+            $data['employee_num'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+            
+
+            $data['incumbency'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取d列的值
+
+            $part = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取d列的值
+            if($part == '专职'){
+                $data['part'] = '1';
+            }else{
+                $data['part'] = '0';
+            }
+
+            $data['id_card'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取d列的值
+
+            $data['birth_date'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取d列的值
+
+            $data['qq'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取d列的值
+
+            $data['email'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
+
+            $data['education'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取d列的值
+
+            $data['entry_time'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
+            
+            $data['employment'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
+            $data['social_security'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+            
+            $social_state = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
+            if($social_state == "是"){
+                $data['social_state'] = '1';
+            }else{
+                $data['social_state'] = '0';
+            }
+            $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
+            if($data['username'] == NULL){
+
+                //删除临时文件
+                @unlink($inputFileName);
+                exit;
+
+            } 
+        
+            $data['gid'] = '2';
+            //新增合同
+            if($this->public_model->insert($this->member,$data)){
+                $yes[] = $currentRow;
+            }else{
+                $error[] = $currentRow;
+            }
+        }
+
+        $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+        
+        //            //日志
+        
+        $arr = array(
+            'log_url'=>$this->uri->uri_string(),
+            'user_id'=>$_SESSION['users']['user_id'],
+            'username'=>$_SESSION['users']['username'],
+            'log_ip'=>get_client_ip(),
+            'log_status'=>'1',
+            'log_message'=>"导入了职员信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+        );
+        add_system_log($arr);   
+        echo $arr['log_message'];
     }
 
 
