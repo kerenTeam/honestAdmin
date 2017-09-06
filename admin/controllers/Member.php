@@ -744,19 +744,67 @@ class Member extends Public_Controller {
     }
 
     //学历信息
-    
+    function Education(){
+        
+    }    
 
     //职业卫生
+    function occupational(){
+
+    }
 
     //注册安全
+    function security(){s
+
+    }
 
     //安全评价
+    function evaluate(){
+
+    }
 
     //专家
+    function expert(){
+
+    }
 
     //用户过审
 
     //删除用户
+    function del_user_member(){
+        if($_POST){
+            $id = $this->input->post('id');
+            //var_dump($id);
+            //删除用户
+            if($this->public_model->delete($this->member,'user_id',$id)){
+                //删除其他信息
+                $this->public_model->delete($this->user_contacts,'user_id',$id);
+                $this->public_model->delete($this->user_compact,'user_id',$id);
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"删除用户成功,用户id为".$id,
+                );
+                add_system_log($arr);
+                echo "1";exit;
+
+            }else{
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"删除用户失败,用户id为".$id,
+                );
+                add_system_log($arr);
+                echo "2";exit;
+            }
+        }
+    }
 
 
 
