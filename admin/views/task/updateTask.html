@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery-1.7.2.min.js"></script>
+
+    <style>
+        label {
+            color: #e6e6e6
+        }
+    </style>
+   
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+
+    <div class="container-fluid am-cf ">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 编辑任务 - &nbsp; 编辑 </small></div>
+            <p class="page-header-description">编辑任务使用</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="am-u-sm-12">
+                     <form action="<?php echo site_url('/Task/edit_task');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        <input type="hidden" name="id" value="<?php echo $task['id'];?>">
+                        <fieldset>
+                            <div class="searchForWd am-form-group">
+                                <label for="doc-vld-name-2">所属项目: </label>
+                                <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="project_id">
+                                     <option value="">请选择一项</option>
+                                    <?php foreach($project as $val):?>
+                                        <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $task['project_id']){echo "selected";}?> ><?php echo mb_substr($val['title'],'0','20');?></option>
+                                    <?php endforeach;?>
+                                    
+                                </select>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">完成时限: </label>
+                                <input type="text" id="doc-vld-name-2" name="completion_time" value="<?php echo $task['completion_time'];?>" minlength="2" placeholder="输入任务完成时限" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">去现场时间: </label>
+                                <input type="text" id="doc-vld-name-2" name="go_scene" value="<?php echo $task['go_scene'];?>" minlength="2" placeholder="输入去现场时间" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">报告第一编制人: </label>
+                                <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="compiling_personnel">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $task['compiling_personnel']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                </select>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">署名: </label>
+                                <input type="text" id="doc-vld-name-2" name="signature" value="<?php echo $task['signature'];?>" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">现场人员: </label>
+                                <input type="text" id="doc-vld-name-2" name="scene_user" value="<?php echo $task['scene_user'];?>" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">项目负责人: </label>
+                                <input type="text" id="doc-vld-name-2" name="responsibility" value="<?php echo $task['responsibility'];?>" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">项目审核人: </label>
+                                <input type="text" id="doc-vld-name-2" name="examine" value="<?php echo $task['examine'];?>" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">技术负责人: </label>
+                                <input type="text" id="doc-vld-name-2" name="technology_personnel" value="<?php echo $task['technology_personnel'];?>" />
+                            </div>
+                             <div class="am-form-group">
+                                <label for="doc-vld-name-2">任务描述(备注): </label>
+                                <input type="text" id="doc-vld-name-2" name="content" value="<?php echo $task['content'];?>" />
+                            </div>
+                        </fieldset>
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        <br> &nbsp;
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

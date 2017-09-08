@@ -125,6 +125,7 @@
                                             <tr>
                                                 <th>客户编号</th>
                                                 <th>名称</th>
+                                                <th>客户联系人</th>
                                                 <th>本公司对口人</th>
                                                 <th>行业</th>
                                                 <th>地址</th>
@@ -165,6 +166,7 @@
 
                                                     </div>
                                                 </td>
+                                                <td class="am-text-middle"><?php echo get_username($val['linkman']);?></td>
                                                 <td class="am-text-middle"><?php echo get_industryTitle($val['industry']);?></td>
                                                 <td class="am-text-middle"><?php echo $val['address'];?></td>
                                                 <td class="am-text-middle"><?php echo $val['postcode'];?></td>

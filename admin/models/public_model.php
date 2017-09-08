@@ -41,6 +41,13 @@ class public_model extends CI_Model
         $query = $this->db->where($where,$data)->order_by($sort,'desc')->get($table);
         return $query->result_array();
     }
+
+    //返回不等于的条件
+    function select_where_no($table,$data,$sort){
+          $query = $this->db->where('gid !=',$data)->order_by($sort,'desc')->get($table);
+        return $query->result_array();
+    }
+
     //带条件的分页查询
     function select_page_where($table,$where,$data,$page,$size,$sort){
         $query = $this->db->where($where,$data)->order_by($sort,'desc')->limit($size,$page)->get($table);
@@ -53,7 +60,25 @@ class public_model extends CI_Model
         $this->db->select('a.*, b.*');
         $this->db->from('h_project a');
         $this->db->join('h_contract b', 'b.contract_id = a.c_id','left');
-        $query = $this->db->where('del_state','0')->order_by('a.addtime','desc')->limit($size,$page)->get();
+        $query = $this->db->where('a.del_state','0')->order_by('a.addtime','desc')->limit($size,$page)->get();
+        return $query->result_array(); 
+    }
+
+    //返回任务
+    function select_task(){
+        $this->db->select('a.*, b.title');
+        $this->db->from('h_project_task a');
+        $this->db->join('h_project b', 'b.id = a.project_id','left');
+        $query = $this->db->where('a.state !=','0')->order_by('a.addtime','desc')->get();
+        return $query->result_array(); 
+    }
+
+    //根据分页返回任务
+    function select_task_page($page,$size){
+        $this->db->select('a.*, b.title');
+        $this->db->from('h_project_task a');
+        $this->db->join('h_project b', 'b.id = a.project_id','left');
+        $query = $this->db->where('a.state !=','0')->order_by('a.addtime','desc')->limit($size,$page)->get();
         return $query->result_array(); 
     }
 

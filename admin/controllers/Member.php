@@ -13,6 +13,11 @@ class Member extends Public_Controller {
     public $userGroup = "user_group";
     public $user_link = "user_contacts";//用户联系人
     public $user_compact = "user_compact";//劳动合同
+   public $user_education = "user_education";//学历
+   public $user_qualifications = "user_qualifications";//职卫
+   public $user_regsecurity = "user_regsecurity";//注安
+   public $user_safetyevaluation = "user_safetyevaluation";//安评
+   public $user_expert = "user_expert";//专家
     
     function __construct() {
         parent::__construct();
@@ -496,6 +501,7 @@ class Member extends Public_Controller {
 
         $data = array('lists'=>$listpage,'userGroup'=>$userGroup,'pages' => $this->pagination->create_links());
 
+  
 
         $this->load->view('adminOrUser/usersList.html',$data);
     }
@@ -743,29 +749,335 @@ class Member extends Public_Controller {
         }
     }
 
+
     //学历信息
-    function Education(){
-        
+    function education(){
+        if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_education,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增用户学历成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增用户学历失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_education,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"编辑用户学历成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"编辑用户学历失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
+        } else{
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_education,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/education.html',$data);
+        }     
     }    
 
     //职业卫生
     function occupational(){
-
+        if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_qualifications,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增用户职卫信息成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增用户职卫信息失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_qualifications,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"编辑用户职卫信息成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"编辑用户职卫信息失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
+        } else{
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_qualifications,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/zhiwei.html',$data);
+        }  
     }
 
     //注册安全
-    function security(){s
-
+    function security(){
+        if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_regsecurity,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增职员注安师证书成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增职员注安师证书失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_regsecurity,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"编辑职员注安师证书成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"编辑职员注安师证书失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
+        } else{
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_regsecurity,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/zhuan.html',$data);
+        }  
     }
 
     //安全评价
     function evaluate(){
-
+        if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_safetyevaluation,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增用户学历成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增用户学历失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_safetyevaluation,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"编辑用户学历成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"编辑用户学历失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
+        } else{
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_safetyevaluation,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/anpin.html',$data);
+        }  
     }
 
     //专家
     function expert(){
-
+        if($_POST){
+            $data = $this->input->post();
+            if($data['type'] == 'insert'){
+                unset($data['type']);
+                if($this->public_model->insert($this->user_expert,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"新增专家信息成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"新增专家信息失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }else{
+                unset($data['type']);
+                if($this->public_model->updata($this->user_expert,'user_id',$data['user_id'],$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"编辑专家信息成功,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+    
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"编辑专家信息失败,用户id为".$data['user_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Member/user_List')."'</script>";
+                }
+            }
+        } else{
+            $userid = intval($this->uri->segment(3));
+            //获取用户联系方式
+            $data['users'] = $this->public_model->select_info($this->user_expert,'user_id',$userid);
+            $data['userid'] = $userid;
+            $this->load->view('adminOrUser/userInfomation/expert.html',$data);
+        }  
     }
 
     //用户过审

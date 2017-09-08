@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="../../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <script src="../../assets/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery-1.7.2.min.js"></script>
     <style>
         label {
             color: #e6e6e6
@@ -25,7 +25,7 @@
 </head>
 
 <body data-type="widgets">
-    <script src="../../assets/js/theme.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
 
     <div class="container-fluid am-cf ">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -37,59 +37,88 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="am-u-sm-12">
+                <?php if(!empty($users)):?>
                     <form action="" class="am-form tpl-form-line-form" data-am-validator>
                         
                             <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         
                             <fieldset>
-                            
-
+                             <input type="hidden" name="type" value="edit">
+                            <input type="hidden" name="user_id" value="<?php echo $users['user_id'];?>">
+                         
                             <div class="am-form-group">
-                                <label for="doc-vld-name-2">员工编号: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">姓名: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">职称: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <label for="doc-vld-name-2">注册专业: </label>
+                                <input type="text" id="doc-vld-name-2" name="reg_profession" value="<?php echo $users['reg_profession'];?>" />
                             </div>
 
                             <div class="am-form-group">
-                                <label for="doc-vld-name-2">学历: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">所学专业: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">评价能力认定: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">评价证书编号: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">检测证书编号: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <label for="doc-vld-name-2">认定依据: </label>
+                                <input type="text" id="doc-vld-name-2" name="basis" value="<?php echo $users['basis'];?>" />
                             </div>
                             
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">执业资格证书编号: </label>
+                                <input type="text" id="doc-vld-name-2" name="practice_number" value="<?php echo $users['practice_number'];?>" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">执业证书编号: </label>
+                                <input type="text" id="doc-vld-name-2" name="practising_certificate" value="<?php echo $users['practising_certificate'];?>" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">注册类别: </label>
+                                <input type="text" id="doc-vld-name-2" name="reg_type" value="<?php echo $users['reg_type'];?>" />
+                            </div>
                             <div class="am-form-group">
                                     <label for="doc-vld-name-2">备注: </label>
-                                    <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                    <input type="text" id="doc-vld-name-2" name="remarks" value="<?php echo $users['remarks'];?>" />
                             </div>
-                           
                             
                         </fieldset>
                     </form>
+                <?php else:?>
+                     <form action="<?php echo site_url('/Member/security');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                        
+                            <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        
+                            <fieldset>
+                            
+                            <input type="hidden" name="type" value="insert">
+                            <input type="hidden" name="user_id" value="<?php echo $userid;?>">
+                         
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">注册专业: </label>
+                                <input type="text" id="doc-vld-name-2" name="reg_profession" value="" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">认定依据: </label>
+                                <input type="text" id="doc-vld-name-2" name="basis" value="" />
+                            </div>
+
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">执业资格证书编号: </label>
+                                <input type="text" id="doc-vld-name-2" name="practice_number" value="" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">执业证书编号: </label>
+                                <input type="text" id="doc-vld-name-2" name="practising_certificate" value="" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">注册类别: </label>
+                                <input type="text" id="doc-vld-name-2" name="reg_type" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                    <label for="doc-vld-name-2">备注: </label>
+                                    <input type="text" id="doc-vld-name-2" name="remarks" value="" />
+                            </div>
+                        </fieldset>
+                    </form>
+                <?php endif;?>
                 </div>
             </div>
         </div>

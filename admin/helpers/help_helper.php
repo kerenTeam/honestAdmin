@@ -92,4 +92,13 @@ function get_user_group($gid){
     return $ret['group_name'];
 }
 
+
+//获取用户名称
+function get_username($userid){
+     $CI = &get_instance();
+    $a = $CI->db->query("select * from h_user_member where user_id ='$userid'");
+    $ret = $a->row_array();
+    return $ret['username'];
+}
+
 ?>

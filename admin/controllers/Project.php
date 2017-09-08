@@ -69,7 +69,7 @@ class Project extends Public_Controller
             $config['last_link']= '末页';
             $config['num_links'] = 4;
             
-            $total = count($this->public_model->select_where($this->project,'de_state','0',''));
+            $total = count($this->public_model->select_where($this->project,'del_state','0',''));
                 $config['total_rows'] = $total;
         
             $this->load->library('pagination');//加载ci pagination类
@@ -140,7 +140,7 @@ class Project extends Public_Controller
                         'log_message'=>"编辑项目成功,项目名称为".$data['title'],
                     );
                     add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Project/index')."'</script>";
+                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
 
                 }else{
                     $arr = array(
@@ -152,7 +152,7 @@ class Project extends Public_Controller
                         'log_message'=>"编辑项目失败,项目名称为".$data['title'],
                     );
                     add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.location.href='".site_url('/Project/index')."'</script>";
+                    echo "<script>alert('操作失败！');window.parent.location.reload();";
                 }
             }else{
 

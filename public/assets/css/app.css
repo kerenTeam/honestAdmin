@@ -1,7 +1,7 @@
 
  ::-webkit-scrollbar {
       width: 0px;
-      height: 4px;
+      height: 8px;
   }
   ::-webkit-scrollbar-thumb {
       border-radius: 5px;
@@ -1193,10 +1193,10 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
   opacity: 1;
 }
 .theme-white .page-header-description {
-  color: #666;
+  color: #333;
 }
 .theme-white .page-header-heading {
-  color: #666;
+  color: #333;
 }
 .theme-white ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content .menu-messages-content-time {
   color: #96a5aa;

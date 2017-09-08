@@ -8,6 +8,7 @@ class Customer extends Public_Controller
     public $customer = 'customer';
     public $customer_user = 'customer_contacts';
     public $category = 'category';
+    public $member = 'user_member';
     function __construct() {
         parent::__construct();
     }
@@ -120,6 +121,8 @@ class Customer extends Public_Controller
         }else{
              //获取行业类别
             $data['industry'] = $this->public_model->select_where($this->category,'type','1','');
+            //获取所有用户
+            $data['users'] = $this->public_model->select_where_no($this->member,'1','');
             $this->load->view('customer/newCompany.html',$data);
         }
         

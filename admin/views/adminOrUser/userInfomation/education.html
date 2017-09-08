@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public');?>/assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="../../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <script src="../../assets/js/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('public');?>/assets/js/jquery-1.7.2.min.js"></script>
     <style>
         label {
             color: #e6e6e6
@@ -25,7 +25,7 @@
 </head>
 
 <body data-type="widgets">
-    <script src="../../assets/js/theme.js"></script>
+    <script src="<?php echo base_url('public');?>/assets/js/theme.js"></script>
 
     <div class="container-fluid am-cf ">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
@@ -37,79 +37,136 @@
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
             <div class="widget am-cf">
                 <div class="am-u-sm-12">
-                    <form action="" class="am-form tpl-form-line-form" data-am-validator>
+                <?php if(!empty($users)):?>
+                    <form action="<?php echo site_url('/Member/education');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
                         
                             <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         
                             <fieldset>
-                            
-
                             <div class="am-form-group">
-                                <label for="doc-vld-name-2">员工编号: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">姓名: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
-                            <div class="am-form-group">
+                            <input type="hidden" name="type" value="edit">
+                            <input type="hidden" name="user_id" value="<?php echo $users['user_id'];?>">
                                 <label for="doc-vld-name-2">1本专科专业: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="one_major" value="<?php echo $users['one_major'];?>" />
                             </div>
-
+                    
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">1学校: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="one_school" value="<?php echo $users['one_school'];?>" />
                             </div>
 
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">1毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="one_graduation" value="<?php echo $users['one_graduation'];?>" />
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">1层次: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="one_education" value="<?php echo $users['one_education'];?>" />
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">2本专科专业: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="tow_major" value="<?php echo $users['tow_major'];?>" />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">2学校: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="tow_school" value="<?php echo $users['tow_school'];?>" />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">2毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                            </div>
+                                <input type="text" id="doc-vld-name-2" name="tow_graduation" value="<?php echo $users['tow_graduation'];?>" />
+                            </div> 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">2层次: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="tow_education" value="<?php echo $users['tow_education'];?>" />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">3硕博士专业: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="three_major" value="<?php echo $users['three_major'];?>" />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">3学校: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="three_school" value="<?php echo $users['three_school'];?>" />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">3毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="three_graduation" value="<?php echo $users['three_graduation'];?>" />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">3层次: </label>
-                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" id="doc-vld-name-2" name="three_education" value="<?php echo $users['three_education'];?>" />
                             </div>
 
 
                             
                         </fieldset>
                     </form>
+                <?php else:?>
+                    <form action="<?php echo site_url('/Member/education');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                        
+                            <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                            <fieldset>
+                            <div class="am-form-group">
+                            <input type="hidden" name="type" value="insert">
+                            <input type="hidden" name="user_id" value="<?php echo $userid;?>">
+                                <label for="doc-vld-name-2">1本专科专业: </label>
+                                <input type="text" id="doc-vld-name-2" name="one_major" value="" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">1学校: </label>
+                                <input type="text" id="doc-vld-name-2" name="one_school" value="" />
+                            </div>
+
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">1毕业时间: </label>
+                                <input type="text" id="doc-vld-name-2" name="one_graduation" value="" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">1层次: </label>
+                                <input type="text" id="doc-vld-name-2" name="one_education" value="" />
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">2本专科专业: </label>
+                                <input type="text" id="doc-vld-name-2" name="tow_major" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">2学校: </label>
+                                <input type="text" id="doc-vld-name-2" name="tow_school" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">2毕业时间: </label>
+                                <input type="text" id="doc-vld-name-2" name="tow_graduation" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">2层次: </label>
+                                <input type="text" id="doc-vld-name-2" name="tow_education" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">3硕博士专业: </label>
+                                <input type="text" id="doc-vld-name-2" name="three_major" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">3学校: </label>
+                                <input type="text" id="doc-vld-name-2" name="three_school" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">3毕业时间: </label>
+                                <input type="text" id="doc-vld-name-2" name="three_graduation" value="" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">3层次: </label>
+                                <input type="text" id="doc-vld-name-2" name="three_education" value="" />
+                            </div>
+                        </fieldset>
+                    </form>
+
+                <?php endif;?>
                 </div>
             </div>
         </div>

@@ -157,15 +157,15 @@
                                                             style="color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
                                                         <a class="modal" data-id="<?php echo site_url('/Member/user_laborContract/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:azure "> <i class="am-icon-pencil"></i> 劳动合同 </a>
-                                                        <a class="modal" data-id="./userInfomation/education.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                        <a class="modal" data-id="<?php echo site_url('/Member/education/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
-                                                        <a class="modal" data-id="./userInfomation/zhiwei.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                        <a class="modal" data-id="<?php echo site_url('/Member/occupational/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:yellowgreen"> <i class="am-icon-pencil"></i> 职卫师 </a>
-                                                        <a class="modal" data-id="./userInfomation/zhuan.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                        <a class="modal" data-id="<?php echo site_url('/Member/security/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:blueviolet"> <i class="am-icon-pencil"></i> 注安师 </a>
-                                                        <a class="modal" data-id="./userInfomation/anpin.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                        <a class="modal" data-id="<?php echo site_url('/Member/evaluate/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:cadetblue"> <i class="am-icon-pencil"></i> 安评师 </a>
-                                                        <a class="modal" data-id="./userInfomation/expert.html?id=001" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                        <a class="modal" data-id="<?php echo site_url('/Member/expert/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
                                                             style="color:darksalmon"> <i class="am-icon-pencil"></i> 专 家  </a>
 
                                                     </div>
@@ -178,9 +178,9 @@
                                                         </a>
                                                         <!-- 非管理人员 无此按钮-->
                                                         <?php if($val['status'] == 0):?>
-                                                        <a href="javascript:;" data-id="1" class="check" style="color:green">
+                                                     <!--    <a href="javascript:;" data-id="1" class="check" style="color:green">
                                                             <i class="am-icon-check"></i> 过审
-                                                        </a>
+                                                        </a> -->
                                                         <?php endif;?>
                                                     </div>
                                                 </td>

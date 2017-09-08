@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/amazeui.min.js"></script>
+
+    <style>
+        /* label {
+            color: #e6e6e6
+        } */
+        /* .searchFor{border: 1px solid rgba(255, 255, 255, 0.2) !important;}
+        .searchForW{width: 70%}
+        .searchForWd{margin-bottom: 15%}
+        .searchForWdF{float: initial;padding: 0}
+        .searchForWd .am-radio{line-height: 40px}
+        .searchForWd .am-radio input{margin-top: 15px;} */
+        .am-selected-search input{border: 1px solid #555 !important;}
+        /* .am-selected-status, .theme-black .tpl-form-line-form .am-btn-default{color: #fff;} */
+    </style>
+  
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+    
+    <div class="container-fluid am-cf ">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 客户管理 <small> - 单位列表 - &nbsp; 新增 </small></div>
+            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="am-u-sm-12">
+                    <form action="<?php echo site_url('/Task/add_task');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                            
+                        
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        
+                        <fieldset>
+                            <div class="searchForWd am-form-group">
+                                <label for="doc-vld-name-2">所属项目: </label>
+                                <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="project_id">
+                                     <option value="">请选择一项</option>
+                                    <?php foreach($project as $val):?>
+                                        <option value="<?php echo $val['id'];?>"><?php echo mb_substr($val['title'],'0','20');?></option>
+                                    <?php endforeach;?>
+                                    
+                                </select>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">完成时限: </label>
+                                <input type="text" id="doc-vld-name-2" name="completion_time" minlength="2" placeholder="输入任务完成时限" required/>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">去现场时间: </label>
+                                <input type="text" id="doc-vld-name-2" name="go_scene" minlength="2" placeholder="输入去现场时间" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">报告第一编制人: </label>
+                                <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="compiling_personnel">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>"><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                    </select>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">署名: </label>
+                                <input type="text" id="doc-vld-name-2" name="signature" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">现场人员: </label>
+                                <input type="text" id="doc-vld-name-2" name="scene_user" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">项目负责人: </label>
+                                <input type="text" id="doc-vld-name-2" name="responsibility" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">项目审核人: </label>
+                                <input type="text" id="doc-vld-name-2" name="examine" />
+                            </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">技术负责人: </label>
+                                <input type="text" id="doc-vld-name-2" name="technology_personnel" />
+                            </div>
+                        </fieldset>
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        <br> &nbsp;
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

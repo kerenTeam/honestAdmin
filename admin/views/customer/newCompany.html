@@ -66,6 +66,17 @@
                                 <input type="text" name="address" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
 
                             </div>
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">本公司对口人: </label>
+                                <select name="linkman" data-am-selected="{searchBox: 1,maxHeight: 100}" required>
+                                    <option value="">请选择一项</option>
+                                    <?php foreach($users as $v):?>
+                                        <option value="<?php echo $v['user_id'];?>"><?php echo $v['username'];?></option>
+                                    <?php endforeach;?>
+                                  
+                                </select>
+
+                            </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">邮编: </label>
