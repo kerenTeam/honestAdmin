@@ -42,7 +42,7 @@
             <div class="widget am-cf">
                 <div class="am-u-sm-12">
                 <?php if(!empty($taskEdition)):?>
-                     <form action="<?php echo site_url('/Task/add_task_edition');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                     <form action="<?php echo site_url('/Task/final_edition');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
 
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         <input type="hidden" name="edition" value="edit">
@@ -87,7 +87,7 @@
                         <br> &nbsp;
                     </form>
                 <?php else:?>
-                     <form action="<?php echo site_url('/Task/add_task_edition');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                     <form action="<?php echo site_url('/Task/final_edition');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
 
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         <input type="hidden" name="task_id" value="<?php echo $record_id;?>">

@@ -82,6 +82,12 @@ class public_model extends CI_Model
         return $query->result_array(); 
     }
 
+    //多条件查询
+    function select_where_many($table,$where,$id,$where1,$data1){
+        $query = $this->db->where($where,$id)->where($where1,$data1)->get($table);
+        return $query->row_array();
+    }
+
 }
 
 

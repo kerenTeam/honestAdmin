@@ -215,8 +215,9 @@ class Task extends Public_Controller
     function add_task_edition(){
       if($_POST){
           $data = $this->input->post();
-            if($data['type'] == 'insert'){
-                unset($data['type']);
+            if($data['edition'] == 'insert'){
+                unset($data['edition']);
+                $data['type'] = '1';
                 if($this->public_model->insert($this->project_task_edition,$data)){
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
@@ -241,7 +242,7 @@ class Task extends Public_Controller
                     echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
                 }
             }else{
-                unset($data['type']);
+                unset($data['edition']);
                 if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
@@ -268,11 +269,11 @@ class Task extends Public_Controller
 
             }
       }else{
-        $id = intval($this->uri->segment('3'));
-        var_dump($id);
-
-          $this->load->view('task/taskStates.html');
-
+          $id = intval($this->uri->segment('3'));
+          //h获取送审版记录
+          $data['taskEdition'] = $this->public_model->select_where_many($this->project_task_edition,'task_id',$id,'type','1');
+          $data['record_id'] = $id;
+          $this->load->view('task/taskStates.html',$data);
       }
     }
 
@@ -280,8 +281,9 @@ class Task extends Public_Controller
     function revise_edition(){
       if($_POST){
           $data = $this->input->post();
-            if($data['type'] == 'insert'){
-                unset($data['type']);
+            if($data['edition'] == 'insert'){
+                unset($data['edition']);
+                $data['type'] = '2';
                 if($this->public_model->insert($this->project_task_edition,$data)){
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
@@ -306,7 +308,7 @@ class Task extends Public_Controller
                     echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
                 }
             }else{
-                unset($data['type']);
+                unset($data['edition']);
                 if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
@@ -330,13 +332,14 @@ class Task extends Public_Controller
                     add_system_log($arr);
                     echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
                 }
-
             }
       }else{
+          $id = intval($this->uri->segment('3'));
+          //
 
-
-
-          //$this->load->view('project/projectAdmin.html',$data);
+          $data['taskEdition'] = $this->public_model->select_where_many($this->project_task_edition,'task_id',$id,'type','2');
+          $data['record_id'] = $id;
+          $this->load->view('task/revise.html',$data);
 
       }
     }
@@ -346,8 +349,9 @@ class Task extends Public_Controller
     function final_edition(){
        if($_POST){
           $data = $this->input->post();
-            if($data['type'] == 'insert'){
-                unset($data['type']);
+            if($data['edition'] == 'insert'){
+                unset($data['edition']);
+                $data['type']= '3';
                 if($this->public_model->insert($this->project_task_edition,$data)){
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
@@ -372,7 +376,7 @@ class Task extends Public_Controller
                     echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
                 }
             }else{
-                unset($data['type']);
+                unset($data['edition']);
                 if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
@@ -399,8 +403,11 @@ class Task extends Public_Controller
 
             }
       }else{
+          $id = intval($this->uri->segment('3'));
+          $data['taskEdition'] = $this->public_model->select_where_many($this->project_task_edition,'task_id',$id,'type','3');
 
-          //$this->load->view('project/projectAdmin.html',$data);
+          $data['record_id'] = $id;
+          $this->load->view('task/final.html',$data);
 
       }
     }
