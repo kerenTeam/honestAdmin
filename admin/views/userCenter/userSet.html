@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../assets/css/app.css">
+
+
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="http://www.jq22.com/demo/silviomoreto-bootstrap20160104/bootstrap-select.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/demo/silviomoreto-bootstrap20160104/bootstrap-select.css">
+
+    <!-- 3.0 -->
+
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <!-- 2.3.2
+      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+     
+  
+   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.js"></script>
+      -->
+
+    <script type="text/javascript">
+        $(window).on('load', function () {
+
+
+            $('.selectpicker').selectpicker({
+                'selectedText': 'cat'
+            });
+
+
+            // $('.selectpicker').selectpicker('hide');
+        });
+    </script>
+
+
+    <style>
+        /* label {
+            color: #e6e6e6
+        } */
+        /* .searchFor{border: 1px solid rgba(255, 255, 255, 0.2) !important;}
+        .searchForW{width: 70%}
+        .searchForWd{margin-bottom: 15%}
+        .searchForWdF{float: initial;padding: 0}
+        .searchForWd .am-radio{line-height: 40px}
+        .searchForWd .am-radio input{margin-top: 15px;} */
+
+        .am-selected-search input {
+            border: 1px solid #555 !important;
+        }
+        .bootstrap-select > .btn {
+            width: 175% !important;
+        }
+        /* .am-selected-status, .theme-black .tpl-form-line-form .am-btn-default{color: #fff;} */
+    </style>
+    <script>
+        console.log('来自iframe获取的数据', (window.location.href).split('?'))
+    </script>
+</head>
+
+<body data-type="widgets">
+    <script src="../assets/js/theme.js"></script>
+
+    <div class="container-fluid am-cf ">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 客户管理 <small> - 单位列表 - &nbsp; 新增 </small></div>
+            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="am-u-sm-12">
+                    <form action="" class="am-form tpl-form-line-form" data-am-validator>
+
+
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <fieldset>
+
+
+
+
+                            <div class="am-g">
+                                    <div class="am-u-sm-2">
+                                                <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">主要负责人: </label>
+                                                    
+                                                </div>
+                                    </div>
+                                    <div class="am-u-sm-10">
+                                            <div class="am-form-group">
+                                                    <label for="id_select"></label>
+                                                    <select id="id_select" class="selectpicker bla bla bli"  data-live-search="true">
+                                                                            <option>cow</option>
+                                                                            <option>bull</option>
+                                                                            <option>ASD</option>
+                                                                            <option selected>Bla</option>
+                                                                            <option>Ble</option>
+                                                                            </optgroup>
+                                                                          </select>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="am-g">
+                                    <div class="am-u-sm-2">
+                                                <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">组员选择 &nbsp;&nbsp;: </label>
+                                                    
+                                                </div>
+                                    </div>
+                                    <div class="am-u-sm-10">
+                                            <div class="am-form-group">
+                                                    <label for="id_select"></label>
+                                                    <select id="id_select"   class="selectpicker bla bla bli" multiple data-live-search="true">
+                                                                            <option>cow</option>
+                                                                            <option>bull</option>
+                                                                            <option>ASD</option>
+                                                                            <option selected>Bla</option>
+                                                                            <option>Ble</option>
+                                                                            </optgroup>
+                                                                          </select>
+                                            </div>
+                                    </div>
+                            </div>
+
+
+                            <div class="searchForWd">
+
+
+                            </div>
+
+
+
+
+                        </fieldset>
+                        <br>
+                        <br>
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <br> &nbsp;
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+
+
+</html>

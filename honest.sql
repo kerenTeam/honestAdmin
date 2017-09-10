@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-08 16:34:58
+Date: 2017-09-10 18:24:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -96,48 +96,85 @@ CREATE TABLE `h_contract` (
   `prepay` varchar(20) DEFAULT NULL COMMENT '约定预付',
   `expenditure` varchar(20) DEFAULT NULL COMMENT '约定代支',
   `remaks` varchar(255) DEFAULT NULL COMMENT '备注',
+  `completion_status` int(11) DEFAULT '0' COMMENT '完成状态   0未完成   1已完成',
+  `complete_time` datetime DEFAULT NULL COMMENT '完成时间',
   PRIMARY KEY (`contract_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=456 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_contract
 -- ----------------------------
-INSERT INTO `h_contract` VALUES ('1', '2013', '13CD001', '四川', '成都', null, null, null, '1', null, '41275', '金红英', '195000', '2017-08-29 16:43:41', '中国电子科技集团公司第十研究所XXX生产能力建设项目（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('32', '2013', '13AB001', '四川', '阿坝', null, null, null, '0', null, '41275', '朱新国', '10000', '2017-08-29 16:43:41', '黑水县冰川加气站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('33', '2013', '13AB002', '四川', '阿坝', null, null, null, '0', null, '41275', '朱新国', '10000', '2017-08-29 16:43:41', '红原县白河液化气储配站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('23', '2013', '13BZH002', '四川', '成都', null, null, null, '0', null, '41275', '唐蓉生', '30000', '2017-08-29 16:43:41', '四川新路设备吊装工程有限公司（成都傲鼎新路件运输有限公司）安全生产标准化三级达标咨询（项目停止，不退款）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('2', '2013', '13CD002', '四川', '成都', null, null, null, '1', null, '41275', '金红英', '98000', '2017-08-29 16:43:41', '中国电子科技集团公司第十研究所XXX研制保障条件建设项目（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('3', '2013', '13CD003', '四川', '成都', null, null, null, '0', null, '41275', '公司', '5000', '2017-08-29 16:43:41', '四川鑫达实业有限公司青羊加油站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('4', '2013', '13CD004', '四川', '成都', null, null, null, '0', null, '41275', '朱新国', '35000', '2017-08-29 16:43:41', '家得润生态房屋有限公司（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('31', '2013', '13CD007', '四川', '成都', null, null, null, '0', null, '41275', '曹燕', '5000', '2017-08-29 16:43:41', '成都申华贸易有限公司经营危险化学品', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('35', '2013', '13CD008', '四川', '成都', null, null, null, '0', null, '41275', '曹燕', '8000', '2017-08-29 16:43:41', '成都荆竹花涂料有限公司危险化学品生产现状（无合同）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('36', '2013', '13CD009', '四川', '成都', null, null, null, '0', null, '41275', '公司', '3500', '2017-08-29 16:43:41', '中石化四川销售有限公司金牛永宏加油站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('37', '2013', '13CD010-1', '四川', '成都', null, null, null, '0', null, '41275', '金红英', '100000', '2017-08-29 16:43:41', '中嘉汽车制造（成都）有限公司（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('38', '2013', '13CD010-2', '四川', '成都', null, null, null, '0', null, '41275', '金红英', '150000', '2017-08-29 16:43:41', '中嘉汽车制造（成都）有限公司（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('40', '2013', '13CD011', '四川', '成都', null, null, null, '0', null, '41275', '公司', '2600', '2017-08-29 16:43:41', '双流县华阳经济区供销合作社', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('51', '2013', '13CD012', '四川', '成都', null, null, null, '0', null, '41306', '金红英', '25000', '2017-08-29 16:43:41', '成都时代立夫科技有限公司半导体及精密抛光材料项目（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('52', '2013', '13CD013', '四川', '成都', null, null, null, '0', null, '41306', '金红英', '25000', '2017-08-29 16:43:41', '成都时代立夫科技有限公司半导体及精密抛光材料项目（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('60', '2013', '13CD014-1', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站A站）（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('61', '2013', '13CD014-2', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站A站）（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('62', '2013', '13CD014-3', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站B站）（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('86', '2013', '13CD021', '四川', '成都', null, null, null, '0', null, '41334', '汪彪', '3500', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川成都石油分公司建工加油站（无合同）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('251', '2013', '13CD061', '四川', '成都', null, null, null, '0', null, '41426', '汪彪', '3500', '2017-08-29 16:43:41', '成都市市政十陵加油站（无合同）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('56', '2013', '13DY001', '四川', '德阳', null, null, null, '0', null, '41306', '天成', '95000', '2017-08-29 16:43:41', '四川汉龙新材料有限公司核电及重装高性能特种焊接材料产业化项目（含评审费）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('45', '2013', '13DZ001-1', '四川', '达州', null, null, null, '0', null, '41275', '郭三俊', '6000', '2017-08-29 16:43:41', '万源市方欣实业有限责任公司茶垭加油站新建项目', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('46', '2013', '13DZ001-2', '四川', '达州', null, null, null, '0', null, '41275', '郭三俊', '7000', '2017-08-29 16:43:41', '万源市方欣实业有限责任公司茶垭加油站新建项目', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('10', '2013', '13GA001', '四川', '广安', null, null, null, '0', null, '41275', '罗志远', '5000', '2017-08-29 16:43:41', '广安徐易商贸有限责任公司', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('5', '2013', '13LSZ001-1', '四川', '凉山州', null, null, null, '0', null, '41275', '陈光军', '17500', '2017-08-29 16:43:41', '凉山州通达科技有限公司会理县溢壕矿业开发有限公司箐门口尾矿矿库新建工程', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('6', '2013', '13LSZ001-2', '四川', '凉山州', null, null, null, '0', null, '41275', '陈光军', '17500', '2017-08-29 16:43:41', '凉山州通达科技有限公司会理县溢壕矿业开发有限公司箐门口尾矿矿库新建工程', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('11', '2013', '13LZ001', '四川', '泸州', null, null, null, '0', null, '41275', '朱新国', '5000', '2017-08-29 16:43:41', '中石化泸州头塘加油站安全现状', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('30', '2013', '13MY001', '四川', '绵阳', null, null, null, '0', null, '41275', '罗志远', '3500', '2017-08-29 16:43:41', '江油市绍伦商贸有限公司让水加油站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('455', '2013', '13MY021', '四川', '绵阳', null, null, null, '0', null, '41487', '汪彪', '3500', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川绵阳石油分公司山江加油站（无合同）', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('41', '2013', '13NC002-1', '四川', '南充', null, null, null, '0', null, '41275', '汪彪', '5000', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川南充石油分公司广安华蓥明月加油站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('42', '2013', '13NC002-2', '四川', '南充', null, null, null, '0', null, '41275', '汪彪', '5000', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川南充石油分公司广安华蓥明月加油站', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('53', '2013', '13NC003-1', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '4000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('54', '2013', '13NC003-2', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '4000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('55', '2013', '13NC004', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '8000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('34', '2013', '13TL001', '四川', '德阳', null, null, null, '0', null, '41275', '汪彪', '35000', '2017-08-29 16:43:41', '四川龙蟒磷化工有限公司铁路专用线及其附属设施安全现状评价', '1', '0', null, null, null, null, null, null);
-INSERT INTO `h_contract` VALUES ('39', '2013', '13TL002', '四川', '自贡', null, null, null, '0', null, '41275', '朱新国', '26000', '2017-08-29 16:43:41', '中国石油四川自贡销售分公司舒平油库铁路专用线及附属设施安全现状', '1', '0', null, null, null, null, null, null);
+INSERT INTO `h_contract` VALUES ('1', '2013', '13CD001', '四川', '成都', null, null, null, '1', null, '41275', '金红英', '195000', '2017-08-29 16:43:41', '中国电子科技集团公司第十研究所XXX生产能力建设项目（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('32', '2013', '13AB001', '四川', '阿坝', null, null, null, '0', null, '41275', '朱新国', '10000', '2017-08-29 16:43:41', '黑水县冰川加气站', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('33', '2013', '13AB002', '四川', '阿坝', null, null, null, '0', null, '41275', '朱新国', '10000', '2017-08-29 16:43:41', '红原县白河液化气储配站', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('23', '2013', '13BZH002', '四川', '成都', null, null, null, '0', null, '41275', '唐蓉生', '30000', '2017-08-29 16:43:41', '四川新路设备吊装工程有限公司（成都傲鼎新路件运输有限公司）安全生产标准化三级达标咨询（项目停止，不退款）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('2', '2013', '13CD002', '四川', '成都', null, null, null, '1', null, '41275', '金红英', '98000', '2017-08-29 16:43:41', '中国电子科技集团公司第十研究所XXX研制保障条件建设项目（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('3', '2013', '13CD003', '四川', '成都', null, null, null, '0', null, '41275', '公司', '5000', '2017-08-29 16:43:41', '四川鑫达实业有限公司青羊加油站', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('4', '2013', '13CD004', '四川', '成都', null, null, null, '0', null, '41275', '朱新国', '35000', '2017-08-29 16:43:41', '家得润生态房屋有限公司（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('31', '2013', '13CD007', '四川', '成都', null, null, null, '0', null, '41275', '曹燕', '5000', '2017-08-29 16:43:41', '成都申华贸易有限公司经营危险化学品', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('35', '2013', '13CD008', '四川', '成都', null, null, null, '0', null, '41275', '曹燕', '8000', '2017-08-29 16:43:41', '成都荆竹花涂料有限公司危险化学品生产现状（无合同）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('36', '2013', '13CD009', '四川', '成都', null, null, null, '0', null, '41275', '公司', '3500', '2017-08-29 16:43:41', '中石化四川销售有限公司金牛永宏加油站', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('37', '2013', '13CD010-1', '四川', '成都', null, null, null, '0', null, '41275', '金红英', '100000', '2017-08-29 16:43:41', '中嘉汽车制造（成都）有限公司（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('38', '2013', '13CD010-2', '四川', '成都', null, null, null, '0', null, '41275', '金红英', '150000', '2017-08-29 16:43:41', '中嘉汽车制造（成都）有限公司（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('40', '2013', '13CD011', '四川', '成都', null, null, null, '0', null, '41275', '公司', '2600', '2017-08-29 16:43:41', '双流县华阳经济区供销合作社', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('51', '2013', '13CD012', '四川', '成都', null, null, null, '0', null, '41306', '金红英', '25000', '2017-08-29 16:43:41', '成都时代立夫科技有限公司半导体及精密抛光材料项目（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('52', '2013', '13CD013', '四川', '成都', null, null, null, '0', null, '41306', '金红英', '25000', '2017-08-29 16:43:41', '成都时代立夫科技有限公司半导体及精密抛光材料项目（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('60', '2013', '13CD014-1', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站A站）（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('61', '2013', '13CD014-2', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站A站）（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('62', '2013', '13CD014-3', '四川', '成都', null, null, null, '0', null, '41306', '汪彪', '10000', '2017-08-29 16:43:41', '中国航油集团四川铁投石油有限责任公司宜泸高速宜宾长宁服务区南北加油站（宜宾长宁服务区加油站B站）（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('86', '2013', '13CD021', '四川', '成都', null, null, null, '0', null, '41334', '汪彪', '3500', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川成都石油分公司建工加油站（无合同）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('251', '2013', '13CD061', '四川', '成都', null, null, null, '0', null, '41426', '汪彪', '3500', '2017-08-29 16:43:41', '成都市市政十陵加油站（无合同）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('56', '2013', '13DY001', '四川', '德阳', null, null, null, '0', null, '41306', '天成', '95000', '2017-08-29 16:43:41', '四川汉龙新材料有限公司核电及重装高性能特种焊接材料产业化项目（含评审费）', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('45', '2013', '13DZ001-1', '四川', '达州', null, null, null, '0', null, '41275', '郭三俊', '6000', '2017-08-29 16:43:41', '万源市方欣实业有限责任公司茶垭加油站新建项目', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('46', '2013', '13DZ001-2', '四川', '达州', null, null, null, '0', null, '41275', '郭三俊', '7000', '2017-08-29 16:43:41', '万源市方欣实业有限责任公司茶垭加油站新建项目', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('10', '2013', '13GA001', '四川', '广安', null, null, null, '0', null, '41275', '罗志远', '5000', '2017-08-29 16:43:41', '广安徐易商贸有限责任公司', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('5', '2013', '13LSZ001-1', '四川', '凉山州', null, null, null, '0', null, '41275', '陈光军', '17500', '2017-08-29 16:43:41', '凉山州通达科技有限公司会理县溢壕矿业开发有限公司箐门口尾矿矿库新建工程', '1', '0', null, null, null, null, null, null, '0', null);
+INSERT INTO `h_contract` VALUES ('6', '2013', '13LSZ001-2', '四川', '凉山州', null, null, null, '0', null, '41275', '陈光军', '17500', '2017-08-29 16:43:41', '凉山州通达科技有限公司会理县溢壕矿业开发有限公司箐门口尾矿矿库新建工程', '1', '0', null, null, null, null, null, null, '1', '2017-09-09 17:02:07');
+INSERT INTO `h_contract` VALUES ('11', '2013', '13LZ001', '四川', '泸州', null, null, null, '0', null, '41275', '朱新国', '5000', '2017-08-29 16:43:41', '中石化泸州头塘加油站安全现状', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('30', '2013', '13MY001', '四川', '绵阳', null, null, null, '0', null, '41275', '罗志远', '3500', '2017-08-29 16:43:41', '江油市绍伦商贸有限公司让水加油站', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('455', '2013', '13MY021', '四川', '绵阳', null, null, null, '0', null, '41487', '汪彪', '3500', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川绵阳石油分公司山江加油站（无合同）', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('41', '2013', '13NC002-1', '四川', '南充', null, null, null, '0', null, '41275', '汪彪', '5000', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川南充石油分公司广安华蓥明月加油站', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('42', '2013', '13NC002-2', '四川', '南充', null, null, null, '0', null, '41275', '汪彪', '5000', '2017-08-29 16:43:41', '中国石油化工股份有限公司四川南充石油分公司广安华蓥明月加油站', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('53', '2013', '13NC003-1', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '4000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('54', '2013', '13NC003-2', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '4000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('55', '2013', '13NC004', '四川', '南充', null, null, null, '0', null, '41306', '罗志成', '8000', '2017-08-29 16:43:41', '南部县流马加油站新建加油站项目', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('34', '2013', '13TL001', '四川', '德阳', null, null, null, '0', null, '41275', '汪彪', '35000', '2017-08-29 16:43:41', '四川龙蟒磷化工有限公司铁路专用线及其附属设施安全现状评价', '1', '0', null, null, null, null, null, null, '1', null);
+INSERT INTO `h_contract` VALUES ('39', '2013', '13TL002', '四川', '自贡', null, null, null, '0', null, '41275', '朱新国', '26000', '2017-08-29 16:43:41', '中国石油四川自贡销售分公司舒平油库铁路专用线及附属设施安全现状', '1', '0', null, null, null, null, null, null, '1', null);
+
+-- ----------------------------
+-- Table structure for h_contract_account
+-- ----------------------------
+DROP TABLE IF EXISTS `h_contract_account`;
+CREATE TABLE `h_contract_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '合同收支表',
+  `type` int(11) DEFAULT NULL COMMENT '收支类型   1收入    2支出    3开票',
+  `contract_id` int(11) DEFAULT NULL COMMENT '合同id',
+  `price` varchar(255) DEFAULT NULL COMMENT '金额',
+  `voucher` varchar(255) DEFAULT NULL COMMENT '凭证',
+  `time` varchar(200) DEFAULT NULL,
+  `handler` varchar(255) DEFAULT NULL COMMENT '经办人',
+  `receivables` varchar(255) DEFAULT NULL COMMENT '收款方式',
+  `detailed` varchar(255) DEFAULT NULL COMMENT '明细',
+  `reimbursement` varchar(255) DEFAULT NULL COMMENT '报销人',
+  `approval` varchar(255) DEFAULT NULL COMMENT '批准人',
+  `billing_type` varchar(255) DEFAULT NULL COMMENT '开票类型',
+  `invoice_num` varchar(255) DEFAULT NULL COMMENT '发票号',
+  `remaks` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of h_contract_account
+-- ----------------------------
+INSERT INTO `h_contract_account` VALUES ('2', '2', '6', '200', '2345', '10-09-2017', '145', '23424', null, null, null, null, null, null);
+INSERT INTO `h_contract_account` VALUES ('3', '1', '6', '200', '3456', '07-09-2017', '164', '银行卡', '3456', null, null, null, null, null);
+INSERT INTO `h_contract_account` VALUES ('4', '1', '6', '23456', '3424', '', '142', '23424', '23423424', null, null, null, null, null);
+INSERT INTO `h_contract_account` VALUES ('5', '1', '6', '23456', '45435', '', '2', '3455', '34535', null, null, null, null, null);
+INSERT INTO `h_contract_account` VALUES ('6', '2', '6', '2345', '3455', '', '', '42434', null, '139', '143', null, null, '345');
+INSERT INTO `h_contract_account` VALUES ('7', '2', '6', '2345', '34', '15-09-2017', null, '34535', null, '140', '141', null, null, '345345');
+INSERT INTO `h_contract_account` VALUES ('8', '2', '6', '34', '34', '05-10-2017', null, '34', null, '139', '142', null, null, '');
+INSERT INTO `h_contract_account` VALUES ('9', '3', '6', '53', null, '21-09-2017', null, null, null, null, null, '发', '67643', '3454535德国人');
+INSERT INTO `h_contract_account` VALUES ('10', '3', '6', '234', null, '31-08-2017', null, null, null, null, null, '24234', '324242', '423423');
 
 -- ----------------------------
 -- Table structure for h_customer
@@ -330,11 +367,13 @@ CREATE TABLE `h_project_task_edition` (
   `express_name` varchar(255) DEFAULT NULL COMMENT '快递公司',
   `task_id` int(11) DEFAULT NULL COMMENT '所属任务',
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_project_task_edition
 -- ----------------------------
+INSERT INTO `h_project_task_edition` VALUES ('1', '1', '发士大夫士大夫', '2017-09-09 00:00:00', '234567', '234567', '2');
+INSERT INTO `h_project_task_edition` VALUES ('3', '3', '23456', '2017-09-14 00:00:00', '3456', '防守打法', '2');
 
 -- ----------------------------
 -- Table structure for h_project_task_group
@@ -367,7 +406,7 @@ CREATE TABLE `h_system_log` (
   `log_status` int(2) DEFAULT NULL COMMENT '操作状态',
   `log_message` varchar(500) DEFAULT NULL COMMENT '操作内容',
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=206 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=229 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_system_log
@@ -577,6 +616,29 @@ INSERT INTO `h_system_log` VALUES ('202', 'Project/edit_project', '1', 'admin', 
 INSERT INTO `h_system_log` VALUES ('203', 'Task/add_task', '1', 'admin', '2017-09-08 11:59:58', '::1', null, '1', '新增任务成功,项目id为6');
 INSERT INTO `h_system_log` VALUES ('204', 'Task/edit_task', '1', 'admin', '2017-09-08 15:25:07', '::1', null, '1', '编辑任务成功,项目id为6');
 INSERT INTO `h_system_log` VALUES ('205', 'Task/del_task', '1', 'admin', '2017-09-08 15:27:51', '::1', null, '1', '删除任务成功,任务id为1');
+INSERT INTO `h_system_log` VALUES ('206', 'Task/add_task_edition', '1', 'admin', '2017-09-09 11:53:37', '::1', null, '1', '新增任务送审版成功,任务id为2');
+INSERT INTO `h_system_log` VALUES ('207', 'Task/add_task_edition', '1', 'admin', '2017-09-09 14:49:50', '::1', null, '1', '新增任务送审版成功,任务id为2');
+INSERT INTO `h_system_log` VALUES ('208', 'Task/final_edition', '1', 'admin', '2017-09-09 14:51:14', '::1', null, '1', '新增任务最终版成功,任务id为2');
+INSERT INTO `h_system_log` VALUES ('209', 'Member/add_power', '1', 'admin', '2017-09-09 15:06:48', '::1', null, '1', '新增权限成功,权限名称为个人中心');
+INSERT INTO `h_system_log` VALUES ('210', 'Member/group_power', '1', 'admin', '2017-09-09 15:08:18', '::1', null, '1', '修改用户组权限成功,用户组名称id为1');
+INSERT INTO `h_system_log` VALUES ('211', 'Member/add_power_level', '1', 'admin', '2017-09-09 15:09:23', '::1', null, '1', '新增权限成功,权限名称为个人信息');
+INSERT INTO `h_system_log` VALUES ('212', 'Member/add_power_level', '1', 'admin', '2017-09-09 15:10:00', '::1', null, '1', '新增权限成功,权限名称为个人任务');
+INSERT INTO `h_system_log` VALUES ('213', 'Member/group_power', '1', 'admin', '2017-09-09 15:10:11', '::1', null, '1', '修改用户组权限成功,用户组名称id为1');
+INSERT INTO `h_system_log` VALUES ('214', 'Member/add_power', '1', 'admin', '2017-09-09 15:22:40', '::1', null, '1', '新增权限成功,权限名称为财务管理');
+INSERT INTO `h_system_log` VALUES ('215', 'Member/group_power', '1', 'admin', '2017-09-09 15:22:59', '::1', null, '1', '修改用户组权限成功,用户组名称id为1');
+INSERT INTO `h_system_log` VALUES ('216', 'Finance/complete_add', '1', 'admin', '2017-09-10 15:31:34', '::1', null, '1', '新增收入记录成功,合同id为');
+INSERT INTO `h_system_log` VALUES ('217', 'Finance/complete_add', '1', 'admin', '2017-09-10 15:32:15', '::1', null, '1', '新增收入记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('218', 'Finance/complete_add', '1', 'admin', '2017-09-10 15:33:17', '::1', null, '1', '新增收入记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('219', 'Finance/edit_complete', '1', 'admin', '2017-09-10 15:33:56', '::1', null, '1', '修改收入记录成功,记录id为3');
+INSERT INTO `h_system_log` VALUES ('220', 'Finance/expenditure_add', '1', 'admin', '2017-09-10 17:17:24', '::1', null, '1', '新增支出记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('221', 'Finance/edit_expenditure', '1', 'admin', '2017-09-10 17:19:00', '::1', null, '1', '修改支出记录成功,记录id为2');
+INSERT INTO `h_system_log` VALUES ('222', 'Finance/edit_expenditure', '1', 'admin', '2017-09-10 17:20:12', '::1', null, '1', '修改支出记录成功,记录id为6');
+INSERT INTO `h_system_log` VALUES ('223', 'Finance/expenditure_add', '1', 'admin', '2017-09-10 17:36:34', '::1', null, '1', '新增支出记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('224', 'Finance/expenditure_add', '1', 'admin', '2017-09-10 17:37:12', '::1', null, '1', '新增支出记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('225', 'Finance/billing_add', '1', 'admin', '2017-09-10 18:09:20', '::1', null, '1', '新增开票记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('226', 'Finance/edit_billing', '1', 'admin', '2017-09-10 18:11:18', '::1', null, '1', '修改开票记录成功,记录id为9');
+INSERT INTO `h_system_log` VALUES ('227', 'Finance/del_Balance', '1', 'admin', '2017-09-10 18:19:51', '::1', null, '1', '删除收入记录成功,合同id为6');
+INSERT INTO `h_system_log` VALUES ('228', 'Finance/billing_add', '1', 'admin', '2017-09-10 18:21:30', '::1', null, '1', '新增开票记录成功,合同id为6');
 
 -- ----------------------------
 -- Table structure for h_system_nav
@@ -592,7 +654,7 @@ CREATE TABLE `h_system_nav` (
   `url_type` varchar(200) DEFAULT NULL COMMENT 'url 类型',
   `style` varchar(255) DEFAULT NULL COMMENT '样式',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_system_nav
@@ -639,6 +701,10 @@ INSERT INTO `h_system_nav` VALUES ('43', '新增职员', '0', '16', '2017-09-04 
 INSERT INTO `h_system_nav` VALUES ('44', '编辑职员', '0', '16', '2017-09-04 09:40:23', 'Member/edit_user', null, null);
 INSERT INTO `h_system_nav` VALUES ('45', '导入职员', '0', '16', '2017-09-04 09:42:48', 'Member/import_userList', null, null);
 INSERT INTO `h_system_nav` VALUES ('46', '任务管理', '1', '0', '2017-09-07 21:11:49', 'Task/task_list', null, 'am-icon-tags');
+INSERT INTO `h_system_nav` VALUES ('47', '个人中心', '1', '0', '2017-09-09 15:06:48', 'userCenter', null, 'am-icon-tags');
+INSERT INTO `h_system_nav` VALUES ('48', '个人信息', '1', '47', '2017-09-09 15:09:23', 'UserCenter/userinfo', null, null);
+INSERT INTO `h_system_nav` VALUES ('49', '个人任务', '1', '47', '2017-09-09 15:10:00', 'UserCenter/task', null, null);
+INSERT INTO `h_system_nav` VALUES ('50', '财务管理', '1', '0', '2017-09-09 15:22:40', 'Finance/contract', null, 'am-icon-tags');
 
 -- ----------------------------
 -- Table structure for h_user_compact
@@ -756,7 +822,7 @@ CREATE TABLE `h_user_group` (
 -- ----------------------------
 -- Records of h_user_group
 -- ----------------------------
-INSERT INTO `h_user_group` VALUES ('1', '超级管理员', '超级管理员', 'upload/icon/2017-08-15_093738.jpg', '1', '[{\"id\":\"1\",\"name\":\"管理员 | 用户\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":null,\"url\":\"member\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"3\",\"name\":\"权限管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-14 15:29:42\",\"url\":\"Member\\/power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"4\",\"name\":\"添加权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-14 15:31:18\",\"url\":\"Member\\/add_power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"9\",\"name\":\"编辑权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:35:43\",\"url\":\"Member\\/edit_power\",\"url_type\":null,\"style\":null},{\"id\":\"10\",\"name\":\"删除权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:36:05\",\"url\":\"Member\\/del_power\",\"url_type\":null,\"style\":null},{\"id\":\"11\",\"name\":\"职员组管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-15 11:37:22\",\"url\":\"Member\\/userGroup\",\"url_type\":null,\"style\":\"\"},{\"id\":\"12\",\"name\":\"新增成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:03:42\",\"url\":\"Member\\/add_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"13\",\"name\":\"编辑成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:22\",\"url\":\"Member\\/edit_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"14\",\"name\":\"删除成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:57\",\"url\":\"Member\\/del_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"15\",\"name\":\"修改成员组权限\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:05:45\",\"url\":\"Member\\/edit_group_power\",\"url_type\":null,\"style\":null},{\"id\":\"16\",\"name\":\"职员列表\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-16 10:29:49\",\"url\":\"Member\\/user_List\",\"url_type\":null,\"style\":\"\"},{\"id\":\"43\",\"name\":\"新增职员\",\"status\":\"0\",\"pid\":\"16\",\"addtime\":\"2017-09-04 09:23:58\",\"url\":\"Member\\/add_user\",\"url_type\":null,\"style\":\"\"},{\"id\":\"44\",\"name\":\"编辑职员\",\"status\":\"0\",\"pid\":\"16\",\"addtime\":\"2017-09-04 09:40:23\",\"url\":\"Member\\/edit_user\",\"url_type\":null,\"style\":null},{\"id\":\"45\",\"name\":\"导入职员\",\"status\":\"0\",\"pid\":\"16\",\"addtime\":\"2017-09-04 09:42:48\",\"url\":\"Member\\/import_userList\",\"url_type\":null,\"style\":null},{\"id\":\"2\",\"name\":\"客户管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-14 14:35:07\",\"url\":\"Customer\\/index\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"32\",\"name\":\"新增客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 16:30:36\",\"url\":\"Customer\\/add_customer\",\"url_type\":null,\"style\":null},{\"id\":\"33\",\"name\":\"新增客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 17:56:01\",\"url\":\"Customer\\/add_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"34\",\"name\":\"修改客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-27 11:29:15\",\"url\":\"Customer\\/edit_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"35\",\"name\":\"删除客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-27 11:29:36\",\"url\":\"Customer\\/edit_customer_status\",\"url_type\":null,\"style\":null},{\"id\":\"17\",\"name\":\"分类管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-24 15:00:23\",\"url\":\"Category\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"18\",\"name\":\"行业类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:20\",\"url\":\"Category\\/industry\",\"url_type\":null,\"style\":null},{\"id\":\"21\",\"name\":\"新增行业分类\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 15:26:00\",\"url\":\"Category\\/add_industry\",\"url_type\":null,\"style\":null},{\"id\":\"22\",\"name\":\"编辑行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:11:15\",\"url\":\"Category\\/edit_industry\",\"url_type\":null,\"style\":null},{\"id\":\"23\",\"name\":\"删除行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:15:58\",\"url\":\"Category\\/del_industry\",\"url_type\":null,\"style\":null},{\"id\":\"19\",\"name\":\"服务类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:58\",\"url\":\"Category\\/service\",\"url_type\":null,\"style\":null},{\"id\":\"24\",\"name\":\"新增服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:11:32\",\"url\":\"Category\\/add_service\",\"url_type\":null,\"style\":null},{\"id\":\"25\",\"name\":\"编辑服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:00\",\"url\":\"Category\\/edit_service\",\"url_type\":null,\"style\":null},{\"id\":\"26\",\"name\":\"删除服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:30\",\"url\":\"Category\\/del_service\",\"url_type\":null,\"style\":null},{\"id\":\"20\",\"name\":\"技术板块\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:02:32\",\"url\":\"Category\\/technology\",\"url_type\":null,\"style\":null},{\"id\":\"27\",\"name\":\"新增技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:12:56\",\"url\":\"Category\\/add_technology\",\"url_type\":null,\"style\":null},{\"id\":\"28\",\"name\":\"编辑技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:13:57\",\"url\":\"Category\\/edit_technology\",\"url_type\":null,\"style\":null},{\"id\":\"29\",\"name\":\"删除技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:14:33\",\"url\":\"Category\\/del_technology\",\"url_type\":null,\"style\":null},{\"id\":\"30\",\"name\":\"合同管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:03\",\"url\":\"Contract\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"36\",\"name\":\"新增合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:36:58\",\"url\":\"Contract\\/add_contract\",\"url_type\":null,\"style\":null},{\"id\":\"37\",\"name\":\"编辑合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:37:19\",\"url\":\"Contract\\/edit_contract\",\"url_type\":null,\"style\":null},{\"id\":\"38\",\"name\":\"删除合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:37:49\",\"url\":\"Contract\\/del_contract_state\",\"url_type\":null,\"style\":null},{\"id\":\"42\",\"name\":\"导入合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-09-04 09:23:37\",\"url\":\"Contract\\/import_contract\",\"url_type\":null,\"style\":null},{\"id\":\"31\",\"name\":\"项目管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:41\",\"url\":\"Project\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"39\",\"name\":\"新增项目\",\"status\":\"0\",\"pid\":\"31\",\"addtime\":\"2017-09-04 09:20:34\",\"url\":\"Project\\/add_project\",\"url_type\":null,\"style\":null},{\"id\":\"40\",\"name\":\"编辑项目\",\"status\":\"0\",\"pid\":\"31\",\"addtime\":\"2017-09-04 09:21:25\",\"url\":\"Project\\/edit_project\",\"url_type\":null,\"style\":null},{\"id\":\"41\",\"name\":\"导入项目\",\"status\":\"0\",\"pid\":\"31\",\"addtime\":\"2017-09-04 09:23:01\",\"url\":\"Project\\/import_project\",\"url_type\":null,\"style\":null},{\"id\":\"46\",\"name\":\"任务管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-09-07 21:11:49\",\"url\":\"Task\\/task_list\",\"url_type\":null,\"style\":\"am-icon-tags\"}]', '2017-08-15 09:37:38');
+INSERT INTO `h_user_group` VALUES ('1', '超级管理员', '超级管理员', 'upload/icon/2017-08-15_093738.jpg', '1', '[{\"id\":\"1\",\"name\":\"管理员 | 用户\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":null,\"url\":\"member\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"3\",\"name\":\"权限管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-14 15:29:42\",\"url\":\"Member\\/power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"4\",\"name\":\"添加权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-14 15:31:18\",\"url\":\"Member\\/add_power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"9\",\"name\":\"编辑权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:35:43\",\"url\":\"Member\\/edit_power\",\"url_type\":null,\"style\":null},{\"id\":\"10\",\"name\":\"删除权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:36:05\",\"url\":\"Member\\/del_power\",\"url_type\":null,\"style\":null},{\"id\":\"11\",\"name\":\"职员组管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-15 11:37:22\",\"url\":\"Member\\/userGroup\",\"url_type\":null,\"style\":\"\"},{\"id\":\"12\",\"name\":\"新增成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:03:42\",\"url\":\"Member\\/add_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"13\",\"name\":\"编辑成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:22\",\"url\":\"Member\\/edit_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"14\",\"name\":\"删除成员组\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:04:57\",\"url\":\"Member\\/del_userGroup\",\"url_type\":null,\"style\":null},{\"id\":\"15\",\"name\":\"修改成员组权限\",\"status\":\"0\",\"pid\":\"11\",\"addtime\":\"2017-08-15 12:05:45\",\"url\":\"Member\\/edit_group_power\",\"url_type\":null,\"style\":null},{\"id\":\"16\",\"name\":\"职员列表\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-16 10:29:49\",\"url\":\"Member\\/user_List\",\"url_type\":null,\"style\":\"\"},{\"id\":\"43\",\"name\":\"新增职员\",\"status\":\"0\",\"pid\":\"16\",\"addtime\":\"2017-09-04 09:23:58\",\"url\":\"Member\\/add_user\",\"url_type\":null,\"style\":\"\"},{\"id\":\"44\",\"name\":\"编辑职员\",\"status\":\"0\",\"pid\":\"16\",\"addtime\":\"2017-09-04 09:40:23\",\"url\":\"Member\\/edit_user\",\"url_type\":null,\"style\":null},{\"id\":\"45\",\"name\":\"导入职员\",\"status\":\"0\",\"pid\":\"16\",\"addtime\":\"2017-09-04 09:42:48\",\"url\":\"Member\\/import_userList\",\"url_type\":null,\"style\":null},{\"id\":\"2\",\"name\":\"客户管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-14 14:35:07\",\"url\":\"Customer\\/index\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"32\",\"name\":\"新增客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 16:30:36\",\"url\":\"Customer\\/add_customer\",\"url_type\":null,\"style\":null},{\"id\":\"33\",\"name\":\"新增客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-25 17:56:01\",\"url\":\"Customer\\/add_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"34\",\"name\":\"修改客户联系人\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-27 11:29:15\",\"url\":\"Customer\\/edit_customer_user\",\"url_type\":null,\"style\":null},{\"id\":\"35\",\"name\":\"删除客户\",\"status\":\"0\",\"pid\":\"2\",\"addtime\":\"2017-08-27 11:29:36\",\"url\":\"Customer\\/edit_customer_status\",\"url_type\":null,\"style\":null},{\"id\":\"17\",\"name\":\"分类管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-24 15:00:23\",\"url\":\"Category\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"18\",\"name\":\"行业类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:20\",\"url\":\"Category\\/industry\",\"url_type\":null,\"style\":null},{\"id\":\"21\",\"name\":\"新增行业分类\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 15:26:00\",\"url\":\"Category\\/add_industry\",\"url_type\":null,\"style\":null},{\"id\":\"22\",\"name\":\"编辑行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:11:15\",\"url\":\"Category\\/edit_industry\",\"url_type\":null,\"style\":null},{\"id\":\"23\",\"name\":\"删除行业类别\",\"status\":\"0\",\"pid\":\"18\",\"addtime\":\"2017-08-24 16:15:58\",\"url\":\"Category\\/del_industry\",\"url_type\":null,\"style\":null},{\"id\":\"19\",\"name\":\"服务类别\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:01:58\",\"url\":\"Category\\/service\",\"url_type\":null,\"style\":null},{\"id\":\"24\",\"name\":\"新增服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:11:32\",\"url\":\"Category\\/add_service\",\"url_type\":null,\"style\":null},{\"id\":\"25\",\"name\":\"编辑服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:00\",\"url\":\"Category\\/edit_service\",\"url_type\":null,\"style\":null},{\"id\":\"26\",\"name\":\"删除服务类型\",\"status\":\"0\",\"pid\":\"19\",\"addtime\":\"2017-08-24 17:12:30\",\"url\":\"Category\\/del_service\",\"url_type\":null,\"style\":null},{\"id\":\"20\",\"name\":\"技术板块\",\"status\":\"1\",\"pid\":\"17\",\"addtime\":\"2017-08-24 15:02:32\",\"url\":\"Category\\/technology\",\"url_type\":null,\"style\":null},{\"id\":\"27\",\"name\":\"新增技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:12:56\",\"url\":\"Category\\/add_technology\",\"url_type\":null,\"style\":null},{\"id\":\"28\",\"name\":\"编辑技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:13:57\",\"url\":\"Category\\/edit_technology\",\"url_type\":null,\"style\":null},{\"id\":\"29\",\"name\":\"删除技术板块\",\"status\":\"0\",\"pid\":\"20\",\"addtime\":\"2017-08-24 17:14:33\",\"url\":\"Category\\/del_technology\",\"url_type\":null,\"style\":null},{\"id\":\"30\",\"name\":\"合同管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:03\",\"url\":\"Contract\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"36\",\"name\":\"新增合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:36:58\",\"url\":\"Contract\\/add_contract\",\"url_type\":null,\"style\":null},{\"id\":\"37\",\"name\":\"编辑合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:37:19\",\"url\":\"Contract\\/edit_contract\",\"url_type\":null,\"style\":null},{\"id\":\"38\",\"name\":\"删除合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-08-27 17:37:49\",\"url\":\"Contract\\/del_contract_state\",\"url_type\":null,\"style\":null},{\"id\":\"42\",\"name\":\"导入合同\",\"status\":\"0\",\"pid\":\"30\",\"addtime\":\"2017-09-04 09:23:37\",\"url\":\"Contract\\/import_contract\",\"url_type\":null,\"style\":null},{\"id\":\"31\",\"name\":\"项目管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-08-25 09:05:41\",\"url\":\"Project\\/index\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"39\",\"name\":\"新增项目\",\"status\":\"0\",\"pid\":\"31\",\"addtime\":\"2017-09-04 09:20:34\",\"url\":\"Project\\/add_project\",\"url_type\":null,\"style\":null},{\"id\":\"40\",\"name\":\"编辑项目\",\"status\":\"0\",\"pid\":\"31\",\"addtime\":\"2017-09-04 09:21:25\",\"url\":\"Project\\/edit_project\",\"url_type\":null,\"style\":null},{\"id\":\"41\",\"name\":\"导入项目\",\"status\":\"0\",\"pid\":\"31\",\"addtime\":\"2017-09-04 09:23:01\",\"url\":\"Project\\/import_project\",\"url_type\":null,\"style\":null},{\"id\":\"46\",\"name\":\"任务管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-09-07 21:11:49\",\"url\":\"Task\\/task_list\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"47\",\"name\":\"个人中心\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-09-09 15:06:48\",\"url\":\"userCenter\",\"url_type\":null,\"style\":\"am-icon-tags\"},{\"id\":\"48\",\"name\":\"个人信息\",\"status\":\"1\",\"pid\":\"47\",\"addtime\":\"2017-09-09 15:09:23\",\"url\":\"UserCenter\\/userinfo\",\"url_type\":null,\"style\":null},{\"id\":\"49\",\"name\":\"个人任务\",\"status\":\"1\",\"pid\":\"47\",\"addtime\":\"2017-09-09 15:10:00\",\"url\":\"UserCenter\\/task\",\"url_type\":null,\"style\":null},{\"id\":\"50\",\"name\":\"财务管理\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":\"2017-09-09 15:22:40\",\"url\":\"Finance\\/contract\",\"url_type\":null,\"style\":\"am-icon-tags\"}]', '2017-08-15 09:37:38');
 INSERT INTO `h_user_group` VALUES ('3', '测试用户组', '测试用户组', 'upload/icon/2017-08-16_102343.png', '1', '[{\"id\":\"1\",\"name\":\"管理员 | 用户\",\"status\":\"1\",\"pid\":\"0\",\"addtime\":null,\"url\":\"member\",\"url_type\":null,\"style\":\"am-icon-user-secret\"},{\"id\":\"3\",\"name\":\"权限管理\",\"status\":\"1\",\"pid\":\"1\",\"addtime\":\"2017-08-14 15:29:42\",\"url\":\"Member\\/power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"4\",\"name\":\"添加权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-14 15:31:18\",\"url\":\"Member\\/add_power\",\"url_type\":null,\"style\":\"\"},{\"id\":\"9\",\"name\":\"编辑权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:35:43\",\"url\":\"Member\\/edit_power\",\"url_type\":null,\"style\":null},{\"id\":\"10\",\"name\":\"删除权限\",\"status\":\"0\",\"pid\":\"3\",\"addtime\":\"2017-08-15 11:36:05\",\"url\":\"Member\\/del_power\",\"url_type\":null,\"style\":null}]', '2017-08-16 10:23:43');
 INSERT INTO `h_user_group` VALUES ('2', '普通职员组', '普通职员组', null, '1', null, '2017-09-03 17:24:29');
 

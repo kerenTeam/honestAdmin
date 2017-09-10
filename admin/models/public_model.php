@@ -85,9 +85,18 @@ class public_model extends CI_Model
     //多条件查询
     function select_where_many($table,$where,$id,$where1,$data1){
         $query = $this->db->where($where,$id)->where($where1,$data1)->get($table);
-        return $query->row_array();
+        return $query->result_array();
     }
 
+    //多条件分页查询
+    function select_page_many($table,$where,$data,$where1,$data1,$page,$size,$sort){
+        $query = $this->db->where($where,$data)->where($where1,$data1)->order_by($sort,'desc')->limit($size,$page)->get($table);
+        return $query->result_array();
+    }
+
+
+
+    
 }
 
 

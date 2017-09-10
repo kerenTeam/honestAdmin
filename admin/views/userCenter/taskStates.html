@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/amazeui.min.js"></script>
+
+    <style>
+        /* label {
+            color: #e6e6e6
+        } */
+    </style>
+    <script>
+        console.log('来自iframe获取的数据', (window.location.href).split('?'))
+    </script>
+</head>
+
+<body data-type="widgets">
+    <script src="../assets/js/theme.js"></script>
+
+    <div class="container-fluid am-cf ">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 任务状态 - &nbsp; 送审 </small></div>
+            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="am-u-sm-12">
+                    <form action="" class="am-form tpl-form-line-form" data-am-validator>
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <fieldset>
+
+
+                            
+
+                            <div class="am-g">
+                                    <div class="am-u-sm-4">
+                                                <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">时间: </label>
+                                                          <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'yyyy-mm-dd'}">
+                                                            <span class="am-input-group-btn am-datepicker-add-on">
+                                                               <button class="am-btn am-btn-default"  type="button"><span class="am-icon-calendar"></span> </button>
+                                                            </span>
+                                                            <input type="text" class="am-form-field" placeholder="选择时间" readonly>
+                                                          </div>
+                                                </div>
+                                    </div>
+                                    <div class="am-u-sm-8">
+                                            <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">备注: </label>
+                                                    <textarea  cols="20" rows="5"></textarea>
+                                            </div>
+                                    </div>
+                                   
+                            </div>
+
+                            <div class="am-g">
+                                <div class="am-u-sm-4">
+                                            <div class="am-form-group">
+                                                <label for="doc-vld-name-2">快递名称: </label>
+                                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="顺丰" required/>
+                                            </div>
+                                </div>
+                                <div class="am-u-sm-8">
+                                        <div class="am-form-group">
+                                                <label for="doc-vld-name-2">快递单号: </label>
+                                                <input type="text" id="doc-vld-name-2" minlength="2" placeholder="一维码单号" required/>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="am-g">
+
+                                    <div class="am-u-sm-4">
+                                                <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">文件上传: </label>
+                                                    <input type="text" id="doc-vld-name-2" minlength="2" placeholder="文件名" required/>
+                                                </div>
+                                    </div>
+                                    <div class="am-u-sm-8">
+                                            <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">文件选择: </label>
+                              
+                                                    <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file">
+                                                            <span class="am-icon-archive"></span> 导入
+                                                            <input name="" type="file" id="file" multiple/> 
+                                                    </a>  
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="am-g">
+
+                                    <div class="am-u-sm-4">
+                                                <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">图片上传: </label>
+                                                    <input type="text" id="doc-vld-name-2" minlength="2" placeholder="文件名" required/>
+                                                </div>
+                                    </div>
+                                    <div class="am-u-sm-8">
+                                            <div class="am-form-group">
+                                                    <label for="doc-vld-name-2">图片选择: </label>
+                                                    
+                                                    <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file">
+                                                            <span class="am-icon-archive"></span> 导入
+                                                            <input name="" type="file" id="file" multiple/> 
+                                                    </a>  
+                                            </div>
+                                    </div>
+                            </div>
+                            
+
+
+                        </fieldset>
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <br> &nbsp;
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

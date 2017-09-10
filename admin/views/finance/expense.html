@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery.min.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/amazeui.min.js"></script>
+
+    <style>
+        label {
+            color: #e6e6e6
+        }
+    </style>
+    <script>
+        console.log('来自iframe获取的数据', (window.location.href).split('?'))
+    </script>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+
+    <div class="container-fluid am-cf ">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 财务管理 <small> - 支出表 - &nbsp; 编辑 </small></div>
+            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <div class="widget am-cf">
+                <div class="am-u-sm-12">
+                <?php if(!empty($complete)):?>
+                   <form action="<?php echo site_url('/Finance/edit_expenditure');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                        
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        <fieldset>
+                            <input type="hidden" name="id" value="<?php echo $complete['id'];?>">
+
+                           <div class="am-form-group">
+                                <label for="doc-vld-name-2">支付金额: </label>
+                                <input type="text" id="doc-vld-name-2" name="price" value="<?php echo $complete['price'];?>" minlength="2" placeholder="输入收款金额" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">凭证号: </label>
+                                <input type="text" id="doc-vld-name-2" name="voucher" value="<?php echo $complete['voucher'];?>" placeholder="输入凭证号" />
+                            </div>
+
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">支付日期: </label>
+
+                                <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'dd--mm-yyyy'}">
+                                        <span class="am-input-group-btn am-datepicker-add-on">
+                                                <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+                                        </span>
+                                        <input type="text" name="time" class="am-form-field" placeholder="<?php echo $complete['time'];?>" readonly>
+
+                                </div>
+
+                            </div>
+                             <div class="am-form-group">
+                                <label for="doc-vld-name-2">报销人 : </label>
+                               <select name="handler" data-am-selected="{searchBox: 1,maxHeight: 300}">
+                                   <option value="">请选择一项</option>
+                                   <?php foreach($users as $val):?>
+                                        <option value="<?php echo $val['user_id'];?>" <?php if($complete['handler'] == $val['user_id']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                   <?php endforeach;?>
+                               </select>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">批准人 : </label>
+                               <select name="handler" data-am-selected="{searchBox: 1,maxHeight: 300}">
+                                   <option value="">请选择一项</option>
+                                   <?php foreach($users as $val):?>
+                                        <option value="<?php echo $val['user_id'];?>" <?php if($complete['handler'] == $val['user_id']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                   <?php endforeach;?>
+                               </select>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">支付方式: </label>
+                                <input type="text" id="doc-vld-name-2" name="receivables" value="<?php echo $complete['receivables'];?>" minlength="2" placeholder="输入收款方式" required/>
+                            </div>
+                          
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">备注: </label>
+                                <input type="text" id="doc-vld-name-2" value="<?php echo $complete['remaks'];?>" name="remaks"/>
+                            </div>
+
+                        </fieldset>
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <br> &nbsp;
+
+                    </form>
+                <?php else:?>
+                    <form action="<?php echo site_url('/Finance/expenditure_add');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                        
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                        <fieldset>
+                            <input type="hidden" name="contract_id" value="<?php echo $contractid;?>">
+
+                           <div class="am-form-group">
+                                <label for="doc-vld-name-2">支付金额: </label>
+                                <input type="text" id="doc-vld-name-2" name="price" minlength="2" placeholder="输入收款金额" required/>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">凭证号: </label>
+                                <input type="text" id="doc-vld-name-2" name="voucher"  placeholder="输入凭证号" />
+                            </div>
+
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">支出日期: </label>
+
+                                <div class="am-input-group am-datepicker-date" data-am-datepicker="{format: 'dd--mm-yyyy'}">
+                                        <span class="am-input-group-btn am-datepicker-add-on">
+                                                <button class="am-btn am-btn-default" type="button"><span class="am-icon-calendar"></span> </button>
+                                        </span>
+                                        <input type="text" name="time" class="am-form-field" placeholder="支出时间" readonly>
+
+                                </div>
+
+                            </div>
+                             <div class="am-form-group">
+                                <label for="doc-vld-name-2">报销人 : </label>
+                               <select name="reimbursement" data-am-selected="{searchBox: 1,maxHeight: 300}">
+                                   <option value="">请选择一项</option>
+                                   <?php foreach($users as $val):?>
+                                        <option value="<?php echo $val['user_id'];?>" ><?php echo $val['username'];?></option>
+                                   <?php endforeach;?>
+                               </select>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">批准人 : </label>
+                               <select name="approval" data-am-selected="{searchBox: 1,maxHeight: 300}">
+                                   <option value="">请选择一项</option>
+                                   <?php foreach($users as $val):?>
+                                        <option value="<?php echo $val['user_id'];?>" ><?php echo $val['username'];?></option>
+                                   <?php endforeach;?>
+                               </select>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">支付方式: </label>
+                                <input type="text" id="doc-vld-name-2" name="receivables" minlength="2" placeholder="输入收款方式" required/>
+                            </div>
+                          
+                            <div class="am-form-group">
+                                <label for="doc-vld-name-2">备注: </label>
+                                <input type="text" id="doc-vld-name-2" name="remaks"/>
+                            </div>
+
+                        </fieldset>
+
+                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                        <br> &nbsp;
+
+                    </form>
+
+                <?php endif;?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

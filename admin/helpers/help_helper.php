@@ -101,4 +101,25 @@ function get_username($userid){
     return $ret['username'];
 }
 
+//获取收支信息
+function ret_contract_price($type,$contractid){
+     $CI = &get_instance();
+    $a = $CI->db->query("select * from h_contract_account where type ='$type' and contract_id='$contractid'");
+    $ret = $a->result_array();
+    $price = '0';
+    foreach ($ret as $key => $value) {
+        $price += $value['price'];
+    }
+    return $price;
+}
+
+//返回合同号   合同名称
+function ret_contract_number($cotractid){
+      $CI = &get_instance();
+    $a = $CI->db->query("select * from h_contract where contract_id ='$cotractid'");
+    $ret = $a->row_array();
+    return $ret['contract_number'];
+
+}
+
 ?>
