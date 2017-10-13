@@ -35,9 +35,6 @@
 <body data-type="widgets">
     <script src="<?php echo base_url('public/')?>/assets/js/theme.js"></script>
     <div class="am-g tpl-g">
-
-
-
         <!-- 内容区域 -->
         <div class="tpl-content-wrapper">
 
@@ -59,15 +56,13 @@
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
                                     <button type="button" class="am-btn am-btn-default am-btn-success"><a style="color:#fff"data-am-modal="{target: '#addAccount'}"><span class="am-icon-plus"></span> 新增</a></button>
-
-                                    <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file">
+                                    <?php if($_SESSION['users']['gid'] == '1'):?>
+                                    <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
                                         <span class="am-icon-archive"></span> 导入
-                                        <input name="pics" type="file" id="projectFile" style="
-                                        width: 100%;
-                                        height: 100%;"/> 
+                                        <input name="pics" type="file" id="projectFile"/> 
                                     </a>
                                     <a href="<?php echo base_url();?>upload/xls/project.xlsx" class="am-btn am-btn-default am-btn-warning">导入模板</a>
-                                    
+                                    <?php endif;?>
                                 </div>
                                 <script>     
                                     $('#projectFile').change(function () {
@@ -84,6 +79,7 @@
                                             processData: false,
                                             contentType: false,
                                             success: function (data) {
+                                                console.log(data)
                                                 alert(data);
                                                 window.location.reload()
                                             }
@@ -95,12 +91,14 @@
                     </div>
                    
                     <div class="am-u-sm-3 am-u-md-3 am-u-lg-3">
+                        <form action="<?php echo site_url('/Project/search_project');?>" method="get">
                         <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                            <input type="text" class="am-form-field ">
+                            <input type="text" name="sear" class="am-form-field ">
                             <span class="am-input-group-btn">
-                            <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                             <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
                             </span>
                         </div>
+                        </form>
                     </div>
 
 
@@ -114,10 +112,31 @@
                                 <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('/Project/add_project');?>" method="post" data-am-validator="" novalidate="novalidate">
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
                                        
-                                       
+                                       <script type="text/javascript">
+                                           function changeForm(val){
+                                                console.log(val);
+                                                $.ajax({
+                                                    url:'<?php echo site_url("/Project/ret_customer")?>',
+                                                    type:'post',
+                                                    data:'contract_id='+val,
+                                                    success:function(data){
+                                                        var dataA = JSON.parse(data);
+                                                        if(dataA.length){
+                                                            var strL = '';
+                                                            dataA.forEach(function(ele){
+                                                                strL  += '<option value="'+ele.id+'">'+ele.name+'</option>'
+                                                            })
+                                                            document.getElementById('lianxiren').innerHTML = strL;
+                                                        }
+
+                                                    }
+                                                })
+                                           }
+                                       </script>
                                         <label class="am-u-sm-3 am-form-label">合同名称：<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="c_id">
+                                            <select onchange="changeForm(this.value)" data-am-selected="{searchBox: 1,maxHeight: 100}" name="c_id" required>
+                                                <option value="">请选择一项</option>
                                                 <?php foreach($customer as $val):?>
                                                 <option value="<?php echo $val['contract_id'];?>"><?php echo mb_substr($val['title'],'0','10');?>...</option>
                                                  <?php endforeach;?> 
@@ -144,19 +163,12 @@
                                         </div> 
                                         <label class="am-u-sm-3 am-form-label">联系人<span class="red">*</span>：</label>
                                         <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入联系人名称，至少2个字" name="contacts" minlength="2" 
-                                                value="" required >
+                                                 <select id='lianxiren' data-am-selected="{searchBox: 1,maxHeight: 200}" name="contacts" required>
+                                                    <option value="">请选择一项</option>
+                                                    
+                                                 
+                                            </select>
                                         </div>
-
-                                        <label class="am-u-sm-3 am-form-label" for="doc-vld-528">联系人电话<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" name="phone"  id="doc-vld-528" class=" am-field-error am-active js-pattern-mobile" placeholder="phone" required/>
-                                        </div>
-                                        <label class="am-u-sm-3 am-form-label">联系人地址<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" class=" am-field-error am-active" placeholder="请输入联系人地址，至少2个字" name="contacts_address" minlength="2" 
-                                                value="" required >
-                                        </div>  
                                         <label class="am-u-sm-3 am-form-label">完成周期：</label>
                                         <div class="am-u-sm-8">
                                             <input type="text" class=" am-field-error am-active" placeholder="请输入完成周期" name="cycle" >
@@ -263,8 +275,8 @@
                                     <td class="groupName am-text-middle"><?php echo $val['contract_number'];?></td>
                                     <td class="groupName am-text-middle"><?php echo mb_substr($val['title'],'0','20');?>...</td>
                                     <td class="groupName am-text-middle"><?php echo $val['province'].$val['city'].$val['town'];?></td>
-                                    <td class="groupName am-text-middle"><?php echo $val['contacts'];?></td>
-                                    <td class="groupName am-text-middle"><?php echo $val['contacts_address'];?></td>
+                                    <td class="groupName am-text-middle"><?php echo get_customer_name($val['contacts']);?></td>
+                                    <td class="groupName am-text-middle"><?php echo get_customer_address($val['c_id']);?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['phone'];?></td>
                                     <td class="aliasName am-text-middle"><?php echo $val['sign_user'];?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['sign_date'];?></td>
@@ -300,9 +312,6 @@
                     <!-- 分页 结束 -->
 
                     <!-- 弹框开始 -->
-
-                
-
                    
                     <div class="am-modal am-modal-no-btn" tabindex="-1" id="edit-project-modal">
                         <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
@@ -356,7 +365,12 @@
 
                                             $.post("<?php echo site_url('/Project/del_project');?>", { id: $link.data('id'),de_state:'1' }, function (result) {
                                                 // $("span").html(result);
-                                                window.location.reload()
+                                                if(result == 1){
+                                                   window.location.reload()
+                                                }else{
+                                                   alert('操作失败！'); 
+                                                   window.location.reload()
+                                                }
                                             });
                                         },
                                         closeOnConfirm: false,

@@ -13,11 +13,11 @@ class Member extends Public_Controller {
     public $userGroup = "user_group";
     public $user_link = "user_contacts";//用户联系人
     public $user_compact = "user_compact";//劳动合同
-   public $user_education = "user_education";//学历
-   public $user_qualifications = "user_qualifications";//职卫
-   public $user_regsecurity = "user_regsecurity";//注安
-   public $user_safetyevaluation = "user_safetyevaluation";//安评
-   public $user_expert = "user_expert";//专家
+    public $user_education = "user_education";//学历
+    public $user_qualifications = "user_qualifications";//职卫
+    public $user_regsecurity = "user_regsecurity";//注安
+    public $user_safetyevaluation = "user_safetyevaluation";//安评
+    public $user_expert = "user_expert";//专家
     
     function __construct() {
         parent::__construct();
@@ -1196,6 +1196,7 @@ class Member extends Public_Controller {
             }else{
                 $data['social_state'] = '0';
             }
+            $data['password'] = md5('123456');
             $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
             if($data['username'] == NULL){
 
@@ -1230,6 +1231,81 @@ class Member extends Public_Controller {
         echo $arr['log_message'];
     }
 
+
+    //搜索职员信息
+   function search_member(){
+         $config['per_page'] = 10;
+        //获取页码
+        $current_page=intval($this->input->get("size"));//index.php 后数第4个/
+
+        $gid = $this->input->get('gid');
+        $sear = $this->input->get('sear');
+        //分页配置
+        $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+        $config['full_tag_close'] = '</ul>';
+
+        $config['first_tag_open'] = '<li>';
+
+        $config['first_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li>';
+
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li>';
+
+        $config['next_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['last_tag_open'] = '<li>';
+
+        $config['last_tag_close'] = '</li>';
+
+        $config['num_tag_open'] = '<li>';
+
+        $config['num_tag_close'] = '</li>';
+        $config['first_link']= '首页';
+
+        $config['next_link']= '下一页';
+
+        $config['prev_link']= '上一页';
+
+        $config['last_link']= '末页';
+
+
+
+        $list = search_member($gid,$sear);
+       
+
+        $config['total_rows'] = count($list);
+
+        $config['page_query_string'] = TRUE;//关键配置
+        // $config['reuse_query_string'] = FALSE;
+        $config['query_string_segment'] = 'size';
+        $config['base_url'] = site_url('/Member/search_member?').'gid='.$gid.'&sear='.$sear;
+
+        // //分页数据\
+        $listpage = search_member_page($gid,$sear,$config['per_page'],$current_page);
+        $this->load->library('pagination');//加载ci pagination类
+
+        $this->pagination->initialize($config);
+
+        // var_dump($data);
+      //  $type = $this->public_model->select_where($this->category,'type','1','');
+        $userGroup = $this->public_model->select($this->userGroup,'');
+
+  
+       
+        $data = array('lists'=>$listpage,'userGroup'=>$userGroup,'pages' => $this->pagination->create_links());
+
+        $this->load->view('adminOrUser/usersList.html',$data);
+   }
+
+   
 
 
 }

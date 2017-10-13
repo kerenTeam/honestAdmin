@@ -249,6 +249,79 @@ class Customer extends Public_Controller
         }
     }
 
+    //筛选客户
+    function search_customer(){
+        $config['per_page'] = 10;
+        //获取页码
+        $current_page=intval($this->input->get("size"));//index.php 后数第4个/
+
+        $industry = $this->input->get('industry');
+        $sear = $this->input->get('sear');
+        //分页配置
+        $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+        $config['full_tag_close'] = '</ul>';
+
+        $config['first_tag_open'] = '<li>';
+
+        $config['first_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li>';
+
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li>';
+
+        $config['next_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['last_tag_open'] = '<li>';
+
+        $config['last_tag_close'] = '</li>';
+
+        $config['num_tag_open'] = '<li>';
+
+        $config['num_tag_close'] = '</li>';
+        $config['first_link']= '首页';
+
+        $config['next_link']= '下一页';
+
+        $config['prev_link']= '上一页';
+
+        $config['last_link']= '末页';
+
+
+
+        $list = search_customer($industry,$sear);
+       
+
+        $config['total_rows'] = count($list);
+
+        $config['page_query_string'] = TRUE;//关键配置
+        // $config['reuse_query_string'] = FALSE;
+        $config['query_string_segment'] = 'size';
+        $config['base_url'] = site_url('/Coustomer/search_customer?').'industry='.$industry.'&sear='.$sear;
+
+        // //分页数据\
+        $listpage = search_customer_page($industry,$sear,$config['per_page'],$current_page);
+        $this->load->library('pagination');//加载ci pagination类
+
+        $this->pagination->initialize($config);
+
+        // var_dump($data);
+        $type = $this->public_model->select_where($this->category,'type','1','');
+  
+       
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$type);
+        $this->load->view('customer/companySet.html',$data);
+    }
+
+
+
+
     //导入联系人
     function import_customer(){
         $name = date('Y-m-d');
@@ -290,7 +363,7 @@ class Customer extends Public_Controller
      
         for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
 
-            $number = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+            $data['contract_number'] = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
             //合同号
             $data['title'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
             
@@ -309,30 +382,48 @@ class Customer extends Public_Controller
 
             $data['phone1'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取d列的值
 
-            $data['phone2'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
             
-            $data['facsimile'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
-            $data['tax_on'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+            $data['tax_on'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
             
-            $data['open_bank'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
-            $data['bank_account'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
-            $data['email'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
-            $data['http'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
-            $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();//获取d列的值
-            $data['linkman'] = $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue();//获取d列的值
+            $data['open_bank'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
+            $data['bank_account'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+            $data['email'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
+            $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
+
+            //客户联系人
+            $arr['name'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();
+            $arr['department'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();
+            $arr['duties'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();
+            $arr['phone'] = $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue();
+            $arr['email'] = $PHPExcel->getActiveSheet()->getCell("S".$currentRow)->getValue();
+            $arr['facsimile'] = $PHPExcel->getActiveSheet()->getCell("T".$currentRow)->getValue();
+
+          
+            $likman = $PHPExcel->getActiveSheet()->getCell("U".$currentRow)->getValue();
+            //获取本公司对接人id
+            $user = $this->public_model->select_info($this->member,'username',$likman);
+            if(!empty($user)){
+                $data['linkman'] = $user['user_id'];
+                $arr['link_man'] = $user['user_id'];
+            }
+
+
             
-            if($number == NULL){
+            if($data['contract_number'] == NULL){
 
                 //删除临时文件
                 @unlink($inputFileName);
                 exit;
 
             } 
-        
-            
+
             //新增合同
-            if($this->public_model->insert($this->customer,$data)){
+            $c = $this->public_model->insert_id($this->customer,$data);
+            if($c){
                 $yes[] = $currentRow;
+                $arr['company_name'] = $data['title'];
+                $arr['company_id'] = $c;
+                $this->public_model->insert($this->customer_user,$arr);
             }else{
                 $error[] = $currentRow;
             }

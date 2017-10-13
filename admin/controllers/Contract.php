@@ -10,6 +10,7 @@ class Contract extends Public_Controller
     public $category = "category";
     public $customer = "customer";
     public $contract = "contract";
+    public $member = "user_member";
 
     function __construct() {
         parent::__construct();
@@ -18,15 +19,10 @@ class Contract extends Public_Controller
     //
     function index(){
         $config['per_page'] = 10;
-
         //获取页码
-
         $current_page=intval($this->uri->segment(3));//index.php 后数第4个/
-    
         //var_dump($current_page);
-
-            //配置
-
+        //配置
         $config['base_url'] = site_url('/Contract/index');
 
         //分页配置
@@ -82,18 +78,23 @@ class Contract extends Public_Controller
         //获取客户信息
         $customer = $this->public_model->select_where($this->customer,'state','1','');
         
-        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer);
+        //获取职员信息
+        $users = $this->public_model->select_where_no($this->member,'1','');
 
-        
+
+
+
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer,'users'=>$users);
+
         $this->load->view('cont/contractAdmin.html',$data);
     }
 
-    //新增客户
+    //新增合同
     function add_contract(){
         $q = $this->uri->uri_string();
         $ret =  if_user_power($q,$_SESSION['power']);
         if($ret == '0'){
-           echo "<script>alert('您暂无权限执行此操作！请联系系统管理员。');window.location.href='".site_url('/Contract/index')."'</script>";
+           echo "<script>alert('您暂无权限执行此操作！请联系系统管理员。');window.parent.location.reload();</script>";
            exit;
         }
         if($_POST){
@@ -103,6 +104,45 @@ class Contract extends Public_Controller
             $total = count($this->public_model->select($this->contract,''));
             $num = $total+1;
             $data['contract_number'] = date('Ymd').$num;
+
+           // var_dump($_FILES);
+           // exit;
+            // 上传文件
+            if(!empty($_FILES['contractFile']['name'])){
+                $config['upload_path']      = 'upload/contract/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx';
+                $config['max_size']     = 5120;
+                $config['file_name'] = $data['contract_number'].$data['title'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('contractFile')) {
+
+                    echo "<script>alert('合同书上传失败！');window.parent.location.reload();</script>";exit;
+                }else{
+                    $data['contract_file'] = 'upload/contract/'.$this->upload->data('file_name');
+                }
+            }
+      
+            if(!empty($_FILES['entrust']['name'])){
+                $config['upload_path']      = 'upload/entrust/';
+                $config['allowed_types']    = 'jpg|png|jpeg|xls|xlsx|doc|docx'; 
+                $config['max_size']     = 5120;
+                $config['file_name'] = $data['contract_number'].$data['title'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+                if(!$this->upload->do_upload('entrust1')) {
+                   echo "<script>alert('委托书上传失败！');window.parent.location.reload();</script>";exit;
+                }else{
+                    $data['entrust_file'] = 'upload/entrust/'.$this->upload->data('file_name');
+                }
+            }
+
+
             if($this->public_model->insert($this->contract,$data)){
                 $arr = array(
                     'log_url'=>$this->uri->uri_string(),
@@ -113,7 +153,7 @@ class Contract extends Public_Controller
                     'log_message'=>"新增合同成功,合同名称为".$data['title'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作成功！');window.location.href='".site_url('/Contract/index')."'</script>";  
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";  
             }else{
                 $arr = array(
                     'log_url'=>$this->uri->uri_string(),
@@ -124,7 +164,7 @@ class Contract extends Public_Controller
                     'log_message'=>"新增合同失败,合同名称为".$data['title'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作失败！');window.location.href='".site_url('/Contract/index')."'</script>";  
+                echo "<script>alert('操作失败！');window.parent.location.reload();</script>";  
             }
         }else{
             $this->load->view('404.html');
@@ -138,10 +178,46 @@ class Contract extends Public_Controller
             $q = $this->uri->uri_string();
             $ret =  if_user_power($q,$_SESSION['power']);
             if($ret == '0'){
-               echo "<script>alert('您暂无权限执行此操作！请联系系统管理员。');window.location.href='".site_url('/Contract/index')."'</script>";
+               echo "<script>alert('您暂无权限执行此操作！请联系系统管理员。');window.parent.location.reload();</script>";
                exit;
             }
             $data = $this->input->post();
+
+            if(!empty($_FILES['contractFile']['name'])){
+                $config['upload_path']      = 'upload/contract/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx';
+                $config['max_size']     = 5120;
+                $config['file_name'] = $data['contract_number'].$data['title'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('contractFile')) {
+
+                    echo "<script>alert('文件2上传失败！');window.parent.location.reload();</script>";exit;
+                }else{
+                    $data['contract_file'] = 'upload/contract/'.$this->upload->data('file_name');
+                }
+            }
+
+            if(!empty($_FILES['entrust']['name'])){
+                $config['upload_path']      = 'upload/entrust/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx'; 
+                $config['max_size']     = 5120;
+                $config['file_name'] = $data['contract_number'].$data['title'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+                if(!$this->upload->do_upload('entrust')) {
+
+                    echo $this->upload->display_errors();exit;
+                }else{
+                    $data['entrust_file'] = 'upload/entrust/'.$this->upload->data('file_name');
+                }
+            }
+
             if($this->public_model->updata($this->contract,'contract_id',$data['contract_id'],$data)){
                 $arr = array(
                     'log_url'=>$this->uri->uri_string(),
@@ -152,7 +228,7 @@ class Contract extends Public_Controller
                     'log_message'=>"修改合同成功,合同名称为".$data['title'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作成功！');window.location.href='".site_url('/Contract/index')."'</script>";  
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";  
             }else{
                 $arr = array(
                     'log_url'=>$this->uri->uri_string(),
@@ -163,7 +239,7 @@ class Contract extends Public_Controller
                     'log_message'=>"修改合同失败,合同名称为".$data['title'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作失败！');window.location.href='".site_url('/Contract/index')."'</script>";  
+                echo "<script>alert('操作失败！');window.parent.location.reload();</script>";  
             }
         }else{
             $id = intval($this->uri->segment(3));
@@ -175,6 +251,7 @@ class Contract extends Public_Controller
             $data['technology'] = $this->public_model->select_where($this->category,'type','3','');
             //获取客户信息
             $data['customer'] = $this->public_model->select_where($this->customer,'state','1','');
+                    $data['users'] = $this->public_model->select_where_no($this->member,'1','');
 
             $this->load->view('cont/editContact.html',$data);
         }
@@ -234,7 +311,7 @@ class Contract extends Public_Controller
         $this->load->library('excel');
         if(!file_exists($inputFileName)){
 
-                echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+                echo "<script>alert('文件导入失败!');window.parent.location.reload();</script>";
 
                 exit;
 
@@ -268,37 +345,47 @@ class Contract extends Public_Controller
 
             $data['contract_year'] = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
 
-            $data['contract_id'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+            $data['contract_number'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+            //获取客户编号
+            $num = $this->public_model->select_info($this->customer,'contract_number',$data['contract_number']);
+            $data['customer_id'] = $num['id'];
 
-            $data['contract_number'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取d列的值
+            $data['province'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取d列的值
 
-            $data['province'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取d列的值
+            $data['city'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取d列的值
 
-            $data['city'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取d列的值
+            $data['area'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取d列的值
 
-            $data['area'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取d列的值
+            $data['plate'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取d列的值
 
-            $data['plate'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取d列的值
+            $data['industry'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取d列的值
 
-            $data['industry'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
+            $data['army'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
 
-            $data['army'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取d列的值
-
-            $data['service_tyep'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
+            $data['service_tyep'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取d列的值
            
-            $data['title'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
-            $data['contract_situation'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
-            $data['sign_date'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
-            $data['sign_user'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
-            $data['customer_id'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
-            $data['estimate_price'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
-            $data['contract_price'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();//获取d列的值
-            $data['review_price'] = $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue();//获取d列的值
-            $data['prepay'] = $PHPExcel->getActiveSheet()->getCell("S".$currentRow)->getValue();//获取d列的值
-            $data['expenditure'] = $PHPExcel->getActiveSheet()->getCell("T".$currentRow)->getValue();//获取d列的值
-            $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("U".$currentRow)->getValue();//获取d列的值
+            $data['title'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
+            $data['contract_situation'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
+            $timenum= $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+            if(!empty($timenum)){
+            $time = $timenum - 25569; //获得秒数
+            $data['sign_date'] = date('Y-m-d', $time*24*60*60);
+            }
+            $name = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();
+            //获取签盯人id
+            $user = $this->public_model->select_info($this->member,'username',trim($name));
+            $data['sign_user'] = $user['user_id'];
+
+
+            //获取d列的值
+            $data['estimate_price'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
+            $data['contract_price'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
+            $data['review_price'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
+            $data['prepay'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();//获取d列的值
+            $data['expenditure'] = $PHPExcel->getActiveSheet()->getCell("TR".$currentRow)->getValue();//获取d列的值
+            $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("S".$currentRow)->getValue();//获取d列的值
          
-            if($data['contract_number'] == NULL){
+            if($data['contract_year'] == NULL){
 
                     //删除临时文件
                 @unlink($inputFileName);
@@ -334,6 +421,86 @@ class Contract extends Public_Controller
         add_system_log($arr);   
         echo $arr['log_message'];
 
+    }
+
+
+    //搜索合同
+    function search_contract(){
+         $config['per_page'] = 10;
+        //获取页码
+        $current_page=intval($this->input->get("size"));//index.php 后数第4个/
+
+        $sear = $this->input->get('sear');
+        //分页配置
+        $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+        $config['full_tag_close'] = '</ul>';
+
+        $config['first_tag_open'] = '<li>';
+
+        $config['first_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li>';
+
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li>';
+
+        $config['next_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['last_tag_open'] = '<li>';
+
+        $config['last_tag_close'] = '</li>';
+
+        $config['num_tag_open'] = '<li>';
+
+        $config['num_tag_close'] = '</li>';
+        $config['first_link']= '首页';
+
+        $config['next_link']= '下一页';
+
+        $config['prev_link']= '上一页';
+
+        $config['last_link']= '末页';
+
+
+
+        $list = search_contract($sear);
+
+
+        $config['total_rows'] = count($list);
+
+        $config['page_query_string'] = TRUE;//关键配置
+        // $config['reuse_query_string'] = FALSE;
+        $config['query_string_segment'] = 'size';
+        $config['base_url'] = site_url('/Contract/search_contract?').'sear='.$sear;
+
+        // //分页数据\
+        $listpage = search_contract_page($sear,$config['per_page'],$current_page);
+        $this->load->library('pagination');//加载ci pagination类
+
+        $this->pagination->initialize($config);
+
+             //获取行业类别
+        $industry = $this->public_model->select_where($this->category,'type','1','');
+        $service = $this->public_model->select_where($this->category,'type','2','');
+        $technology = $this->public_model->select_where($this->category,'type','3','');
+        //获取客户信息
+        $customer = $this->public_model->select_where($this->customer,'state','1','');
+        
+        //获取职员信息
+        $users = $this->public_model->select_where_no($this->member,'1','');
+
+
+
+
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer,'users'=>$users);
+
+        $this->load->view('cont/contractAdmin.html',$data);
     }
 
 

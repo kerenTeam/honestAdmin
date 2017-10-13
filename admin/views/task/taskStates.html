@@ -47,6 +47,7 @@
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         <input type="hidden" name="edition" value="edit">
                         <input type="hidden" name="record_id" value="<?php echo $taskEdition['record_id'];?>">
+                        <input type="hidden" name="task_id" value="<?php echo $taskEdition['task_id'];?>">
                         <fieldset>
                             <div class="am-g">
                                     <div class="am-u-sm-4">
@@ -90,7 +91,7 @@
                      <form action="<?php echo site_url('/Task/add_task_edition');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
 
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
-                        <input type="hidden" name="task_id" value="<?php echo $record_id;?>">
+                        <input type="hidden" name="task_id" value="<?php echo $task_id;?>">
                         <input type="hidden" name="edition" value="insert">
                         <fieldset>
                             <div class="am-g">

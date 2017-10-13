@@ -58,18 +58,64 @@
                                                 <!-- 非管理人员 无此按钮
                                                 <button type="button" class="am-btn am-btn-default am-btn-warning"><a style="color:#fff" ><span class="am-icon-archive"></span> 审核 </a></button>
                                                 -->
+                                                <?php if($_SESSION['users']['gid'] == '1'):?>
+                                                <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                    <span class="am-icon-archive"></span> 导入
+                                                  <input name="pics" type="file" id="projectFile" />    
+                                                </a>
+
+                                                <a href="<?php echo base_url();?>upload/xls/task.xlsx" class="am-btn am-btn-warning">导入模板</a>
+                                                <?php endif;?>
                                             </div>
+                                             <script>     
+                                                $('#projectFile').change(function () {
+                        
+                                                    var URL = '<?php echo site_url("/task/import_task");?>'
+                        
+                                                    var formData = new FormData();
+                                                    formData.append('pics', $('#projectFile')[0].files[0]);
+                                                    $.ajax({
+                                                        url: URL,
+                                                        type: 'POST',
+                                                        // headers: headers,
+                                                        data: formData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        success: function (data) {
+                                                            console.log(data);
+                                                            alert(data);
+                                                            window.location.reload()
+                                                        }
+                                                    });
+                                                })
+                                            </script>
                                         </div>
+                                    </div>
+                                </div>
+                                <form method="get" action="<?php echo site_url('/Task/search_task');?>">
+
+                                 <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+
+                                    <div class="am-form-group tpl-table-list-select">
+                                        <select name="task_status">
+                                            <option value="">完成状态</option>
+                                       
+                                            <option value="1">已完成</option>
+                                            <option value="2">未完成</option>
+                                      
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
                                     <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                        <input type="text" class="am-form-field ">
+                                        <input type="text" name="sear" class="am-form-field ">
                                         <span class="am-input-group-btn">
-                                    <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
+                                    <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="submit"></button>
+                                   
                                 </span>
                                     </div>
                                 </div>
+                                 </form>
 
                                 <!-- <div class="am-u-sm-12 "> -->
                                 <div class="am-scrollable-horizontal">
@@ -112,23 +158,31 @@
                                                 <td class="am-text-middle"><?php echo $val['Issued_time'];?></td>
                                                 <td class="am-text-middle"><?php echo $val['completion_time'];?></td>
                                                 <td class="am-text-middle"><?php echo $val['go_scene'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['compiling_personnel'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['compiling'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['signature'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['scene_user'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['responsibility'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['examine'];?></td>
-                                                <td class="am-text-middle"><?php echo $val['technology_personnel'];?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['compiling_personnel']);?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['compiling']);?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['signature']);?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['scene_user']);?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['responsibility']);?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['examine']);?></td>
+                                                <td class="am-text-middle"><?php echo get_username($val['technology_personnel']);?></td>
                                                 <td class="am-text-middle"><?php echo $val['title'];?></td>
-                                                <?php if($val['state'] == '2'):?>
+                                                <?php if($val['task_status'] == '1'):?>
                                                 <td>已完成</td>
                                                 <?php else:?>
                                                  <td>未完成</td>
                                                 <?php endif;?>
 
                                                 <td class="am-text-middle">
+                                                    <?php $zui = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$val['id'],'type','3');?>
+
+
                                                     <div class="tpl-table-black-operation">
-                                                        
+                                                        <?php if($val['task_status'] != '1' && !empty($zui)):?>
+                                                            <a href="<?php echo site_url('/Task/edit_task_status/').$val['id'];?>" > 
+                                                            <i class="am-icon-pencil"></i>  已完成 
+                                                            </a>
+                                                        <?php endif;?>
+
                                                         <a class="modalupdateTask" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#updateTask', closeViaDimmer: 0, width:650}" > 
                                                             <i class="am-icon-pencil"></i> 编辑 
                                                         </a>

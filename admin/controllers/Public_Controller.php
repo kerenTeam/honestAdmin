@@ -10,6 +10,7 @@ class Public_Controller extends CI_Controller
       //  session_start();
         $this->load->model('public_model');
         $this->load->helper('help_helper');
+        $this->load->helper('search_helper');
       //  var_dump($_SESSION['users']);
         if(!isset($_SESSION['users'])){
           echo "<script>alert('您还没有登陆！');window.location.href='".site_url('/Login/login_up')."';</script>";

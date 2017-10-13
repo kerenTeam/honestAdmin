@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/app.css">
     <script src="<?php echo base_url('public/');?>/assets/js/jquery-1.7.2.min.js"></script>
 
+
     <style>
         label {
             color: #e6e6e6
@@ -51,7 +52,7 @@
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">名称: </label>
-                                <input type="text" name="title" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="title"  />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">行业: </label>
@@ -63,12 +64,12 @@
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">地址: </label>
-                                <input type="text" name="address" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="address"  />
 
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">本公司对口人: </label>
-                                <select name="linkman" data-am-selected="{searchBox: 1,maxHeight: 100}" required>
+                                <select name="linkman" data-am-selected="{searchBox: 1,maxHeight: 100}" >
                                     <option value="">请选择一项</option>
                                     <?php foreach($users as $v):?>
                                         <option value="<?php echo $v['user_id'];?>"><?php echo $v['username'];?></option>
@@ -80,68 +81,69 @@
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">邮编: </label>
-                                <input type="text" name="postcode" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="postcode"  />
 
                             </div>
 
 
                             <div class="am-form-group">
                                     <label class="am-u-sm-3 am-form-label">地点<span class="red">*</span>：</label>
-                                    <div class="am-u-sm-8 areachoose" >
-                                        <select name="province" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="province" required>
+                                    <input type="text" name="address" >
+                                   <!--  <div class="am-u-sm-8 areachoose" >
+                                        <select name="province" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="province" >
                                             <option value="" >省</option>
                                         </select>
-                                        <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" required>
+                                        <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" >
                                             <option value="">市</option>
                                         </select>
-                                        <select name="area" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="town" required>
+                                        <select name="area" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="town" >
                                             <option value="">区</option>
                                         </select>
-                                    </div>                
+                                    </div>    -->             
 
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">电话1: </label>
-                                <input type="text" name="phone1" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="phone1"  />
 
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">电话2: </label>
-                                <input type="text" name="phone2" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="phone2"  />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">传真: </label>
-                                <input type="text" name="facsimile" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="facsimile"  />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">税号: </label>
-                                <input type="text" name='tax_on' id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name='tax_on'  />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">开户银行: </label>
-                                <input type="text" name="open_bank" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="open_bank"  />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">账号: </label>
-                                <input type="text" name="bank_account" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="bank_account"  />
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">电子邮件: </label>
-                                <input type="text" name="email" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="email"  />
 
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">网址: </label>
-                                <input type="text" name="http" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="http"  />
 
                             </div>
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">其它: </label>
-                                <input type="text" name="remarks" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                <input type="text" name="remarks"  />
                             </div>
                         </fieldset>
 

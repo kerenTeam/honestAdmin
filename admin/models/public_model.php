@@ -94,7 +94,22 @@ class public_model extends CI_Model
         return $query->result_array();
     }
 
+    //新增记录返回id
+        // function insert_id($table,$data){
+        //     $this->db->insert($table,$data);
+        //     return $this->db->insert_id();
+        // }
+    //新增返回id
+    function insert_id($table,$data){
+        $this->db->insert($table,$data);
+        return $this->db->insert_id();
+    }
 
+    //多个where条件
+    function select_maywhere_info($table,$where,$id,$where2,$id2){
+        $query = $this->db->where($where,$id)->where($where2,$id2)->get($table);
+        return $query->row_array();
+    }
 
     
 }

@@ -78,7 +78,8 @@
         <header>
             <!-- logo -->
             <div class="am-fl tpl-header-logo" id="logo">
-                <a href="javascript:;"><img src="<?php echo base_url('public/');?>/assets/img/logo.png" alt=""></a>
+                <a href="javascript:;">诚实项目管理系统</a>
+
             </div>
             <!-- 右侧内容 -->
             <div class="tpl-header-fluid">
@@ -123,11 +124,11 @@
 
             <div class="tpl-sidebar-user-panel am-text-center  ">
                 <div class="tpl-user-panel-slide-toggleable  ">
-                    <div class="tpl-user-panel-profile-picture " style=" margin-left:30% ">
+                   <!--  <div class="tpl-user-panel-profile-picture " style=" margin-left:30% ">
                         <img src="<?php echo base_url('public/');?>/assets/img/b.jpeg" alt="">
-                    </div>
+                    </div> -->
                     <span class="user-panel-logged-in-text">
-                      <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+                      
                       <?php echo $_SESSION['users']['username'];?>
                     </span>
                     <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
@@ -136,7 +137,7 @@
 
             <!-- 菜单 -->
             <ul class="sidebar-nav" id="sidebarID">
-                <li class="sidebar-nav-heading"> Kernel <span class="sidebar-nav-heading-info"> 核心模块</span></li>
+                <!-- <li class="sidebar-nav-heading"> Kernel <span class="sidebar-nav-heading-info"> 核心模块</span></li> -->
                 <li class="sidebar-nav-link">
                     <a target="text" href="<?php echo site_url('/Welcome/main');?>" class="active">
                         <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
@@ -169,48 +170,14 @@
                         </li>
                     <?php endif;?>
                 <?php endforeach;?>
-
-
-
-                <li class="sidebar-nav-heading">Other<span class="sidebar-nav-heading-info"> 其他功能</span></li>
-             <!-- 
-                <li class="sidebar-nav-link">
-                    <a href="javascript:;" class="sidebar-nav-sub-title">
-                        <i class="am-icon-cogs sidebar-nav-link-logo"></i> 系统设置
-                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-                    </a>
-                    <ul class="sidebar-nav sidebar-nav-sub">
-                        <li class="sidebar-nav-link">
-                            <a target="text" href="table-list.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
-                            </a>
-                        </li>
-
-                        <li class="sidebar-nav-link">
-                            <a target="text" href="table-list-img.html">
-                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
-               <!--  <li class="sidebar-nav-link">
-                    <a target="text" href="sign-up.html">
-                        <i class="am-icon-files-o sidebar-nav-link-logo"></i> 数据备份
-                    </a>
-                </li> -->
-                <li class="sidebar-nav-link">
-                    <a target="text" href="<?php echo site_url('/');?>">
-                        <i class="am-icon-list-alt sidebar-nav-link-logo"></i> 日志
-                        <span class="am-badge am-badge-secondary sidebar-nav-link-logo-ico am-round am-fr am-margin-right-sm">6</span>
-                    </a>
-                </li>
+               
             </ul>
         </div>
 
 
         <!-- 内容区域 -->
      
-        <iframe src="<?php echo site_url('Welcome/main');?>" name="text" target="_self" style="height:100vh;width:99%;overflow-y: scroll;" > </iframe>
+        <iframe src="<?php echo site_url('Welcome/main');?>" name="text" target="_self" style="height:130vh;width:99%;overflow-y: scroll;" > </iframe>
 
     </div>
     <script src="<?php echo base_url('public/');?>/assets/js/amazeui.min.js"></script>

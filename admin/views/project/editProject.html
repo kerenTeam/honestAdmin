@@ -46,11 +46,32 @@
                                 
                                 <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('/Project/edit_project');?>" method="post" data-am-validator="" novalidate="novalidate">
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
+                                    	   <script type="text/javascript">
+                                           function changeForm(val){
+                                                console.log(val);
+                                                $.ajax({
+                                                    url:'<?php echo site_url("/Project/ret_customer")?>',
+                                                    type:'post',
+                                                    data:'contract_id='+val,
+                                                    success:function(data){
+                                                        var dataA = JSON.parse(data);
+                                                        if(dataA.length){
+                                                            var strL = '';
+                                                            dataA.forEach(function(ele){
+                                                                strL  += '<option value="'+ele.id+'">'+ele.name+'</option>'
+                                                            })
+                                                            document.getElementById('lianxiren').innerHTML = strL;
+                                                        }
+
+                                                    }
+                                                })
+                                           }
+                                       </script>
                                         
 
                                             <label class="am-u-sm-3 am-form-label">合同名称：<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8">
-                                                <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="c_id">
+                                                <select onchange="changeForm(this.value)" data-am-selected="{searchBox: 1,maxHeight: 100}" name="c_id">
                                                     <?php foreach($customer as $val):?>
                                                     <option value="<?php echo $val['contract_id'];?>" <?php if($val['contract_id'] == $project['c_id']){echo "selected";}?>><?php echo mb_substr($val['title'],'0','10');?>...</option>
                                                      <?php endforeach;?> 
@@ -77,19 +98,17 @@
                                             </div> 
                                             <label class="am-u-sm-3 am-form-label">联系人<span class="red">*</span>：</label>
                                             <div class="am-u-sm-8">
-                                                <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="contacts" minlength="2" 
-                                                    value="<?php echo $project['contacts']?>" required >
+                                                <select id='lianxiren' data-am-selected="{searchBox: 1,maxHeight: 200}" name="contacts" required>
+                                                    <option value="">请选择一项</option>
+                                                    <?php foreach($lian as $val):?>
+                                                        <option value="<?php echo $val['id'];?>" ><?php echo $val['name'];?></option>
+                                                    <?php endforeach;?>
+                                                    
+                                                 
+                                           		</select>
                                             </div>
     
-                                            <label class="am-u-sm-3 am-form-label" for="doc-vld-528">联系人电话<span class="red">*</span>：</label>
-                                            <div class="am-u-sm-8">
-                                                <input type="text" name="phone" value="<?php echo $project['phone']?>"  id="doc-vld-528" class=" am-field-error am-active js-pattern-mobile" placeholder="phone" required/>
-                                            </div>
-                                            <label class="am-u-sm-3 am-form-label">联系人地址<span class="red">*</span>：</label>
-                                            <div class="am-u-sm-8">
-                                                <input type="text" class=" am-field-error am-active" placeholder="请输入签订人名称，至少2个字" name="contacts_address" minlength="2" 
-                                                    value="<?php echo $project['contacts_address']?>" required >
-                                            </div>  
+                                         
                                             <label class="am-u-sm-3 am-form-label">完成周期：</label>
                                             <div class="am-u-sm-8">
                                                 <input type="text" class=" am-field-error am-active"  value="<?php echo $project['cycle']?>" placeholder="请输入完成周期" name="cycle" >

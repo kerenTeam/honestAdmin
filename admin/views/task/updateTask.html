@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
     <script src="<?php echo base_url('/public');?>/assets/js/jquery-1.7.2.min.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/amazeui.min.js"></script>
 
     <style>
         label {
@@ -55,6 +56,8 @@
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">完成时限: </label>
                                 <input type="text" id="doc-vld-name-2" name="completion_time" value="<?php echo $task['completion_time'];?>" minlength="2" placeholder="输入任务完成时限" required/>
+
+
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">去现场时间: </label>
@@ -63,7 +66,7 @@
 
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">报告第一编制人: </label>
-                                <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="compiling_personnel">
+                                <select data-am-selected="{searchBox: 1,maxHeight: 200}" name="compiling_personnel">
                                         <option  value="">请选择一项</option>
                                         <?php foreach($users as $val):?>
                                         <option select value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $task['compiling_personnel']){echo "selected";}?>><?php echo $val['username'];?></option>
@@ -78,19 +81,46 @@
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">现场人员: </label>
-                                <input type="text" id="doc-vld-name-2" name="scene_user" value="<?php echo $task['scene_user'];?>" />
+                              
+                                  <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="scene_user">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $task['scene_user']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">项目负责人: </label>
-                                <input type="text" id="doc-vld-name-2" name="responsibility" value="<?php echo $task['responsibility'];?>" />
+                                  <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="responsibility">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $task['responsibility']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">项目审核人: </label>
-                                <input type="text" id="doc-vld-name-2" name="examine" value="<?php echo $task['examine'];?>" />
+                         
+                                  <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="examine">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $task['examine']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">技术负责人: </label>
-                                <input type="text" id="doc-vld-name-2" name="technology_personnel" value="<?php echo $task['technology_personnel'];?>" />
+                        
+                                <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="technology_personnel">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $task['technology_personnel']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                </select>
                             </div>
                              <div class="am-form-group">
                                 <label for="doc-vld-name-2">任务描述(备注): </label>

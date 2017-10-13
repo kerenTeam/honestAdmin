@@ -33,7 +33,7 @@
 
     <div class="container-fluid am-cf ">
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 任务状态 - &nbsp; 送审 </small></div>
+            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 任务状态 - &nbsp; 最终 </small></div>
             <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
         </div>
     </div>
@@ -47,6 +47,7 @@
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         <input type="hidden" name="edition" value="edit">
                         <input type="hidden" name="record_id" value="<?php echo $taskEdition['record_id'];?>">
+                        <input type="hidden" name="task_id" value="<?php echo $taskEdition['task_id'];?>">
                         <fieldset>
                             <div class="am-g">
                                     <div class="am-u-sm-4">
@@ -90,7 +91,7 @@
                      <form action="<?php echo site_url('/Task/final_edition');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
 
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
-                        <input type="hidden" name="task_id" value="<?php echo $record_id;?>">
+                        <input type="hidden" name="task_id" value="<?php echo $task_id;?>">
                         <input type="hidden" name="edition" value="insert">
                         <fieldset>
                             <div class="am-g">

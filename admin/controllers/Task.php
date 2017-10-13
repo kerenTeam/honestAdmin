@@ -99,8 +99,15 @@ class Task extends Public_Controller
         $contract = $this->public_model->select_info($this->contract,'contract_id',$project['c_id']);
         $data['contract_number'] = $contract['contract_number'];
         $data['admin_user'] = $_SESSION['users']['user_id'];
+        $id = $this->public_model->insert_id($this->project_task,$data);
+        if(!empty($id)){
+              $task_user = array(
+                  'task_id'=>$id,
+                  'user_id'=>$data['compiling_personnel'],
+                );
+              $this->public_model->insert($this->project_task_group,$task_user);
 
-        if($this->public_model->insert($this->project_task,$data)){
+
               $arr = array(
                   'log_url'=>$this->uri->uri_string(),
                   'user_id'=>$_SESSION['users']['user_id'],
@@ -271,8 +278,8 @@ class Task extends Public_Controller
       }else{
           $id = intval($this->uri->segment('3'));
           //h获取送审版记录
-          $data['taskEdition'] = $this->public_model->select_where_many($this->project_task_edition,'task_id',$id,'type','1');
-          $data['record_id'] = $id;
+          $data['taskEdition'] = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$id,'type','1');
+          $data['task_id'] = $id;
           $this->load->view('task/taskStates.html',$data);
       }
     }
@@ -337,8 +344,8 @@ class Task extends Public_Controller
           $id = intval($this->uri->segment('3'));
           //
 
-          $data['taskEdition'] = $this->public_model->select_where_many($this->project_task_edition,'task_id',$id,'type','2');
-          $data['record_id'] = $id;
+          $data['taskEdition'] = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$id,'type','2');
+          $data['task_id'] = $id;
           $this->load->view('task/revise.html',$data);
 
       }
@@ -404,13 +411,278 @@ class Task extends Public_Controller
             }
       }else{
           $id = intval($this->uri->segment('3'));
-          $data['taskEdition'] = $this->public_model->select_where_many($this->project_task_edition,'task_id',$id,'type','3');
+          $data['taskEdition'] = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$id,'type','3');
 
-          $data['record_id'] = $id;
+          $data['task_id'] = $id;
           $this->load->view('task/final.html',$data);
 
       }
     }
+
+
+    // 修改任务为已完成状态
+    function edit_task_status(){
+        $id = intval($this->uri->segment(3));
+        if($id == '0'){
+            $this->load->view('404.html');
+        }else{
+          $data['task_status'] = '1';
+          if($this->public_model->updata($this->project_task,'id',$id)){
+               $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"确认任务完成,任务id为".$id,
+              );
+              add_system_log($arr);
+              echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
+          }
+        }
+    }
+
+
+    //导入任务列表
+    function import_task(){
+         $name = date('Y-m-d');
+            $inputFileName = "upload/xls/" .$name .'.xls';
+            move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+            //引入类库
+            $this->load->library('excel');
+            if(!file_exists($inputFileName)){
+    
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+    
+                    exit;
+    
+            }
+            //导入excel文件类型 excel2007 or excel5
+            
+            $PHPReader = new PHPExcel_Reader_Excel2007();
+            
+            if(!$PHPReader->canRead($inputFileName)){
+                $PHPReader = new PHPExcel_Reader_Excel5();
+                if(!$PHPReader->canRead($inputFileName)){
+                    echo 'no Excel';
+                return;
+                }
+            }   
+            $yes = array();
+            $error = array();
+                          
+            
+            $PHPExcel = $PHPReader->load($inputFileName);
+    
+            $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+    
+            $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+    
+            $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+    
+            $erp_orders_id = array();  //声明数组
+         
+            for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+                //合同号
+                $contract_number = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+                //项目号
+                $project = $this->public_model->select_info($this->project,'c_number',$contract_number);
+                $data['project_id'] = $project['id'];
+
+                $data['contract_number'] = $contract_number;
+
+                $data['completion_time'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();
+                $go_scene = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();
+                if(!empty($go_scene)){
+                    $scene = $go_scene - 25569; //获得秒数
+                    $data['go_scene'] = date('Y-m-d', $scene*24*60*60); 
+                }
+
+                $compiling_personnel = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->  getValue();
+                //获取第一编制人
+                $user = $this->public_model->select_info($this->member,'username',trim($compiling_personnel));
+                if(!empty($user)){
+                   $data['compiling_personnel'] = $user['user_id'];
+                }
+                $compiling = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();
+                //报告编制人
+                $compiling_user = $this->public_model->select_info($this->member,'username',trim($compiling));
+                if(!empty($compiling_user)){
+                  $data['compiling']  = $compiling_user['user_id'];
+                }
+                //署名
+                $data['signature'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();
+                //现场人员
+                $scene = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();
+                $scene_user = $this->public_model->select_info($this->member,'username',trim($scene));
+                if(!empty($scene_user)){
+                $data['scene_user']  = $scene_user['user_id'];
+                }
+                //项目负责人
+                $responsibility = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)-> getValue();
+                $responsibility_user = $this->public_model->select_info($this->member,'username',trim($responsibility));
+                if(!empty($responsibility_user)){
+                $data['responsibility']  = $responsibility_user['user_id'];
+                }
+                // 项目审核人
+                $examine = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();
+                $examine_user = $this->public_model->select_info($this->member,'username',trim($examine));
+                if(!empty($examine_user)){
+                $data['examine']  = $examine_user['user_id'];
+                }
+                //技术负责人
+                $technology_personnel = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();
+                $technology_user = $this->public_model->select_info($this->member,'username',trim($technology_personnel));
+                if(!empty($technology_user)){
+                  $data['technology_personnel']  = $technology_user['user_id'];
+                }
+                //完成状态
+                $data['task_status'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();
+                //
+               $song_time =  $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();
+               $xiu_time =  $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();
+            
+               $zui_time =  $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();
+              
+
+                //送审版那
+                $song = array(
+                  'type'=>'1',
+                  'situation'=> $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue(),
+                );
+                //修改版
+                $xiu = array(
+                  'type'=>'2',
+                  'situation'=>$PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue(),
+                );
+                $zui = array(
+                  'type'=>'3',
+                  'situation'=> $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue(),
+                );
+
+                if($contract_number == NULL){
+        
+                        //删除临时文件
+                    @unlink($inputFileName);
+                    break;
+    
+                } 
+
+            
+               
+                //任务
+                $id = $this->public_model->insert_id($this->project_task,$data);
+                if(!empty($id)){
+                    
+                    if(!empty($song_time)){
+                      $time = $song_time - 25569; //获得秒数
+                      $song['deliver_time'] = date('Y-m-d', $time*24*60*60); 
+                      $song['task_id'] = $id;
+                      $this->public_model->insert($this->project_task_edition,$song);
+                    }
+                    if(!empty($xiu_time)){
+                       $xiu['task_id'] = $id;
+                      $time1 = $xiu_time - 25569; //获得秒数
+                      $xiu['deliver_time'] = date('Y-m-d', $time1*24*60*60); 
+                      $this->public_model->insert($this->project_task_edition,$xiu);
+                    }
+                    if(!empty($zui_time)){
+                       $zui['task_id'] = $id;
+                       $time2 = $zui_time - 25569; //获得秒数
+                       $zui['deliver_time'] = date('Y-m-d', $time2*24*60*60);
+                       $this->public_model->insert($this->project_task_edition,$zui);
+                    }
+                    $yes[] = $id;
+                }else{
+                    $error[] = $currentRow;
+                }
+            }
+            $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+          //  echo $ret['yes'];
+            // //            //日志
+            
+            $arr = array(
+                'log_url'=>$this->uri->uri_string(),
+                'user_id'=>$_SESSION['users']['user_id'],
+                'username'=>$_SESSION['users']['username'],
+                'log_ip'=>get_client_ip(),
+                'log_status'=>'1',
+                'log_message'=>"导入了项目信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+            );
+            add_system_log($arr);   
+            echo $arr['log_message'];
+    }
+
+
+    //收缩
+    function search_task(){
+         $config['per_page'] = 10;
+            //获取页码
+            $current_page=intval($this->input->get("size"));//index.php 后数第4个/
+
+            $sear = $this->input->get('sear');
+            $state = $this->input->get('task_status');
+            //分页配置
+            $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+            $config['full_tag_close'] = '</ul>';
+
+            $config['first_tag_open'] = '<li>';
+
+            $config['first_tag_close'] = '</li>';
+
+            $config['prev_tag_open'] = '<li>';
+
+            $config['prev_tag_close'] = '</li>';
+
+            $config['next_tag_open'] = '<li>';
+
+            $config['next_tag_close'] = '</li>';
+
+            $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+            $config['cur_tag_close'] = '</a></li>';
+
+            $config['last_tag_open'] = '<li>';
+
+            $config['last_tag_close'] = '</li>';
+
+            $config['num_tag_open'] = '<li>';
+
+            $config['num_tag_close'] = '</li>';
+            $config['first_link']= '首页';
+
+            $config['next_link']= '下一页';
+
+            $config['prev_link']= '上一页';
+
+            $config['last_link']= '末页';
+
+            $list = search_task($sear,$state);
+           
+
+            $config['total_rows'] = count($list);
+
+            $config['page_query_string'] = TRUE;//关键配置
+            // $config['reuse_query_string'] = FALSE;
+            $config['query_string_segment'] = 'size';
+            $config['base_url'] = site_url('/Task/search_task?').'sear='.$sear.'&state='.$state;
+
+            // //分页数据\
+            $listpage = search_task_page($sear,$state,$config['per_page'],$current_page);
+            $this->load->library('pagination');//加载ci pagination类
+
+            $this->pagination->initialize($config);
+
+
+            // var_dump($data);
+            $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
+           
+            // var_dump($data);
+            $this->load->view('task/taskList.html',$data);
+    }
+
+
 
 }
 

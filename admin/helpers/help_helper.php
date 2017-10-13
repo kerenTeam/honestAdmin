@@ -121,5 +121,23 @@ function ret_contract_number($cotractid){
     return $ret['contract_number'];
 
 }
+//获取联系人地址
+function get_customer_address($c_id){
+    $CI = &get_instance();
+    $a = $CI->db->query("select * from h_contract where contract_id ='$c_id'");
+    $ret = $a->row_array();
+    $b = $CI->db->query("select * from h_customer where id = '".$ret['customer_id']."'");
+    $res = $b->row_array();
+    return $res['address'];
+}
+function get_customer_name($c_id){
+    $CI = &get_instance();
+  
+    $c = $CI->db->query("select * from h_customer_contacts where id = '$c_id'");
+        $res = $c->row_array();
+
+    return $res['name'];
+}
+
 
 ?>

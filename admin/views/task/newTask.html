@@ -90,19 +90,45 @@
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">现场人员: </label>
-                                <input type="text" id="doc-vld-name-2" name="scene_user" />
+                                 <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="scene_user">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>"><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                    </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">项目负责人: </label>
-                                <input type="text" id="doc-vld-name-2" name="responsibility" />
+                              
+                                 <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="responsibility">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>"><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                    </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">项目审核人: </label>
-                                <input type="text" id="doc-vld-name-2" name="examine" />
+                                 <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="examine">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>"><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                    </select>
                             </div>
                             <div class="am-form-group">
                                 <label for="doc-vld-name-2">技术负责人: </label>
-                                <input type="text" id="doc-vld-name-2" name="technology_personnel" />
+                             
+                                 <select  data-am-selected="{searchBox: 1,maxHeight: 200}" name="technology_personnel">
+                                        <option  value="">请选择一项</option>
+                                        <?php foreach($users as $val):?>
+                                        <option select value="<?php echo $val['user_id'];?>"><?php echo $val['username'];?></option>
+                                        <?php endforeach;?>
+                                      
+                                    </select>
                             </div>
                         </fieldset>
                         <button class="am-btn am-btn-secondary" type="submit">提交</button>
