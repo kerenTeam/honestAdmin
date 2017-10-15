@@ -503,7 +503,18 @@ class Contract extends Public_Controller
         $this->load->view('cont/contractAdmin.html',$data);
     }
 
+    //合同详情
+    function contract_info(){
+        $id = intval($this->uri->segment('3'));
+        if($id == '0'){
+            $this->load->view('404.html');
+        }else{
+            //根据id查询合同详情
+            $data['cont'] = $this->public_model->select_info($this->contract,'contract_id',$id);
 
+            $this->load->view('cont/conDetaile.html',$data);
+        }
+    }
 
 
 

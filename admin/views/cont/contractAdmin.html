@@ -293,7 +293,7 @@
                                     <td class="am-text-middle"><?php echo $val['customer_id']?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_year']?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_number']?></td>
-                                    <td class="groupName am-text-middle"><?php echo mb_substr($val['title'],'0','10');?>...</td>
+                                    <td class="groupName am-text-middle"><a href="<?php echo site_url('/contract/contract_info/'.$val['contract_id']);?>"><?php echo mb_substr($val['title'],'0','10');?>...</a></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_price']?></td>
                                     <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td> -->
                                     <td class="groupName am-text-middle"><?php echo get_username($val['sign_user']);?></td>

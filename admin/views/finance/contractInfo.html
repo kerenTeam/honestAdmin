@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>合同详情</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public')?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public')?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('/public')?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public')?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public')?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public')?>/assets/js/jquery.min.js"></script>
+    <style>
+        .conD1{display: flex;border-bottom: 1px solid #e8e8e8}
+        .conD1item{flex: 1}
+        .conD1item2{flex: 2}
+        .conD1item p, .conD1item h4{margin: .3rem 0}
+        .conD1item h4{margin-top: 20px}
+        .conD1item span{color: #555};
+
+    </style>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public')?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 合同管理 <small> - 合同详情 </small></div>
+                    <p class="page-header-description"> 这里是合同详情 </p>
+                </div>
+            </div>
+  
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <p>合同号： <span><?php echo $cont['contract_number']?></span></p>
+                                    <p>项目名称：<span><?php echo $cont['title']?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>项目编号：<span><?php echo $cont['id']?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>合同单位：<span><?php echo get_customerName($cont['customer_id']);?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="conD1">
+                                <div class="conD1item">
+                                     <p>省：<span><?php echo $cont['province'];?></span></p>
+                                    <p>地市：<span><?php echo $cont['city'];?></span></p>
+                                    <p>县：<span><?php echo $cont['area'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>行业：<span><?php echo get_industryTitle($cont['industry']);?></span></p>
+                                    <p>板块：<span><?php echo get_industryTitle($cont['plate']);?></span></p>
+                                    <p>服务类型<span><?php echo get_industryTitle($cont['service_tyep']);?></span></p>
+                                    <p>军地：<span><?php if($cont['army'] == '1'){echo "是";}else{echo "否";}?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>编制人：<span><?php echo get_username($cont['compiling_personnel']);?></span></p>
+                                    <p>完成情况：<?php if($cont['task_status'] == '0'):?><span>未完成</span><?php else:?><span>已完成</span><?php endif;?></p>
+                                    <p>完成日期：<span><?php echo $cont['complete_time']?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>签定人：<span><?php echo get_username($cont['sign_user'])?></span></p>
+                                    <p>签订时间：<span><?php echo $cont['sign_date'];?></span></p>
+                                    <p>合同情况：<span><?php echo $cont['remaks'];?></span></p>
+                                </div>
+                            </div>
+
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <p>合同金额：<span><?php echo $cont['contract_price'];?></span></p>
+                                    <p>预估合同金额：<span><?php echo $cont['estimate_price'];?></span></p>
+                                    <p>约定评审费：<span><?php echo $cont['review_price'];?></span></p>
+                                    <p>约定预付:<span><?php echo $cont['prepay'];?></span></p>
+                                    <p>约定代支额:<span><?php echo $cont['expenditure']?></span></p>
+                                    <p>代支差额:<span></span></p>
+                                    
+                                    <p>已开票：<span><?php echo ret_contract_price($cont['contract_id'],'3');?></span></p>
+                                    <p>已收款:<span><?php echo ret_contract_price($cont['contract_id'],'1');?></span></p>
+                                    <p>预付差额:<span></span></p>
+                                    <p>票款差额:<span></span></p>
+                                    <p>余额:<span><?php echo $cont['contract_price']-ret_contract_price($cont['contract_id'],'1');?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>实际代支:<span></span></p>
+                                    <p>评审费:<span></span></p>
+                                    <p>业务费:<span></span></p>
+                                    <p>差旅费:<span></span></p>
+                                    <p>会务费:<span></span></p>
+                                    <p>招待费:<span></span></p>
+                                    <p>技术提成:<span></span></p>
+                                    <p>业务提成:<span></span></p>
+                                    <p>其他生产支出:<span></span></p>
+                                    <p>生产支出合计:<span></span></p>
+                                </div>
+                                <div class="conD1item conD1item2">
+                                    <p>有效合同：<span><?php echo $cont['contract_price']?></span></p>
+                                    <p>已实现毛利：<span><?php echo $cont['contract_number']?></span></p>
+                                    <div>
+                                        <h4>特殊数值说明</h4>
+                                        <p>1：完成情况为0或完成日期为1900/1/0，表示未完成。</p>
+                                        <p>2：代支差额为正数，表示未支出代支或未完全支出。</p>
+                                        <p>3：合同单位为0，表示未本公司签订合同。</p>
+                                        <p>4：票款差额为正，表示收款金额大于开票金额。</p>
+                                        <p>5、编制人为0，表示项目未分派负责人。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+
+
+
+
+    </div>
+    </div>
+    <script src="<?php echo base_url('/public')?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('/public')?>/assets/js/app.js"></script>
+    
+
+</body>
+
+</html>

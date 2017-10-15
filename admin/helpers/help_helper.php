@@ -138,6 +138,15 @@ function get_customer_name($c_id){
 
     return $res['name'];
 }
+//获取客户名称
+function get_customerName($c_id){
+    $CI = &get_instance();
+  
+    $c = $CI->db->query("select * from h_customer where id = '$c_id'");
+        $res = $c->row_array();
+
+    return $res['title'];
+}
 
 
 ?>

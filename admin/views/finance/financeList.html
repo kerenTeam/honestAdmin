@@ -109,7 +109,7 @@
                                                 
                                                 <td> <?php echo $v['contract_number'];?> </td>
                                                 
-                                                <td class="am-text-middle"><?php echo $v['title'];?></td>
+                                                <td class="am-text-middle"><a href="<?php echo site_url('/Finance/contract_info/'.$v['contract_number']);?>"><?php echo $v['title'];?></a></td>
                                                 <?php if($v['completion_status']=='1'): ?>
                                                     <td class="am-text-middle">已完成</td>
                                                 <?php else:?>

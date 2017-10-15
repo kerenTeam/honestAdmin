@@ -121,6 +121,17 @@ class public_model extends CI_Model
         return $query->row_array();
     }
 
+    //返回合同明细
+    function contract_info($number){
+        $this->db->select('a.*, b.*,c.*');
+        $this->db->from('h_contract as a');
+        $this->db->join('h_project as b', 'b.c_number = a.contract_number','left');
+        $this->db->join('h_project_task as c', 'b.id = c.project_id','left');
+        $query = $this->db->where('a.contract_number',$number)->get();
+        return $query->row_array(); 
+    }
+
+
     
 }
 

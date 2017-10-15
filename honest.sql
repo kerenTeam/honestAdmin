@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : 120.78.73.217
 Source Server Version : 50505
-Source Host           : localhost:3306
-Source Database       : honest
+Source Host           : 120.78.73.217:3306
+Source Database       : honestv1mysql
 
 Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-30 11:57:17
+Date: 2017-10-15 21:07:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -96,17 +96,20 @@ CREATE TABLE `h_contract` (
   `prepay` varchar(20) DEFAULT NULL COMMENT '约定预付',
   `expenditure` varchar(20) DEFAULT NULL COMMENT '约定代支',
   `remaks` varchar(255) DEFAULT NULL COMMENT '备注',
-  `completion_status` int(11) DEFAULT '0' COMMENT '完成状态   0未完成   1已完成',
+  `completion_status` int(11) DEFAULT '0' COMMENT '完成状态   0未完成   1已完成待财务收款   2收款完成 待归档  3归档完成  ',
   `complete_time` datetime DEFAULT NULL COMMENT '完成时间',
   `contract_file` varchar(255) DEFAULT NULL COMMENT '合同文件',
   `entrust_file` varchar(255) DEFAULT NULL COMMENT '委托书文件',
+  `receivables_state` varchar(255) DEFAULT '1' COMMENT '收款状态  1待收款  2已收款',
   PRIMARY KEY (`contract_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=536 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=538 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_contract
 -- ----------------------------
-INSERT INTO `h_contract` VALUES ('535', '2013', '13AB001', '四川', '阿坝', null, '12', '10', '0', '23', '2017-09-29', '225', '10000', '2017-09-29 21:58:15', '黑水县冰川加气站', '9', '0', null, null, null, null, null, null, '0', null, null, null);
+INSERT INTO `h_contract` VALUES ('535', '2013', '13AB001', '四川', '阿坝', null, '12', '10', '0', '23', '2017-09-29', '225', '10000', '2017-09-29 21:58:15', '黑水县冰川加气站', '9', '0', null, null, null, null, null, null, '1', null, null, null, '1');
+INSERT INTO `h_contract` VALUES ('536', '2017', '201710152', '安徽', '池州市', '东至县', '35', '14', '0', '31', '2017-10-15', '2', '234234', '2017-10-15 16:28:54', '324234', '9', '0', null, '234', '23423423', '423432', '423423', '4234234234', '0', null, null, null, '1');
+INSERT INTO `h_contract` VALUES ('537', '2017', '201710153', '江西', '萍乡市', '上栗县', '34', '14', '0', '31', '2017-10-14', '141', '2342342', '2017-10-15 16:54:41', '3424234', '9', '0', null, '42343434', '2342342', '23424', '234234', '24234234', '0', null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for h_contract_account
@@ -221,7 +224,7 @@ CREATE TABLE `h_project` (
   `del_state` int(11) DEFAULT '0' COMMENT '删除状态  1是  0正常状态',
   `cycle` varchar(255) DEFAULT NULL COMMENT '完成周期',
   `requirement` varchar(255) DEFAULT NULL COMMENT '附带要求',
-  `project_status` int(1) DEFAULT '0' COMMENT '项目完成状态   1完成   0 未完成',
+  `project_status` int(1) DEFAULT '0' COMMENT '项目完成状态   1完成   0 未完成  ',
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`,`c_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8mb4;
@@ -229,7 +232,7 @@ CREATE TABLE `h_project` (
 -- ----------------------------
 -- Records of h_project
 -- ----------------------------
-INSERT INTO `h_project` VALUES ('535', '81', '13AB001', '2013', '中国石油天然气股份有限公司四川南充销售分公司东观加油站', '四川', '南充', null, '7', null, null, null, null, '0', '9', '23', '13', '2017-09-29 21:58:49', '0', '无', null, '1', null);
+INSERT INTO `h_project` VALUES ('535', '81', '13AB001', '2013', '中国石油天然气股份有限公司四川南充销售分公司东观加油站', '四川', '南充', null, '7', null, null, null, null, '0', '9', '23', '13', '2017-09-29 21:58:49', '1', '无', null, '1', null);
 INSERT INTO `h_project` VALUES ('535', '82', '13AB001', '2017', '213123', '天津', '县', '静海县', '7', null, null, null, null, '1', '36', '31', '13', '2017-09-30 00:48:57', '0', '12313', '12313', '0', '123123');
 INSERT INTO `h_project` VALUES ('535', '83', '13AB001', '2017', '2345', '上海', '市辖区', '普陀区', '7', null, null, null, null, '1', '35', '28', '15', '2017-09-30 00:49:28', '0', '234234', '2342', '0', '4234234');
 
@@ -256,14 +259,14 @@ CREATE TABLE `h_project_task` (
   `signature` varchar(255) DEFAULT NULL COMMENT '署名',
   `compiling` varchar(255) DEFAULT NULL COMMENT '编制人',
   `task_status` int(11) DEFAULT '0' COMMENT '完成状态   0未完成  1已完成',
+  `complete_time` varchar(0) DEFAULT NULL COMMENT '完成时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_project_task
 -- ----------------------------
-INSERT INTO `h_project_task` VALUES ('75', '81', '13AB001', '2017-09-29 22:43:48', '60', '2017-03-20', '165', '1', null, '273', null, '224', '139', '2017-09-29 22:43:48', '142', '朱建立刘海峰', '165', '1');
-INSERT INTO `h_project_task` VALUES ('76', '81', '13AB001', '2017-09-29 23:31:10', '2323123', '123123', '143', '1', null, '154', '1', '142', '140', '2017-09-29 23:31:10', '139', '', null, '0');
+INSERT INTO `h_project_task` VALUES ('75', '81', '13AB001', '2017-09-29 22:43:48', '60', '2017-03-20', '165', '1', null, '273', null, '224', '139', '2017-09-29 22:43:48', '142', '朱建立刘海峰', '165', '1', null);
 
 -- ----------------------------
 -- Table structure for h_project_task_edition
@@ -277,16 +280,21 @@ CREATE TABLE `h_project_task_edition` (
   `express_num` varchar(255) DEFAULT NULL COMMENT '快递单号',
   `express_name` varchar(255) DEFAULT NULL COMMENT '快递公司',
   `task_id` int(11) DEFAULT NULL COMMENT '所属任务',
+  `file_name` varchar(255) DEFAULT NULL,
+  `file_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_project_task_edition
 -- ----------------------------
-INSERT INTO `h_project_task_edition` VALUES ('49', '1', '已交付', '0000-00-00 00:00:00', '1', '1', '75');
-INSERT INTO `h_project_task_edition` VALUES ('50', '2', '已交付', '0000-00-00 00:00:00', '123123', '123', '75');
-INSERT INTO `h_project_task_edition` VALUES ('51', '3', '已交付', '2017-08-31 00:00:00', null, null, '75');
-INSERT INTO `h_project_task_edition` VALUES ('52', '3', '324234', '2017-09-30 00:00:00', '234234', '234234', '76');
+INSERT INTO `h_project_task_edition` VALUES ('49', '1', '已交付', '0000-00-00 00:00:00', '1', '1', '75', null, null);
+INSERT INTO `h_project_task_edition` VALUES ('50', '2', '已交付', '0000-00-00 00:00:00', '123123', '123', '75', null, null);
+INSERT INTO `h_project_task_edition` VALUES ('51', '3', '已交付', '2017-08-31 00:00:00', null, null, '75', null, null);
+INSERT INTO `h_project_task_edition` VALUES ('52', '3', '324234', '2017-09-30 00:00:00', '234234', '234234', '76', null, null);
+INSERT INTO `h_project_task_edition` VALUES ('63', '1', '2013/5/29交雷静瑶', '2013-05-29 00:00:00', null, null, '75', null, null);
+INSERT INTO `h_project_task_edition` VALUES ('64', '1', '已邮2013/1/9', '2013-01-19 00:00:00', null, null, '75', null, null);
+INSERT INTO `h_project_task_edition` VALUES ('65', '1', '送给唐', '0000-00-00 00:00:00', '324234234', '快发', '75', '送审版2', 'upload/file/17-10-15送审版1.xlsx');
 
 -- ----------------------------
 -- Table structure for h_project_task_group
@@ -320,7 +328,7 @@ CREATE TABLE `h_system_log` (
   `log_status` int(2) DEFAULT NULL COMMENT '操作状态',
   `log_message` varchar(500) DEFAULT NULL COMMENT '操作内容',
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=277 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=298 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_system_log
@@ -601,6 +609,27 @@ INSERT INTO `h_system_log` VALUES ('273', 'Project/add_project', '1', 'admin', '
 INSERT INTO `h_system_log` VALUES ('274', 'Project/add_project', '1', 'admin', '2017-09-30 00:49:28', '::1', null, '1', '新增项目成功,项目名称为2345');
 INSERT INTO `h_system_log` VALUES ('275', 'Member/del_power', '1', 'admin', '2017-09-30 10:17:29', '::1', null, '1', '删除权限成功');
 INSERT INTO `h_system_log` VALUES ('276', 'Member/add_power_level', '1', 'admin', '2017-09-30 10:18:22', '::1', null, '1', '新增权限成功,权限名称为删除项目');
+INSERT INTO `h_system_log` VALUES ('277', 'Project/del_project', '1', 'admin', '2017-09-30 12:42:08', '::1', null, '1', '删除项目到回收站成功,项目id为82');
+INSERT INTO `h_system_log` VALUES ('278', 'Project/del_project', '1', 'admin', '2017-09-30 12:42:28', '::1', null, '1', '删除项目到回收站成功,项目id为83');
+INSERT INTO `h_system_log` VALUES ('279', 'Project/del_project', '1', 'admin', '2017-09-30 12:42:49', '::1', null, '1', '删除项目到回收站成功,项目id为81');
+INSERT INTO `h_system_log` VALUES ('280', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:45', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('281', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:46', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('282', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:48', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('283', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:49', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('284', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:50', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('285', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:52', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('286', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:53', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('287', 'Task/edit_task_status/76', '1', 'admin', '2017-10-14 11:56:53', '::1', null, '0', '确认任务完成,任务id为76');
+INSERT INTO `h_system_log` VALUES ('288', 'task/Import_projectState', '1', 'admin', '2017-10-14 16:54:10', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
+INSERT INTO `h_system_log` VALUES ('289', 'task/Import_projectState', '1', 'admin', '2017-10-14 16:55:00', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
+INSERT INTO `h_system_log` VALUES ('290', 'task/Import_projectState', '1', 'admin', '2017-10-14 16:58:44', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
+INSERT INTO `h_system_log` VALUES ('291', 'task/Import_projectState', '1', 'admin', '2017-10-14 17:01:19', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
+INSERT INTO `h_system_log` VALUES ('292', 'task/Import_projectState', '1', 'admin', '2017-10-14 17:01:44', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
+INSERT INTO `h_system_log` VALUES ('293', 'task/Import_projectState', '1', 'admin', '2017-10-14 17:04:01', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
+INSERT INTO `h_system_log` VALUES ('294', 'Task/add_task_edition', '1', 'admin', '2017-10-15 13:02:40', '::1', null, '1', '新增任务记录成功,任务类型为1');
+INSERT INTO `h_system_log` VALUES ('295', 'Task/edit_task_edition', '1', 'admin', '2017-10-15 16:12:48', '::1', null, '1', '编辑任务记录成功,任务类型为1,任务记录id是：65');
+INSERT INTO `h_system_log` VALUES ('296', 'Contract/add_contract', '1', 'admin', '2017-10-15 16:28:54', '::1', null, '1', '新增合同成功,合同名称为324234');
+INSERT INTO `h_system_log` VALUES ('297', 'Contract/add_contract', '1', 'admin', '2017-10-15 16:54:41', '::1', null, '1', '新增合同成功,合同名称为3424234');
 
 -- ----------------------------
 -- Table structure for h_system_nav
@@ -822,7 +851,7 @@ CREATE TABLE `h_user_member` (
 -- ----------------------------
 -- Records of h_user_member
 -- ----------------------------
-INSERT INTO `h_user_member` VALUES ('1', 'admin', 'upload/avater/2017-09-30_1100002.jpg', '', '1', '1', '1', '324234', '234234', '234234', '234234', '234234', null, null, '1', null, null, '2017-08-10 15:20:08', '1', null, null);
+INSERT INTO `h_user_member` VALUES ('1', 'admin', 'upload/avater/2017-09-30_1100002.jpg', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '1', '324234', '234234', '234234', '234234', '234234', null, null, '1', null, null, '2017-08-10 15:20:08', '1', null, null);
 INSERT INTO `h_user_member` VALUES ('2', '测试1234', 'upload/avater/2017-08-22_171254.jpg', null, null, '3', '在职', '1838478362833', '12313', '234242', '4241234@qq.com', '34234', '234234', '234234', '1', '', '234234', '2017-08-22 17:16:09', '0', '1', null);
 INSERT INTO `h_user_member` VALUES ('139', '刘东', null, 'e10adc3949ba59abbe56e057f20f883e', '0', '2', '在职', '511002197502271210', '27452', '304278936', '304278936@qq.com', '本科', '37561', null, '0', null, null, '2017-09-03 17:20:46', '0', '1', '1');
 INSERT INTO `h_user_member` VALUES ('140', '金红英', null, 'e10adc3949ba59abbe56e057f20f883e', '0', '2', '在职', '510103196609183444', '24368', null, null, '本科', '37681', null, '0', null, null, '2017-09-03 17:20:46', '0', '1', '2');

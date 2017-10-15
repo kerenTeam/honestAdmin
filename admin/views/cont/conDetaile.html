@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>合同详情</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>/assets/js/jquery.min.js"></script>
+    <style>
+        .conD1{display: flex;border-bottom: 1px solid #e8e8e8}
+        .conD1item{flex: 1}
+        .conD1item2{flex: 2}
+        .conD1item p, .conD1item h4{margin: .3rem 0}
+        .conD1item h4{margin-top: 20px}
+        .conD1item span{color: #555};
+
+    </style>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('public/');?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 合同管理 <small> - 合同详情 </small></div>
+                    <p class="page-header-description"> 这里是合同详情 </p>
+                </div>
+            </div>
+
+  
+            <div class="row-content am-cf">
+                
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <p>合同号： <span><?php echo $cont['contract_number'];?></span></p>
+                                    <p>合同名称：<span><?php echo $cont['title'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>合同年限：<span><?php echo $cont['contract_year'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>所属客户：<span><?php echo $cont['customer_id'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <p>省：<span><?php echo $cont['province'];?></span></p>
+                                    <p>地市：<span><?php echo $cont['city'];?></span></p>
+                                    <p>县：<span><?php echo $cont['area'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>行业：<span><?php echo get_industryTitle($cont['industry']);?></span></p>
+                                    <p>板块：<span><?php echo get_industryTitle($cont['plate']);?></span></p>
+                                    <p>服务类型<span><?php echo get_industryTitle($cont['service_tyep']);?></span></p>
+                                    <p>军地：<span><?php if($cont['army'] == '1'){echo "是";}else{echo "否";}?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>合同金额：<span><?php echo $cont['contract_price'];?></span></p>
+                                    <p>预估合同金额：<span><?php echo $cont['estimate_price'];?></span></p>
+                                    <p>约定评审费：<span><?php echo $cont['review_price'];?></span></p>
+                                    <p>约定预付:<span><?php echo $cont['prepay'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>签定人：<span><?php echo get_username($cont['sign_user'])?></span></p>
+                                    <p>签订时间：<span><?php echo $cont['sign_date'];?></span></p>
+                                    <p>备注：<span><?php echo $cont['remaks'];?></span></p>
+                                </div>
+                            </div>
+
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <p>合同文件： 
+                                        <?php if(!empty($cont['contract_file'])):?>
+                                        <a href="<?php echo base_url($cont['contract_file'])?>"><span><?php echo $cont['contract_year'].$cont['title'];?></span></a>
+                                        <?php else:?>
+                                            <span>暂无</span>
+                                        <?php endif;?>
+                                    </p>
+                                    <p>委托书文件: <?php if(!empty($cont['entrust_file'])):?>
+                                        <a href="<?php echo base_url($cont['entrust_file'])?>"><span><?php echo $cont['contract_year'].$cont['title'];?></span></a>
+                                        <?php else:?>
+                                            <span>暂无</span>
+                                        <?php endif;?>
+                                    </p>
+                                 
+                                </div>
+                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+
+
+
+
+    </div>
+    </div>
+    <script src="<?php echo base_url('public/');?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>/assets/js/app.js"></script>
+    
+
+</body>
+
+</html>
