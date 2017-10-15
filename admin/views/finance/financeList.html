@@ -90,6 +90,7 @@
                                             <tr>
                                                 <th>合同号</th>
                                                 <th>合同名称</th>
+                                                <th>合同状态</th>
                                                 <th>签订人</th>
                                                 <th>签订时间</th>
                                                 <th>合同金额</th>
@@ -102,13 +103,19 @@
                                             </tr>
                                         </thead>
                                         <tbody id="doc-modal-list">
+                                            <?php if(!empty($lists)):?>
                                         <?php foreach($lists as $v):?>
                                             <tr class="gradeX">
                                                 
                                                 <td> <?php echo $v['contract_number'];?> </td>
                                                 
                                                 <td class="am-text-middle"><?php echo $v['title'];?></td>
-                                                <td class="am-text-middle"><?php echo $v['sign_user'];?></td>
+                                                <?php if($v['completion_status']=='1'): ?>
+                                                    <td class="am-text-middle">已完成</td>
+                                                <?php else:?>
+                                                    <td class="am-text-middle">未完成</td>
+                                                <?php endif;?>
+                                                <td class="am-text-middle"><?php echo get_username($v['sign_user']);?></td>
                                                 <td class="am-text-middle"><?php echo $v['sign_date'];?></td>
                                                 <td class="am-text-middle"><?php echo $v['contract_price'];?></td>
 
@@ -143,6 +150,9 @@
                                                 </td>
                                             </tr>
                                         <?php endforeach;?>
+                                    <?php else:?>
+                            <th colspan="11">暂无记录</th>
+                                    <?php endif;?>
 
 
                                             <!-- more data -->

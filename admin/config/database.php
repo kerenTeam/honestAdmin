@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'honest',
+	'hostname' => '120.78.73.217',
+	'username' => 'honestv1mysql',
+	'password' => 'honestv1mysql',
+	'database' => 'honestv1mysql',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'h_',
 	'pconnect' => FALSE,

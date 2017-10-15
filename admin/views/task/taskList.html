@@ -60,11 +60,24 @@
                                                 -->
                                                 <?php if($_SESSION['users']['gid'] == '1'):?>
                                                 <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                                    <span class="am-icon-archive"></span> 导入
+                                                    <span class="am-icon-archive"></span> 导入任务
                                                   <input name="pics" type="file" id="projectFile" />    
                                                 </a>
+                                                <a href="javascript:;" data-id='1' class="am-btn am-btn-default am-btn-danger file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                    <span class="am-icon-archive"></span> 导入送审版记录
+                                                  <input name="pics" type="file" class="projectState" />    
+                                                </a>
+                                                <a href="javascript:;" data-id='2' class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                    <span class="am-icon-archive"></span> 导入修改版记录
+                                                  <input name="pics" type="file" class="projectState" />   
 
-                                                <a href="<?php echo base_url();?>upload/xls/task.xlsx" class="am-btn am-btn-warning">导入模板</a>
+                                                </a> <a href="javascript:;" data-id='3' class="am-btn am-btn-default am-btn-success file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                    <span class="am-icon-archive"></span> 导入最终版记录
+                                                    <input name="pics" type="file" class="projectState" />    
+                                                </a>
+
+                                                <a href="<?php echo base_url();?>upload/xls/task.xlsx" class="am-btn am-btn-warning">导入任务模板</a>
+                                                <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">导入任务记录模板</a>
                                                 <?php endif;?>
                                             </div>
                                              <script>     
@@ -74,6 +87,29 @@
                         
                                                     var formData = new FormData();
                                                     formData.append('pics', $('#projectFile')[0].files[0]);
+                                                    $.ajax({
+                                                        url: URL,
+                                                        type: 'POST',
+                                                        // headers: headers,
+                                                        data: formData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        success: function (data) {
+                                                            console.log(data);
+                                                            alert(data);
+                                                            window.location.reload()
+                                                        }
+                                                    });
+                                                }) 
+                                                $('.projectState').change(function () {
+                                                    var dataId = $(this).parent().attr('data-id');
+                                                   // alert($(this)[0].files[0]);
+
+                                                    var URL = '<?php echo site_url("/task/Import_projectState");?>'
+                        
+                                                    var formData = new FormData();
+                                                    formData.append('pics',  $(this)[0].files[0]);
+                                                    formData.append('type', dataId);
                                                     $.ajax({
                                                         url: URL,
                                                         type: 'POST',
@@ -150,9 +186,12 @@
                                                 <td> <?php echo $val['contract_number'];?> </td>
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
-                                                        <button type="button" class="am-btn am-radius am-btn-danger "> <a class="modal" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:650}" > <i class="am-icon-pencil"></i> 送审 </a></button>
+                                                        <a class="modal" data-id="<?php echo $val['id'];?>" href="<?php echo site_url('/Task/song_censorship/'.$val['id']);?>" <i class="am-icon-pencil"></i> 送审 </a>
+                                                        <a class="modal" data-id="<?php echo $val['id'];?>" href="<?php echo site_url('/Task/xiu_censorship/'.$val['id']);?>" <i class="am-icon-pencil"></i> 修订 </a>
+                                                        <a class="modal" data-id="<?php echo $val['id'];?>" href="<?php echo site_url('/Task/zong_censorship/'.$val['id']);?>" <i class="am-icon-pencil"></i> 最终 </a>
+                                                       <!--  <button type="button" class="am-btn am-radius am-btn-danger "> <a class="modal" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:650}" > <i class="am-icon-pencil"></i> 送审 </a></button>
                                                         <button type="button" class="am-btn am-radius am-btn-warning"> <a class="edit" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#edit-modal', closeViaDimmer: 0, width:650}" > <i class="am-icon-pencil"></i> 修改 </a></button>
-                                                        <button type="button" class="am-btn am-radius am-btn-success"> <a class="zuizhong" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#zuizhong-modal', closeViaDimmer: 0, width:650}" > <i class="am-icon-pencil"></i> 最终 </a></button>
+                                                        <button type="button" class="am-btn am-radius am-btn-success"> <a class="zuizhong" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#zuizhong-modal', closeViaDimmer: 0, width:650}" > <i class="am-icon-pencil"></i> 最终 </a></button> -->
                                                     </div>
                                                 </td>
                                                 <td class="am-text-middle"><?php echo $val['Issued_time'];?></td>

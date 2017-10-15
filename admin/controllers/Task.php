@@ -218,206 +218,137 @@ class Task extends Public_Controller
         }
     }
 
-    //任务送审版记录
-    function add_task_edition(){
-      if($_POST){
-          $data = $this->input->post();
-            if($data['edition'] == 'insert'){
-                unset($data['edition']);
-                $data['type'] = '1';
-                if($this->public_model->insert($this->project_task_edition,$data)){
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'1',
-                        'log_message'=>"新增任务送审版成功,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
-                }else{
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'0',
-                        'log_message'=>"新增任务送审版失败,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
-                }
-            }else{
-                unset($data['edition']);
-                if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'1',
-                        'log_message'=>"编辑任务送审版成功,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
-                }else{
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'0',
-                        'log_message'=>"编辑任务送审版失败,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
-                }
 
-            }
-      }else{
-          $id = intval($this->uri->segment('3'));
-          //h获取送审版记录
-          $data['taskEdition'] = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$id,'type','1');
+    //  新增任务记录
+    function addTaskEdition(){
+        $id = intval($this->uri->segment(3));
+        $type = intval($this->uri->segment(4));
+        if($id == '0' || $type == '0'){
+          $this->load->view('404.html');
+        }else{
           $data['task_id'] = $id;
+          $data['type'] = $type;
           $this->load->view('task/taskStates.html',$data);
-      }
+        }
     }
 
-    //任务修订版新增
-    function revise_edition(){
+
+    //新增任务记录操作
+    function add_task_edition(){
+        if($_POST){
+            $data = $this->input->post();
+
+            if(!empty($_FILES['file']['name'])){
+                $config['upload_path']      = 'upload/file/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx';
+                $config['max_size']     = 5120;
+                $config['file_name'] = date('y-m-d').$data['file_name'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('file')) {
+
+                    echo "<script>alert('文件上传失败！');window.parent.location.reload();</script>";exit;
+                }else{
+                    $data['file_path'] = 'upload/file/'.$this->upload->data('file_name');
+                }
+            }
+
+
+            //新增记录
+            if($this->public_model->insert($this->project_task_edition,$data)){
+                $arr = array(
+                  'log_url'=>$this->uri->uri_string(),
+                  'user_id'=>$_SESSION['users']['user_id'],
+                  'username'=>$_SESSION['users']['username'],
+                  'log_ip'=>get_client_ip(),
+                  'log_status'=>'1',
+                  'log_message'=>"新增任务记录成功,任务类型为".$data['type'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+            }else{
+               $arr = array(
+                  'log_url'=>$this->uri->uri_string(),
+                  'user_id'=>$_SESSION['users']['user_id'],
+                  'username'=>$_SESSION['users']['username'],
+                  'log_ip'=>get_client_ip(),
+                  'log_status'=>'0',
+                  'log_message'=>"新增任务记录失败,任务类型为".$data['type'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
+            }
+        }
+    }
+
+    function editTaskEdition(){
+        $id = intval($this->uri->segment(3));
+        if($id == '0'){
+          $this->load->view('404.html');
+        }else{  
+          $edition = $this->public_model->select_info($this->project_task_edition,'record_id',$id);
+          $data['taskEdition'] = $edition;
+      //    var_dump($data);
+          $this->load->view('task/taskStates.html',$data);
+        }
+    }
+
+    function edit_task_edition(){
       if($_POST){
           $data = $this->input->post();
-            if($data['edition'] == 'insert'){
-                unset($data['edition']);
-                $data['type'] = '2';
-                if($this->public_model->insert($this->project_task_edition,$data)){
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'1',
-                        'log_message'=>"新增任务修订版成功,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
-                }else{
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'0',
-                        'log_message'=>"新增任务修订版失败,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
-                }
-            }else{
-                unset($data['edition']);
-                if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'1',
-                        'log_message'=>"编辑任务修订版成功,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
-                }else{
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'0',
-                        'log_message'=>"编辑任务修订版失败,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
-                }
-            }
+          if(!empty($_FILES['file']['name'])){
+              $config['upload_path']      = 'upload/file/';
+              $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx';
+              $config['max_size']     = 5120;
+              $config['file_name'] = date('y-m-d').$data['file_name'];
+              $this->load->library('upload', $config);
+              // 上传
+              if(!$this->upload->do_upload('file')) {
+                  echo "<script>alert('文件上传失败！');window.parent.location.reload();</script>";exit;
+              }else{
+                  $data['file_path'] = 'upload/file/'.$this->upload->data('file_name');
+              }
+          }
+          if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
+                $arr = array(
+                  'log_url'=>$this->uri->uri_string(),
+                  'user_id'=>$_SESSION['users']['user_id'],
+                  'username'=>$_SESSION['users']['username'],
+                  'log_ip'=>get_client_ip(),
+                  'log_status'=>'1',
+                  'log_message'=>"编辑任务记录成功,任务类型为".$data['type'].',任务记录id是：'.$data['record_id'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+          }else{
+               $arr = array(
+                  'log_url'=>$this->uri->uri_string(),
+                  'user_id'=>$_SESSION['users']['user_id'],
+                  'username'=>$_SESSION['users']['username'],
+                  'log_ip'=>get_client_ip(),
+                  'log_status'=>'0',
+                  'log_message'=>"编辑任务记录失败,任务类型为".$data['type'].',任务记录id是：'.$data['record_id'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+          }
+
+
+
+
       }else{
-          $id = intval($this->uri->segment('3'));
-          //
 
-          $data['taskEdition'] = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$id,'type','2');
-          $data['task_id'] = $id;
-          $this->load->view('task/revise.html',$data);
-
+        $this->load->view('404.html');
       }
+
+
+
+
     }
-
-
-    //最终版
-    function final_edition(){
-       if($_POST){
-          $data = $this->input->post();
-            if($data['edition'] == 'insert'){
-                unset($data['edition']);
-                $data['type']= '3';
-                if($this->public_model->insert($this->project_task_edition,$data)){
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'1',
-                        'log_message'=>"新增任务最终版成功,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
-                }else{
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'0',
-                        'log_message'=>"新增任务最终版失败,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
-                }
-            }else{
-                unset($data['edition']);
-                if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'1',
-                        'log_message'=>"编辑任务最终版成功,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
-                }else{
-                    $arr = array(
-                        'log_url'=>$this->uri->uri_string(),
-                        'user_id'=>$_SESSION['users']['user_id'],
-                        'username'=>$_SESSION['users']['username'],
-                        'log_ip'=>get_client_ip(),
-                        'log_status'=>'0',
-                        'log_message'=>"编辑任务最终版失败,任务id为".$data['task_id'],
-                    );
-                    add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
-                }
-
-            }
-      }else{
-          $id = intval($this->uri->segment('3'));
-          $data['taskEdition'] = $this->public_model->select_maywhere_info($this->project_task_edition,'task_id',$id,'type','3');
-
-          $data['task_id'] = $id;
-          $this->load->view('task/final.html',$data);
-
-      }
-    }
+  
 
 
     // 修改任务为已完成状态
@@ -427,14 +358,25 @@ class Task extends Public_Controller
             $this->load->view('404.html');
         }else{
           $data['task_status'] = '1';
-          if($this->public_model->updata($this->project_task,'id',$id)){
+          if($this->public_model->updata($this->project_task,'id',$id,$data)){
                $arr = array(
                         'log_url'=>$this->uri->uri_string(),
                         'user_id'=>$_SESSION['users']['user_id'],
                         'username'=>$_SESSION['users']['username'],
                         'log_ip'=>get_client_ip(),
                         'log_status'=>'0',
-                        'log_message'=>"确认任务完成,任务id为".$id,
+                        'log_message'=>"确认任务完成成功,任务id为".$id,
+              );
+              add_system_log($arr);
+              echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+          }else{
+              $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"确认任务完成失败,任务id为".$id,
               );
               add_system_log($arr);
               echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
@@ -445,7 +387,7 @@ class Task extends Public_Controller
 
     //导入任务列表
     function import_task(){
-         $name = date('Y-m-d');
+          $name = date('Y-m-d');
             $inputFileName = "upload/xls/" .$name .'.xls';
             move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
             //引入类库
@@ -545,20 +487,7 @@ class Task extends Public_Controller
                $zui_time =  $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();
               
 
-                //送审版那
-                $song = array(
-                  'type'=>'1',
-                  'situation'=> $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue(),
-                );
-                //修改版
-                $xiu = array(
-                  'type'=>'2',
-                  'situation'=>$PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue(),
-                );
-                $zui = array(
-                  'type'=>'3',
-                  'situation'=> $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue(),
-                );
+            
 
                 if($contract_number == NULL){
         
@@ -574,24 +503,7 @@ class Task extends Public_Controller
                 $id = $this->public_model->insert_id($this->project_task,$data);
                 if(!empty($id)){
                     
-                    if(!empty($song_time)){
-                      $time = $song_time - 25569; //获得秒数
-                      $song['deliver_time'] = date('Y-m-d', $time*24*60*60); 
-                      $song['task_id'] = $id;
-                      $this->public_model->insert($this->project_task_edition,$song);
-                    }
-                    if(!empty($xiu_time)){
-                       $xiu['task_id'] = $id;
-                      $time1 = $xiu_time - 25569; //获得秒数
-                      $xiu['deliver_time'] = date('Y-m-d', $time1*24*60*60); 
-                      $this->public_model->insert($this->project_task_edition,$xiu);
-                    }
-                    if(!empty($zui_time)){
-                       $zui['task_id'] = $id;
-                       $time2 = $zui_time - 25569; //获得秒数
-                       $zui['deliver_time'] = date('Y-m-d', $time2*24*60*60);
-                       $this->public_model->insert($this->project_task_edition,$zui);
-                    }
+                
                     $yes[] = $id;
                 }else{
                     $error[] = $currentRow;
@@ -616,7 +528,7 @@ class Task extends Public_Controller
 
     //收缩
     function search_task(){
-         $config['per_page'] = 10;
+            $config['per_page'] = 10;
             //获取页码
             $current_page=intval($this->input->get("size"));//index.php 后数第4个/
 
@@ -680,6 +592,158 @@ class Task extends Public_Controller
            
             // var_dump($data);
             $this->load->view('task/taskList.html',$data);
+    }
+
+    //导入任务记录
+    function Import_projectState(){
+          if($_POST){
+            $type = $this->input->post('type');
+
+
+            $name = date('Y-m-d');
+            $inputFileName = "upload/xls/" .$name .'.xls';
+            move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+            //引入类库
+            $this->load->library('excel');
+            if(!file_exists($inputFileName)){
+    
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+    
+                    exit;
+    
+            }
+            //导入excel文件类型 excel2007 or excel5
+            
+            $PHPReader = new PHPExcel_Reader_Excel2007();
+            
+            if(!$PHPReader->canRead($inputFileName)){
+                $PHPReader = new PHPExcel_Reader_Excel5();
+                if(!$PHPReader->canRead($inputFileName)){
+                    echo 'no Excel';
+                return;
+                }
+            }   
+            $yes = array();
+            $error = array();
+                          
+            
+            $PHPExcel = $PHPReader->load($inputFileName);
+    
+            $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+    
+            $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+    
+            $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+    
+            $erp_orders_id = array();  //声明数组
+
+
+            for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+                //合同号
+                $contract_number = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+                //任务
+                $project = $this->public_model->select_info($this->project_task,'contract_number',$contract_number);
+                  
+                $data['task_id'] = $project['id'];
+                $data['type'] = $type;
+
+                //
+                $data['situation'] =  $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();
+                $song_time =  $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();
+
+                $time = $song_time - 25569; //获得秒数
+                $data['deliver_time'] = date('Y-m-d', $time*24*60*60); 
+
+
+                $data['express_num'] =  $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();
+                $data['express_name'] =  $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();
+
+            
+                if($contract_number == NULL){
+        
+                        //删除临时文件
+                    @unlink($inputFileName);
+                    break;
+    
+                } 
+
+                //任务
+                $id =  $this->public_model->insert($this->project_task_edition,$data);
+
+                if(!empty($id)){
+                    $yes[] = $id;
+                }else{
+                    $error[] = $currentRow;
+                }
+
+            }
+            $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+          //  echo $ret['yes'];
+            // //            //日志
+            
+            $arr = array(
+                'log_url'=>$this->uri->uri_string(),
+                'user_id'=>$_SESSION['users']['user_id'],
+                'username'=>$_SESSION['users']['username'],
+                'log_ip'=>get_client_ip(),
+                'log_status'=>'1',
+                'log_message'=>"导入了任务状态信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+            );
+            add_system_log($arr);   
+            echo $arr['log_message'];
+              
+          }
+
+    }
+
+
+    //送审版列表
+    function song_censorship(){
+          $id = intval($this->uri->segment('3'));
+          if($id == '0'){
+            $this->load->view('404.html');
+          }else{
+            $lists = $this->public_model->select_where_many_sort($this->project_task_edition,'task_id',$id,'type','1','record_id');
+
+            // var_dump($data);
+            $data['edition'] = $lists;             
+            $data['id'] = $id;             
+            // var_dump($data);
+                        $data['type'] = '1';             
+
+            $this->load->view('task/edition.html',$data);
+          }
+    } 
+    function xiu_censorship(){
+          $id = intval($this->uri->segment('3'));
+          if($id == '0'){
+            $this->load->view('404.html');
+          }else{
+            $lists = $this->public_model->select_where_many_sort($this->project_task_edition,'task_id',$id,'type','2','record_id');
+
+            // var_dump($data);
+            $data['edition'] = $lists;             
+            $data['id'] = $id;  
+                        $data['type'] = '2';             
+           
+            // var_dump($data);
+            $this->load->view('task/edition.html',$data);
+          }
+    } 
+    function zong_censorship(){
+          $id = intval($this->uri->segment('3'));
+          if($id == '0'){
+            $this->load->view('404.html');
+          }else{
+            $lists = $this->public_model->select_where_many_sort($this->project_task_edition,'task_id',$id,'type','3','record_id');
+
+            // var_dump($data);
+            $data['edition'] = $lists;             
+            $data['id'] = $id;             
+            $data['type'] = '3';             
+            // var_dump($data);
+            $this->load->view('task/edition.html',$data);
+          }
     }
 
 

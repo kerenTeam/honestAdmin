@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery.min.js"></script>
+
+
+    <style>
+        #doc-modal-list .modal {
+            border: none !important;
+        }
+    </style>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+
+
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 任务记录 </small></div>
+                    <?php if($type == '1'):?>
+                    <p class="page-header-description"> 这里是送审版任务记录列表 </p>
+                    <?php elseif($type == '2'):?>
+                    <p class="page-header-description"> 这里是修订版任务记录列表 </p>
+
+                    <?php else:?>
+                    <p class="page-header-description"> 这里是最终版任务记录列表 </p>
+
+                    <?php endif;?>
+                </div>
+            </div>
+            <div class="row-content am-cf">
+
+                <div class="row">·
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                 <?php if($type == '1'):?>
+                                <div class="widget-title  am-cf">送审版任务记录列表</div>
+                                    <?php elseif($type == '2'):?>
+                                <div class="widget-title  am-cf">修订版任务记录列表</div>
+
+                                    <?php else:?>
+                                <div class="widget-title  am-cf">最总版任务记录列表</div>
+
+                                    <?php endif;?>
+                            </div>
+                            <div class="widget-body  am-fr">
+                                <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+                                    <div class="am-form-group">
+                                        <div class="am-btn-toolbar">
+                                            <div class="am-btn-group am-btn-group-xs">
+
+                                                <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#userInfomation-modal',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button>
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                     
+
+                                <!-- <div class="am-u-sm-12 "> -->
+                                <div class="am-scrollable-horizontal">
+                                  
+                                    <table class="am-table am-table-bordered am-table-striped am-text-nowrap">
+
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>日期</th>
+                                                <th>内容</th>
+                                                <th>快递单号</th>
+                                                <th>快递名称</th>
+                                                <th>文件名称(点击下载)</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="doc-modal-list">
+                                            <?php foreach($edition as $val):?>
+                                            <tr class="gradeX">
+                                                <td><?php echo $val['record_id'];?></td>
+                                                <td><?php echo $val['deliver_time'];?></td>
+                                                <td><?php echo $val['situation'];?></td>
+                                                <td><?php echo $val['express_num'];?></td>
+                                                <td><?php echo $val['express_name'];?></td>
+                                                <td><a href="<?php echo base_url($val['file_path']);?>"><?php echo $val['file_name'];?></a></td>
+                                              
+                                                <td class="am-text-middle">
+                                                  
+                                                        
+                                                        <a class="edit" data-id="<?php echo $val['record_id'];?>" data-am-modal="{target: '#edit-modal', closeViaDimmer: 0, width:650}" > 
+                                                            <i class="am-icon-pencil"></i> 编辑 
+                                                        </a>
+                                                        
+                                                        <!-- 非管理人员 无此按钮-->
+                                                        <a href="javascript:;" data-id="<?php echo $val['record_id']?>" class="delete tpl-table-black-operation-del">
+                                                           <i class="am-icon-trash"></i> 删除
+                                                        </a>  
+                                                        <!-- 非管理人员 无此按钮-->
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach;?>
+
+
+                                            <!-- more data -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- 弹框开始 -->
+        
+        <!--送审版 -->
+        <div class="am-modal am-modal-no-btn" tabindex="-1" id="userInfomation-modal">
+            <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                <div class="am-modal-hd" style="color:aliceblue  !important"> 任务处理
+                    <a href="javascript: void(0)" class="am-close am-close-spin" style="color:#fff !important" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd">
+
+                    <iframe src="<?php echo site_url('/Task/addTaskEdition/'.$id.'/'.$type);?>"  target="_self" style="height:70vh;width:100%;overflow-y: scroll;"> </iframe>
+
+                </div>
+            </div>
+        </div>
+
+       
+        <!-- 修订版 -->
+          <div class="am-modal am-modal-no-btn" tabindex="-1" id="edit-modal">
+            <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                <div class="am-modal-hd" style="color:aliceblue  !important">编辑任务记录
+                    <a href="javascript: void(0)" class="am-close am-close-spin" style="color:#fff !important" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd">
+
+                    <iframe src=""  target="_self" style="height:70vh;width:100%;overflow-y: scroll;"> </iframe>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('#doc-modal-list').find('.edit')
+                    .on('click', function () {
+                        $('iframe').attr('src', '<?php echo site_url('/Task/editTaskEdition/');?>' + $(this).attr("data-id"));
+                    });
+            });
+        </script>
+        <!-- 最终版 -->
+          <div class="am-modal am-modal-no-btn" tabindex="-1" id="zuizhong-modal">
+            <div class="am-modal-dialog" style="background:rgb(58, 65, 68) !important ">
+                <div class="am-modal-hd" style="color:aliceblue  !important"> 任务处理
+                    <a href="javascript: void(0)" class="am-close am-close-spin" style="color:#fff !important" data-am-modal-close>&times;</a>
+                </div>
+                <div class="am-modal-bd">
+
+                    <iframe src=""  target="_self" style="height:70vh;width:100%;overflow-y: scroll;"> </iframe>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+                $('#doc-modal-list').find('.zuizhong')
+                    .on('click', function () {
+                        $('iframe').attr('src', '<?php echo site_url('/Task/final_edition/');?>' + $(this).attr("data-id"));
+                    });
+            });
+        </script>
+
+
+      
+
+        <div class="am-modal am-modal-confirm" tabindex="-1" id="my-delete-confirm">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">删除提示</div>
+                <div class="am-modal-bd">
+                    你，确定要删除这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            // TODO 删除
+            $(function () {
+                $('#doc-modal-list').find('.delete').add('#doc-confirm-toggle').
+                    on('click', function () {
+                        $('#my-delete-confirm').modal({
+                            relatedTarget: this,
+                            onConfirm: function (options) {
+                                var $link = $(this.relatedTarget).one('a');
+                                // var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                                //     'mull';
+                                // alert(msg);
+
+                                $.post("<?php echo site_url('/Task/del_task')?>", { id: $link.data('id') }, function (result) {
+                                    // $("span").html(result);
+                                    window.location.reload()
+                                });
+                            },
+                            closeOnConfirm: false,
+                            onCancel: function () {
+                                // alert('onCancel');
+                            }
+                        });
+                    });
+            });
+        </script>
+
+        <!-- 弹框结束 -->
+    </div>
+    </div>
+    <script src="<?php echo base_url('/public');?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/app.js"></script>
+
+</body>
+
+</html>

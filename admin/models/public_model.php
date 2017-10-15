@@ -14,6 +14,11 @@ class public_model extends CI_Model
         $query = $this->db->order_by($sort,'desc')->limit($size,$page)->get($table);
         return $query->result_array();
     }
+    function select_page_sort($table,$page,$size,$sort){
+        $sql = "select * from h_contract where del_state ='0' order by $sort desc,completion_status desc,addtime desc limit $page,$size";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
 
     //新增
     function insert($table,$data){
@@ -85,6 +90,11 @@ class public_model extends CI_Model
     //多条件查询
     function select_where_many($table,$where,$id,$where1,$data1){
         $query = $this->db->where($where,$id)->where($where1,$data1)->get($table);
+        return $query->result_array();
+    }
+    //多条件排序查询
+    function select_where_many_sort($table,$where,$id,$where1,$data1,$sort){
+        $query = $this->db->where($where,$id)->where($where1,$data1)->order_by($sort,'desc')->get($table);
         return $query->result_array();
     }
 

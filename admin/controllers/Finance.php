@@ -74,11 +74,11 @@ class Finance extends Public_Controller {
         $config['last_link']= '末页';
         $config['num_links'] = 4;
         
-        $total = count($this->public_model->select_where_many($this->contract,'del_state','0','completion_status','1'));
+        $total = count($this->public_model->select_where($this->contract,'del_state','0',''));
         $config['total_rows'] = $total;
     
         $this->load->library('pagination');//加载ci pagination类
-        $listpage =  $this->public_model->select_page_many($this->contract,"del_state",'0','completion_status','1',$current_page,$config['per_page'],'addtime');
+        $listpage =  $this->public_model->select_page_sort($this->contract,$current_page,$config['per_page'],'receivables_state');
         $this->pagination->initialize($config);
         //获取何用收支信息
       
