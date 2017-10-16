@@ -76,6 +76,7 @@ class Project extends Public_Controller
             $this->load->library('pagination');//加载ci pagination类
             $listpage =  $this->public_model->ret_select_project($current_page,$config['per_page']);
             $this->pagination->initialize($config);
+            
 
              //获取行业类别
              $industry = $this->public_model->select_where($this->category,'type','1','');

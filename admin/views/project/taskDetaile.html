@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>任务详情</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <script src="../assets/js/jquery.min.js"></script>
+    <style>
+        #doc-modal-list .modal { border: none !important; }
+        .widget-head { padding: 10px;padding-left: 0;margin-bottom: 20px}
+        .taskCon, .taskConP{padding-left: 30px;}
+        .taskCon p.p1{text-indent: 2em}
+        .taskConDetaile{display: flex;margin-left: 30px;border-bottom: 1px solid #cac9c9;margin-bottom: 20px;}
+        .taskConF1{flex: 1}
+        .taskConP{color:#ef7439;margin-bottom: 1.5rem;}
+        .scroll{ width: 70%; margin-left: 10%; height: 10px; background: #ccc;  position: relative; margin-top: 8px; }
+        .bar{width: 10px;height: 20px;background: #6699ff;position: absolute;top: -5px;left: 0;cursor: pointer;}
+        .mask{position: absolute;left: 0;top: 0;background: #6699ff;width: 0;height: 10px;}
+        .maskSpan{position: absolute;right: -42px;top: -8px;}
+        .TCimg1{width: 30px}
+        .taskConF1A{width: 33%;text-align: center;float: left;color: #838FA1;cursor: pointer;}
+        .taskConFW1{width: 100px}
+        .taskConF2{flex: 2}
+        .taskConDetaile2, .taskConDetaile3{display: flex;}
+        .Stime{margin-right: 10px;width: 70px}
+        .taskConDetaile3 div{flex: 1;padding-right: 10px;}
+        .taskConDetaile4{border-bottom: 0px}
+        .taskConFW1S{padding-left: 28px}
+        .taskConDetaile5{border-bottom: 1px solid #cac9c9;}
+        .theme-white .widget-head {border-bottom: 1px solid #bbbbbb;}
+        .chatItem{width: 95%;border-bottom: 1px solid #eee;padding-bottom: 12px;}
+        .chatItem p span{float: right;}
+        .chatItem div a{margin-left: 30px;cursor: pointer;}
+        .taskConF1A label{position: relative;}
+        .taskConF1A label input:first-child{width: 0;height: 0;position: absolute;opacity: 0;background:none;}
+        .xiaozu a img{width: 20px}
+        .xiaozu a{margin-right: 20px}
+        .xiaozu2{padding-left: 32px;}
+        .taskConXiao{border-bottom: 1px solid #e6e3e3;padding-bottom: 15px;margin-bottom: 15px;}
+        .bianji{margin-right: 15%;float: right;color: #0e90d2}
+
+    </style>
+</head>
+
+<body data-type="widgets">
+    <script src="../assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 任务详情 </small></div>
+                    <p class="page-header-description"> 这里是任务详情 </p>
+                </div>
+            </div>
+  
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class=" am-cf">项目实施</div>
+                            </div>
+                            <div class="taskCon taskConXiao">
+                                <h4>项目人员</h4>
+                                <p class="p1">负责人： <a>游总</a></p>
+                                <p class="p1 xiaozu">小组人员：
+                                    <a>
+                                        李四 
+                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="../assets/img/shanchu.svg"> 
+                                    </a>
+                                    <a>
+                                        王二 
+                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="../assets/img/shanchu.svg">
+                                    </a>
+                                    <a>
+                                        王二 
+                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="../assets/img/shanchu.svg">
+                                    </a>
+                                    <input class="bianji" id="bianji1" type="button" value="编辑">
+                                </p>
+                                <div class="p1 xiaozu xiaozu2 clearfix showBian" style="display: none">添加小组人员：
+                                    <div class="" style="display: inline-block;">
+                                        <select data-am-selected="{searchBox: 0}" style="display: none;" class="am-field-valid">
+                                          <option value="a">选择工作</option>
+                                          <option value="b">谢谢谢</option>
+                                          <option value="o">让对方是否</option>
+                                          <option value="m">是的</option>
+                                          <option value="phone">iPhone</option>
+                                          <option value="im">iMac</option>
+                                          <option value="mbp">Macbook Pro</option>
+                                        </select>
+                                    </div>
+                                    <div class="" style="display: inline-block;">
+                                        <select data-am-selected="{searchBox: 0}" style="display: none;" class="am-field-valid">
+                                          <option value="a">选择人员</option>
+                                          <option value="b">谢谢谢</option>
+                                          <option value="o">让对方是否</option>
+                                          <option value="m">是的</option>
+                                          <option value="phone">iPhone</option>
+                                          <option value="im">iMac</option>
+                                          <option value="mbp">Macbook Pro</option>
+                                        </select>
+                                    </div>
+
+                                    <div style="display: inline-block;margin-left: 10px"><input style="float: initial" class="bianji" type="button" value="确定添加"></div>
+                                </div>
+                            </div>
+                            <div class="taskCon">
+                                <h4>项目节点</h4>
+                                <!-- 1. 资料收集 -->
+                                <div class="taskConDetaile">
+                                    <div class="taskConF1">
+                                        <p style="margin-bottom:5px">1. 资料收集</p>
+                                        <div class="taskConP">资料1  资料2 资料3  资料4</div>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <div class="scroll" id="scroll">
+                                            <div class="bar barS" id="bar"> </div>
+                                            <div class="mask" id="mask"></div>
+                                            <span class="maskSpan">10%</span>
+                                        </div>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                    </div>
+                                </div>
+
+                                <!-- 2.现场查勘 -->
+                                <div class="taskConDetaile">
+                                    <div class="taskConF1">
+                                        <p>2.现场查勘</p>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <div class="scroll" id="scroll">
+                                            <div class="bar barS" id="bar"> </div>
+                                            <div class="mask" id="mask"></div>
+                                            <span class="maskSpan">50%</span>
+                                        </div>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                        <a class="taskConF1A">
+                                            <label>
+                                               <input type="file" name=""> 
+                                               <input type="button" value="上传资料" name="">
+                                            </label>
+                                            
+                                        </a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                    </div>
+                                </div>
+
+                                <!-- 3.报告编写步骤 -->
+                                <div class="taskConDetaile">
+                                    <div class="taskConF1">
+                                        <p>3.报告编写步骤</p>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <div class="scroll" id="scroll">
+                                            <div class="bar barS" id="bar"> </div>
+                                            <div class="mask" id="mask"></div>
+                                            <span class="maskSpan">50%</span>
+                                        </div>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                        <a class="taskConF1A">
+                                            <label>
+                                               <input type="file" name=""> 
+                                               <input type="button" value="上传资料" name="">
+                                            </label>
+                                        </a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                    </div>
+                                </div>
+
+                                <!-- 4. 报告审核 -->
+                                <div class="taskConDetaile" style="border:none">
+                                    <div class="taskConF1">
+                                        <p>4. 报告审核</p>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <div class="scroll" id="scroll">
+                                            <div class="bar barS" id="bar"> </div>
+                                            <div class="mask" id="mask"></div>
+                                            <span class="maskSpan">50%</span>
+                                        </div>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                        <a class="taskConF1A">
+                                            <label>
+                                               <input type="file" name=""> 
+                                               <input type="button" value="上传资料" name="">
+                                            </label>
+                                        </a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                    </div>
+                                </div>
+                                <div class="taskConDetaile taskConDetaile4">
+                                    <div class="taskConF2 taskConDetaile2">
+                                        <p class="taskConFW1 taskConFW1S">一审</p>
+                                        <div class="taskConF1 taskConDetaile3">
+                                            <span class="Stime">16：45</span>
+                                            <div>评审报告：意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议
+                                            </div>
+                                        </div>
+                                        <p class="taskConFW1">李四审核通过</p>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                        <a class="taskConF1A">
+                                            <label>
+                                               <input type="file" name=""> 
+                                               <input type="button" value="上传资料" name="">
+                                            </label>
+                                        </a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                    </div>
+                                </div>
+                                <div class="taskConDetaile taskConDetaile4">
+                                    <div class="taskConF2 taskConDetaile2">
+                                        <p class="taskConFW1 taskConFW1S">二审</p>
+                                        <div class="taskConF1 taskConDetaile3">
+                                            <span class="Stime">16：45</span>
+                                            <div>评审报告：意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议意见或者建议
+                                            </div>
+                                        </div>
+                                        <p class="taskConFW1">李四审核通过</p>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                    </div>
+                                </div>
+                                <div class="taskConDetaile taskConDetaile4 taskConDetaile5">
+                                    <div class="taskConF2 taskConDetaile2">
+                                        <p class="taskConFW1 taskConFW1S">审核通过</p>
+                                        <div class="taskConF1 taskConDetaile3">
+                                            <span class="Stime"></span>
+                                            <div></div>
+                                        </div>
+                                        <p class="taskConFW1"></p>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                    </div>
+                                </div>
+
+                                <!-- 5.报告出版 -->
+                                <div class="taskConDetaile">
+                                    <div class="taskConF1">
+                                        <p>5.报告出版</p>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <div class="scroll" id="scroll">
+                                            <div class="bar barS" id="bar"> </div>
+                                            <div class="mask" id="mask"></div>
+                                            <span class="maskSpan">50%</span>
+                                        </div>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                    </div>
+                                </div>
+
+                                <!-- 6.报告归档 -->
+                                <div class="taskConDetaile" style="border: none;">
+                                    <div class="taskConF1">
+                                        <p>6.报告归档</p>
+                                    </div>
+                                    <div class="taskConF1">
+                                        <div class="scroll" id="scroll">
+                                            <div class="bar barS" id="bar"> </div>
+                                            <div class="mask" id="mask"></div>
+                                            <span class="maskSpan">50%</span>
+                                        </div>
+                                    </div>
+                                    <div class="taskConF1 ">
+                                        <a class="taskConF1A">2017-6-30</a>
+                                    </div>
+                                </div>
+                                <div class="taskConDetaile" style="border: none;margin-left: 42px;">
+                                    <div class="chatItem"> 
+                                        <h4>工程师：大哥哥</h4>
+                                        <p>
+                                            请客户经理提供客户项目对接人的联系方式
+                                            <span>提成：300元</span>
+                                        </p>
+                                        <div>
+                                            2017.4.25  10:30:45
+                                            <<a class="doc-prompt-toggle">回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="taskConDetaile" style="border: none;margin-left: 42px;">
+                                    <div class="chatItem"> 
+                                        <h4>工程师：大哥哥</h4>
+                                        <p>
+                                            请客户经理提供客户项目对接人的联系方式
+                                        </p>
+                                        <div>
+                                            2017.4.25  10:30:45
+                                            <a class="doc-prompt-toggle">回复</a> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="taskConDetaile" style="border: none;margin-left: 42px;">
+                                    <div class="chatItem"> 
+                                        <h4>工程师：大哥哥</h4>
+                                        <p>
+                                            请客户经理提供客户项目对接人的联系方式
+                                        </p>
+                                        <div>
+                                            2017.4.25  10:30:45
+                                           <a class="doc-prompt-toggle">回复</a>
+                                        </div>
+                                    </div>
+                                </div><div class="taskConDetaile" style="border: none;margin-left: 42px;">
+                                    <div class="chatItem"> 
+                                        <h4>工程师：大哥哥</h4>
+                                        <p>
+                                            请客户经理提供客户项目对接人的联系方式
+                                        </p>
+                                        <div>
+                                            2017.4.25  10:30:45
+                                            <a class="doc-prompt-toggle">回复</a> 
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- 模态框 -->
+            <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+              <div class="am-modal-dialog">
+                <div class="am-modal-hd">留言板</div>
+                <div class="am-modal-bd">
+                  <input type="text" class="am-modal-prompt-input" placeholder="请输入内容">
+                </div>
+                <div class="am-modal-footer">
+                  <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                  <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                </div>
+              </div>
+            </div>
+            <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-hd">提示</div>
+                    <div class="am-modal-bd">
+                    你，确定要删除这条记录吗？
+                    </div>
+                    <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+                    </div>
+                </div>
+            </div>
+             <!-- 模态框结束 -->
+        </div>
+
+
+
+
+
+    </div>
+    </div>
+    <script src="../assets/js/amazeui.min.js"></script>
+    <script src="../assets/js/app.js"></script>
+    <script>  
+        // 显示既有进度条进度
+        window.onload = function(){
+            var scroll = document.getElementsByClassName('scroll');
+            for (var i = scroll.length - 1; i >= 0; i--) {
+                var maskSpanNum = parseInt(scroll[i].getElementsByClassName('maskSpan')[0].innerHTML);
+                var mask = scroll[i].getElementsByClassName('mask')[0];
+                var barS = scroll[i].getElementsByClassName('barS')[0];
+                var widthAll = scroll[i].offsetWidth;
+                mask.style.width = barS.style.left = (widthAll*maskSpanNum)/100 - barS.offsetWidth + 'px';
+            }
+
+            // 编辑项目人员
+            var bianji1 = document.getElementById('bianji1');
+            $('#bianji1').click(function(){
+                if(document.getElementsByClassName('showBian')[0].style.display == 'none'){
+                    this.value = '取消编辑';
+                    $('.showBian').css('display','inline-block');
+                }else{
+                    $('.showBian').css('display','none');
+                    this.value = '编辑';
+                }
+                
+            })
+
+        }
+        // 删除人员
+        function deleteFun(obj){
+
+            var objNowPP = obj.parentNode.parentNode;
+            var objNowP = obj.parentNode;
+            objNowPP.removeChild(objNowP);
+            
+            // $('#my-confirm').modal({
+            //     onConfirm: function() {
+            //         objNowPP.removeChild(objNowP);
+            //     },
+            //     onCancel: function() {
+                    
+            //     }
+            // });
+            
+            
+        }
+
+        // 拖动进度条        
+        $('.barS').mousedown(function(event){
+          var barleft = 0;
+          var event = event || window.event;
+          var leftVal = event.clientX - this.offsetLeft;
+          var that = this;
+          var scroll = this.parentNode;
+          var mask = scroll.querySelectorAll('.mask')[0];
+          var maskSpan = scroll.querySelectorAll('.maskSpan')[0];
+           // 拖动一定写到 down 里面才可以
+          document.onmousemove = function(event){
+            var event = event || window.event;
+            barleft = event.clientX - leftVal;     
+            if(barleft < 0)
+              barleft = 0;
+            else if(barleft > scroll.offsetWidth - that.offsetWidth)
+              barleft = scroll.offsetWidth - that.offsetWidth;
+            mask.style.width = barleft +'px';
+            that.style.left = barleft + "px";
+            maskSpan.innerHTML =  parseInt(barleft/(scroll.offsetWidth-that.offsetWidth) * 100) + "%";
+            //防止选择内容--当拖动鼠标过快时候，弹起鼠标，bar也会移动，修复bug
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+          }
+        })
+        document.onmouseup = function(){
+          document.onmousemove = null; //弹起鼠标不做任何操作
+        }
+
+        // 显示模态框
+        $(function() {
+          $('.doc-prompt-toggle').on('click', function() {
+            $('#my-prompt').modal({
+              relatedTarget: this,
+              onConfirm: function(e) {
+                alert('你输入的是：' + e.data || '')
+              },
+              onCancel: function(e) {
+                alert('不想说!');
+              }
+            });
+          });
+        });
+  </script>
+
+</body>
+
+</html>

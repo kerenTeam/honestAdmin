@@ -9,6 +9,7 @@ class UserCenter extends Public_Controller {
 
     public $task = "project_task";
     public $member = "user_member";
+    public $task_user = "project_task_group";
 
     function __construct() {
         parent::__construct();
@@ -19,21 +20,9 @@ class UserCenter extends Public_Controller {
     //个人信息
     function userinfo(){
 
-        
-
-          $data['user'] = $this->public_model->select_info($this->member,'user_id',$_SESSION['users']['user_id']);
+        $data['user'] = $this->public_model->select_info($this->member,'user_id',$_SESSION['users']['user_id']);
     
     	$this->load->view('userCenter/userCenter.html',$data);
-    }
-
-    //个人任务
-    function task(){
-        //获取个人任务
-        //$data['task'] = $this->public_model->select_where('');
-        //获取个人信息
-
-        $this->load->view('userCenter/userCenter.html');
-
     }
 
     //个人信息修啊哥i
@@ -74,6 +63,41 @@ class UserCenter extends Public_Controller {
             $this->load->view('404.html');
         }
     }
+
+    //个人任务
+    function task(){
+        //获取个人任务
+        $data['task'] = $this->public_model->ret_userTask($_SESSION['users']['user_id']);
+     
+        //获取个人信息
+
+        $this->load->view('userCenter/userTask.html',$data);
+
+    }
+
+    //查看任务详情
+    function task_info(){
+        $id = intval($this->uri->segment('3'));
+        if($id == '0'){
+            $this->load->view('404.html');
+        }else{
+            //获取任务详情
+            $data['task'] = $this->public_model->select_info($this->task,'id',$id);
+            //var_dump($task);
+            //获取公司职员
+            $data['user'] = $this->public_model->select('h_user_member','');
+            //获取任务类型
+            $data['tash_type'] = $this->public_model->select_where('h_project_task_type','taskId',$id,'');
+            //获取任务纪录
+            //$data['record'] = $this->public_model->select_where('h_project_task_record','task_id',$id,'create_time');
+            //获取留言
+            $data['message'] = $this->public_model->select_where('h_project_task_message','task_id',$id,'create_time');
+            $data['id'] = $id;
+
+            $this->load->view('userCenter/task_info.html',$data);
+        }
+    }
+
 
 
 

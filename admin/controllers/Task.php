@@ -26,7 +26,7 @@ class Task extends Public_Controller
 
     //获取页码
 
-        $current_page=intval($this->uri->segment(3));//index.php 后数第4个/
+            $current_page=intval($this->uri->segment(3));//index.php 后数第4个/
         
             //var_dump($current_page);
     
@@ -101,12 +101,20 @@ class Task extends Public_Controller
         $data['admin_user'] = $_SESSION['users']['user_id'];
         $id = $this->public_model->insert_id($this->project_task,$data);
         if(!empty($id)){
+              //第一编织人
               $task_user = array(
                   'task_id'=>$id,
                   'user_id'=>$data['compiling_personnel'],
-                );
+                  'type'=>'1',
+              );
               $this->public_model->insert($this->project_task_group,$task_user);
-
+              //去现场人员
+              $scene = array(
+                  'task_id'=>$id,
+                  'user_id'=>$data['scene_user'],
+                  'type'=>'2',
+              );
+              $this->public_model->insert($this->project_task_group,$scene);
 
               $arr = array(
                   'log_url'=>$this->uri->uri_string(),

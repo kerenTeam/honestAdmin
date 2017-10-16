@@ -62,7 +62,7 @@ class public_model extends CI_Model
     
     //返回项目列表
     function ret_select_project($page,$size){
-        $this->db->select('a.*, b.*');
+        $this->db->select('a.*,b.contract_number,b.sign_user,b.sign_date');
         $this->db->from('h_project a');
         $this->db->join('h_contract b', 'b.contract_id = a.c_id','left');
         $query = $this->db->where('a.del_state','0')->order_by('a.addtime','desc')->limit($size,$page)->get();
@@ -129,6 +129,17 @@ class public_model extends CI_Model
         $this->db->join('h_project_task as c', 'b.id = c.project_id','left');
         $query = $this->db->where('a.contract_number',$number)->get();
         return $query->row_array(); 
+    }
+
+    //返回个人任务列表
+    function ret_userTask($userId){
+        $this->db->select('a.*, b.*,b.id as b_id,c.entrust_file,c.contract_number,d.title');
+        $this->db->from('h_project_task_group as a');
+        $this->db->join('h_project_task as b', 'b.id = a.task_id','left');
+        $this->db->join('h_contract as c', 'c.contract_number = b.contract_number','left');
+        $this->db->join('h_project as d', 'd.id = b.project_id','left');
+        $query = $this->db->where('a.user_id',$userId)->where('a.state','1')->order_by('a.addtime','desc')->get();
+        return $query->result_array();
     }
 
 
