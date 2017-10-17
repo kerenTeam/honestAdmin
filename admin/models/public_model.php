@@ -59,6 +59,11 @@ class public_model extends CI_Model
         return $query->result_array();
     }
 
+    //返回合同列表
+    function contract_page_where($table,$where,$data,$page,$size,$sort){
+        $query = $this->db->where($where,$data)->order_by($sort,'desc')->order_by('addtime','desc')->limit($size,$page)->get($table);
+        return $query->result_array();
+    }
     
     //返回项目列表
     function ret_select_project($page,$size){

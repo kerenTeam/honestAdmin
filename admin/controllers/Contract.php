@@ -68,7 +68,8 @@ class Contract extends Public_Controller
             $config['total_rows'] = $total;
     
         $this->load->library('pagination');//加载ci pagination类
-        $listpage =  $this->public_model->select_page_where($this->contract,"del_state",'0',$current_page,$config['per_page'],'contract_id');
+
+        $listpage =  $this->public_model->contract_page_where($this->contract,"del_state",'0',$current_page,$config['per_page'],'lssued_state');
         $this->pagination->initialize($config);
 
         //获取行业类别
@@ -135,7 +136,7 @@ class Contract extends Public_Controller
                 $this->load->library('upload', $config);
 
                 // 上传
-                if(!$this->upload->do_upload('entrust1')) {
+                if(!$this->upload->do_upload('entrust')) {
                    echo "<script>alert('委托书上传失败！');window.parent.location.reload();</script>";exit;
                 }else{
                     $data['entrust_file'] = 'upload/entrust/'.$this->upload->data('file_name');
@@ -271,6 +272,10 @@ class Contract extends Public_Controller
             $id = $this->input->post('id');
             $data['del_state'] = '1';
             if($this->public_model->updata($this->contract,'contract_id',$id,$data)){
+                //修改这个合同下的所有项目的状态
+                
+
+                
                 $arr = array(
                     'log_url'=>$this->uri->uri_string(),
                     'user_id'=>$_SESSION['users']['user_id'],
