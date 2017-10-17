@@ -142,6 +142,11 @@ class public_model extends CI_Model
         return $query->result_array();
     }
 
+    //返回任务类型进度
+    function ret_task_type($table,$where,$id,$where1,$id1){
+        $query = $this->db->where($where,$id)->where($where1,$id1)->get($table);
+        return $query->row_array();
+    }
 
     
 }
