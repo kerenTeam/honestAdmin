@@ -11,6 +11,10 @@ class Contract extends Public_Controller
     public $customer = "customer";
     public $contract = "contract";
     public $member = "user_member";
+    public $project = "project";
+    public $customer_con = "customer_contacts";
+
+
 
     function __construct() {
         parent::__construct();
@@ -270,12 +274,11 @@ class Contract extends Public_Controller
         if($_POST){
            
             $id = $this->input->post('id');
+            $cont = $this->public_model->select_info($this->contract,'contract_id',$id);
             $data['del_state'] = '1';
             if($this->public_model->updata($this->contract,'contract_id',$id,$data)){
                 //修改这个合同下的所有项目的状态
-                
-
-                
+                $this->public_model->updata($this->project,'c_number',$cont['contract_number'],$data);
                 $arr = array(
                     'log_url'=>$this->uri->uri_string(),
                     'user_id'=>$_SESSION['users']['user_id'],
@@ -394,7 +397,7 @@ class Contract extends Public_Controller
 
                     //删除临时文件
                 @unlink($inputFileName);
-                exit;
+                break;
 
             } 
             // var_dump($data);
@@ -413,7 +416,7 @@ class Contract extends Public_Controller
 
         $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
         
-                   //日志
+         //日志
         
         $arr = array(
             'log_url'=>$this->uri->uri_string(),
@@ -518,6 +521,75 @@ class Contract extends Public_Controller
             $data['cont'] = $this->public_model->select_info($this->contract,'contract_id',$id);
 
             $this->load->view('cont/conDetaile.html',$data);
+        }
+    }
+
+    //下发项目
+    function lssued_project(){
+        $id = intval($this->uri->segment('3'));
+        if($id == '0'){
+            $this->load->view('404.html');
+        }else{
+           
+            $data['contract'] = $this->public_model->select_where($this->contract,'del_state','0','');
+            $data['cont'] = $this->public_model->select_info($this->contract,'contract_id',$id);
+              //获取行业类别
+            $data['industry'] = $this->public_model->select_where($this->category,'type','1','');
+            $data['service'] = $this->public_model->select_where($this->category,'type','2','');
+            $data['technology']= $this->public_model->select_where($this->category,'type','3','');
+             //酷虎联系人
+            $data['lian'] = $this->public_model->select_where($this->customer_con,'company_id',$data['cont']['customer_id'],'');
+            //获取用户
+            $data['users'] = $this->public_model->select_where_no($this->member,'1','');
+            $this->load->view('cont/lssudeProject.html',$data);
+
+        }
+    }
+    //新增项目
+    function add_project(){
+        if($_POST){
+            $data = $this->input->post();
+          //  $data['year'] = date('Y');
+            //获取合同信息
+            $contract = $this->public_model->select_info($this->contract,'contract_id',$data['c_id']);
+            $data['c_number'] = $contract['contract_number'];
+            $data['year'] = $contract['contract_year'];
+            $cont = array('projectNum'=>$contract['projectNum']-1);
+            
+            if($this->public_model->insert($this->project,$data)){
+                //修改合同项目数
+                $this->public_model->updata($this->contract,'contract_id',$contract['contract_id'],$cont);
+                if($cont['projectNum'] =='0'){
+                    $lssued = array('lssued_state'=>'0');
+                    $this->public_model->updata($this->contract,'contract_id',$contract['contract_id'],$lssued);
+                }
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"新增项目成功,项目名称为".$data['title'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Project/index')."'</script>";
+
+            }else{
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"新增项目失败,项目名称为".$data['title'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Project/index')."'</script>";
+            }
+
+
+        }else{
+            $this->load->view('404.html');
         }
     }
 

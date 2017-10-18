@@ -317,7 +317,7 @@
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
                                         <?php if($val['lssued_state'] !='0'):?>
-                                              <a data-id="<?php echo $val['contract_id']?>" class="tpl-table-black-operation-green"> <i class="am-icon-pen"></i> 分配项目 </a>
+                                              <a href="<?php echo site_url('/Contract/lssued_project/'.$val['contract_id']);?>" class="tpl-table-black-operation-green"> <i class="am-icon-pen"></i> 分配项目 </a>
                                         <?php endif;?>
                                             <a data-id="<?php echo site_url('/Contract/edit_contract/').$val['contract_id']?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
                                          

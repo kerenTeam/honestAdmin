@@ -11,6 +11,10 @@ class Project extends Public_Controller
         public $category = "category";
         public $contract = "contract";
         public $customer_con = "customer_contacts";
+        public $member = "user_member";
+
+        public $project_task_edition = "project_edition";//任务记录
+        public $project_task_group = "project_group";//任务组
 
         function __construct() {
             parent::__construct();
@@ -84,8 +88,10 @@ class Project extends Public_Controller
              $technology = $this->public_model->select_where($this->category,'type','3','');
              //获取客户信息
              $customer = $this->public_model->select_where($this->contract,'del_state','0','');
-           
-            $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer);
+             //获取用户
+            $users = $this->public_model->select_where_no($this->member,'1','');
+          
+            $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer,'users'=>$users);
 
             $this->load->view('project/projectAdmin.html',$data);
 
@@ -95,15 +101,28 @@ class Project extends Public_Controller
         function add_project(){
             if($_POST){
                 $data= $this->input->post();
-                $data['year'] = date('Y');
+                // $data['year'] = date('Y');
 
                 //获取合同信息
                 $contract = $this->public_model->select_info($this->contract,'contract_id',$data['c_id']);
                 $data['c_number'] = $contract['contract_number'];
-
-
+                $data['year'] = $contract['contract_year'];
+                if($contract['projectNum'] != '0'){
+                
+                    $num = $contract['projectNum']-1;
+                }
 
                 if($this->public_model->insert($this->project,$data)){
+                    if($contract['projectNum'] != '0'){
+                        $num = $contract['projectNum']-1;
+                        $cont = array('projectNum'=>$num);
+                        $this->public_model->updata($this->contract,'contract_id',$contract['contract_id'],$cont);
+                        if($num == '0'){
+                            $lssued = array('lssued_state'=>'0');
+                            $this->public_model->updata($this->contract,'contract_id',$contract['contract_id'],$lssued);
+                        }
+                    }
+
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
                         'user_id'=>$_SESSION['users']['user_id'],
@@ -185,6 +204,8 @@ class Project extends Public_Controller
                 //酷虎联系人
                 $data['lian'] = $this->public_model->select_where($this->customer_con,'company_id',$he['customer_id'],'');
                  $data['project'] = $porject;
+                $data['users'] = $this->public_model->select_where_no($this->member,'1','');
+
                 
                 $this->load->view('project/editProject.html',$data);
             }
@@ -305,7 +326,8 @@ class Project extends Public_Controller
                 //获取合同id
                 $contract = $this->public_model->select_info($this->contract,'contract_number',$contract_id);
                 if(empty($contract)){
-                    $data['c_id'] = '1';
+                    $error[] = $currentRow;
+                    continue;  
                 }else{
                     $data['c_id'] = $contract['contract_id'];
                 }
@@ -335,12 +357,17 @@ class Project extends Public_Controller
                 $data['service_id'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
              
                 $data['military'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
-                $data['cycle'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
-                $data['requirement'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
-                $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
-                $data['project_status'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
+                $name = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+                $user = $this->public_model->select_info($this->member,'username',trim($name));
+                $data['responsible_user'] = $user['user_id'];
+
+
+                $data['cycle'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
+                $data['requirement'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
+                $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
+                $data['project_status'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
               
-                if($data['year'] == NULL){
+                if($data['year'] == ''){
     
                         //删除临时文件
                     @unlink($inputFileName);
@@ -351,6 +378,8 @@ class Project extends Public_Controller
                
                 //新增合同
                 if($this->public_model->insert($this->project,$data)){
+                     $lssued = array('lssued_state'=>'0');
+                    $this->public_model->updata($this->contract,'contract_id',$contract['contract_id'],$lssued);
                     $yes[] = $currentRow;
                 }else{
                     $error[] = $currentRow;
@@ -438,8 +467,11 @@ class Project extends Public_Controller
              $technology = $this->public_model->select_where($this->category,'type','3','');
              //获取客户信息
              $customer = $this->public_model->select_where($this->contract,'del_state','0','');
-           
-            $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer);
+            
+              //获取用户
+            $users = $this->public_model->select_where_no($this->member,'1','');
+          
+            $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$industry,'service'=>$service,'technology'=>$technology,'customer'=>$customer,'users'=>$users);
 
             $this->load->view('project/projectAdmin.html',$data);
 
@@ -468,6 +500,325 @@ class Project extends Public_Controller
                 echo "2";
             }
         }
+        //查看项目详情
+        function project_info(){
+            $id = intval($this->uri->segment('3'));
+            if($id == '0'){
+                $this->load->view('404.html');
+            }else{
+
+            }
+        }
+
+        //送审版列表
+        function song_censorship(){
+              $id = intval($this->uri->segment('3'));
+              if($id == '0'){
+                $this->load->view('404.html');
+              }else{
+                $lists = $this->public_model->select_where_many_sort($this->project_task_edition,'project_id',$id,'type','1','record_id');
+
+                // var_dump($data);
+                $data['edition'] = $lists;             
+                $data['id'] = $id;             
+                // var_dump($data);
+                            $data['type'] = '1';             
+
+                $this->load->view('project/edition.html',$data);
+              }
+        } 
+        function xiu_censorship(){
+              $id = intval($this->uri->segment('3'));
+              if($id == '0'){
+                $this->load->view('404.html');
+              }else{
+                $lists = $this->public_model->select_where_many_sort($this->project_task_edition,'project_id',$id,'type','2','record_id');
+
+                // var_dump($data);
+                $data['edition'] = $lists;             
+                $data['id'] = $id;  
+                            $data['type'] = '2';             
+               
+                // var_dump($data);
+                $this->load->view('project/edition.html',$data);
+              }
+        } 
+        function zong_censorship(){
+              $id = intval($this->uri->segment('3'));
+              if($id == '0'){
+                $this->load->view('404.html');
+              }else{
+                $lists = $this->public_model->select_where_many_sort($this->project_task_edition,'project_id',$id,'type','3','record_id');
+
+                // var_dump($data);
+                $data['edition'] = $lists;             
+                $data['id'] = $id;             
+                $data['type'] = '3';             
+                // var_dump($data);
+                $this->load->view('project/edition.html',$data);
+              }
+        }
+
+
+         //  新增任务记录
+    function addTaskEdition(){
+        $id = intval($this->uri->segment(3));
+        $type = intval($this->uri->segment(4));
+        if($id == '0' || $type == '0'){
+          $this->load->view('404.html');
+        }else{
+          $data['task_id'] = $id;
+          $data['type'] = $type;
+          $this->load->view('project/taskStates.html',$data);
+        }
+    }
+
+
+    //新增任务记录操作
+    function add_task_edition(){
+        if($_POST){
+            $data = $this->input->post();
+
+            if(!empty($_FILES['file']['name'])){
+                $config['upload_path']      = 'upload/file/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx';
+                $config['max_size']     = 5120;
+                $config['file_name'] = date('y-m-d').$data['file_name'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('file')) {
+
+                    echo "<script>alert('文件上传失败！');window.parent.location.reload();</script>";exit;
+                }else{
+                    $data['file_path'] = 'upload/file/'.$this->upload->data('file_name');
+                }
+            }
+
+
+            //新增记录
+            if($this->public_model->insert($this->project_task_edition,$data)){
+                $arr = array(
+                  'log_url'=>$this->uri->uri_string(),
+                  'user_id'=>$_SESSION['users']['user_id'],
+                  'username'=>$_SESSION['users']['username'],
+                  'log_ip'=>get_client_ip(),
+                  'log_status'=>'1',
+                  'log_message'=>"新增任务记录成功,任务类型为".$data['type'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+            }else{
+               $arr = array(
+                  'log_url'=>$this->uri->uri_string(),
+                  'user_id'=>$_SESSION['users']['user_id'],
+                  'username'=>$_SESSION['users']['username'],
+                  'log_ip'=>get_client_ip(),
+                  'log_status'=>'0',
+                  'log_message'=>"新增任务记录失败,任务类型为".$data['type'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
+            }
+        }
+    }
+        //修改
+        function editTaskEdition(){
+            $id = intval($this->uri->segment(3));
+            if($id == '0'){
+              $this->load->view('404.html');
+            }else{  
+              $edition = $this->public_model->select_info($this->project_task_edition,'record_id',$id);
+              $data['taskEdition'] = $edition;
+          //    var_dump($data);
+              $this->load->view('project/taskStates.html',$data);
+            }
+        }
+        //修改任务纪录
+        function edit_task_edition(){
+          if($_POST){
+              $data = $this->input->post();
+              if(!empty($_FILES['file']['name'])){
+                  $config['upload_path']      = 'upload/file/';
+                  $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx';
+                  $config['max_size']     = 5120;
+                  $config['file_name'] = date('y-m-d').$data['file_name'];
+                  $this->load->library('upload', $config);
+                  // 上传
+                  if(!$this->upload->do_upload('file')) {
+                      echo "<script>alert('文件上传失败！');window.parent.location.reload();</script>";exit;
+                  }else{
+                      $data['file_path'] = 'upload/file/'.$this->upload->data('file_name');
+                  }
+              }
+              if($this->public_model->updata($this->project_task_edition,'record_id',$data['record_id'],$data)){
+                    $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'1',
+                      'log_message'=>"编辑任务记录成功,任务类型为".$data['type'].',任务记录id是：'.$data['record_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+              }else{
+                   $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'0',
+                      'log_message'=>"编辑任务记录失败,任务类型为".$data['type'].',任务记录id是：'.$data['record_id'],
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+              }
+          }else{
+
+            $this->load->view('404.html');
+          }
+
+        }
+
+        //删除纪录
+        function del_edition(){
+            if($_POST){
+                $id = $this->input->post('id');
+                if($this->public_model->delete($this->project_task_edition,'record_id',$id)){
+                      $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'1',
+                      'log_message'=>"删除任务记录成功,任务记录id是：".$id,
+                    );
+                    add_system_log($arr);
+                    echo "1";
+                }else{
+                      $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'0',
+                      'log_message'=>"删除任务记录失败,任务记录id是：".$id,
+                    );
+                    add_system_log($arr);
+                    echo "2";
+             
+                }
+            }else{
+                echo "2";
+            }
+        }
+
+
+
+    //导入任务记录
+    function Import_projectState(){
+          if($_POST){
+            $type = $this->input->post('type');
+
+
+            $name = date('Y-m-d');
+            $inputFileName = "upload/xls/" .$name .'.xls';
+            move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+            //引入类库
+            $this->load->library('excel');
+            if(!file_exists($inputFileName)){
+    
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+    
+                    exit;
+    
+            }
+            //导入excel文件类型 excel2007 or excel5
+            
+            $PHPReader = new PHPExcel_Reader_Excel2007();
+            
+            if(!$PHPReader->canRead($inputFileName)){
+                $PHPReader = new PHPExcel_Reader_Excel5();
+                if(!$PHPReader->canRead($inputFileName)){
+                    echo 'no Excel';
+                return;
+                }
+            }   
+            $yes = array();
+            $error = array();
+                          
+            
+            $PHPExcel = $PHPReader->load($inputFileName);
+    
+            $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+    
+            $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+    
+            $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+    
+            $erp_orders_id = array();  //声明数组
+
+
+            for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+                //合同号
+                $contract_number = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+                //任务
+                $project = $this->public_model->select_info($this->project,'c_number',$contract_number);
+                  
+                $data['project_id'] = $project['id'];
+                $data['type'] = $type;
+
+                //
+                $data['situation'] =  $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();
+                $song_time =  $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();
+
+                $time = $song_time - 25569; //获得秒数
+                $data['deliver_time'] = date('Y-m-d', $time*24*60*60); 
+
+
+                $data['express_num'] =  $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();
+                $data['express_name'] =  $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();
+
+            
+                if($contract_number == NULL){
+        
+                        //删除临时文件
+                    @unlink($inputFileName);
+                    break;
+    
+                } 
+              
+                //任务
+                $id =  $this->public_model->insert($this->project_task_edition,$data);
+
+                if(!empty($id)){
+                    $yes[] = $id;
+                }else{
+                    $error[] = $currentRow;
+                }
+
+            }
+            $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+          //  echo $ret['yes'];
+            // //            //日志
+            
+            $arr = array(
+                'log_url'=>$this->uri->uri_string(),
+                'user_id'=>$_SESSION['users']['user_id'],
+                'username'=>$_SESSION['users']['username'],
+                'log_ip'=>get_client_ip(),
+                'log_status'=>'1',
+                'log_message'=>"导入了任务状态信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+            );
+            add_system_log($arr);   
+            echo $arr['log_message'];
+              
+          }
+
+    }
 
 
 }
