@@ -76,22 +76,18 @@
                             </div>
                             <div class="taskCon taskConXiao">
                                 <h4>项目人员</h4>
-<!--                                 <p class="p1">项目负责人： <a><?php echo get_username($task['responsibility']);?></a></p>
- -->                                <p class="p1">第一编制人： <a><?php echo get_username($task['compiling_personnel']);?></a></p>
+                                <p class="p1">项目负责人： <a><?php echo get_username($task['responsibility']);?></a></p>
+                                <p class="p1">第一编制人： <a><?php echo get_username($task['compiling_personnel']);?></a></p>
+                                <p class="p1">第一编制人： <a><?php echo get_username($task['compiling_personnel']);?></a></p>
+                                <p class="p1">第一编制人： <a><?php echo get_username($task['compiling_personnel']);?></a></p>
                                 <p class="p1 xiaozu">小组人员：
+                                	
                                     <a>
                                         <?php echo get_username($task['scene_user']);?> 
                                         <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg"> 
                                     </a>
-                                    <a>
-                                    	<?php echo get_username($task['technology_personnel']);?> 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg">
-                                    </a>
-                                    <a>
-                                       <?php echo get_username($task['responsibility']);?> 
- 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg">
-                                    </a>
+                                   
+                                   
                                     <input class="bianji" id="bianji1" type="button" value="编辑">
                                 </p>
                                 <div class="p1 xiaozu xiaozu2 clearfix showBian" style="display: none">添加小组人员：
@@ -125,24 +121,48 @@
                                     <div class="taskConF1">
                                         <p style="margin-bottom:5px">1. 资料收集</p>
                                         <div class="taskConP">
-                                        <?php $record = $this->public_model->select_where_many('h_project_task_record','task_id',$id,'type_id','1');?>
-                                        <?php foreach($record as $val):?>
-                                        	<?php if($val['tyep_id'] == '1'):?>
-                                        		<?php echo $val['name']?>
-                                        	<?php endif;?>
-                                    	<?php endforeach;?>
+                                       资料1
                                     	</div>
                                     </div>
-                                    <div class="taskConF1">
-                                        <div class="scroll" id="scroll">
-                                            <div class="bar barS" id="bar"> </div>
-                                            <div class="mask" id="mask"></div>
-                                            <span class="maskSpan">10%</span>
+                                     <?php $record = $this->public_model->ret_task_type('h_project_task_type','taskId',$id,'type','1');?>
+
+                                    <?php  if(!empty($record)):?>
+                                        <div class="taskConF1">
+                                            <div class="scroll" id="scroll">
+                                                <div class="bar barS" id="bar"> </div>
+                                                <div class="mask" id="mask"></div>
+                                                <span class="maskSpan"><?php echo $record['completion'];?>%</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="taskConF1">
-                                        <a class="taskConF1A">2017-6-30</a>
-                                    </div>
+                                        <div class="taskConF1">
+                                            <a class="taskConF1A"><?php echo $record['updataTime'];?></a>
+                                            <a class="taskConF1A">
+                                                <label>
+                                                   <input type="file" name=""> 
+                                                   <input type="button" value="上传资料" name="">
+                                                </label>
+                                                
+                                            </a>
+                                        </div>
+                                    <?php else:?>
+                                        <div class="taskConF1">
+                                            <div class="scroll" id="scroll">
+                                                <div class="bar barS" id="bar"> </div>
+                                                <div class="mask" id="mask"></div>
+                                                <span class="maskSpan">0%</span>
+                                            </div>
+                                        </div>
+                                         <div class="taskConF1">
+                                            <a class="taskConF1A"></a>
+                                            <a class="taskConF1A">
+                                            <label>
+                                               <input type="file" name=""> 
+                                               <input type="button" value="上传资料" name="">
+                                            </label>
+                                            
+                                        </a>
+                                        </div>
+                                    <?php endif;?>
                                 </div>
 
                                 <!-- 2.现场查勘 -->
@@ -301,15 +321,27 @@
                                 <?php foreach($message as $val):?>
                                 <div class="taskConDetaile" style="border: none;margin-left: 42px;">
                                     <div class="chatItem"> 
-                                        <h4><?php echo get_usernsme($val['user_id']);?></h4>
+                                        <h4>留言人：<?php echo get_username($val['user_id']);?></h4>
                                         <p>
-                                            <?php echo $val['content'];?>
+                                            留言内容：<?php echo $val['content'];?>
+                                            
                                             <!-- <span>提成：300元</span> -->
                                         </p>
                                         <div>
 											<?php echo $val['create_time'];?>
-                                            <a class="doc-prompt-toggle">回复</a>
+                                            <a data-id='<?php echo $val["m_id"];?>' class="doc-prompt-toggle">回复</a>
                                         </div>
+                                         <p>
+                                            <?php $to = $this->public_model->select_where_many_sort('h_project_task_message','task_id',$id,'to_user_id',$val['m_id'],'create_time');?>
+
+                                            <?php if(!empty($to)):?>
+                                            	<?php foreach($to as $v):?>
+                                            	回复人：<?php echo get_username($v['user_id']);?><br>
+                                            		<p style="color: red;">回复内容：<?php echo $v['content'];?></p>
+                                            	<?php endforeach;?>
+                                        	<?php endif;?>
+                                            <!-- <span>提成：300元</span> -->
+                                        </p>
                                     </div>
                                 </div>
                             <?php endforeach;?>
@@ -477,13 +509,34 @@
         // 显示模态框
         $(function() {
           $('.doc-prompt-toggle').on('click', function() {
+          	var nowThis = this;
             $('#my-prompt').modal({
               relatedTarget: this,
               onConfirm: function(e) {
-                alert('你输入的是：' + e.data || '')
+              	var content = e.data;
+              	var toid = nowThis.getAttribute('data-id');
+              	if(e.data == ''){
+              		alert('你还没有输入内容！');
+              		window.location.reload()
+
+
+              	}
+              	console.log();
+          	    $.post("<?php echo site_url('/UserCenter/add_message')?>", { task_id: '<?php echo $task['id']?>',content:content,to_user_id:toid }, function (result) {
+          	    	// console.log(result);
+                //                 // $("span").html(result);
+                     if(result == 1){
+
+                    	window.location.reload()
+
+                     }else{
+                     	alert('留言失败！');
+                     }
+                });
+
               },
               onCancel: function(e) {
-                alert('不想说!');
+                //alert('不想说!');
               }
             });
           });

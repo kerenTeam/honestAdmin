@@ -24,8 +24,6 @@ class Task extends Public_Controller
           //
             $config['per_page'] = 10;
 
-    //获取页码
-
             $current_page=intval($this->uri->segment(3));//index.php 后数第4个/
         
             //var_dump($current_page);
@@ -343,17 +341,10 @@ class Task extends Public_Controller
                 add_system_log($arr);
                 echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
           }
-
-
-
-
       }else{
 
         $this->load->view('404.html');
       }
-
-
-
 
     }
   

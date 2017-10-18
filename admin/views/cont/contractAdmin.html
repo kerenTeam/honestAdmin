@@ -206,6 +206,13 @@
 
                                     </div>
                                     <div class="am-form-group">
+                                        <label class="am-u-sm-3 am-form-label">合同下属项目(个)<span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8" >
+                                           <input type="text" name="projectNum" class=" am-field-error am-active" placeholder="输入合同下属有多少个项目">
+                                        </div>
+
+                                    </div>
+                                    <div class="am-form-group">
                                         <label class="am-u-sm-3 am-form-label">军地<span class="red">*</span>：</label>
                                         <div class="am-u-sm-4" >
                                           <label class="am-radio-inline">
@@ -268,13 +275,11 @@
                         <table width="100%" class="am-table am-table-compact am-text-nowrap tpl-table-black ">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>客户编号</th>
                                     <th>合同年限</th>
                                     <th>合同号</th>
                                     <th>合同名称</th>
                                     <th>合同金额</th>
-                                    <!-- <th>项目名称</th> -->
+                                    <th>客户名称</th>
                                     <th>签订人</th>
                                     <th>签订时间</th>
                                     <th>地点 </th>
@@ -282,19 +287,20 @@
                                     <th>板块</th>
                                     <th>行业</th>
                                     <th>服务类型</th>
+                                    <th>是否分发项目</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody id="doc-modal-list">
                                 <?php if(!empty($lists)):?>
                                 <?php foreach($lists as $val):?>
-                                <tr class="trClass">
-                                    <td class="am-text-middle"><?php echo $val['contract_id']?></td>
-                                    <td class="am-text-middle"><?php echo $val['customer_id']?></td>
+                                <tr class="trClass <?php if($val['lssued_state'] !='0'){echo 'red';}?>">
+                                  
                                     <td class="groupName am-text-middle"><?php echo $val['contract_year']?></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_number']?></td>
                                     <td class="groupName am-text-middle"><a href="<?php echo site_url('/contract/contract_info/'.$val['contract_id']);?>"><?php echo mb_substr($val['title'],'0','10');?>...</a></td>
                                     <td class="groupName am-text-middle"><?php echo $val['contract_price']?></td>
+                                      <td class="am-text-middle"><?php echo get_customerName($val['customer_id'])?></td>
                                     <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td> -->
                                     <td class="groupName am-text-middle"><?php echo get_username($val['sign_user']);?></td>
                                     <td class="aliasName am-text-middle"><?php echo $val['sign_date']?> </td>
@@ -303,9 +309,16 @@
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['plate']);?></td>
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['industry']);?></td> 
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['service_tyep']);?></td> 
-                                    <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td>  -->
+                                    <?php if($val['lssued_state'] !='0'):?>
+                                    <td class="groupName am-text-middle">未分配项目(<?php echo $val['projectNum'];?>个)</td>
+                                        <?php else:?>
+                                    <td class="groupName am-text-middle">已分配项目</td>
+                                        <?php endif;?>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
+                                        <?php if($val['lssued_state'] !='0'):?>
+                                              <a href="<?php echo site_url('/Contract/lssued_project/'.$val['contract_id']);?>" class="tpl-table-black-operation-green"> <i class="am-icon-pen"></i> 分配项目 </a>
+                                        <?php endif;?>
                                             <a data-id="<?php echo site_url('/Contract/edit_contract/').$val['contract_id']?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
                                          
                                             <a data-id="<?php echo $val['contract_id']?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>

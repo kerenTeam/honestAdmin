@@ -56,7 +56,7 @@
                                     <p>合同年限：<span><?php echo $cont['contract_year'];?></span></p>
                                 </div>
                                 <div class="conD1item">
-                                    <p>所属客户：<span><?php echo $cont['customer_id'];?></span></p>
+                                    <p>所属客户：<span><?php echo get_customerName($cont['customer_id']);?></span></p>
                                 </div>
                                 <div class="conD1item">
                                     
@@ -92,13 +92,19 @@
                                 <div class="conD1item">
                                     <p>合同文件： 
                                         <?php if(!empty($cont['contract_file'])):?>
-                                        <a href="<?php echo base_url($cont['contract_file'])?>"><span><?php echo $cont['contract_year'].$cont['title'];?></span></a>
+                                            <span>                                        
+                                                <a href="<?php echo base_url($cont['contract_file'])?>"><?php echo $cont['contract_year'].$cont['title'];?> </a>
+                                            </span>
+
                                         <?php else:?>
                                             <span>暂无</span>
                                         <?php endif;?>
                                     </p>
                                     <p>委托书文件: <?php if(!empty($cont['entrust_file'])):?>
-                                        <a href="<?php echo base_url($cont['entrust_file'])?>"><span><?php echo $cont['contract_year'].$cont['title'];?></span></a>
+                                            <span>
+                                                <a href="<?php echo base_url($cont['entrust_file'])?>"><?php echo $cont['contract_year'].$cont['title'];?> </a>
+                                            </span>
+                                       
                                         <?php else:?>
                                             <span>暂无</span>
                                         <?php endif;?>
@@ -106,6 +112,12 @@
                                  
                                 </div>
                           
+                            </div>
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <button><a href="<?php echo site_url('/Contract/lssued_project/'.$cont['contract_id']);?>">下发任务</a></button>
+                                 
+                                </div>
                             </div>
                         </div>
                     </div>

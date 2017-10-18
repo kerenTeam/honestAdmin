@@ -586,4 +586,107 @@ class Finance extends Public_Controller {
     }
 
 
+
+    //财务收支倒入
+    function Import_finance(){
+         $name = date('Y-m-d');
+            $inputFileName = "upload/xls/" .$name .'.xls';
+            move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+            //引入类库
+            $this->load->library('excel');
+            if(!file_exists($inputFileName)){
+    
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+    
+                    exit;
+    
+            }
+            //导入excel文件类型 excel2007 or excel5
+            
+            $PHPReader = new PHPExcel_Reader_Excel2007();
+            
+            if(!$PHPReader->canRead($inputFileName)){
+                $PHPReader = new PHPExcel_Reader_Excel5();
+                if(!$PHPReader->canRead($inputFileName)){
+                    echo 'no Excel';
+                return;
+                }
+            }   
+            $yes = array();
+            $error = array();
+                          
+            
+            $PHPExcel = $PHPReader->load($inputFileName);
+    
+            $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+    
+            $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+    
+            $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+    
+            $erp_orders_id = array();  //声明数组
+         
+            for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+    
+                $data['year'] = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+                //合同号
+                $contract_id = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+                $data['c_number'] = $contract_id;
+                //获取合同id
+                $contract = $this->public_model->select_info($this->contract,'contract_number',$contract_id);
+                if(empty($contract)){
+                    $data['c_id'] = '1';
+                }else{
+                    $data['c_id'] = $contract['contract_id'];
+                }
+
+                $data['province'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取d列的值
+    
+                $data['city'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取d列的值
+    
+                $data['town'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取d列的值
+    
+                $data['title'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取d列的值
+    
+                $name = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取d列的值
+
+                //获取联系人id
+                $user = $this->public_model->select_maywhere_info($this->customer_con,'name',$name,'company_id',$contract['customer_id']);
+                if(!empty($user)){
+                    $data['contacts'] = $user['id'];
+                }else{
+                    $error[] = $currentRow;
+                    continue;   
+                }
+
+                $data['technology_id'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
+               
+                $data['industry_id'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取d列的值
+                $data['service_id'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取d列的值
+             
+                $data['military'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取d列的值
+                $data['cycle'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取d列的值
+                $data['requirement'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取d列的值
+                $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
+                $data['project_status'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
+              
+                if($data['year'] == NULL){
+    
+                        //删除临时文件
+                    @unlink($inputFileName);
+                    exit;
+    
+                } 
+            
+               
+                //新增合同
+                if($this->public_model->insert($this->project,$data)){
+                    $yes[] = $currentRow;
+                }else{
+                    $error[] = $currentRow;
+                }
+            }
+    }
+
+
 }
