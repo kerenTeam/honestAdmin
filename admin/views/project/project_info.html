@@ -10,13 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="../assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" href="<?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="../assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <script src="../assets/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery.min.js"></script>
     <style>
         #doc-modal-list .modal { border: none !important; }
         .widget-head { padding: 10px;padding-left: 0;margin-bottom: 20px}
@@ -50,12 +50,19 @@
         .xiaozu2{padding-left: 32px;}
         .taskConXiao{border-bottom: 1px solid #e6e3e3;padding-bottom: 15px;margin-bottom: 15px;}
         .bianji{margin-right: 15%;float: right;color: #0e90d2}
+        /* 新1 */
+        .am-btn2{padding: .4em;}
+        input[type=file] {display: inline-block;}
+        .ziliaoDiv{text-align: left;padding:20px;padding-top: 0}
+        .ziliaoDiv div{display: flex;padding: 6px 0}
+        .ziliaoDiv span{display: inline-block;width: 80px}
+        .ziliaoDiv input, .ziliaoDiv textarea{flex: 1}
 
     </style>
 </head>
 
 <body data-type="widgets">
-    <script src="../assets/js/theme.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
     <div class="am-g tpl-g">
 
         <!-- 内容区域 -->
@@ -80,15 +87,15 @@
                                 <p class="p1 xiaozu">小组人员：
                                     <a>
                                         李四 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="../assets/img/shanchu.svg"> 
+                                        <img class="showBian" style="display: none" onclick="deleteFun(this,'记录ID')" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg"> 
                                     </a>
                                     <a>
                                         王二 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="../assets/img/shanchu.svg">
+                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg">
                                     </a>
                                     <a>
                                         王二 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="../assets/img/shanchu.svg">
+                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg">
                                     </a>
                                     <input class="bianji" id="bianji1" type="button" value="编辑">
                                 </p>
@@ -160,7 +167,7 @@
                                             </label>
                                             
                                         </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
                                     </div>
                                 </div>
 
@@ -179,12 +186,19 @@
                                     <div class="taskConF1 ">
                                         <a class="taskConF1A">2017-6-30</a>
                                         <a class="taskConF1A">
-                                            <label>
+                                            <!-- <label>
                                                <input type="file" name=""> 
                                                <input type="button" value="上传资料" name="">
-                                            </label>
+                                            </label> -->
+                                            <button
+                                                type="button"
+                                                class="am-btn am-btn-primary am-btn2"
+                                                data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}">
+                                                上传资料
+                                            </button>
                                         </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                        
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
                                     </div>
                                 </div>
 
@@ -208,7 +222,7 @@
                                                <input type="button" value="上传资料" name="">
                                             </label>
                                         </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
                                     </div>
                                 </div>
                                 <div class="taskConDetaile taskConDetaile4">
@@ -229,7 +243,7 @@
                                                <input type="button" value="上传资料" name="">
                                             </label>
                                         </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="../assets/img/liaotian.svg"></a>
+                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
                                     </div>
                                 </div>
                                 <div class="taskConDetaile taskConDetaile4">
@@ -349,6 +363,7 @@
             </div>
 
             <!-- 模态框 -->
+
             <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
               <div class="am-modal-dialog">
                 <div class="am-modal-hd">留言板</div>
@@ -361,6 +376,7 @@
                 </div>
               </div>
             </div>
+
             <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
                 <div class="am-modal-dialog">
                     <div class="am-modal-hd">提示</div>
@@ -373,6 +389,37 @@
                     </div>
                 </div>
             </div>
+
+                    <!-- 新1 -->
+            <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+                <div class="am-modal-dialog">
+                  <div class="am-modal-hd">上传资料
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                  </div>
+                  <div class="ziliaoDiv"> 
+                    <div>
+                          <input id="ziwenjian" type="file">
+                    </div>
+                    <div>
+                        <span>文件名：</span>
+                        <input id="ziwenming" type="text">
+                    </div>
+                    <div>
+                        <span>描述：</span>
+                        <textarea id="zimiaoshu"></textarea>
+                    </div>
+                    <div>
+                        <button
+                            type="button"
+                            style="margin:0 auto"
+                            onclick="upZiliaoFun(this)"
+                            class="am-btn am-btn-primary">
+                            确认上传
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
              <!-- 模态框结束 -->
         </div>
 
@@ -382,8 +429,8 @@
 
     </div>
     </div>
-    <script src="../assets/js/amazeui.min.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/app.js"></script>
     <script>  
         // 显示既有进度条进度
         window.onload = function(){
@@ -410,23 +457,28 @@
             })
 
         }
-        // 删除人员
-        function deleteFun(obj){
-
+        // 删除人员（新1）
+        function deleteFun(obj,id1){
             var objNowPP = obj.parentNode.parentNode;
             var objNowP = obj.parentNode;
-            objNowPP.removeChild(objNowP);
-            
-            // $('#my-confirm').modal({
-            //     onConfirm: function() {
-            //         objNowPP.removeChild(objNowP);
-            //     },
-            //     onCancel: function() {
-                    
-            //     }
-            // });
+            var shanid = confirm("确认删除！");
+                if (shanid) {
+                    objNowPP.removeChild(objNowP);
+                    alert(id1);
+                }
             
             
+        }
+        // 上传资料 新1
+        function upZiliaoFun(obj){
+            var ziwenjian = $(obj).parentsUntil('ziliaoDiv').find('#ziwenjian')[0].files[0];//文件
+            var ziwenming = $(obj).parentsUntil('ziliaoDiv').find('#ziwenming')[0].value;//文件名
+            var zimiaoshu = $(obj).parentsUntil('ziliaoDiv').find('#zimiaoshu')[0].value;//文件描述  
+
+            console.log('文件：'+ziwenjian);
+            console.log('文件名：'+ziwenming);
+            console.log('文件描述：'+zimiaoshu);
+
         }
 
         // 拖动进度条        
@@ -451,11 +503,24 @@
             maskSpan.innerHTML =  parseInt(barleft/(scroll.offsetWidth-that.offsetWidth) * 100) + "%";
             //防止选择内容--当拖动鼠标过快时候，弹起鼠标，bar也会移动，修复bug
             window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+
+            // 拖动向后发送数据(新1)
+            var baifen = parseInt(barleft/(scroll.offsetWidth-that.offsetWidth) * 100);//百分比数据
+            document.onmouseup = function(){
+                document.onmousemove = null; //弹起鼠标不做任何操作
+                var rJindu = confirm("确认修改进度！");
+                if (rJindu) {
+                    alert('进度'+baifen);
+                }
+                // ajax......
+
+            
+            }
+            // 拖动向后发送数据 结束(新1)
+            
+            
           }
         })
-        document.onmouseup = function(){
-          document.onmousemove = null; //弹起鼠标不做任何操作
-        }
 
         // 显示模态框
         $(function() {

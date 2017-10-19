@@ -507,6 +507,7 @@ class Project extends Public_Controller
                 $this->load->view('404.html');
             }else{
 
+                $this->load->view('project/project_info.html');
             }
         }
 

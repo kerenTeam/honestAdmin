@@ -59,12 +59,51 @@
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
                                                 <br>
+                                                <?php if($_SESSION['users']['gid'] =='1'):?>
+                                                    <a href="javascript:;" data-id='1' class="am-btn am-btn-default am-btn-danger file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                        <span class="am-icon-archive"></span> 导入收入记录
+                                                      <input name="pics" type="file" class="projectState" />    
+                                                    </a>
+                                                    <a href="javascript:;" data-id='2' class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                        <span class="am-icon-archive"></span> 导入支出记录
+                                                      <input name="pics" type="file" class="projectState" />   
+
+                                                    </a> <a href="javascript:;" data-id='3' class="am-btn am-btn-default am-btn-success file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                        <span class="am-icon-archive"></span> 导入开票记录
+                                                        <input name="pics" type="file" class="projectState" />    
+                                                    </a>
                                                  <!-- <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button> -->
+                                                <?php endif;?>
                                               <!--    非管理人员 无此按钮
                                                 <button type="button" class="am-btn am-btn-default am-btn-warning"><a style="color:#fff" ><span class="am-icon-archive"></span> 审核 </a></button> -->
                                                
                                                 <br>
                                             </div>
+                                            <script>     
+                                                $('.projectState').change(function () {
+                                                    var dataId = $(this).parent().attr('data-id');
+                                                   // alert(dataId);
+
+                                                   // var URL = '<?php echo site_url("/Project/Import_projectState");?>'
+                        
+                                                    var formData = new FormData();
+                                                    formData.append('pics',  $(this)[0].files[0]);
+                                                    formData.append('type', dataId);
+                                                    $.ajax({
+                                                        url: URL,
+                                                        type: 'POST',
+                                                        // headers: headers,
+                                                        data: formData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        success: function (data) {
+                                                            console.log(data);
+                                                            alert(data);
+                                                            window.location.reload()
+                                                        }
+                                                    });
+                                                })
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -91,14 +130,15 @@
                                                 <th>合同号</th>
                                                 <th>合同名称</th>
                                                 <th>合同状态</th>
+                                                <th>完成日期</th>
                                                 <th>签订人</th>
                                                 <th>签订时间</th>
-                                                <th>合同金额</th>
-                                                <th>已收金额</th>
-                                                <th>待收金额</th>
-                                                <th>开票金额</th>
-                                                <th>完成日期</th>
-                                                <th>总支出</th>
+                                                <th style="color: #00CD00;">合同金额</th>
+                                                <th style="color: #cc4455;">已收金额</th>
+                                                <th class="red">待收金额</th>
+                                                <th style="color: #8EE5EE;">开票金额</th>
+                                               
+                                                <th style="color: #CD69C9;">总支出</th>
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
@@ -115,6 +155,7 @@
                                                 <?php else:?>
                                                     <td class="am-text-middle">未完成</td>
                                                 <?php endif;?>
+                                                <td class="am-text-middle"><?php echo $v['complete_time']?></td>
                                                 <td class="am-text-middle"><?php echo get_username($v['sign_user']);?></td>
                                                 <td class="am-text-middle"><?php echo $v['sign_date'];?></td>
                                                 <td class="am-text-middle"><?php echo $v['contract_price'];?></td>
@@ -122,7 +163,7 @@
                                                 <td class="am-text-middle"><?php $price = ret_contract_price('1',$v['contract_id']); echo $price;?></td>
                                                 <td class="am-text-middle"><?php $collection = $v['contract_price'] - $price; if($collection > '0'){echo $collection;}else{echo "0";}?></th>
                                                 <th><?php echo ret_contract_price('3',$v['contract_id']);?></td>
-                                                <td class="am-text-middle"><?php echo $v['complete_time']?></td>
+                                               
                                                 <td class="am-text-middle"><?php echo ret_contract_price('2',$v['contract_id']);?></td>
 
                                                 <td class="am-text-middle">
