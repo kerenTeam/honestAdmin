@@ -68,22 +68,29 @@
                                                         <span class="am-icon-archive"></span> 导入支出记录
                                                       <input name="pics" type="file" class="projectState" />   
 
-                                                    </a> <a href="javascript:;" data-id='3' class="am-btn am-btn-default am-btn-success file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
+                                                    </a> 
+                                                    <a href="javascript:;" data-id='3' class="am-btn am-btn-default am-btn-success file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
                                                         <span class="am-icon-archive"></span> 导入开票记录
                                                         <input name="pics" type="file" class="projectState" />    
                                                     </a>
-                                                 <!-- <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button> -->
+                                                    <a href="<?php echo base_url();?>upload/xls/income.xlsx" class="am-btn am-btn-default">收入模板</a>
+                                                    <a href="<?php echo base_url();?>upload/xls/expenditure.xls" class="am-btn am-btn-warning">支出模板</a>
+                                                    <a href="<?php echo base_url();?>upload/xls/billing.xlsx" class="am-btn am-btn-success">开票模板</a>
                                                 <?php endif;?>
-                                              <!--    非管理人员 无此按钮
-                                                <button type="button" class="am-btn am-btn-default am-btn-warning"><a style="color:#fff" ><span class="am-icon-archive"></span> 审核 </a></button> -->
-                                               
+                                             
                                                 <br>
                                             </div>
                                             <script>     
                                                 $('.projectState').change(function () {
                                                     var dataId = $(this).parent().attr('data-id');
                                                    // alert(dataId);
-
+                                                   if(dataId == '1'){
+                                                    var URL = '<?php echo site_url("/Finance/Import_income");?>'
+                                                   }else if(dataId == '2'){
+                                                    var URL = '<?php echo site_url("/Finance/Import_expenditure");?>'
+                                                   }else{
+                                                    var URL = '<?php echo site_url("/Finance/Import_billing");?>'
+                                                   }
                                                    // var URL = '<?php echo site_url("/Project/Import_projectState");?>'
                         
                                                     var formData = new FormData();
@@ -180,13 +187,6 @@
                                                        <a href="<?php echo site_url('/Finance/billing/').$v['contract_id'];?>"> 
                                                             <i class="am-icon-pencil"></i> 开票 
                                                         </a>
-                                                        
-                                                        <!-- 非管理人员 无此按钮-->
-                                                      <!--   <a href="javascript:;" data-id="1" class="delete tpl-table-black-operation-del">
-                                                           <i class="am-icon-trash"></i> 删除
-                                                        </a>   -->
-                                                        <!-- 非管理人员 无此按钮-->
-
                                                     </div>
                                                 </td>
                                             </tr>
