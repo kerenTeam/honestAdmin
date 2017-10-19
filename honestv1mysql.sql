@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-10-18 19:31:52
+Date: 2017-10-19 12:27:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -123,7 +123,7 @@ CREATE TABLE `h_contract_account` (
   `contract_id` int(11) DEFAULT NULL COMMENT '合同id',
   `price` varchar(255) DEFAULT NULL COMMENT '金额',
   `voucher` varchar(255) DEFAULT NULL COMMENT '凭证',
-  `time` varchar(200) DEFAULT NULL,
+  `time` varchar(200) DEFAULT NULL COMMENT '收款时间',
   `handler` varchar(255) DEFAULT NULL COMMENT '经办人',
   `receivables` varchar(255) DEFAULT NULL COMMENT '收款方式',
   `detailed` varchar(255) DEFAULT NULL COMMENT '明细',
@@ -132,12 +132,21 @@ CREATE TABLE `h_contract_account` (
   `billing_type` varchar(255) DEFAULT NULL COMMENT '开票类型',
   `invoice_num` varchar(255) DEFAULT NULL COMMENT '发票号',
   `remaks` varchar(255) DEFAULT NULL COMMENT '备注',
+  `expenditure_type` int(11) DEFAULT NULL COMMENT '支出类型',
+  `contract_number` varchar(200) DEFAULT NULL COMMENT '合同号',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_contract_account
 -- ----------------------------
+INSERT INTO `h_contract_account` VALUES ('1', '1', '541', '5000', '123', '12-10-2017', '142', '现金', '', null, null, null, null, '', null, null, null);
+INSERT INTO `h_contract_account` VALUES ('2', '3', '541', '5000', null, '14-10-2017', null, null, null, null, null, '', '232323', '', null, null, null);
+INSERT INTO `h_contract_account` VALUES ('3', '2', '541', '1000', null, '43031', null, '现金', null, '225', '142', null, null, null, '3', '13AB001', null);
+INSERT INTO `h_contract_account` VALUES ('4', '2', '541', '1000', null, '2017-10-23', null, '现金', null, '225', '142', null, null, null, '3', '13AB001', null);
+INSERT INTO `h_contract_account` VALUES ('5', '3', '541', '1200', null, '2013-04-03', null, null, null, null, null, null, '1234566543', '2342342', null, '13AB001', null);
+INSERT INTO `h_contract_account` VALUES ('6', '3', '541', '1200', null, '2013-04-03', null, null, null, null, null, null, '1234566543', '2342342', null, '13AB001', null);
 
 -- ----------------------------
 -- Table structure for h_customer
@@ -258,14 +267,15 @@ CREATE TABLE `h_project_edition` (
   `file_name` varchar(255) DEFAULT NULL,
   `file_path` varchar(255) DEFAULT NULL,
   `state` int(11) DEFAULT '0' COMMENT '版本状态。0未审核  1审核成功。2审核失败',
+  `auditor` int(11) DEFAULT NULL COMMENT '审核专家',
   PRIMARY KEY (`record_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_project_edition
 -- ----------------------------
-INSERT INTO `h_project_edition` VALUES ('68', '1', '信息', '2017-10-18 00:00:00', '2323', '345', '93', '23223', null, '0');
-INSERT INTO `h_project_edition` VALUES ('69', '2', '2013/5/29交雷静瑶', '2013-05-29 00:00:00', null, null, '90', null, null, '0');
+INSERT INTO `h_project_edition` VALUES ('68', '1', '信息', '2017-10-18 00:00:00', '2323', '345', '93', '23223', null, '0', null);
+INSERT INTO `h_project_edition` VALUES ('69', '2', '2013/5/29交雷静瑶', '2013-05-29 00:00:00', null, null, '90', null, null, '0', null);
 
 -- ----------------------------
 -- Table structure for h_project_group
@@ -405,7 +415,7 @@ CREATE TABLE `h_system_log` (
   `log_status` int(2) DEFAULT NULL COMMENT '操作状态',
   `log_message` varchar(500) DEFAULT NULL COMMENT '操作内容',
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=347 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=352 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of h_system_log
@@ -756,6 +766,11 @@ INSERT INTO `h_system_log` VALUES ('343', 'Project/add_task_edition', '1', 'admi
 INSERT INTO `h_system_log` VALUES ('344', 'Project/add_task_edition', '1', 'admin', '2017-10-18 17:45:11', '::1', null, '1', '新增任务记录成功,任务类型为1');
 INSERT INTO `h_system_log` VALUES ('345', 'Project/Import_projectState', '1', 'admin', '2017-10-18 18:03:22', '::1', null, '1', '导入了任务状态信息，导入成功2条，失败0条，失败条目：');
 INSERT INTO `h_system_log` VALUES ('346', 'Project/del_edition', '1', 'admin', '2017-10-18 18:22:47', '::1', null, '1', '删除任务记录成功,任务记录id是：70');
+INSERT INTO `h_system_log` VALUES ('347', 'Finance/complete_add', '1', 'admin', '2017-10-19 10:20:35', '::1', null, '1', '新增收入记录成功,合同id为541');
+INSERT INTO `h_system_log` VALUES ('348', 'Finance/billing_add', '1', 'admin', '2017-10-19 10:21:21', '::1', null, '1', '新增开票记录成功,合同id为541');
+INSERT INTO `h_system_log` VALUES ('349', 'Finance/Import_expenditure', '1', 'admin', '2017-10-19 11:58:52', '::1', null, '1', '导入了合同支出信息，导入成功1条，失败8条，失败条目：3,4,5,6,7,8,9,10');
+INSERT INTO `h_system_log` VALUES ('350', 'Finance/Import_expenditure', '1', 'admin', '2017-10-19 12:07:19', '::1', null, '1', '导入了合同支出信息，导入成功1条，失败8条，失败条目：3,4,5,6,7,8,9,10');
+INSERT INTO `h_system_log` VALUES ('351', 'Finance/Import_billing', '1', 'admin', '2017-10-19 12:22:17', '::1', null, '1', '导入了合同开票信息，导入成功1条，失败0条，失败条目：');
 
 -- ----------------------------
 -- Table structure for h_system_nav
@@ -817,7 +832,7 @@ INSERT INTO `h_system_nav` VALUES ('42', '导入合同', '0', '30', '2017-09-04 
 INSERT INTO `h_system_nav` VALUES ('43', '新增职员', '0', '16', '2017-09-04 09:23:58', 'Member/add_user', null, '');
 INSERT INTO `h_system_nav` VALUES ('44', '编辑职员', '0', '16', '2017-09-04 09:40:23', 'Member/edit_user', null, null);
 INSERT INTO `h_system_nav` VALUES ('45', '导入职员', '0', '16', '2017-09-04 09:42:48', 'Member/import_userList', null, null);
-INSERT INTO `h_system_nav` VALUES ('46', '任务管理', '1', '0', '2017-09-07 21:11:49', 'Task/task_list', null, 'am-icon-tags');
+INSERT INTO `h_system_nav` VALUES ('46', '任务管理', '0', '0', '2017-09-07 21:11:49', 'Task/task_list', null, 'am-icon-tags');
 INSERT INTO `h_system_nav` VALUES ('47', '个人中心', '1', '0', '2017-09-09 15:06:48', 'userCenter', null, 'am-icon-tags');
 INSERT INTO `h_system_nav` VALUES ('48', '个人信息', '1', '47', '2017-09-09 15:09:23', 'UserCenter/userinfo', null, null);
 INSERT INTO `h_system_nav` VALUES ('49', '个人任务', '1', '47', '2017-09-09 15:10:00', 'UserCenter/task', null, null);
