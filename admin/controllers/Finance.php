@@ -22,19 +22,11 @@ class Finance extends Public_Controller {
     //合同
     function contract(){
         //获取完成的合同
-
-         $config['per_page'] = 10;
-
+        $config['per_page'] = 10;
         //获取页码
-
         $current_page=intval($this->uri->segment(3));//index.php 后数第4个/
-    
-        //var_dump($current_page);
-
-            //配置
-
+        //配置
         $config['base_url'] = site_url('/Finance/contract');
-
         //分页配置
 
         $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
