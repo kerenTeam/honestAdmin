@@ -74,8 +74,8 @@
                                     <p>军地：<span><?php if($cont['army'] == '1'){echo "是";}else{echo "否";}?></span></p>
                                 </div>
                                 <div class="conD1item">
-                                    <p>编制人：<span><?php echo get_username($cont['compiling_personnel']);?></span></p>
-                                    <p>完成情况：<?php if($cont['task_status'] == '0'):?><span>未完成</span><?php else:?><span>已完成</span><?php endif;?></p>
+                                    <p>编制人：<span><?php echo get_username($cont['responsible_user']);?></span></p>
+                                    <p>完成情况：<?php if($cont['project_status'] == '0'):?><span>未完成</span><?php else:?><span>已完成</span><?php endif;?></p>
                                     <p>完成日期：<span><?php echo $cont['complete_time']?></span></p>
                                 </div>
                                 <div class="conD1item">
@@ -93,12 +93,11 @@
                                     <p>约定预付:<span><?php echo $cont['prepay'];?></span></p>
                                     <p>约定代支额:<span><?php echo $cont['expenditure']?></span></p>
                                     <p>代支差额:<span></span></p>
-                                    
-                                    <p>已开票：<span><?php echo ret_contract_price($cont['contract_id'],'3');?></span></p>
-                                    <p>已收款:<span><?php echo ret_contract_price($cont['contract_id'],'1');?></span></p>
+                                    <p>已开票：<span><?php echo ret_contract_price('3',$cont['contract_id']);?></span></p>
+                                    <p>已收款:<span><?php echo ret_contract_price('1',$cont['contract_id']);?></span></p>
                                     <p>预付差额:<span></span></p>
                                     <p>票款差额:<span></span></p>
-                                    <p>余额:<span><?php echo $cont['contract_price']-ret_contract_price($cont['contract_id'],'1');?></span></p>
+                                    <p>余额:<span><?php echo $cont['contract_price']-ret_contract_price('1',$cont['contract_id']);?></span></p>
                                 </div>
                                 <div class="conD1item">
                                     <p>实际代支:<span></span></p>

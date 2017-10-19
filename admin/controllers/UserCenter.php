@@ -9,7 +9,7 @@ class UserCenter extends Public_Controller {
 
     public $task = "project_task";
     public $member = "user_member";
-    public $task_user = "project_task_group";
+    public $task_user = "project_group";
 
     function __construct() {
         parent::__construct();
@@ -82,7 +82,7 @@ class UserCenter extends Public_Controller {
             $this->load->view('404.html');
         }else{
             //获取任务详情
-            $data['task'] = $this->public_model->select_info($this->task,'id',$id);
+            $data['project'] = $this->public_model->select_info($this->project,'id',$id);
             //var_dump($task);
             //获取公司职员
             $data['user'] = $this->public_model->select('h_user_member','');
@@ -90,7 +90,7 @@ class UserCenter extends Public_Controller {
             //获取任务纪录
             //$data['record'] = $this->public_model->select_where('h_project_task_record','task_id',$id,'create_time');
             //获取留言
-            $data['message'] = $this->public_model->select_where_many_sort('h_project_task_message','task_id',$id,'to_user_id','0','create_time');
+            $data['message'] = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id','0','create_time');
             $data['id'] = $id;
 
             $this->load->view('userCenter/task_info.html',$data);
@@ -103,14 +103,14 @@ class UserCenter extends Public_Controller {
             $data = $this->input->post();
             $data['user_id'] = $_SESSION['users']['user_id'];
             $data['create_time'] = date('Y-m-d H:i:s');
-            if($this->public_model->insert('h_project_task_message',$data)){
+            if($this->public_model->insert('h_project_message',$data)){
               $arr = array(
                   'log_url'=>$this->uri->uri_string(),
                   'user_id'=>$_SESSION['users']['user_id'],
                   'username'=>$_SESSION['users']['username'],
                   'log_ip'=>get_client_ip(),
                   'log_status'=>'1',
-                  'log_message'=>"新增留言成功,任务id为".$data['task_id'],
+                  'log_message'=>"新增留言成功,项目id为".$data['project_id'],
               );
               add_system_log($arr);
               echo "1";
@@ -122,7 +122,7 @@ class UserCenter extends Public_Controller {
                   'username'=>$_SESSION['users']['username'],
                   'log_ip'=>get_client_ip(),
                   'log_status'=>'0',
-                  'log_message'=>"新增留言失败,任务id为".$data['task_id'],
+                  'log_message'=>"新增留言失败,项目id为".$data['project_id'],
               );
               add_system_log($arr);
               echo "2";

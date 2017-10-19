@@ -572,7 +572,7 @@ class Finance extends Public_Controller {
             $this->load->view('404.html');
         }else{
             $data['cont'] = $this->public_model->contract_info($id);
-            
+           
             $this->load->view('finance/contractInfo.html',$data);
         }
     }

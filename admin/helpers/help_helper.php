@@ -111,6 +111,7 @@ function ret_contract_price($type,$contractid){
         $price += $value['price'];
     }
     return $price;
+
 }
 
 //返回合同号   合同名称

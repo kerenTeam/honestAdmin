@@ -82,53 +82,69 @@
                                 <div class=" am-cf">项目实施</div>
                             </div>
                             <div class="taskCon taskConXiao">
+
                                 <h4>项目人员</h4>
-                                <p class="p1">负责人： <a>游总</a></p>
+                                <?php foreach($group as $val):?>
+                                    <?php if($val['type'] =='1'):?>
+                                        <p class="p1">第一负责人： <a><?php echo get_username($val['user_id']);?> </a></p>
+                                    <?php elseif($val['type'] =='2'):?>
+                                        <p class="p1">项目负责人： <a><?php echo get_username($val['user_id']);?></a></p>
+                                    <?php elseif($val['type'] =='3'):?>
+
+                                        <p class="p1">技术负责人： <a><?php echo get_username($val['user_id']);?></a></p>
+                                    <?php elseif($val['type'] =='4'):?>
+                                        <p class="p1">项目审核人： <a><?php echo get_username($val['user_id']);?></a></p>
+
+                                    <?php elseif($val['type'] =='5'):?>
+                                        <p class="p1">现场人员： <a><?php echo get_username($val['user_id']);?></a></p>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                              
+
+                               
+
                                 <p class="p1 xiaozu">小组人员：
-                                    <a>
-                                        李四 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this,'记录ID')" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg"> 
-                                    </a>
-                                    <a>
-                                        王二 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg">
-                                    </a>
-                                    <a>
-                                        王二 
-                                        <img class="showBian" style="display: none" onclick="deleteFun(this)" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg">
-                                    </a>
+                                    <?php foreach($group as $val):?>
+                                        <?php if($val['type'] == '6'):?>
+                                            <a>
+                                                <?php echo get_username($val['user_id']);?> 
+                                                <img class="showBian" style="display: none" onclick="deleteFun(this,'<?php echo $val['id']?>')" src="<?php echo base_url('/public');?>/assets/img/shanchu.svg"> 
+                                            </a>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                    <!-- 任务类型。1第一编织人。 2技术负责人。 3 审核人。4项目负责人。5现场人员 6其他职员 -->
                                     <input class="bianji" id="bianji1" type="button" value="编辑">
                                 </p>
-                                <div class="p1 xiaozu xiaozu2 clearfix showBian" style="display: none">添加小组人员：
-                                    <div class="" style="display: inline-block;">
+                                <div class="p1 xiaozu xiaozu2 clearfix showBian selectConA" style="display: none">添加小组人员：
+                                    <div class="selectCon1" style="display: inline-block;">
                                         <select data-am-selected="{searchBox: 0}" style="display: none;" class="am-field-valid">
-                                          <option value="a">选择工作</option>
-                                          <option value="b">谢谢谢</option>
-                                          <option value="o">让对方是否</option>
-                                          <option value="m">是的</option>
-                                          <option value="phone">iPhone</option>
-                                          <option value="im">iMac</option>
-                                          <option value="mbp">Macbook Pro</option>
+                                          <option value="">选择工作</option>
+                                          <option value="2">技术负责人</option>
+                                          <option value="3">项目审核人</option>
+                                          <option value="4">项目负责人</option>
+                                          <option value="5">现场人员</option>
+                                          <option value="6">其他成员</option>
                                         </select>
                                     </div>
-                                    <div class="" style="display: inline-block;">
-                                        <select data-am-selected="{searchBox: 0}" style="display: none;" class="am-field-valid">
-                                          <option value="a">选择人员</option>
-                                          <option value="b">谢谢谢</option>
-                                          <option value="o">让对方是否</option>
-                                          <option value="m">是的</option>
-                                          <option value="phone">iPhone</option>
-                                          <option value="im">iMac</option>
-                                          <option value="mbp">Macbook Pro</option>
+                                    <div class="selectCon2" style="display: inline-block;">
+                                        <select data-am-selected="{searchBox: 1}" style="display: none;" class="am-field-valid">
+
+                                          <option value="">选择人员</option>
+                                          <?php foreach($users as $val):?>
+                                          <option value="<?php echo $val['user_id'];?>"><?php echo $val['username'];?></option>
+                                          <?php endforeach;?>
+                                        
                                         </select>
                                     </div>
 
-                                    <div style="display: inline-block;margin-left: 10px"><input style="float: initial" class="bianji" type="button" value="确定添加"></div>
+                                    <div onclick ="addONeFun(this,'id')" style="display: inline-block;margin-left: 10px"><input style="float: initial" class="bianji" type="button" value="确定添加"></div>
                                 </div>
                             </div>
                             <div class="taskCon">
                                 <h4>项目节点</h4>
                                 <!-- 1. 资料收集 -->
+                                <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','1');?>
+
                                 <div class="taskConDetaile">
                                     <div class="taskConF1">
                                         <p style="margin-bottom:5px">1. 资料收集</p>
@@ -143,10 +159,16 @@
                                     </div>
                                     <div class="taskConF1">
                                         <a class="taskConF1A">2017-6-30</a>
+                                        <a class="taskConF1A">
+                                            <button type="button" class="am-btn am-btn-primary am-btn2" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}" data-id='1'>
+                                                上传资料
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
 
                                 <!-- 2.现场查勘 -->
+                                 <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','2');?>
                                 <div class="taskConDetaile">
                                     <div class="taskConF1">
                                         <p>2.现场查勘</p>
@@ -161,10 +183,9 @@
                                     <div class="taskConF1 ">
                                         <a class="taskConF1A">2017-6-30</a>
                                         <a class="taskConF1A">
-                                            <label>
-                                               <input type="file" name=""> 
-                                               <input type="button" value="上传资料" name="">
-                                            </label>
+                                            <button type="button" class="am-btn am-btn-primary am-btn2" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}" data-id='2'>
+                                                上传资料
+                                            </button>
                                             
                                         </a>
                                         <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
@@ -172,6 +193,7 @@
                                 </div>
 
                                 <!-- 3.报告编写步骤 -->
+                                 <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','3');?>
                                 <div class="taskConDetaile">
                                     <div class="taskConF1">
                                         <p>3.报告编写步骤</p>
@@ -186,14 +208,11 @@
                                     <div class="taskConF1 ">
                                         <a class="taskConF1A">2017-6-30</a>
                                         <a class="taskConF1A">
-                                            <!-- <label>
-                                               <input type="file" name=""> 
-                                               <input type="button" value="上传资料" name="">
-                                            </label> -->
+                                           
                                             <button
                                                 type="button"
                                                 class="am-btn am-btn-primary am-btn2"
-                                                data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}">
+                                                data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}" data-id='3'>
                                                 上传资料
                                             </button>
                                         </a>
@@ -203,6 +222,7 @@
                                 </div>
 
                                 <!-- 4. 报告审核 -->
+                                 <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','4');?>
                                 <div class="taskConDetaile" style="border:none">
                                     <div class="taskConF1">
                                         <p>4. 报告审核</p>
@@ -217,10 +237,12 @@
                                     <div class="taskConF1 ">
                                         <a class="taskConF1A">2017-6-30</a>
                                         <a class="taskConF1A">
-                                            <label>
-                                               <input type="file" name=""> 
-                                               <input type="button" value="上传资料" name="">
-                                            </label>
+                                            <button
+                                                type="button"
+                                                class="am-btn am-btn-primary am-btn2"
+                                                data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}" data-id='4'>
+                                                上传资料
+                                            </button>
                                         </a>
                                         <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
                                     </div>
@@ -236,14 +258,7 @@
                                         <p class="taskConFW1">李四审核通过</p>
                                     </div>
                                     <div class="taskConF1 ">
-                                        <a class="taskConF1A">2017-6-30</a>
-                                        <a class="taskConF1A">
-                                            <label>
-                                               <input type="file" name=""> 
-                                               <input type="button" value="上传资料" name="">
-                                            </label>
-                                        </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
+                                       
                                     </div>
                                 </div>
                                 <div class="taskConDetaile taskConDetaile4">
@@ -273,6 +288,7 @@
                                 </div>
 
                                 <!-- 5.报告出版 -->
+                                 <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','5');?>
                                 <div class="taskConDetaile">
                                     <div class="taskConF1">
                                         <p>5.报告出版</p>
@@ -290,6 +306,7 @@
                                 </div>
 
                                 <!-- 6.报告归档 -->
+                                <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','6');?>
                                 <div class="taskConDetaile" style="border: none;">
                                     <div class="taskConF1">
                                         <p>6.报告归档</p>
@@ -305,54 +322,43 @@
                                         <a class="taskConF1A">2017-6-30</a>
                                     </div>
                                 </div>
+                      <?php if(!empty($message)):?>
+                                <?php foreach($message as $val):?>
                                 <div class="taskConDetaile" style="border: none;margin-left: 42px;">
                                     <div class="chatItem"> 
-                                        <h4>工程师：大哥哥</h4>
+                                        <h4>留言人：<?php echo get_username($val['user_id']);?></h4>
                                         <p>
-                                            请客户经理提供客户项目对接人的联系方式
-                                            <span>提成：300元</span>
+                                            留言内容：<?php echo $val['content'];?>
+                                            
+                                            <!-- <span>提成：300元</span> -->
                                         </p>
                                         <div>
-                                            2017.4.25  10:30:45
-                                            <<a class="doc-prompt-toggle">回复</a>
+                                            <?php echo $val['create_time'];?>
+                                            <a data-id='<?php echo $val["m_id"];?>' class="doc-prompt-toggle">回复</a>
                                         </div>
+                                         <p>
+                                            <?php $to = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id',$val['m_id'],'create_time');?>
+
+                                            <?php if(!empty($to)):?>
+                                                <?php foreach($to as $v):?>
+                                                回复人：<?php echo get_username($v['user_id']);?><br>
+                                                    <p style="color: red;">回复内容：<?php echo $v['content'];?></p> 
+                                                    <?php echo $v['create_time'];?>
+                                                <?php endforeach;?>
+                                            <?php endif;?>
+                                            <!-- <span>提成：300元</span> -->
+                                        </p>
                                     </div>
                                 </div>
+                            <?php endforeach;?>
+                        <?php else:?>
                                 <div class="taskConDetaile" style="border: none;margin-left: 42px;">
                                     <div class="chatItem"> 
-                                        <h4>工程师：大哥哥</h4>
-                                        <p>
-                                            请客户经理提供客户项目对接人的联系方式
-                                        </p>
-                                        <div>
-                                            2017.4.25  10:30:45
-                                            <a class="doc-prompt-toggle">回复</a> 
-                                        </div>
+                                        <h4>暂无内容</h4>
+                                        
                                     </div>
                                 </div>
-                                <div class="taskConDetaile" style="border: none;margin-left: 42px;">
-                                    <div class="chatItem"> 
-                                        <h4>工程师：大哥哥</h4>
-                                        <p>
-                                            请客户经理提供客户项目对接人的联系方式
-                                        </p>
-                                        <div>
-                                            2017.4.25  10:30:45
-                                           <a class="doc-prompt-toggle">回复</a>
-                                        </div>
-                                    </div>
-                                </div><div class="taskConDetaile" style="border: none;margin-left: 42px;">
-                                    <div class="chatItem"> 
-                                        <h4>工程师：大哥哥</h4>
-                                        <p>
-                                            请客户经理提供客户项目对接人的联系方式
-                                        </p>
-                                        <div>
-                                            2017.4.25  10:30:45
-                                            <a class="doc-prompt-toggle">回复</a> 
-                                        </div>
-                                    </div>
-                                </div>
+                        <?php endif;?>
 
 
                             </div>
@@ -469,6 +475,23 @@
             
             
         }
+        // 添加小组人员
+        function addONeFun(obj,id){
+            var selectCon1 = $(obj).parentsUntil('selectConA').find('.selectCon1 select').val();
+            var selectCon2 = $(obj).parentsUntil('selectConA').find('.selectCon2 select').val();
+            $.post("<?php echo site_url('/Project/add_project_group')?>", { project_id: '<?php echo $project['id'];?>',type:selectCon1,user_id:selectCon2 }, function (result) {
+                if(result == 1){
+                    alert('新增成功！');
+                    window.location.reload()
+                }else{
+                    alert('新增失败！');
+                    window.location.reload()
+                }
+            });
+
+
+        }
+
         // 上传资料 新1
         function upZiliaoFun(obj){
             var ziwenjian = $(obj).parentsUntil('ziliaoDiv').find('#ziwenjian')[0].files[0];//文件
@@ -478,6 +501,9 @@
             console.log('文件：'+ziwenjian);
             console.log('文件名：'+ziwenming);
             console.log('文件描述：'+zimiaoshu);
+
+
+
 
         }
 
@@ -525,10 +551,26 @@
         // 显示模态框
         $(function() {
           $('.doc-prompt-toggle').on('click', function() {
+            var nowThis = this;
             $('#my-prompt').modal({
               relatedTarget: this,
               onConfirm: function(e) {
-                alert('你输入的是：' + e.data || '')
+                var content = e.data;
+                var toid = nowThis.getAttribute('data-id');
+                if(content == ''){
+                    alert('你还没有输入内容！');
+                    window.location.reload()
+                }
+                $.post("<?php echo site_url('/UserCenter/add_message')?>", { project_id: '<?php echo $project['id'];?>',content:content,to_user_id:toid }, function (result) {
+                    console.log(result);
+                     if(result == 1){
+
+                        window.location.reload()
+
+                     }else{
+                        alert('留言失败！');
+                     }
+                });
               },
               onCancel: function(e) {
                 alert('不想说!');

@@ -374,10 +374,12 @@ class Project extends Public_Controller
                     exit;
     
                 } 
-            
-               
-                //新增合同
-                if($this->public_model->insert($this->project,$data)){
+                $project = $this->public_model->insert_id($this->project,$data);
+                //新增项目
+                if(!empty($project)){
+                    $arr = array('type'=>'1','user_id'=> $data['responsible_user'],'project_id'=>$project);
+                    $this->public_model->insert('h_project_group',$arr);
+
                      $lssued = array('lssued_state'=>'0');
                     $this->public_model->updata($this->contract,'contract_id',$contract['contract_id'],$lssued);
                     $yes[] = $currentRow;
@@ -498,16 +500,6 @@ class Project extends Public_Controller
                 }
             }else{
                 echo "2";
-            }
-        }
-        //查看项目详情
-        function project_info(){
-            $id = intval($this->uri->segment('3'));
-            if($id == '0'){
-                $this->load->view('404.html');
-            }else{
-
-                $this->load->view('project/project_info.html');
             }
         }
 
@@ -803,8 +795,7 @@ class Project extends Public_Controller
 
             }
             $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
-          //  echo $ret['yes'];
-            // //            //日志
+            // 日志
             
             $arr = array(
                 'log_url'=>$this->uri->uri_string(),
@@ -820,6 +811,61 @@ class Project extends Public_Controller
           }
 
     }
+
+        //查看项目详情
+        function project_info(){
+            $id = intval($this->uri->segment('3'));
+            if($id == '0'){
+                $this->load->view('404.html');
+            }else{
+
+                //获取任务详情
+                $data['project'] = $this->public_model->select_info($this->project,'id',$id);
+                //获取公司职员
+                 $data['users']= $this->public_model->select_where_no($this->member,'1','');
+                //获取任务人员
+                 $data['group'] = $this->public_model->select_where('h_project_group','project_id',$id,'');
+          
+                //获取留言
+                $data['message'] = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id','0','create_time');
+                $data['id'] = $id;
+
+                $this->load->view('project/project_info.html',$data);
+            }
+        }
+
+        //新增项目人员
+        function add_project_group(){
+            if($_POST){
+                $data = $this->input->post();
+            
+                if($this->public_model->insert('h_project_group',$data)){
+                      $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'1',
+                      'log_message'=>"新增项目小组成员成功,项目id是：".$data['project_id'],
+                    );
+                    add_system_log($arr);
+                    echo "1";
+                }else{
+                      $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'0',
+                      'log_message'=>"新增项目小组成员失败,项目id是：".$data['project_id'],
+                    );
+                    add_system_log($arr);
+                    echo "2";
+                }
+            }else{
+                echo "2";
+            }
+        }
 
 
 }
