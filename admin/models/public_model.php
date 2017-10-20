@@ -29,6 +29,12 @@ class public_model extends CI_Model
     function updata($table,$where,$id,$data){
         return $this->db->where($where,$id)->update($table,$data);
     }
+    //多条件编辑
+    function updata_where($table,$where,$id,$where1,$id1,$data){
+        return $this->db->where($where,$id)->where($where1,$id1)->update($table,$data);
+    }
+
+
     //删除
     function delete($table,$where,$id){
         return $this->db->where($where,$id)->delete($table);
@@ -138,11 +144,10 @@ class public_model extends CI_Model
 
     //返回个人任务列表
     function ret_userTask($userId){
-        $this->db->select('a.*,c.entrust_file,c.contract_number,d.title');
-        $this->db->from('h_project_task_group as a');
-        // $this->db->join('h_project_task as b', 'b.id = a.task_id','left');
-        $this->db->join('h_contract as c', 'c.contract_number = b.contract_number','left');
-        $this->db->join('h_project as d', 'd.id = b.project_id','left');
+        $this->db->select('a.*,b.*,c.entrust_file,c.contract_number,c.sign_user');
+        $this->db->from('h_project_group as a');
+        $this->db->join('h_project as b', 'b.id = a.project_id','left');
+        $this->db->join('h_contract as c', 'c.contract_number = b.c_number','left');
         $query = $this->db->where('a.user_id',$userId)->where('a.state','1')->order_by('a.addtime','desc')->get();
         return $query->result_array();
     }
@@ -152,6 +157,8 @@ class public_model extends CI_Model
         $query = $this->db->where($where,$id)->where($where1,$id1)->get($table);
         return $query->row_array();
     }
+
+
 
     
 }

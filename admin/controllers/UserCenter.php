@@ -67,9 +67,10 @@ class UserCenter extends Public_Controller {
     //个人任务
     function task(){
         //获取个人任务
-        $data['task'] = $this->public_model->ret_userTask($_SESSION['users']['user_id']);
-     
+        $data['lists'] = $this->public_model->ret_userTask($_SESSION['users']['user_id']);
+        
         //获取个人信息
+      
 
         $this->load->view('userCenter/userTask.html',$data);
 
@@ -87,8 +88,6 @@ class UserCenter extends Public_Controller {
             //获取公司职员
             $data['user'] = $this->public_model->select('h_user_member','');
             
-            //获取任务纪录
-            //$data['record'] = $this->public_model->select_where('h_project_task_record','task_id',$id,'create_time');
             //获取留言
             $data['message'] = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id','0','create_time');
             $data['id'] = $id;
@@ -133,7 +132,70 @@ class UserCenter extends Public_Controller {
         }
     }
 
+    //搜索个人任务
+    function searchUserProject(){
+            $config['per_page'] = 10;
+            //获取页码
+            $current_page=intval($this->input->get("size"));//index.php 后数第4个/
 
+            $state = $this->input->get('state');
+            $sear = $this->input->get('sear');
+            //分页配置
+            $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+            $config['full_tag_close'] = '</ul>';
+
+            $config['first_tag_open'] = '<li>';
+
+            $config['first_tag_close'] = '</li>';
+
+            $config['prev_tag_open'] = '<li>';
+
+            $config['prev_tag_close'] = '</li>';
+
+            $config['next_tag_open'] = '<li>';
+
+            $config['next_tag_close'] = '</li>';
+
+            $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+            $config['cur_tag_close'] = '</a></li>';
+
+            $config['last_tag_open'] = '<li>';
+
+            $config['last_tag_close'] = '</li>';
+
+            $config['num_tag_open'] = '<li>';
+
+            $config['num_tag_close'] = '</li>';
+            $config['first_link']= '首页';
+
+            $config['next_link']= '下一页';
+
+            $config['prev_link']= '上一页';
+
+            $config['last_link']= '末页';
+
+            $list = search_project($sear);
+           
+
+            $config['total_rows'] = count($list);
+
+            $config['page_query_string'] = TRUE;//关键配置
+            // $config['reuse_query_string'] = FALSE;
+            $config['query_string_segment'] = 'size';
+            $config['base_url'] = site_url('/UserCenter/searchUserProject?').'sear='.$sear;
+
+            // //分页数据\
+            $listpage = search_project_page($sear,$config['per_page'],$current_page);
+            $this->load->library('pagination');//加载ci pagination类
+
+            $this->pagination->initialize($config);
+
+            $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
+
+            $this->load->view('UserCenter/userTask.html',$data);
+    }
 
 
 }

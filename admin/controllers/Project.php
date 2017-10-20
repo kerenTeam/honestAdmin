@@ -111,8 +111,12 @@ class Project extends Public_Controller
                 
                     $num = $contract['projectNum']-1;
                 }
-
-                if($this->public_model->insert($this->project,$data)){
+                $project_id = $this->public_model->insert_id($this->project,$data);
+                if($project_id){
+                    
+                    $arr = array('type'=>'1','user_id'=> $data['responsible_user'],'project_id'=>$project_id);
+                    $this->public_model->insert('h_project_group',$arr);
+                    
                     if($contract['projectNum'] != '0'){
                         $num = $contract['projectNum']-1;
                         $cont = array('projectNum'=>$num);
@@ -132,7 +136,7 @@ class Project extends Public_Controller
                         'log_message'=>"新增项目成功,项目名称为".$data['title'],
                     );
                     add_system_log($arr);
-                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Project/index')."'</script>";
+                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
 
                 }else{
                     $arr = array(
@@ -144,7 +148,7 @@ class Project extends Public_Controller
                         'log_message'=>"新增项目失败,项目名称为".$data['title'],
                     );
                     add_system_log($arr);
-                    echo "<script>alert('操作失败！');window.location.href='".site_url('/Project/index')."'</script>";
+                    echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
                 }
 
             }else{
@@ -162,8 +166,22 @@ class Project extends Public_Controller
                  //获取合同信息
                 $contract = $this->public_model->select_info($this->contract,'contract_id',$data['c_id']);
                 $data['c_number'] = $contract['contract_number'];
+                //获取已有的成员
+                $group = $this->public_model->select_where_many('h_project_group','type','1','project_id',$data['id']);
+
+
 
                 if($this->public_model->updata($this->project,'id',$data['id'],$data)){
+
+                    if(!empty($group)){
+                        $arr = array('type'=>'1','user_id'=> $data['responsible_user'],'project_id'=>$data['id']);
+                        $this->public_model->updata_where('h_project_group','type','1','project_id',$data['id'],$arr);
+                    }else{
+                        $arr = array('type'=>'1','user_id'=> $data['responsible_user'],'project_id'=>$data['id']);
+                        $this->public_model->insert('h_project_group',$arr);
+                    }
+
+
                     $arr = array(
                         'log_url'=>$this->uri->uri_string(),
                         'user_id'=>$_SESSION['users']['user_id'],
@@ -246,6 +264,40 @@ class Project extends Public_Controller
             }
         }
 
+        //修改项目完成状态
+        function editProjectState(){
+            $id = intval($this->uri->segment('3'));
+            if($id == '0'){
+                $this->load->view('404.html');
+            }else{
+                $data['project_status'] = '1';
+                if($this->public_model->updata($this->project,'id',$id,$data)){
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'1',
+                        'log_message'=>"修改项目完成状态成功,项目ID为".$id,
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+                }else{
+                    $arr = array(
+                        'log_url'=>$this->uri->uri_string(),
+                        'user_id'=>$_SESSION['users']['user_id'],
+                        'username'=>$_SESSION['users']['username'],
+                        'log_ip'=>get_client_ip(),
+                        'log_status'=>'0',
+                        'log_message'=>"修改项目完成状态失败,项目ID为".$id,
+                    );
+                    add_system_log($arr);
+                    echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
+                }
+
+            }
+        }
+
 
         //修改深审核
         function edit_project_state(){
@@ -261,7 +313,7 @@ class Project extends Public_Controller
                     'log_message'=>"删除项目到回收站成功,项目名称为".$data['title'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作成功！');window.location.href='".site_url('/Project/index')."'</script>";
+                echo "<script>alert('操作成功！');window.parent.location.reload();</script>";
 
             }else{
                 $arr = array(
@@ -273,7 +325,7 @@ class Project extends Public_Controller
                     'log_message'=>"删除项目到回收站失败,项目名称为".$data['title'],
                 );
                 add_system_log($arr);
-                echo "<script>alert('操作失败！');window.location.href='".site_url('/Project/index')."'</script>";
+                echo "<script>alert('操作失败！');window.parent.location.reload();</script>";
             }
         }
 
@@ -287,7 +339,7 @@ class Project extends Public_Controller
             $this->load->library('excel');
             if(!file_exists($inputFileName)){
     
-                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Project/index')."'</script>";
     
                     exit;
     
@@ -724,7 +776,7 @@ class Project extends Public_Controller
             $this->load->library('excel');
             if(!file_exists($inputFileName)){
     
-                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Contract/index')."'</script>";
+                    echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Project/index')."'</script>";
     
                     exit;
     
@@ -822,14 +874,17 @@ class Project extends Public_Controller
                 //获取任务详情
                 $data['project'] = $this->public_model->select_info($this->project,'id',$id);
                 //获取公司职员
-                 $data['users']= $this->public_model->select_where_no($this->member,'1','');
+                $data['users']= $this->public_model->select_where_no($this->member,'1','');
                 //获取任务人员
-                 $data['group'] = $this->public_model->select_where('h_project_group','project_id',$id,'');
+                $data['group'] = $this->public_model->select_where_many('h_project_group','project_id',$id,'state','1');
           
                 //获取留言
                 $data['message'] = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id','0','create_time');
                 $data['id'] = $id;
 
+                //查出项目纪录
+                $data['edition'] = $this->public_model->select_where_many_sort($this->project_task_edition,'project_id',$id,'type','1','create_time');
+           
                 $this->load->view('project/project_info.html',$data);
             }
         }
@@ -838,9 +893,19 @@ class Project extends Public_Controller
         function add_project_group(){
             if($_POST){
                 $data = $this->input->post();
-            
+                //
+                if($data['type'] != '6'){
+                    $user = $this->public_model->select_where_many('h_project_group','type',$data['type'],'project_id',$data['project_id']);
+                    //判断是否存在职员
+                    if(!empty($user)){
+                        foreach ($user as $k => $v) {
+                            $state = array('state'=>'0');
+                            $this->public_model->updata('h_project_group','id',$v['id'],$state);
+                        }
+                    }
+                }
                 if($this->public_model->insert('h_project_group',$data)){
-                      $arr = array(
+                    $arr = array(
                       'log_url'=>$this->uri->uri_string(),
                       'user_id'=>$_SESSION['users']['user_id'],
                       'username'=>$_SESSION['users']['username'],
@@ -851,7 +916,7 @@ class Project extends Public_Controller
                     add_system_log($arr);
                     echo "1";
                 }else{
-                      $arr = array(
+                    $arr = array(
                       'log_url'=>$this->uri->uri_string(),
                       'user_id'=>$_SESSION['users']['user_id'],
                       'username'=>$_SESSION['users']['username'],
@@ -866,6 +931,132 @@ class Project extends Public_Controller
                 echo "2";
             }
         }
+
+        //删除项目成员
+        function del_projectGroup(){
+            if($_POST){
+                $id = $this->input->post('id');
+                $state = array('state'=>'0');
+                if($this->public_model->updata('h_project_group','id',$id,$state)){
+                    $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'1',
+                      'log_message'=>"删除项目小组成员成功,纪录id是：".$id,
+                    );
+                    add_system_log($arr);
+                    echo "1";
+                }else{
+                    $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'0',
+                      'log_message'=>"删除项目小组成员失败,纪录id是：".$id,
+                    );
+                    add_system_log($arr);
+                    echo "1";
+                }
+            }else{
+                echo "2";
+            }
+        }
+
+    //上传文件资料
+        function uploadProjectFile(){
+            if($_POST){
+                $data = $this->input->post();
+                $data['create_time'] = date('Y-m-d H:i:s');
+
+                if(!empty($_FILES['file']['name'])){
+                      $config['upload_path']      = 'upload/file/';
+                      $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx|pdf';
+                      $config['max_size']     = 5120;
+                      $config['file_name'] = date('y-m-d').$data['file_name'];
+                      $this->load->library('upload', $config);
+                      // 上传
+                      if(!$this->upload->do_upload('file')) {
+                          echo "<script>alert('文件上传失败！');window.parent.location.reload();</script>";exit;
+                      }else{
+                          $data['file_path'] = 'upload/file/'.$this->upload->data('file_name');
+                      }
+                }
+                if($this->public_model->insert('h_project_record',$data)){
+                    $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'1',
+                      'log_message'=>"提交任务资料成功,纪录类型是：".$data['type'],
+                    );
+                    add_system_log($arr);
+                    echo "1";
+                }else{
+                    $arr = array(
+                      'log_url'=>$this->uri->uri_string(),
+                      'user_id'=>$_SESSION['users']['user_id'],
+                      'username'=>$_SESSION['users']['username'],
+                      'log_ip'=>get_client_ip(),
+                      'log_status'=>'0',
+                      'log_message'=>"提交任务资料失败,纪录类型是：".$data['type'],
+                    );
+                    add_system_log($arr);
+                    echo '2';
+                }
+
+            }else{
+                echo "2";
+            }
+        }
+        //修改进度
+        function editProjectType(){
+            if($_POST){
+                $data = $this->input->post();
+                $data['updataTime'] = date('Y-m-d');
+                //获取已有的类型
+                $type = $this->public_model->select_where_many('h_project_type','project_id',$data['project_id'],'type',$data['type']);
+                if(!empty($type)){
+                    if($this->public_model->updata_where("h_project_type",'type',$data['type'],'project_id',$data['project_id'],$data)){
+                        $arr = array(
+                          'log_url'=>$this->uri->uri_string(),
+                          'user_id'=>$_SESSION['users']['user_id'],
+                          'username'=>$_SESSION['users']['username'],
+                          'log_ip'=>get_client_ip(),
+                          'log_status'=>'1',
+                          'log_message'=>"修改任务进度成功,纪录类型是：".$data['type'].',项目id是'.$data['project_id'],
+                        );
+                        add_system_log($arr);
+                        echo "1";
+                    }else{
+                        $arr = array(
+                          'log_url'=>$this->uri->uri_string(),
+                          'user_id'=>$_SESSION['users']['user_id'],
+                          'username'=>$_SESSION['users']['username'],
+                          'log_ip'=>get_client_ip(),
+                          'log_status'=>'0',
+                          'log_message'=>"修改任务进度失败,纪录类型是：".$data['type'].',项目id是'.$data['project_id'],
+                        );
+                        add_system_log($arr);
+                        echo "2";
+                    }
+
+                }else{
+                    if($this->public_model->insert('h_project_type',$data)){
+                        echo "1";
+                    }else{
+                        echo "2";
+                    }
+                }
+            }else{
+                echo "2";
+            }
+        }
+
+        
 
 
 }
