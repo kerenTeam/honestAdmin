@@ -154,26 +154,50 @@
                                                 <td class="am-text-middle"><?php echo $val['email'];?></td>
 
                                                 <td class="am-text-middle">
-                                                    <div class="tpl-table-black-operation">
+                                                    <!--
+                                                        <div class="tpl-table-black-operation">
 
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/edit_user/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:aqua "> <i class="am-icon-pencil"></i> 详细信息 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/user_communication/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/user_laborContract/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:azure "> <i class="am-icon-pencil"></i> 劳动合同 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/education/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/occupational/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:yellowgreen"> <i class="am-icon-pencil"></i> 职卫师 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/security/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:blueviolet"> <i class="am-icon-pencil"></i> 注安师 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/evaluate/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:cadetblue"> <i class="am-icon-pencil"></i> 安评师 </a>
-                                                        <a class="modal" data-id="<?php echo site_url('/Member/expert/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
-                                                            style="color:darksalmon"> <i class="am-icon-pencil"></i> 专 家  </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/edit_user/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:aqua "> <i class="am-icon-pencil"></i> 详细信息 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/user_communication/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:aquamarine"> <i class="am-icon-pencil"></i> 详细通讯 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/user_laborContract/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:azure "> <i class="am-icon-pencil"></i> 劳动合同 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/education/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/occupational/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:yellowgreen"> <i class="am-icon-pencil"></i> 职卫师 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/security/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:blueviolet"> <i class="am-icon-pencil"></i> 注安师 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/evaluate/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:cadetblue"> <i class="am-icon-pencil"></i> 安评师 </a>
+                                                            <a class="modal" data-id="<?php echo site_url('/Member/expert/').$val['user_id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}"
+                                                                style="color:darksalmon"> <i class="am-icon-pencil"></i> 专 家  </a>
+
+                                                        </div>
+                                                    -->
+
+                                                    <div class="tpl-table-black-operation">
+                                                        
+                                                        <a  target="_blank" href="<?php echo site_url('/Member/edit_user/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:rgb(16, 86, 86) "> <i class="am-icon-pencil"></i> 详细信息 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/user_communication/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:rgb(24, 114, 83)"> <i class="am-icon-pencil"></i> 详细通讯 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/user_laborContract/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:rgb(16, 81, 81) "> <i class="am-icon-pencil"></i> 劳动合同 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/education/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:tomato"> <i class="am-icon-pencil"></i> 学历信息 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/occupational/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:rgb(112, 147, 37)"> <i class="am-icon-pencil"></i> 职卫师 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/security/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:blueviolet"> <i class="am-icon-pencil"></i> 注安师 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/evaluate/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:cadetblue"> <i class="am-icon-pencil"></i> 安评师 </a>
+                                                        <a target="_blank" href="<?php echo site_url('/Member/expert/').$val['user_id'];?>"
+                                                            style="margin:.1em; color:darksalmon"> <i class="am-icon-pencil"></i> 专 家  </a>
 
                                                     </div>
+
                                                 </td>
 
                                                 <td class="am-text-middle">

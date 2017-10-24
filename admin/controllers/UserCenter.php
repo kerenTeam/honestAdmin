@@ -176,7 +176,7 @@ class UserCenter extends Public_Controller {
 
             $config['last_link']= '末页';
 
-            $list = search_project($sear);
+            $list = search_project_page();
            
 
             $config['total_rows'] = count($list);

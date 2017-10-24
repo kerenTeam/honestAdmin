@@ -137,5 +137,13 @@ class Welcome extends Public_Controller {
     }
 
 
+    //导入历史纪录
+    function Import_Record(){
+
+
+
+    	$this->load->view('import.html');
+    }
+
 
 }

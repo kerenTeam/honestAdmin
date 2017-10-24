@@ -39,7 +39,7 @@
 
 
          
-                        <div class="am-modal-dialog" style="width: 600px;overflow-y: hidden;position: absolute;left: 50%;-webkit-transform:translateX(-50%);overflow-y: scroll">
+                        <div class="am-modal-dialog" style="width: 100%;overflow-y: hidden;position: absolute;left: 50%;-webkit-transform:translateX(-50%);overflow-y: scroll">
                             <div class="am-modal-hd" style="text-align: center;">新增合同</div>
                             <div class="am-modal-bd">
                                 <!-- 本地生活 信息展示类 -->
@@ -47,154 +47,171 @@
                                 <form class="am-form tpl-form-line-form" enctype="multipart/form-data" action="<?php echo site_url('/Contract/edit_contract');?>" method="post" data-am-validator="" novalidate="novalidate">
                                     <div class="am-form-group am-form-icon am-form-feedback am-cf  am-form-error">
                                         <input type="hidden" name="contract_id" value="<?php echo $contract['contract_id'];?>">
-                                        <label class="am-u-sm-3 am-form-label">客户<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="customer_id">
-                                             <?php foreach($customer as $val):?>
-                                              <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['customer_id']){echo "selected";}?>><?php echo $val['title'];?></option>
-                                              <?php endforeach;?>
-                                            </select>
-                                        </div>
-                                        
-                                        <label class="am-u-sm-3 am-form-label">合同名称<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" name="title" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
-                                                value="<?php echo $contract['title'];?>" required >
-                                        </div>
 
-                                        <label class="am-u-sm-3 am-form-label">合同金额<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="number" name="contract_price" value="<?php echo $contract['contract_price'];?>" class="am-field-error am-active" placeholder="请输入合同金额" min="0" required >
-                                        </div>
 
-                                        <label class="am-u-sm-3 am-form-label">合同文件:</label>
-                                        <div class="am-u-sm-8">
-                                                <div class="am-form-group">
-                                                    <!-- <label for="doc-vld-name-2">文件上传: </label> -->
-                                                    <a href="<?php echo base_url().$contract['contract_file'];?>"><?php echo $contract['title'];?></a>
-                                                    <input type="file" name="contractFile" id="doc-vld-name-2"  placeholder="文件名" />
+                                        <div class="am-g">
+                                            <div class="am-u-sm-6">
 
+                                                <label class="am-u-sm-3 am-form-label">客户<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8">
+                                                    <select data-am-selected="{searchBox: 1,maxHeight: 100}" name="customer_id">
+                                                     <?php foreach($customer as $val):?>
+                                                      <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['customer_id']){echo "selected";}?>><?php echo $val['title'];?></option>
+                                                      <?php endforeach;?>
+                                                    </select>
                                                 </div>
-                                        </div>
-                                        <label class="am-u-sm-3 am-form-label">委托书文件:</label>
-                                        <div class="am-u-sm-8">
-                                                <div class="am-form-group">
-                                                    <!-- <label for="doc-vld-name-2">文件上传: </label> -->
-                                                    <a href="<?php echo base_url().$contract['entrust_file'];?>"><?php echo $contract['title'];?></a>
-                                                    <input type="file" name="entrust" id="doc-vld-name-2"  placeholder="文件名" />
+                                                
+                                                <label class="am-u-sm-3 am-form-label">合同名称<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8">
+                                                    <input type="text" name="title" class=" am-field-error am-active" placeholder="请输入组名,不超过十个字符" name="nickname" minlength="2" maxlength="10"
+                                                        value="<?php echo $contract['title'];?>" required >
                                                 </div>
-                                        </div>
+        
+                                                <label class="am-u-sm-3 am-form-label">合同金额<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8">
+                                                    <input type="number" name="contract_price" value="<?php echo $contract['contract_price'];?>" class="am-field-error am-active" placeholder="请输入合同金额" min="0" required >
+                                                </div>
+        
+                                                <label class="am-u-sm-3 am-form-label">合同文件:</label>
+                                                <div class="am-u-sm-8">
+                                                        <div class="am-form-group">
+                                                            <!-- <label for="doc-vld-name-2">文件上传: </label> -->
+                                                            <a href="<?php echo base_url().$contract['contract_file'];?>"><?php echo $contract['title'];?></a>
+                                                            <input type="file" name="contractFile" id="doc-vld-name-2"  placeholder="文件名" />
+        
+                                                        </div>
+                                                </div>
+                                                <label class="am-u-sm-3 am-form-label">委托书文件:</label>
+                                                <div class="am-u-sm-8">
+                                                        <div class="am-form-group">
+                                                            <!-- <label for="doc-vld-name-2">文件上传: </label> -->
+                                                            <a href="<?php echo base_url().$contract['entrust_file'];?>"><?php echo $contract['title'];?></a>
+                                                            <input type="file" name="entrust" id="doc-vld-name-2"  placeholder="文件名" />
+                                                        </div>
+                                                </div>
+        
+                                           
+        
+                                                <label class="am-u-sm-3 am-form-label">签订人<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8">
+                                                    
+                                                        <select name="sign_user" data-am-selected="{searchBox: 1,maxHeight: 200}" >
+                                                            <option value="">请选择一项</option>
+                                                            <?php foreach($users as $val):?>
+                                                                <option value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $contract['sign_user']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                                            <?php endforeach;?>
+                                                        </select>
+                                                </div>     
+        
+                                                <label class="am-u-sm-3 am-form-label" for="doc-select-4">签订时间<span class="red">*</span>：</label>
+                                                 <div class="am-u-sm-8" id="doc-select-4" required>
+                                                    <input type="text" name='sign_date' value="<?php echo $contract['sign_date'];?>" class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
+                                                </div>
+        
+                                                <label class="am-u-sm-3 am-form-label">预估合同金额：</label>
+                                                <div class="am-u-sm-8">
+                                                    <input type="text" name="estimate_price" value="<?php echo $contract['estimate_price']?>" class=" am-field-error am-active" placeholder="请输入预估合同金额">
+                                                </div>  
+        
+                                                <label class="am-u-sm-3 am-form-label">约定评审费：</label>
+                                                <div class="am-u-sm-8">
+                                                    <input type="text" name="review_price" value="<?php echo $contract['review_price']?>" class=" am-field-error am-active" placeholder="请输入约定评审费">
+                                                </div>  
+        
+                                                <label class="am-u-sm-3 am-form-label">约定预付：</label>
+                                                <div class="am-u-sm-8">
+                                                    <input type="text" name="prepay" value="<?php echo $contract['prepay']?>" class=" am-field-error am-active" placeholder="请输入约定预付金额">
+                                                </div>  
+        
+                                                <label class="am-u-sm-3 am-form-label">约定代支额：</label>
+                                                <div class="am-u-sm-8">
+                                                    <input type="text" name="expenditure" value="<?php echo $contract['expenditure']?>" class=" am-field-error am-active" placeholder="请输入约定代支额">
+                                                </div>  
+                                                <label class="am-u-sm-3 am-form-label">备注：</label>
+                                                <div class="am-u-sm-8">
+                                                    <textarea type="text" name="remaks"  class=" am-field-error am-active" placeholder="请输入备注信息"><?php echo $contract['remaks']?></textarea>
+                                                </div>  
+                                           
+                                            </div>
+                                            <div class="am-u-sm-6">
 
-                                   
 
-                                        <label class="am-u-sm-3 am-form-label">签订人<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8">
+                                                <label class="am-u-sm-3 am-form-label">地点<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8 areachoose" >
+                                                    <select name="province" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="province" required>
+                                                        <option value="<?php echo $contract['province'];?>" ><?php echo $contract['province'];?>省</option>
+                                                    </select>
+                                                    <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" required>
+                                                        <option value="<?php echo $contract['city'];?>"><?php echo $contract['city'];?>市</option>
+                                                    </select>
+                                                    <select name="area" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="area" required>
+                                                        <option value="<?php echo $contract['area'];?>"><?php echo $contract['area'];?>区</option>
+                                                    </select>
+                                                </div> 
+        
                                             
-                                                <select name="sign_user" data-am-selected="{searchBox: 1,maxHeight: 200}" >
-                                                    <option value="">请选择一项</option>
-                                                    <?php foreach($users as $val):?>
-                                                        <option value="<?php echo $val['user_id'];?>" <?php if($val['user_id'] == $contract['sign_user']){echo "selected";}?>><?php echo $val['username'];?></option>
+                                            <div class="am-form-group">
+                                                <label class="am-u-sm-3 am-form-label">合同下属项目(个)<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8" >
+                                                   <input type="number" name="projectNum" class=" am-field-error am-active" value="<?php echo $contract['projectNum'];?>" placeholder="输入合同下属有多少个项目">
+                                                </div>
+                                            </div>
+                                            <div class="am-form-group">
+                                                <label class="am-u-sm-3 am-form-label">军地<span class="red">*</span>：</label>
+                                                <div class="am-u-sm-4" >
+                                                  <label class="am-radio-inline">
+                                                    <input type="radio"  value="0" name="army" <?php if($contract['army'] == '0'){echo "checked";}?> > 非秘密
+                                                  </label>
+                                                  <label class="am-radio-inline">
+                                                    <input type="radio" name="army" value="1" <?php if($contract['army'] == '1'){echo "checked";}?>> 保密
+                                                  </label> 
+                                                </div>
+        
+                                            </div>
+                                            <div class="am-form-group mutic">
+                                                 <label class="am-u-sm-3 am-form-label" for="doc-select-1">板块<span class="red">*</span>：</label>
+                                                  <select id="doc-select-1" name="plate" class="am-u-sm-8" required>
+                                                    <option value="">-=请选择一项=-</option>
+                                                    <?php foreach($technology as $val ):?>
+                                                    <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['plate']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
                                                     <?php endforeach;?>
-                                                </select>
-                                        </div>     
+                                                  </select>
+                                                  <span class="am-form-caret"></span>
+                                            </div>
+                                            <div class="am-form-group mutic">
+                                                  <label class="am-u-sm-3 am-form-label" for="doc-select-2">行业<span class="red">*</span>：</label>
+                                                  <select id="doc-select-2" name="industry" class="am-u-sm-8" required>
+                                                    <option value="">-=请选择一项=-</option>
+                                                    <?php foreach($industry as $val ):?>
+                                                    <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['industry']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
+                                                    <?php endforeach;?>
+                                                  </select>
+                                                  <span class="am-form-caret"></span>
+                                            </div>
+                                            <div class="am-form-group mutic">
+                                                  <label class="am-u-sm-3 am-form-label" for="doc-select-3">服务类型<span class="red">*</span>：</label>
+                                                  <select class="am-u-sm-8" name="service_tyep" id="doc-select-3" required>
+                                                    <option value="">-=请选择一项=-</option>
+                                                    <?php foreach($service as $val ):?>
+                                                    <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['service_tyep']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
+                                                    <?php endforeach;?>
+                                                  </select>
+                                                  <span class="am-form-caret"></span>
+                                            </div>
+                                            
+        
+                                            <div class="am-form-group am-btn-group-xs">
+                                                <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
+                                                <button type="submit" class="am-btn am-btn-secondary">提交</button>
+                                            </div>
+                                                
 
-                                        <label class="am-u-sm-3 am-form-label" for="doc-select-4">签订时间<span class="red">*</span>：</label>
-                                         <div class="am-u-sm-8" id="doc-select-4" required>
-                                            <input type="text" name='sign_date' value="<?php echo $contract['sign_date'];?>" class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
-                                        </div>
+                                            </div>
+                                        </div>    
 
-                                        <label class="am-u-sm-3 am-form-label">预估合同金额：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" name="estimate_price" value="<?php echo $contract['estimate_price']?>" class=" am-field-error am-active" placeholder="请输入预估合同金额">
-                                        </div>  
 
-                                        <label class="am-u-sm-3 am-form-label">约定评审费：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" name="review_price" value="<?php echo $contract['review_price']?>" class=" am-field-error am-active" placeholder="请输入约定评审费">
-                                        </div>  
-
-                                        <label class="am-u-sm-3 am-form-label">约定预付：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" name="prepay" value="<?php echo $contract['prepay']?>" class=" am-field-error am-active" placeholder="请输入约定预付金额">
-                                        </div>  
-
-                                        <label class="am-u-sm-3 am-form-label">约定代支额：</label>
-                                        <div class="am-u-sm-8">
-                                            <input type="text" name="expenditure" value="<?php echo $contract['expenditure']?>" class=" am-field-error am-active" placeholder="请输入约定代支额">
-                                        </div>  
-                                        <label class="am-u-sm-3 am-form-label">备注：</label>
-                                        <div class="am-u-sm-8">
-                                            <textarea type="text" name="remaks"  class=" am-field-error am-active" placeholder="请输入备注信息"><?php echo $contract['remaks']?></textarea>
-                                        </div>  
-                                         
-                                        <label class="am-u-sm-3 am-form-label">地点<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8 areachoose" >
-                                            <select name="province" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="province" required>
-                                                <option value="<?php echo $contract['province'];?>" ><?php echo $contract['province'];?>省</option>
-                                            </select>
-                                            <select name="city" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="city" required>
-                                                <option value="<?php echo $contract['city'];?>"><?php echo $contract['city'];?>市</option>
-                                            </select>
-                                            <select name="area" class="am-u-sm-4  am-u-md-4 am-u-lg-4" id="area" required>
-                                                <option value="<?php echo $contract['area'];?>"><?php echo $contract['area'];?>区</option>
-                                            </select>
-                                        </div> 
-
-                                    </div>
-                                    <div class="am-form-group">
-                                        <label class="am-u-sm-3 am-form-label">合同下属项目(个)<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-8" >
-                                           <input type="number" name="projectNum" class=" am-field-error am-active" value="<?php echo $contract['projectNum'];?>" placeholder="输入合同下属有多少个项目">
-                                        </div>
-                                    </div>
-                                    <div class="am-form-group">
-                                        <label class="am-u-sm-3 am-form-label">军地<span class="red">*</span>：</label>
-                                        <div class="am-u-sm-4" >
-                                          <label class="am-radio-inline">
-                                            <input type="radio"  value="0" name="army" <?php if($contract['army'] == '0'){echo "checked";}?> > 非秘密
-                                          </label>
-                                          <label class="am-radio-inline">
-                                            <input type="radio" name="army" value="1" <?php if($contract['army'] == '1'){echo "checked";}?>> 保密
-                                          </label> 
-                                        </div>
-
-                                    </div>
-                                    <div class="am-form-group mutic">
-                                         <label class="am-u-sm-3 am-form-label" for="doc-select-1">板块<span class="red">*</span>：</label>
-                                          <select id="doc-select-1" name="plate" class="am-u-sm-8" required>
-                                            <option value="">-=请选择一项=-</option>
-                                            <?php foreach($technology as $val ):?>
-                                            <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['plate']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
-                                            <?php endforeach;?>
-                                          </select>
-                                          <span class="am-form-caret"></span>
-                                    </div>
-                                    <div class="am-form-group mutic">
-                                          <label class="am-u-sm-3 am-form-label" for="doc-select-2">行业<span class="red">*</span>：</label>
-                                          <select id="doc-select-2" name="industry" class="am-u-sm-8" required>
-                                            <option value="">-=请选择一项=-</option>
-                                            <?php foreach($industry as $val ):?>
-                                            <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['industry']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
-                                            <?php endforeach;?>
-                                          </select>
-                                          <span class="am-form-caret"></span>
-                                    </div>
-                                    <div class="am-form-group mutic">
-                                          <label class="am-u-sm-3 am-form-label" for="doc-select-3">服务类型<span class="red">*</span>：</label>
-                                          <select class="am-u-sm-8" name="service_tyep" id="doc-select-3" required>
-                                            <option value="">-=请选择一项=-</option>
-                                            <?php foreach($service as $val ):?>
-                                            <option value="<?php echo $val['id'];?>" <?php if($val['id'] == $contract['service_tyep']){echo "selected";}?>><?php echo $val['cate_name'];?></option>
-                                            <?php endforeach;?>
-                                          </select>
-                                          <span class="am-form-caret"></span>
-                                    </div>
-                                    
-
-                                    <div class="am-form-group am-btn-group-xs">
-                                        <button type="button" class="am-btn am-btn-default" data-am-modal-close="">取消</button>
-                                        <button type="submit" class="am-btn am-btn-secondary">提交</button>
-                                    </div>
+      
+                                 
                                 </form>
 
 

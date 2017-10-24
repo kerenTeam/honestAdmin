@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>合同详情</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>/assets/js/jquery.min.js"></script>
+    <style>
+        
+        span{
+            float: right;
+        }
+        p{
+            color:black
+        }
+
+
+    </style>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('public/');?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 合同管理 <small> - 合同详情 </small></div>
+                    <p class="page-header-description"> 这里是合同详情 </p>
+                </div>
+            </div>
+
+  
+            <div class="row-content am-cf">
+                
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            
+
+                    <div class="am-g">
+                            <div class="am-u-sm-6" >
+                                    <p>客户导入： 
+                                        <span> 
+                                            <a href="javascript:;" class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile1"/>    
+                                            </a>
+                                        </span>
+                                    </p>  
+            
+                                    <p>合同导入：
+                                        <span> 
+                                            <a href="javascript:;" class="am-btn am-btn-default ">
+
+                                                    <input name="pics" type="file" id="projectFile2"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                        
+                                    <p>项目导入:
+                                        <span> 
+                                            <a href="javascript:;" class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile3"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>送审版导入:
+                                        <span> 
+                                            <a href="javascript:;" data-id='1' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile4"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>修订版导入:
+                                        <span> 
+                                            <a href="javascript:;" data-id='2' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile5"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>最终版导入:
+                                        <span> 
+                                            <a href="javascript:;" data-id='3' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile6"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+            
+                                    <p>财务收入表导入:
+                                        <span> 
+                                            <a href="javascript:;" data-id='1' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile7"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>财务支出表导入:
+                                        <span> 
+                                            <a href="javascript:;" data-id='3' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile8"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>财务开票表导入:
+                                        <span> 
+                                            <a href="javascript:;" data-id='3' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile9"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                            </div>
+                            <div class="am-u-sm-6">
+
+                                    <p>客户导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/customer.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>合同导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/contract.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    
+                                    <p>项目导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/project.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>送审版导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>修订版导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>最终版导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">下载</a></span></p>              
+                                                
+                                    <p>财务收入导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/income.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>财务支出导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/expenditure.xls" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>财务开票导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/billing.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                            </div>
+                    </div>
+
+
+   
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>     
+            $('#projectFile1').change(function () {
+                var URL = '<?php echo site_url("/Customer/import_customer");?>'
+
+                var formData = new FormData();
+                formData.append('pics', $('#projectFile1')[0].files[0]);
+                $.ajax({
+                    url: URL,
+                    type: 'POST',
+                    // headers: headers,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        alert(data);
+                        window.location.reload()
+                    }
+                });
+            })
+     </script>
+
+<script>     
+        $('#projectFile2').change(function () {
+            var URL = '<?php echo site_url("/contract/import_contract");?>'
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile2')[0].files[0]);
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile3').change(function () {
+            alert('projectFile3')
+            var URL = '<?php echo site_url("/Project/import_Project");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile3')[0].files[0]);
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile4').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Project/Import_projectState");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile4')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile5').change(function () {
+
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Project/Import_projectState");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile5')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile6').change(function () {
+
+          var dataId = $(this).parent().attr('data-id');
+            // alert(dataId);
+
+            var URL = '<?php echo site_url("/Project/Import_projectState");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile6')[0].files[0]);
+            ormData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile7').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/Import_income");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile7')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile8').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/Import_expenditure");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile8')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+<script>     
+        $('#projectFile9').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/Import_billing");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile9')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+
+
+    <script src="<?php echo base_url('public/');?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>/assets/js/app.js"></script>
+    
+
+</body>
+
+</html>

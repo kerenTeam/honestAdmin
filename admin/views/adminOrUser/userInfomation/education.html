@@ -43,61 +43,73 @@
                             <button class="am-btn am-btn-secondary" type="submit">提交</button>
                         
                             <fieldset>
-                            <div class="am-form-group">
-                            <input type="hidden" name="type" value="edit">
-                            <input type="hidden" name="user_id" value="<?php echo $users['user_id'];?>">
-                                <label for="doc-vld-name-2">1本专科专业: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_major" value="<?php echo $users['one_major'];?>" />
-                            </div>
-                    
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">1学校: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_school" value="<?php echo $users['one_school'];?>" />
-                            </div>
+
+                                    <div class="am-g">
+                                            <div class="am-u-sm-6">
+                                                    <div class="am-form-group">
+                                                            <input type="hidden" name="type" value="edit">
+                                                            <input type="hidden" name="user_id" value="<?php echo $users['user_id'];?>">
+                                                                <label for="doc-vld-name-2">1本专科专业: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_major" value="<?php echo $users['one_major'];?>" />
+                                                            </div>
+                                                    
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">1学校: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_school" value="<?php echo $users['one_school'];?>" />
+                                                            </div>
+                                
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">1毕业时间: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_graduation" value="<?php echo $users['one_graduation'];?>" />
+                                                            </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">1层次: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_education" value="<?php echo $users['one_education'];?>" />
+                                                            </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">2本专科专业: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="tow_major" value="<?php echo $users['tow_major'];?>" />
+                                                            </div>
+                                            </div>
+                                            <div class="am-u-sm-6">
+
+                                                <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">2学校: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="tow_school" value="<?php echo $users['tow_school'];?>" />
+                                                    </div>
+                                                    <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">2毕业时间: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="tow_graduation" value="<?php echo $users['tow_graduation'];?>" />
+                                                    </div> 
+                                                    <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">2层次: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="tow_education" value="<?php echo $users['tow_education'];?>" />
+                                                    </div>
+                                                    <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">3硕博士专业: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="three_major" value="<?php echo $users['three_major'];?>" />
+                                                    </div>
+                                                    <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">3学校: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="three_school" value="<?php echo $users['three_school'];?>" />
+                                                    </div>
+                                                    <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">3毕业时间: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="three_graduation" value="<?php echo $users['three_graduation'];?>" />
+                                                    </div>
+                                                    <div class="am-form-group">
+                                                        <label for="doc-vld-name-2">3层次: </label>
+                                                        <input type="text" id="doc-vld-name-2" name="three_education" value="<?php echo $users['three_education'];?>" />
+                                                    </div>
+    
+                                            </div>
+                                          </div>
 
 
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">1毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_graduation" value="<?php echo $users['one_graduation'];?>" />
-                            </div>
 
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">1层次: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_education" value="<?php echo $users['one_education'];?>" />
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2本专科专业: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_major" value="<?php echo $users['tow_major'];?>" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2学校: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_school" value="<?php echo $users['tow_school'];?>" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_graduation" value="<?php echo $users['tow_graduation'];?>" />
-                            </div> 
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2层次: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_education" value="<?php echo $users['tow_education'];?>" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3硕博士专业: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_major" value="<?php echo $users['three_major'];?>" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3学校: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_school" value="<?php echo $users['three_school'];?>" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_graduation" value="<?php echo $users['three_graduation'];?>" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3层次: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_education" value="<?php echo $users['three_education'];?>" />
-                            </div>
 
 
                             
@@ -108,61 +120,72 @@
                         
                             <button class="am-btn am-btn-secondary" type="submit">提交</button>
                             <fieldset>
-                            <div class="am-form-group">
-                            <input type="hidden" name="type" value="insert">
-                            <input type="hidden" name="user_id" value="<?php echo $userid;?>">
-                                <label for="doc-vld-name-2">1本专科专业: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_major" value="" />
-                            </div>
 
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">1学校: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_school" value="" />
-                            </div>
+                                    <div class="am-g">
+                                            <div class="am-u-sm-6">
+                                                    <div class="am-form-group">
+                                                            <input type="hidden" name="type" value="insert">
+                                                            <input type="hidden" name="user_id" value="<?php echo $userid;?>">
+                                                                <label for="doc-vld-name-2">1本专科专业: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_major" value="" />
+                                                            </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">1学校: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_school" value="" />
+                                                            </div>
+                                
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">1毕业时间: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_graduation" value="" />
+                                                            </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">1层次: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="one_education" value="" />
+                                                            </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">2本专科专业: </label>
+                                                                <input type="text" id="doc-vld-name-2" name="tow_major" value="" />
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">2学校: </label>
+                                                                    <input type="text" id="doc-vld-name-2" name="tow_school" value="" />
+                                                                </div>
+                                            </div>
+                                            <div class="am-u-sm-6">
 
+                                                        <div class="am-form-group">
+                                                            <label for="doc-vld-name-2">2毕业时间: </label>
+                                                            <input type="text" id="doc-vld-name-2" name="tow_graduation" value="" />
+                                                        </div>
+                                                        <div class="am-form-group">
+                                                            <label for="doc-vld-name-2">2层次: </label>
+                                                            <input type="text" id="doc-vld-name-2" name="tow_education" value="" />
+                                                        </div>
+                                                        <div class="am-form-group">
+                                                            <label for="doc-vld-name-2">3硕博士专业: </label>
+                                                            <input type="text" id="doc-vld-name-2" name="three_major" value="" />
+                                                        </div>
+                                                        <div class="am-form-group">
+                                                            <label for="doc-vld-name-2">3学校: </label>
+                                                            <input type="text" id="doc-vld-name-2" name="three_school" value="" />
+                                                        </div>
+                                                        <div class="am-form-group">
+                                                            <label for="doc-vld-name-2">3毕业时间: </label>
+                                                            <input type="text" id="doc-vld-name-2" name="three_graduation" value="" />
+                                                        </div>
+                                                        <div class="am-form-group">
+                                                            <label for="doc-vld-name-2">3层次: </label>
+                                                            <input type="text" id="doc-vld-name-2" name="three_education" value="" />
+                                                        </div>
+                                            </div>
+                                          </div>
 
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">1毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_graduation" value="" />
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">1层次: </label>
-                                <input type="text" id="doc-vld-name-2" name="one_education" value="" />
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2本专科专业: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_major" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2学校: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_school" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_graduation" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">2层次: </label>
-                                <input type="text" id="doc-vld-name-2" name="tow_education" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3硕博士专业: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_major" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3学校: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_school" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3毕业时间: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_graduation" value="" />
-                            </div>
-                            <div class="am-form-group">
-                                <label for="doc-vld-name-2">3层次: </label>
-                                <input type="text" id="doc-vld-name-2" name="three_education" value="" />
-                            </div>
+                            
+                            
                         </fieldset>
                     </form>
 

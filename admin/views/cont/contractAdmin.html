@@ -26,12 +26,18 @@
         width: 30%!important;
     }
     [class*=am-u-]+[class*=am-u-]:last-child{
-        float:left;!important;
+        float:left!important;
     } 
     .mutic select{
         width: 65%!important;
         display: inline-block!important;
     }
+    .widget-body {
+    padding: 15px;
+    padding-right: 3em;
+    background: #fff;
+    min-width:100%;
+}
 </style>
 <body data-type="widgets">
 
@@ -317,9 +323,10 @@
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
                                         <?php if($val['lssued_state'] !='0'):?>
-                                              <a href="<?php echo site_url('/Contract/lssued_project/'.$val['contract_id']);?>" class="tpl-table-black-operation-green"> <i class="am-icon-pen"></i> 分配项目 </a>
+                                        
+                                              <a target="_blank" href="<?php echo site_url('/Contract/lssued_project/'.$val['contract_id']);?>" class="tpl-table-black-operation-green"> <i class="am-icon-pen"></i> 分配项目 </a>
                                         <?php endif;?>
-                                            <a data-id="<?php echo site_url('/Contract/edit_contract/').$val['contract_id']?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
+                                        <a target="_blank" href= "<?php echo site_url('/Contract/edit_contract/').$val['contract_id']?>" class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
                                          
                                             <a data-id="<?php echo $val['contract_id']?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
 

@@ -163,10 +163,17 @@
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
 
-                                                        <a class="modal" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" style="color:aqua "> <i class="am-icon-pencil"></i> 新增加 </a>
+                                                        <!-- 
+                                                            <a class="modal" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" style="color:aqua "> <i class="am-icon-pencil"></i> 新增加 </a>
                                                         <?php foreach($query as $v):?>
                                                         <a class="modal1" data-id="<?php echo $v['id'];?>" data-am-modal="{target: '#userInfomation-modal1', closeViaDimmer: 0, width:600}" style="color:aqua "> 📱<?php echo $v['name'];?> </a>
                                                         <?php endforeach;?>
+                                                         -->
+
+                                                         <a target="_blank" href="add_customer_user/<?php echo $val['id'];?>"  style="color:aqua "> <i class="am-icon-pencil"></i> 新增加 </a>
+                                                         <?php foreach($query as $v):?>
+                                                         <a target="_blank" href="edit_customer_user/<?php echo $v['id'];?>"  style="color:aqua "> 📱<?php echo $v['name'];?> </a>
+                                                         <?php endforeach;?>
 
                                                     </div>
                                                 </td>
