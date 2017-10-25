@@ -85,7 +85,7 @@ class Finance extends Public_Controller {
         $id = intval($this->uri->segment('3'));
 
 
-         $config['per_page'] = 10;
+        $config['per_page'] = 10;
 
         //获取页码
 
@@ -141,7 +141,10 @@ class Finance extends Public_Controller {
      //   var_dump($listpage);
         $this->pagination->initialize($config);
 
-        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
+        //获取合同信息
+        $cont = $this->public_model->select_info($this->contract,'contract_id',$id);
+
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'cont'=>$cont);
         $data['contract_id'] = $id;
         
 
@@ -290,7 +293,11 @@ class Finance extends Public_Controller {
         //获取何用收支信息
       
        // var_dump($total);
-        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
+          //获取合同信息
+        $cont = $this->public_model->select_info($this->contract,'contract_id',$id);
+
+   
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'cont'=>$cont);
       //  var_dump($data);
         $data['contract_id'] = $id;
 
@@ -436,9 +443,12 @@ class Finance extends Public_Controller {
         $listpage =  $this->public_model->select_page_many($this->contract_account,"type",'3','contract_id',$id,$current_page,$config['per_page'],'');
         $this->pagination->initialize($config);
         //获取何用收支信息
-      
+        //获取合同信息
+        $cont = $this->public_model->select_info($this->contract,'contract_id',$id);
+
+   
        // var_dump($total);
-        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links());
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'cont'=>$cont);
       //  var_dump($data);
         $data['contract_id'] = $id;
 

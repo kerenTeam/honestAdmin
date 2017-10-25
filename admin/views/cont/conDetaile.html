@@ -47,6 +47,7 @@
                 <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
+                             <h4>  合同信息</h4>
                             <div class="conD1">
                                 <div class="conD1item">
                                     <p>合同号： <span><?php echo $cont['contract_number'];?></span></p>
@@ -113,13 +114,34 @@
                                 </div>
                           
                             </div>
+                           
                             <div class="conD1">
                                 <div class="conD1item">
+                                     <?php if($cont['lssued_state'] !='0'):?>
+                                        
                                     <button><a href="<?php echo site_url('/Contract/lssued_project/'.$cont['contract_id']);?>">下发任务</a></button>
+                                    <?php endif?>
                                  
                                 </div>
                             </div>
+                            <?php if(!empty($project)):?>
+                             <h4>项目信息</h4>
+                             <div class="conD1">
+                                <div class="conD1item">
+                                    <p>项目编号： <span><?php echo $cont['contract_number'];?></span></p>
+                                    <p>项目名称：<span><?php echo $cont['title'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>第一负责人<span><?php echo $cont['contract_year'];?></span></p>
+                                </div>
+                            </div>
+                            <?php endif;?>
+
+
+
+
                         </div>
+
                     </div>
                 </div>
                 

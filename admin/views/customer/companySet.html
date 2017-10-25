@@ -43,7 +43,7 @@
             </div>
             <div class="row-content am-cf">
 
-                <div class="row">·
+                <div class="row">
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">
@@ -57,41 +57,11 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button>
+                                                <!-- <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button> -->
+                                                 <button type="button" class="am-btn am-btn-default am-btn-success"><a href="<?php echo site_url('/Customer/add_customer');?>" ><span class="am-icon-plus"></span> 新增</a></button>
                                                 <!-- 非管理人员 无此按钮-->
-                                                <?php if($_SESSION['users']['gid'] == '1'):?>
-                                                <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file" style="    overflow: hidden;
-    text-decoration: none;
-    text-indent: 0;">
-                                                    <span class="am-icon-archive"></span> 导入
-                                                  <input name="pics" type="file" id="projectFile" />    
-                                                </a>
-
-                                                <a href="<?php echo base_url();?>upload/xls/customer.xlsx" class="am-btn am-btn-warning">导入模板</a>
-                                                <?php endif;?>
-                                                
                                             </div>
-                                            <script>     
-                                                $('#projectFile').change(function () {
-                        
-                                                    var URL = '<?php echo site_url("/Customer/import_customer");?>'
-                        
-                                                    var formData = new FormData();
-                                                    formData.append('pics', $('#projectFile')[0].files[0]);
-                                                    $.ajax({
-                                                        url: URL,
-                                                        type: 'POST',
-                                                        // headers: headers,
-                                                        data: formData,
-                                                        processData: false,
-                                                        contentType: false,
-                                                        success: function (data) {
-                                                            alert(data);
-                                                            window.location.reload()
-                                                        }
-                                                    });
-                                                })
-                                            </script>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -163,16 +133,10 @@
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
 
-                                                        <!-- 
-                                                            <a class="modal" data-id="<?php echo $val['id'];?>" data-am-modal="{target: '#userInfomation-modal', closeViaDimmer: 0, width:600}" style="color:aqua "> <i class="am-icon-pencil"></i> 新增加 </a>
-                                                        <?php foreach($query as $v):?>
-                                                        <a class="modal1" data-id="<?php echo $v['id'];?>" data-am-modal="{target: '#userInfomation-modal1', closeViaDimmer: 0, width:600}" style="color:aqua "> 📱<?php echo $v['name'];?> </a>
-                                                        <?php endforeach;?>
-                                                         -->
 
-                                                         <a target="_blank" href="add_customer_user/<?php echo $val['id'];?>"  style="color:aqua "> <i class="am-icon-pencil"></i> 新增加 </a>
+                                                         <a  href="add_customer_user/<?php echo $val['id'];?>"  style="color:aqua "> <i class="am-icon-pencil"></i> 新增加 </a>
                                                          <?php foreach($query as $v):?>
-                                                         <a target="_blank" href="edit_customer_user/<?php echo $v['id'];?>"  style="color:aqua "> 📱<?php echo $v['name'];?> </a>
+                                                         <a  href="edit_customer_user/<?php echo $v['id'];?>"  style="color:aqua "> 📱<?php echo $v['name'];?> </a>
                                                          <?php endforeach;?>
 
                                                     </div>
@@ -199,6 +163,9 @@
 
                                                 <td class="am-text-middle">
                                                     <div class="tpl-table-black-operation">
+                                                        <a href="<?php echo site_url('/Customer/edit_customer/'.$val['id']);?>" class="edit tpl-table-black-operation-edit">
+                                                                    <i class="am-icon-pencil"></i> 编辑
+                                                        </a> 
 
                                                         <a href="javascript:;" data-id="<?php echo $val['id']?>" class="delete tpl-table-black-operation-del">
                                                                     <i class="am-icon-trash"></i> 删除

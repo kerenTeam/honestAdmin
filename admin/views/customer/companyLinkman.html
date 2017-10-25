@@ -25,177 +25,182 @@
         console.log('来自iframe获取的数据', (window.location.href).split('?'))
     </script>
 </head>
-
 <body data-type="widgets">
-    <script src="<?php echo base_url('public/');?>/assets/js/theme.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
 
-    <div class="container-fluid am-cf ">
-        <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
-            <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 客户管理 <small> - 单位列表 - 👨‍💼 &nbsp; 客户联系人 </small></div>
-            <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
-            <div class="widget am-cf">
-                <div class="am-u-sm-12">
-                    <?php if(!isset($user)):?>
-                    <form action="<?php echo site_url('/Customer/add_customer_user');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 客户管理 <small> - 单位列表 - 👨‍💼 &nbsp; 客户联系人 </small></div>
+                <p class="page-header-description">这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage 这个列表是用用来。dosage</p>
+            </div>
 
-                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
+            <div class="row-content am-cf">
 
-                        <fieldset>
-                            
-                                <div class="am-g">
-                                        <div class="am-u-sm-6">
-                                                <input type="hidden" name="company_id" value="<?php echo $id;?>">
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">姓名: </label>
-                                                    <input type="text" name="name" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                                                </div>
-                                             
-                    
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">单位: </label>
-                                                    <input type="text" name="company_name" id="doc-vld-name-2" minlength="2" placeholder="输入单位名称（至少 2 个字符）" required/>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">部门: </label>
-                                                    <input type="text" name="department" id="doc-vld-name-2" minlength="2" placeholder="输入所属部门（至少 2 个字符）" required/>
-                                                </div>
-                    
-                    
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">职务: </label>
-                                                    <input type="text" name="duties" id="doc-vld-name-2" minlength="2" placeholder="输入所在职务（至少 2 个字符）" required/>
-                                                </div>
-                    
-                                              
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">电话: </label>
-                                                    <input type="text" name="phone" id="doc-vld-name-2" minlength="2" placeholder="输入联系电话（至少 2 个字符）" required/>
-                                                </div>
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">QQ:: </label>
-                                                    <input type="text" name="qq" id="doc-vld-name-2"  placeholder="输入联系QQ"/>
-                                                </div>
-                                        </div>
-                                        <div class="am-u-sm-6">
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">微信： </label>
-                                                        <input type="text" name="wechat" id="doc-vld-name-2"  placeholder="输入联系微信"/>
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">邮箱： </label>
-                                                        <input type="text" name="email" id="doc-vld-name-2"  placeholder="输入邮箱地址" />
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">座机号： </label>
-                                                        <input type="text" name="tel" id="doc-vld-name-2"  placeholder="输入公司座机号码"/>
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">传真： </label>
-                                                        <input type="text" name="facsimile" id="doc-vld-name-2" placeholder="输入公司传真"/>
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">本公司对口人 </label>
-                                                        <input type="text" name="link_man" id="doc-vld-name-2" minlength="2" placeholder="输入本公司员工姓名（至少 2 个字符）" required/>
-                                                    </div>
-                    
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">备注: </label>
-                                                    <input type="text" name="remaks" id="doc-vld-name-2"  placeholder="输入备注信息"/>
-                                                </div>
-                                        </div>
-                                      </div>
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                            <div class="am-u-sm-12">
+                                <?php if(!isset($user)):?>
+                                <form action="<?php echo site_url('/Customer/add_customer_user');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
 
-                           
-                           
+                                    <button class="am-btn am-btn-secondary" type="submit">提交</button>
 
-                        </fieldset>
-                    </form>
-                    <?php else:?>
+                                    <fieldset>
+                                        
+                                            <div class="am-g">
+                                                    <div class="am-u-sm-6">
+                                                            <input type="hidden" name="company_id" value="<?php echo $id;?>">
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">姓名: </label>
+                                                                <input type="text" name="name" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                                            </div>
+                                                         
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">单位: </label>
+                                                                <input type="text" name="company_name" id="doc-vld-name-2" minlength="2" placeholder="输入单位名称（至少 2 个字符）" required/>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">部门: </label>
+                                                                <input type="text" name="department" id="doc-vld-name-2" minlength="2" placeholder="输入所属部门（至少 2 个字符）" required/>
+                                                            </div>
+                                
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">职务: </label>
+                                                                <input type="text" name="duties" id="doc-vld-name-2" minlength="2" placeholder="输入所在职务（至少 2 个字符）" required/>
+                                                            </div>
+                                
+                                                          
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">电话: </label>
+                                                                <input type="text" name="phone" id="doc-vld-name-2" minlength="2" placeholder="输入联系电话（至少 2 个字符）" required/>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">QQ:: </label>
+                                                                <input type="text" name="qq" id="doc-vld-name-2"  placeholder="输入联系QQ"/>
+                                                            </div>
+                                                    </div>
+                                                    <div class="am-u-sm-6">
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">微信： </label>
+                                                                    <input type="text" name="wechat" id="doc-vld-name-2"  placeholder="输入联系微信"/>
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">邮箱： </label>
+                                                                    <input type="text" name="email" id="doc-vld-name-2"  placeholder="输入邮箱地址" />
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">座机号： </label>
+                                                                    <input type="text" name="tel" id="doc-vld-name-2"  placeholder="输入公司座机号码"/>
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">传真： </label>
+                                                                    <input type="text" name="facsimile" id="doc-vld-name-2" placeholder="输入公司传真"/>
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">本公司对口人 </label>
+                                                                    <input type="text" name="link_man" id="doc-vld-name-2" minlength="2" placeholder="输入本公司员工姓名（至少 2 个字符）" required/>
+                                                                </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">备注: </label>
+                                                                <input type="text" name="remaks" id="doc-vld-name-2"  placeholder="输入备注信息"/>
+                                                            </div>
+                                                    </div>
+                                                  </div>
 
-                    <form action="<?php echo site_url('/Customer/edit_customer_user');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
-                        
-                        <button class="am-btn am-btn-secondary" type="submit">提交</button>
-                        <input type="hidden" name="id" value="<?php echo $user['id'];?>">
-                        <fieldset>
+                                       
+                                       
 
-                                <div class="am-g">
-                                        <div class="am-u-sm-6">
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">姓名: </label>
-                                                        <input type="text" name="name" value="<?php echo $user['name'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
-                                                    </div>
-                                                    
-                        
-                                                    <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">单位: </label>
-                                                        <input type="text" name="company_name" value="<?php echo $user['company_name'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入单位名称（至少 2 个字符）" required/>
-                                                    </div>
-                                                    <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">部门: </label>
-                                                        <input type="text" name="department" value="<?php echo $user['department'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入所属部门（至少 2 个字符）" required/>
-                                                    </div>
-                        
-                        
-                                                    <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">职务: </label>
-                                                        <input type="text" name="duties" value="<?php echo $user['duties'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入所在职务（至少 2 个字符）" required/>
-                                                    </div>
-                        
-                                                    
-                                                    <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">电话: </label>
-                                                        <input type="text" name="phone" value="<?php echo $user['phone'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入联系电话（至少 2 个字符）" required/>
-                                                    </div>
-                                                    <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">QQ:: </label>
-                                                        <input type="text" name="qq" value="<?php echo $user['qq'];?>" id="doc-vld-name-2"  placeholder="输入联系QQ"/>
-                                                    </div>
-                                        </div>
-                                        <div class="am-u-sm-6">
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">微信： </label>
-                                                        <input type="text" name="wechat" value="<?php echo $user['wechat'];?>" id="doc-vld-name-2"  placeholder="输入联系微信"/>
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">邮箱： </label>
-                                                        <input type="text" name="email" value="<?php echo $user['email'];?>" id="doc-vld-name-2"  placeholder="输入邮箱地址" />
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">座机号： </label>
-                                                        <input type="text" name="tel" value="<?php echo $user['tel'];?>" id="doc-vld-name-2"  placeholder="输入公司座机号码"/>
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">传真： </label>
-                                                        <input type="text" name="facsimile" value="<?php echo $user['facsimile'];?>" id="doc-vld-name-2" placeholder="输入公司传真"/>
-                                                    </div>
-                                                <div class="am-form-group">
-                                                        <label for="doc-vld-name-2">本公司对口人 </label>
-                                                        <input type="text" name="link_man" value="<?php echo $user['link_man'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入本公司员工姓名（至少 2 个字符）" required/>
-                                                    </div>
-                    
-                                                <div class="am-form-group">
-                                                    <label for="doc-vld-name-2">备注: </label>
-                                                    <input type="text" name="remaks" value="<?php echo $user['remaks'];?>" id="doc-vld-name-2"  placeholder="输入备注信息"/>
-                                                </div>
-                                        </div>
-                                      </div>
+                                    </fieldset>
+                                </form>
+                                <?php else:?>
 
-                            
-                            
+                                <form action="<?php echo site_url('/Customer/edit_customer_user');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+                                    
+                                    <button class="am-btn am-btn-secondary" type="submit">提交</button>
+                                    <input type="hidden" name="id" value="<?php echo $user['id'];?>">
+                                    <fieldset>
 
-                        </fieldset>
-                    </form>
-                    <?php endif;?>
+                                            <div class="am-g">
+                                                    <div class="am-u-sm-6">
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">姓名: </label>
+                                                                    <input type="text" name="name" value="<?php echo $user['name'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入姓名（至少 2 个字符）" required/>
+                                                                </div>
+                                                                
+                                    
+                                                                <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">单位: </label>
+                                                                    <input type="text" name="company_name" value="<?php echo $user['company_name'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入单位名称（至少 2 个字符）" required/>
+                                                                </div>
+                                                                <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">部门: </label>
+                                                                    <input type="text" name="department" value="<?php echo $user['department'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入所属部门（至少 2 个字符）" required/>
+                                                                </div>
+                                    
+                                    
+                                                                <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">职务: </label>
+                                                                    <input type="text" name="duties" value="<?php echo $user['duties'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入所在职务（至少 2 个字符）" required/>
+                                                                </div>
+                                    
+                                                                
+                                                                <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">电话: </label>
+                                                                    <input type="text" name="phone" value="<?php echo $user['phone'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入联系电话（至少 2 个字符）" required/>
+                                                                </div>
+                                                                <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">QQ:: </label>
+                                                                    <input type="text" name="qq" value="<?php echo $user['qq'];?>" id="doc-vld-name-2"  placeholder="输入联系QQ"/>
+                                                                </div>
+                                                    </div>
+                                                    <div class="am-u-sm-6">
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">微信： </label>
+                                                                    <input type="text" name="wechat" value="<?php echo $user['wechat'];?>" id="doc-vld-name-2"  placeholder="输入联系微信"/>
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">邮箱： </label>
+                                                                    <input type="text" name="email" value="<?php echo $user['email'];?>" id="doc-vld-name-2"  placeholder="输入邮箱地址" />
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">座机号： </label>
+                                                                    <input type="text" name="tel" value="<?php echo $user['tel'];?>" id="doc-vld-name-2"  placeholder="输入公司座机号码"/>
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">传真： </label>
+                                                                    <input type="text" name="facsimile" value="<?php echo $user['facsimile'];?>" id="doc-vld-name-2" placeholder="输入公司传真"/>
+                                                                </div>
+                                                            <div class="am-form-group">
+                                                                    <label for="doc-vld-name-2">本公司对口人 </label>
+                                                                    <input type="text" name="link_man" value="<?php echo $user['link_man'];?>" id="doc-vld-name-2" minlength="2" placeholder="输入本公司员工姓名（至少 2 个字符）" required/>
+                                                                </div>
+                                
+                                                            <div class="am-form-group">
+                                                                <label for="doc-vld-name-2">备注: </label>
+                                                                <input type="text" name="remaks" value="<?php echo $user['remaks'];?>" id="doc-vld-name-2"  placeholder="输入备注信息"/>
+                                                            </div>
+                                                    </div>
+                                                  </div>
+
+                                        
+                                        
+
+                                    </fieldset>
+                                </form>
+                                <?php endif;?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
-    </div>
-
-
+</div>
 </body>
 
 </html>

@@ -24,6 +24,15 @@
             border: none !important;
         }
     </style>
+     <style>
+        .conD1{display: flex;border-bottom: 1px solid #e8e8e8}
+        .conD1item{flex: 1}
+        .conD1item2{flex: 2}
+        .conD1item p, .conD1item h4{margin: .3rem 0}
+        .conD1item h4{margin-top: 20px}
+        .conD1item span{color: #555};
+
+    </style>
 </head>
 
 <body data-type="widgets">
@@ -44,6 +53,36 @@
             <div class="row-content am-cf">
 
                 <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <div class="widget am-cf">
+                             <h4>  合同信息</h4>
+                            <div class="conD1">
+                                <div class="conD1item">
+                                    <p>合同号： <span><?php echo $cont['contract_number'];?></span></p>
+                                    <p>合同名称：<span><?php echo $cont['title'];?></span></p>
+                                    <?php $cus = get_customer($cont['customer_id']);?>
+                                    <p>所属客户：<span><?php echo $cus['title'];?></span></p>
+                                    <p>税号：<span><?php echo $cus['tax_on'];?></span></p>
+                                    <p>开户银行：<span><?php echo $cus['open_bank'];?></span></p>
+                                    <p>账户：<span><?php echo $cus['bank_account'];?></span></p>
+                                </div>
+                 
+                                <div class="conD1item">
+                                    <p>合同金额：<span><?php echo $cont['contract_price'];?></span></p>
+                                    <p>预估合同金额：<span><?php echo $cont['estimate_price'];?></span></p>
+                                    <p>约定评审费：<span><?php echo $cont['review_price'];?></span></p>
+                                    <p>约定预付:<span><?php echo $cont['prepay'];?></span></p>
+                                </div>
+                                <div class="conD1item">
+                                    <p>签定人：<span><?php echo get_username($cont['sign_user'])?></span></p>
+                                    <p>签订时间：<span><?php echo $cont['sign_date'];?></span></p>
+                                    <p>备注：<span><?php echo $cont['remaks'];?></span></p>
+                                </div>
+                       
+                            </div> 
+                           
+                        </div>
+                    </div>
                     <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                         <div class="widget am-cf">
                             <div class="widget-head am-cf">

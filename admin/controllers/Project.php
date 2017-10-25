@@ -152,7 +152,18 @@ class Project extends Public_Controller
                 }
 
             }else{
-                $this->load->view('404.html');
+
+                  //获取行业类别
+                $data['industry'] = $this->public_model->select_where($this->category,'type','1','');
+                $data['service'] = $this->public_model->select_where($this->category,'type','2','');
+                $data['technology'] = $this->public_model->select_where($this->category,'type','3','');
+                 //获取客户信息
+                $data['customer'] = $this->public_model->select_where($this->contract,'del_state','0','');
+                 //获取用户
+                $data['users'] = $this->public_model->select_where_no($this->member,'1','');
+
+
+                $this->load->view('project/addProject.html',$data);
             }
         }
 

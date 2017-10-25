@@ -172,7 +172,17 @@ class Contract extends Public_Controller
                 echo "<script>alert('操作失败！');window.parent.location.reload();</script>";  
             }
         }else{
-            $this->load->view('404.html');
+            //获取行业类别
+            $data['industry'] = $this->public_model->select_where($this->category,'type','1','');
+            $data['service'] = $this->public_model->select_where($this->category,'type','2','');
+            $data['technology'] = $this->public_model->select_where($this->category,'type','3','');
+            //获取客户信息
+            $data['customer'] = $this->public_model->select_where($this->customer,'state','1','');
+            
+            //获取职员信息
+            $data['users'] = $this->public_model->select_where_no($this->member,'1','');
+
+            $this->load->view('cont/addContract.html',$data);
         }
     }
 
@@ -519,6 +529,9 @@ class Contract extends Public_Controller
         }else{
             //根据id查询合同详情
             $data['cont'] = $this->public_model->select_info($this->contract,'contract_id',$id);
+            //根据合同查询项目
+            $data['project'] = $this->public_model->select_info($this->project,'c_id',$id);
+
 
             $this->load->view('cont/conDetaile.html',$data);
         }

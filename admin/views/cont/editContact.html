@@ -34,13 +34,15 @@
 </style>
 <body data-type="widgets" style="background-color: transparent;overflow-y: hidden;">
     <script src="<?php echo base_url('public/');?>/assets/js/theme.js"></script> 
+    <div class="am-g tpl-g">
 
-        <!-- 内容区域 --> 
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
 
 
          
                         <div class="am-modal-dialog" style="width: 100%;overflow-y: hidden;position: absolute;left: 50%;-webkit-transform:translateX(-50%);overflow-y: scroll">
-                            <div class="am-modal-hd" style="text-align: center;">新增合同</div>
+                            <div class="am-modal-hd" style="text-align: center;">修改合同</div>
                             <div class="am-modal-bd">
                                 <!-- 本地生活 信息展示类 -->
 
@@ -76,7 +78,9 @@
                                                 <div class="am-u-sm-8">
                                                         <div class="am-form-group">
                                                             <!-- <label for="doc-vld-name-2">文件上传: </label> -->
+                                                            <?php if(!empty($contract['contract_file'])):?>
                                                             <a href="<?php echo base_url().$contract['contract_file'];?>"><?php echo $contract['title'];?></a>
+                                                            <?php endif;?>
                                                             <input type="file" name="contractFile" id="doc-vld-name-2"  placeholder="文件名" />
         
                                                         </div>
@@ -85,7 +89,9 @@
                                                 <div class="am-u-sm-8">
                                                         <div class="am-form-group">
                                                             <!-- <label for="doc-vld-name-2">文件上传: </label> -->
-                                                            <a href="<?php echo base_url().$contract['entrust_file'];?>"><?php echo $contract['title'];?></a>
+                                                            <?php if(!empty($contract['entrust_file'])):?>
+                                                                <a href="<?php echo base_url().$contract['entrust_file'];?>"><?php echo $contract['title'];?></a>
+                                                            <?php endif;?>
                                                             <input type="file" name="entrust" id="doc-vld-name-2"  placeholder="文件名" />
                                                         </div>
                                                 </div>
@@ -218,6 +224,8 @@
 
                             </div>
                         </div> 
+        </div>
+    </div>
   
  
     <script src="<?php echo base_url('public/');?>/assets/js/amazeui.min.js"></script>

@@ -58,59 +58,9 @@
                                     <div class="am-form-group">
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <br>
-                                                <?php if($_SESSION['users']['gid'] =='1'):?>
-                                                    <a href="javascript:;" data-id='1' class="am-btn am-btn-default am-btn-danger file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                                        <span class="am-icon-archive"></span> 导入收入记录
-                                                      <input name="pics" type="file" class="projectState" />    
-                                                    </a>
-                                                    <a href="javascript:;" data-id='2' class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                                        <span class="am-icon-archive"></span> 导入支出记录
-                                                      <input name="pics" type="file" class="projectState" />   
-
-                                                    </a> 
-                                                    <a href="javascript:;" data-id='3' class="am-btn am-btn-default am-btn-success file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                                        <span class="am-icon-archive"></span> 导入开票记录
-                                                        <input name="pics" type="file" class="projectState" />    
-                                                    </a>
-                                                    <a href="<?php echo base_url();?>upload/xls/income.xlsx" class="am-btn am-btn-default">收入模板</a>
-                                                    <a href="<?php echo base_url();?>upload/xls/expenditure.xls" class="am-btn am-btn-warning">支出模板</a>
-                                                    <a href="<?php echo base_url();?>upload/xls/billing.xlsx" class="am-btn am-btn-success">开票模板</a>
-                                                <?php endif;?>
-                                             
-                                                <br>
+                                              
                                             </div>
-                                            <script>     
-                                                $('.projectState').change(function () {
-                                                    var dataId = $(this).parent().attr('data-id');
-                                                   // alert(dataId);
-                                                   if(dataId == '1'){
-                                                    var URL = '<?php echo site_url("/Finance/Import_income");?>'
-                                                   }else if(dataId == '2'){
-                                                    var URL = '<?php echo site_url("/Finance/Import_expenditure");?>'
-                                                   }else{
-                                                    var URL = '<?php echo site_url("/Finance/Import_billing");?>'
-                                                   }
-                                                   // var URL = '<?php echo site_url("/Project/Import_projectState");?>'
-                        
-                                                    var formData = new FormData();
-                                                    formData.append('pics',  $(this)[0].files[0]);
-                                                    formData.append('type', dataId);
-                                                    $.ajax({
-                                                        url: URL,
-                                                        type: 'POST',
-                                                        // headers: headers,
-                                                        data: formData,
-                                                        processData: false,
-                                                        contentType: false,
-                                                        success: function (data) {
-                                                            console.log(data);
-                                                            alert(data);
-                                                            window.location.reload()
-                                                        }
-                                                    });
-                                                })
-                                            </script>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +106,7 @@
                                                 
                                                 <td> <?php echo $v['contract_number'];?> </td>
                                                 
-                                                <td class="am-text-middle"><a href="<?php echo site_url('/Finance/contract_info/'.$v['contract_number']);?>"><?php echo $v['title'];?></a></td>
+                                                <td class="am-text-middle"><a href="<?php echo site_url('/Finance/contract_info/'.$v['contract_number']);?>" title="<?php echo $v['title'];?>"><?php echo mb_substr($v['title'],'0','10');?>...</a></td>
                                                 <?php if($v['completion_status']=='1'): ?>
                                                     <td class="am-text-middle">已完成</td>
                                                 <?php else:?>

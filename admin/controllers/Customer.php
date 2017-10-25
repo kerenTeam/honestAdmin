@@ -249,6 +249,58 @@ class Customer extends Public_Controller
         }
     }
 
+    //编辑客户信息
+    function edit_customer(){
+        $id = intval($this->uri->segment('3'));
+        if($id == '0'){
+            $this->load->view('404.html');
+        }else{
+            //获取客户信息
+            $data['customer'] = $this->public_model->select_info($this->customer,'id',$id);
+              //获取行业类别
+            $data['industry'] = $this->public_model->select_where($this->category,'type','1','');
+            //获取所有用户
+            $data['users'] = $this->public_model->select_where_no($this->member,'1','');
+
+            $this->load->view('customer/editCompany.html',$data);
+
+        }
+    }
+    //编辑操作
+    function edit_customerInfo(){
+        if($_POST){
+            $data = $this->input->post();
+
+            if($this->public_model->updata($this->customer,'id',$data['id'],$data)){
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"修改客户信息成功,客户id为".$data['id'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Customer/index')."'</script>";    
+            }else{
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"修改客户信息失败,客户id为".$data['id'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Customer/edit_customer／'.$data['id'])."'</script>";  
+            }
+        }else{
+            $this->load->view('404.html');
+        }
+    }
+
+
+
     //筛选客户
     function search_customer(){
         $config['per_page'] = 10;

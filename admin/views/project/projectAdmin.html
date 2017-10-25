@@ -55,73 +55,10 @@
                         <div class="am-form-group">
                             <div class="am-btn-toolbar">
                                 <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a style="color:#fff"data-am-modal="{target: '#addAccount'}"><span class="am-icon-plus"></span> 新增</a></button>
-                                    <?php if($_SESSION['users']['gid'] == '1'):?>
-                                    <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                        <span class="am-icon-archive"></span> 导入项目
-                                        <input name="pics" type="file" id="projectFile"/> 
-                                    </a>
-                                     <a href="javascript:;" data-id='1' class="am-btn am-btn-default am-btn-danger file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                        <span class="am-icon-archive"></span> 导入送审版记录
-                                      <input name="pics" type="file" class="projectState" />    
-                                    </a>
-                                    <a href="javascript:;" data-id='2' class="am-btn am-btn-default am-btn-warning file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                        <span class="am-icon-archive"></span> 导入修改版记录
-                                      <input name="pics" type="file" class="projectState" />   
-
-                                    </a> <a href="javascript:;" data-id='3' class="am-btn am-btn-default am-btn-success file" style="overflow: hidden;text-decoration: none;text-indent: 0;">
-                                        <span class="am-icon-archive"></span> 导入最终版记录
-                                        <input name="pics" type="file" class="projectState" />    
-                                    </a>
-                                    <a href="<?php echo base_url();?>upload/xls/project.xlsx" class="am-btn am-btn-default am-btn-warning">导入项目模板</a>
-                                     <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">导入任务记录模板</a>
-                                    <?php endif;?>
+                                    <!-- <button type="button" class="am-btn am-btn-default am-btn-success"><a style="color:#fff"data-am-modal="{target: '#addAccount'}"><span class="am-icon-plus"></span> 新增</a></button> -->
+                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a href="<?php echo site_url('/Project/add_project');?>"><span class="am-icon-plus"></span> 新增</a></button> 
+                                   
                                 </div>
-                                <script>     
-                                    $('#projectFile').change(function () {
-            
-                                        var URL = '<?php echo site_url("/Project/import_Project");?>'
-            
-                                        var formData = new FormData();
-                                        formData.append('pics', $('#projectFile')[0].files[0]);
-                                        $.ajax({
-                                            url: URL,
-                                            type: 'POST',
-                                            // headers: headers,
-                                            data: formData,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function (data) {
-                                                console.log(data)
-                                                alert(data);
-                                                window.location.reload()
-                                            }
-                                        });
-                                    })
-                                    $('.projectState').change(function () {
-                                        var dataId = $(this).parent().attr('data-id');
-                                       // alert(dataId);
-
-                                        var URL = '<?php echo site_url("/Project/Import_projectState");?>'
-            
-                                        var formData = new FormData();
-                                        formData.append('pics',  $(this)[0].files[0]);
-                                        formData.append('type', dataId);
-                                        $.ajax({
-                                            url: URL,
-                                            type: 'POST',
-                                            // headers: headers,
-                                            data: formData,
-                                            processData: false,
-                                            contentType: false,
-                                            success: function (data) {
-                                                console.log(data);
-                                                alert(data);
-                                                window.location.reload()
-                                            }
-                                        });
-                                    })
-                                </script>
                             </div>
                         </div>
                     </div>
@@ -331,7 +268,7 @@
                                                     </div>
                                     </td>
                                     <td class="groupName am-text-middle">
-                                        <a href="<?php echo site_url('/Project/project_info/'.$val['id']);?>"><?php echo mb_substr($val['title'],'0','20');?>...</a></td>
+                                        <a href="<?php echo site_url('/Project/project_info/'.$val['id']);?>" title='<?php echo $val["title"];?>'><?php echo mb_substr($val['title'],'0','20');?>...</a></td>
                                     <td class="groupName am-text-middle"><?php echo $val['province'].$val['city'].$val['town'];?></td>
                                     <td class="groupName am-text-middle"><?php echo get_customer_name($val['contacts']);?></td>
                                     <td class="groupName am-text-middle"><?php echo get_customer_address($val['c_id']);?></td>
@@ -344,7 +281,7 @@
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['industry_id']);?></td> 
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
-                                            <a target="_blank" href="<?php echo site_url('/Project/edit_project/').$val['id'];?>"  class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
+                                            <a  href="<?php echo site_url('/Project/edit_project/').$val['id'];?>"  class="modal"><i class="am-icon-pencil"></i> 编辑  </a>
                                          
                                             <a data-id="<?php echo $val['id'];?>" class="delete tpl-table-black-operation-del tpl-del"> <i class="am-icon-trash"></i> 删除 </a>
 
