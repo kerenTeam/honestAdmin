@@ -102,6 +102,40 @@ class UserCenter extends Public_Controller {
             $data = $this->input->post();
             $data['user_id'] = $_SESSION['users']['user_id'];
             $data['create_time'] = date('Y-m-d H:i:s');
+
+
+            if($data['toid'] == 'undefined'){
+                unset($data['toid']);
+            }else{
+                unset($data['type']);
+                //根据留言返回数据
+                $mass = $this->public_model->select_info('h_project_message','m_id',$data['toid']);
+
+               $data['type'] = $mass['type'];
+               $data['to_user_id'] = $data['toid'];
+               unset($data['toid']);
+            }
+
+            //上传
+            if(!empty($_FILES['file']['name'])){
+                $config['upload_path']      = 'upload/file/';
+                $config['allowed_types']    = 'gif|jpg|png|jpeg|xls|xlsx|doc|docx|text';
+                $config['max_size']     = 5120;
+                $config['file_name'] = date('y-m-d').'-'.$_FILES['file']['name'];
+
+                $this->load->library('upload', $config);
+
+                // 上传
+
+                if(!$this->upload->do_upload('file')) {
+
+                    echo "<script>alert('文件上传失败！');window.parent.location.reload();</script>";exit;
+                }else{
+                    $data['file_path'] = 'upload/file/'.$this->upload->data('file_name');
+                }
+            }
+
+
             if($this->public_model->insert('h_project_message',$data)){
               $arr = array(
                   'log_url'=>$this->uri->uri_string(),

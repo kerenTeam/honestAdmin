@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>项目提成</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href=" <?php echo base_url('/public');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href<?php echo base_url('/public');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/public');?>/assets/css/app.css">
+    <script src="<?php echo base_url('/public');?>/assets/js/jquery.min.js"></script>
+    <style>
+        #doc-modal-list .modal { border: none !important; }
+        .widget-head { padding: 10px;padding-left: 0;margin-bottom: 20px}
+        .taskCon, .taskConP{padding-left: 30px;}
+        .taskCon p.p1{text-indent: 2em}
+        .taskConDetaile{display: flex;margin-left: 30px;border-bottom: 1px solid #cac9c9;margin-bottom: 20px;}
+        .taskConF1{flex: 1}
+        .taskConP{color:#ef7439;margin-bottom: 1.5rem;}
+        .scroll{ width: 70%; margin-left: 10%; height: 10px; background: #ccc;  position: relative; margin-top: 8px; }
+        .bar{width: 10px;height: 20px;background: #6699ff;position: absolute;top: -5px;left: 0;cursor: pointer;}
+        .mask{position: absolute;left: 0;top: 0;background: #6699ff;width: 0;height: 10px;}
+        .maskSpan{position: absolute;right: -42px;top: -8px;}
+        .TCimg1{width: 30px}
+        .taskConF1A{width: 33%;text-align: center;float: left;color: #838FA1;cursor: pointer;}
+        .taskConFW1{width: 100px}
+        .taskConF2{flex: 2}
+        .taskConDetaile2, .taskConDetaile3{display: flex;}
+        .Stime{margin-right: 10px;width: 70px}
+        .taskConDetaile3 div{flex: 1;padding-right: 10px;}
+        .taskConDetaile4{border-bottom: 0px}
+        .taskConFW1S{padding-left: 28px}
+        .taskConDetaile5{border-bottom: 1px solid #cac9c9;}
+        .theme-white .widget-head {border-bottom: 1px solid #bbbbbb;}
+        .chatItem{width: 95%;border-bottom: 1px solid #eee;padding-bottom: 12px;}
+        .chatItem p span{float: right;}
+        .chatItem div a{margin-left: 30px;cursor: pointer;}
+        .taskConF1A label{position: relative;}
+        .taskConF1A label input:first-child{width: 0;height: 0;position: absolute;opacity: 0;background:none;}
+        .xiaozu a img{width: 20px}
+        .xiaozu a{margin-right: 20px}
+        .xiaozu2{padding-left: 32px;}
+        .taskConXiao{border-bottom: 1px solid #e6e3e3;padding-bottom: 15px;margin-bottom: 15px;}
+        .bianji{margin-right: 15%;float: right;color: #0e90d2}
+        /* 新1 */
+        .am-btn2{padding: .4em;}
+        input[type=file] {display: inline-block;}
+        .ziliaoDiv{text-align: left;padding:20px;padding-top: 0}
+        .ziliaoDiv div{display: flex;padding: 6px 0}
+        .ziliaoDiv span{display: inline-block;width: 80px}
+        .ziliaoDiv input, .ziliaoDiv textarea{flex: 1}
+        .taskCon h4{color: #444;font-weight: initial}
+        .taskCon p{color: #555;font-weight: initial;display: inline-block;width: 30%}
+        .taskCon input{padding: 5px;width: 100px}
+
+    </style>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 任务管理 <small> - 项目提成 </small></div>
+                    <p class="page-header-description"> 这里是项目提成 </p>
+                </div>
+            </div>
+  
+            <div class="row-content am-cf">
+                <div class="row">
+                    <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                        <form action="<?php echo site_url('/Project/Commission');?>" method="post">
+                        <div class="widget am-cf">
+                            <div class="widget-head am-cf">
+                                <div class=" am-cf">项目提成</div>
+                                <input type="hidden" name="projectId" value="<?php echo $id;?>" />
+                            </div>
+                            <div class="taskCon taskConXiao">
+                                <h4>主要负责人：</h4>
+                                <?php foreach($group as $val):?>
+                                    <?php if($val['state'] =='1'):?>
+                                        <?php if($val['type'] =='1'):?>
+                                            <p class="p1">
+                                                <?php echo get_username($val['user_id']);?>(第一负责人)：<input type="text" name="price[]" value="<?php echo $val['price'];?>" placeholder="请填写金额"> 元
+                                                <input type="hidden" name="id[]" value="<?php echo $val['id'];?>">
+                                            </p>
+                                        <?php elseif($val['type'] =='2'):?>
+                                            <p class="p1"><?php echo get_username($val['user_id']);?>(技术负责人)：<input type="text" name="price[]" value="<?php echo $val['price'];?>" placeholder="请填写金额"> 元
+                                            <input type="hidden" name="id[]" value="<?php echo $val['id'];?>">
+
+                                            </p>
+                                        <?php elseif($val['type'] =='3'):?>
+
+                                            <p class="p1"><?php echo get_username($val['user_id']);?>(项目审核人)：<input type="text" name="price[]" value="<?php echo $val['price'];?>" placeholder="请填写金额"> 元
+                                            <input type="hidden" name="id[]" value="<?php echo $val['id'];?>">
+
+                                            </p>
+                                        <?php elseif($val['type'] =='4'):?>
+                                            <p class="p1"><?php echo get_username($val['user_id']);?>(项目负责人)：<input type="text" name="price[]" value="<?php echo $val['price'];?>" placeholder="请填写金额"> 元
+                                           <input type="hidden" name="id[]" value="<?php echo $val['id'];?>">
+                                            </p>
+
+                                        <?php elseif($val['type'] =='5'):?>
+                                            <p class="p1"><?php echo get_username($val['user_id']);?>(现场人员)：<input type="text" name="price[]"  value="<?php echo $val['price'];?>" placeholder="请填写金额"> 元
+                                            <input type="hidden" name="id[]" value="<?php echo $val['id'];?>">
+
+                                            </p>
+                                        <?php endif;?>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </div>
+                            <div class="taskCon taskConXiao">
+                                <h4>小组人员：</h4>
+                                 <?php foreach($group as $val):?>
+                                    <?php if($val['type'] == '6'):?>
+                                        <p class="p1">
+                                            <?php echo get_username($val['user_id']);?> ： <input type="text"  name="price[]" value="<?php echo $val['price'];?>" placeholder="请填写金额"> 元,
+                                            <input type="hidden" name="id[]" value="<?php echo $val['id'];?>">
+
+                                        </p>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                              
+                            </div>
+                            <div class="taskCon taskConXiao" style="border: none;text-align: right;">
+                                <button type="submit" class="am-btn am-btn-primary am-btn2" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 420, height: 240}">
+                                    确认提交
+                                </button>
+                            </div>
+                            
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+
+            
+        </div>
+
+
+
+
+
+    </div>
+    </div>
+    <script src="<?php echo base_url('/public');?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('/public');?>/assets/js/app.js"></script>
+    
+
+</body>
+
+</html>

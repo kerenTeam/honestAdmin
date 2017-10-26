@@ -87,7 +87,12 @@
                                 <?php foreach($group as $val):?>
                                     <?php if($val['state'] =='1'):?>
                                         <?php if($val['type'] =='1'):?>
-                                            <p class="p1">第一负责人： <a><?php echo get_username($val['user_id']);?> </a></p>
+                                            <p class="p1">第一负责人： <a><?php echo get_username($val['user_id']);?> </a>
+                                                 <a href="<?php echo site_url('/Project/Commission/'.$id);?>">
+                                                    <input class="bianji" type="button" value="项目提成">
+                                                </a>
+                                            </p>
+
                                         <?php elseif($val['type'] =='2'):?>
                                             <p class="p1">技术负责人： <a><?php echo get_username($val['user_id']);?></a></p>
                                         <?php elseif($val['type'] =='3'):?>
@@ -144,6 +149,9 @@
                             <div class="taskCon" id="ziliaoWrap">
                                 <h4>项目节点</h4>
                                 <!-- 1. 资料收集 -->
+
+                         <div class="taskConDetaileWrapDDDDD">
+                               <div class="taskConDetaileWrap">
                                 <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','1');?>
 
                                 <div class="taskConDetaile">
@@ -180,10 +188,58 @@
                                                 上传资料
                                             </button>
                                         </a>
+                                          <a class="taskConF1A">
+                                            <img dataId="1" class="TCimg1 doc-prompt-toggle newLiuyan" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg">
+                                            <img class="TCimg1 TCimg123" src="<?php echo base_url('/public');?>/assets/img/jiantouxia.svg">
+                                        </a>
                                     </div>
                                 </div>
+                                <?php $mess= $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'type','1','create_time');?>
+                                 <div class="taskConDetaile23Wrap" style="display:none">
+                                        <?php foreach($mess as $v):?>
+                                        <div class="taskConDetaile taskConDetaile23" style="border: none;margin-left: 65px;">
+                                            <div class="chatItem chatItem3"> 
+                                                <h4>留言人：<?php echo get_username($v['user_id']);?></h4>
+                                                 <p>标题：<?php echo $v['title'];?>
+                                                    <?php if(!empty($v['file_path'])):?>
+                                                    <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                    <?php endif;?>
+                                                </p>
+                                                <p>
+                                                    留言内容：<?php echo $v['content']?>
+                                                </p>
+                                                <div>
+                                                    <?php echo $v['create_time'];?>
+                                                    <a data-id='<?php echo $v["m_id"];?>' class="doc-prompt-toggle newLiuyan">回复</a>
+                                                </div>
+                                                <p>
+                                                    <?php $to = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id',$v['m_id'],'create_time');?>
+
+                                                    <?php if(!empty($to)):?>
+                                                        <?php foreach($to as $v):?>
+                                                        回复人：<?php echo get_username($v['user_id']);?><br>
+                                                         <p style="color: red;">标题：<?php echo $v['title'];?>
+                                                                <?php if(!empty($v['file_path'])):?>
+                                                                <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                                <?php endif;?>
+                                                            </p>
+                                                            <p style="color: red;">回复内容：<?php echo $v['content'];?></p> 
+                                                            <?php echo $v['create_time'];?>
+                                                        <?php endforeach;?>
+                                                    <?php endif;?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php endforeach;?>
+                                </div>
+
+                               </div>
+                            </div> 
+
 
                                 <!-- 2.现场查勘 -->
+                         <div class="taskConDetaileWrapDDDDD">
+                               <div class="taskConDetaileWrap">
                                  <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','2');?>
                                 <div class="taskConDetaile">
                                     <div class="taskConF1">
@@ -220,11 +276,58 @@
                                             </button>
                                             
                                         </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
+                                      
+                                         <a class="taskConF1A">
+                                            <img dataId="2" class="TCimg1 doc-prompt-toggle newLiuyan" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg">
+                                            <img class="TCimg1 TCimg123" src="<?php echo base_url('/public');?>/assets/img/jiantouxia.svg">
+                                        </a>
                                     </div>
                                 </div>
+                               <?php $mess= $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'type','2','create_time');?>
+                                 <div class="taskConDetaile23Wrap" style="display:none">
+                                        <?php foreach($mess as $v):?>
+                                        <div class="taskConDetaile taskConDetaile23" style="border: none;margin-left: 65px;">
+                                            <div class="chatItem chatItem3"> 
+                                                <h4>留言人：<?php echo get_username($v['user_id']);?></h4>
+                                                 <p>标题：<?php echo $v['title'];?>
+                                                    <?php if(!empty($v['file_path'])):?>
+                                                    <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                    <?php endif;?>
+                                                </p>
+                                                <p>
+                                                    留言内容：<?php echo $v['content']?>
+                                                </p>
+                                                <div>
+                                                    <?php echo $v['create_time'];?>
+                                                    <a data-id='<?php echo $v["m_id"];?>' class="doc-prompt-toggle newLiuyan">回复</a>
+                                                </div>
+                                                <p>
+                                                    <?php $to = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id',$v['m_id'],'create_time');?>
+
+                                                    <?php if(!empty($to)):?>
+                                                        <?php foreach($to as $v):?>
+                                                        回复人：<?php echo get_username($v['user_id']);?><br>
+                                                         <p style="color: red;">标题：<?php echo $v['title'];?>
+                                                                <?php if(!empty($v['file_path'])):?>
+                                                                <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                                <?php endif;?>
+                                                            </p>
+                                                            <p style="color: red;">回复内容：<?php echo $v['content'];?></p> 
+                                                            <?php echo $v['create_time'];?>
+                                                        <?php endforeach;?>
+                                                    <?php endif;?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php endforeach;?>
+                                </div>
+
+                               </div>
+                            </div> 
 
                                 <!-- 3.报告编写步骤 -->
+                                <div class="taskConDetaileWrapDDDDD">
+                               <div class="taskConDetaileWrap">
                                  <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','3');?>
                                 <div class="taskConDetaile">
                                     <div class="taskConF1">
@@ -262,11 +365,57 @@
                                             </button>
                                         </a>
                                         
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
+                                         <a class="taskConF1A">
+                                            <img dataId="3" class="TCimg1 doc-prompt-toggle newLiuyan" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg">
+                                            <img class="TCimg1 TCimg123" src="<?php echo base_url('/public');?>/assets/img/jiantouxia.svg">
+                                        </a>
                                     </div>
                                 </div>
+                                  <?php $mess= $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'type','3','create_time');?>
+                                 <div class="taskConDetaile23Wrap" style="display:none">
+                                        <?php foreach($mess as $v):?>
+                                        <div class="taskConDetaile taskConDetaile23" style="border: none;margin-left: 65px;">
+                                            <div class="chatItem chatItem3"> 
+                                                <h4>留言人：<?php echo get_username($v['user_id']);?></h4>
+                                                 <p>标题：<?php echo $v['title'];?>
+                                                    <?php if(!empty($v['file_path'])):?>
+                                                    <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                    <?php endif;?>
+                                                </p>
+                                                <p>
+                                                    留言内容：<?php echo $v['content']?>
+                                                </p>
+                                                <div>
+                                                    <?php echo $v['create_time'];?>
+                                                    <a data-id='<?php echo $v["m_id"];?>' class="doc-prompt-toggle newLiuyan">回复</a>
+                                                </div>
+                                                <p>
+                                                    <?php $to = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id',$v['m_id'],'create_time');?>
+
+                                                    <?php if(!empty($to)):?>
+                                                        <?php foreach($to as $v):?>
+                                                        回复人：<?php echo get_username($v['user_id']);?><br>
+                                                         <p style="color: red;">标题：<?php echo $v['title'];?>
+                                                                <?php if(!empty($v['file_path'])):?>
+                                                                <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                                <?php endif;?>
+                                                            </p>
+                                                            <p style="color: red;">回复内容：<?php echo $v['content'];?></p> 
+                                                            <?php echo $v['create_time'];?>
+                                                        <?php endforeach;?>
+                                                    <?php endif;?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php endforeach;?>
+                                </div>
+
+                               </div>
+                            </div> 
 
                                 <!-- 4. 报告审核 -->
+                                <div class="taskConDetaileWrapDDDDD">
+                               <div class="taskConDetaileWrap">
                                  <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','4');?>
                                 <div class="taskConDetaile" style="border:none">
                                     <div class="taskConF1">
@@ -302,7 +451,10 @@
                                                 上传资料
                                             </button>
                                         </a>
-                                        <a class="taskConF1A"><img class="TCimg1 doc-prompt-toggle" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg"></a>
+                                         <a class="taskConF1A">
+                                            <img dataId="4" class="TCimg1 doc-prompt-toggle newLiuyan" src="<?php echo base_url('/public');?>/assets/img/liaotian.svg">
+                                            <img class="TCimg1 TCimg123" src="<?php echo base_url('/public');?>/assets/img/jiantouxia.svg">
+                                        </a>
                                     </div>
                                 </div>
                                 <?php if(!empty($edition)):?>
@@ -327,13 +479,53 @@
                                            
                                         </div>
                                     </div>
-                                    <?php endforeach;?>
-                                <?php endif;?>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
+                                     <?php $mess= $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'type','4','create_time');?>
+                                 <div class="taskConDetaile23Wrap" style="display:none">
+                                        <?php foreach($mess as $v):?>
+                                        <div class="taskConDetaile taskConDetaile23" style="border: none;margin-left: 65px;">
+                                            <div class="chatItem chatItem3"> 
+                                                <h4>留言人：<?php echo get_username($v['user_id']);?></h4>
+                                                 <p>标题：<?php echo $v['title'];?>
+                                                    <?php if(!empty($v['file_path'])):?>
+                                                    <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                    <?php endif;?>
+                                                </p>
+                                                <p>
+                                                    留言内容：<?php echo $v['content']?>
+                                                </p>
+                                                <div>
+                                                    <?php echo $v['create_time'];?>
+                                                    <a data-id='<?php echo $v["m_id"];?>' class="doc-prompt-toggle newLiuyan">回复</a>
+                                                </div>
+                                                <p>
+                                                    <?php $to = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id',$v['m_id'],'create_time');?>
+
+                                                    <?php if(!empty($to)):?>
+                                                        <?php foreach($to as $v):?>
+                                                        回复人：<?php echo get_username($v['user_id']);?><br>
+                                                             <p style="color: red;">标题：<?php echo $v['title'];?>
+                                                                <?php if(!empty($v['file_path'])):?>
+                                                                <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                                <?php endif;?>
+                                                            </p>
+                                                            <p style="color: red;">回复内容：<?php echo $v['content'];?></p> 
+                                                            <?php echo $v['create_time'];?>
+                                                        <?php endforeach;?>
+                                                    <?php endif;?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <?php endforeach;?>
+                                </div>
+                               </div>
+                            </div>
                               
 
                                 <!-- 5.报告出版 -->
                                  <?php $record = $this->public_model->ret_task_type('h_project_type','project_id',$id,'type','5');?>
-                                <div class="taskConDetaile">
+                                <div class="taskConDetaile" >
                                     <div class="taskConF1">
                                         <p>5.报告出版</p>
 
@@ -380,14 +572,17 @@
                                 <div class="taskConDetaile" style="border: none;margin-left: 42px;">
                                     <div class="chatItem"> 
                                         <h4>留言人：<?php echo get_username($val['user_id']);?></h4>
+                                        <p>标题：<?php echo $val['title'];?>
+                                            <?php if(!empty($val['file_path'])):?>
+                                            <span>文件名： <a href="<?php echo base_url($val['file_path']);?>"><?php echo $val['title'];?></a> </span>
+                                            <?php endif;?>
+                                        </p>
                                         <p>
                                             留言内容：<?php echo $val['content'];?>
-                                            
-                                            <!-- <span>提成：300元</span> -->
                                         </p>
                                         <div>
                                             <?php echo $val['create_time'];?>
-                                            <a data-id='<?php echo $val["m_id"];?>' class="doc-prompt-toggle">回复</a>
+                                            <a data-id='<?php echo $val["m_id"];?>' class="doc-prompt-toggle newLiuyan">回复</a>
                                         </div>
                                          <p>
                                             <?php $to = $this->public_model->select_where_many_sort('h_project_message','project_id',$id,'to_user_id',$val['m_id'],'create_time');?>
@@ -395,6 +590,11 @@
                                             <?php if(!empty($to)):?>
                                                 <?php foreach($to as $v):?>
                                                 回复人：<?php echo get_username($v['user_id']);?><br>
+                                                    <p style="color: red;">标题：<?php echo $v['title'];?>
+                                                        <?php if(!empty($v['file_path'])):?>
+                                                        <span>文件名： <a href="<?php echo base_url($v['file_path']);?>"><?php echo $v['title'];?></a> </span>
+                                                        <?php endif;?>
+                                                    </p>
                                                     <p style="color: red;">回复内容：<?php echo $v['content'];?></p> 
                                                     <?php echo $v['create_time'];?>
                                                 <?php endforeach;?>
@@ -481,6 +681,38 @@
                 </div>
               </div>
              <!-- 模态框结束 -->
+              <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-90">
+                <div class="am-modal-dialog">
+                  <div class="am-modal-hd">留言板
+                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+                  </div>
+                  <div class="ziliaoDiv2 ziliaoDiv"> 
+                    <div>
+                          <span>附件：</span>
+                          <input id="ziwenjian2" type="file">
+                    </div>
+                    <div>
+                        <span>标题：</span>
+                        <input id="ziwenming2" type="text">
+                    </div>
+                    <div>
+                        <span>内容：</span>
+                        <textarea id="zimiaoshu2"></textarea>
+                    </div>
+                    <div>
+                            <!-- 新2 -->
+                        <button
+                            data-am-modal-confirm
+                            type="button"
+                            style="margin:0 auto"
+                            id='shangchaungBtn2'
+                            class="am-btn am-btn-primary">
+                            确认发表
+                        </button>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
 
 
@@ -667,35 +899,107 @@
         })
 
         // 显示模态框
-        $(function() {
-          $('.doc-prompt-toggle').on('click', function() {
-            var nowThis = this;
-            $('#my-prompt').modal({
-              relatedTarget: this,
-              onConfirm: function(e) {
-                var content = e.data;
-                var toid = nowThis.getAttribute('data-id');
-                if(content == ''){
-                    alert('你还没有输入内容！');
-                    window.location.reload()
-                }
-                $.post("<?php echo site_url('/UserCenter/add_message')?>", { project_id: '<?php echo $project['id'];?>',content:content,to_user_id:toid }, function (result) {
-                    console.log(result);
-                     if(result == 1){
-                        alert('留言成功！');
-                        window.location.reload()
+        // $(function() {
+        //   $('.doc-prompt-toggle').on('click', function() {
+        //     var nowThis = this;
+        //     $('#my-prompt').modal({
+        //       relatedTarget: this,
+        //       onConfirm: function(e) {
+        //         var content = e.data;
+        //         var toid = nowThis.getAttribute('data-id');
+        //         if(content == ''){
+        //             alert('你还没有输入内容！');
+        //             window.location.reload()
+        //         }
+        //         $.post("<?php echo site_url('/UserCenter/add_message')?>", { project_id: '<?php echo $project['id'];?>',content:content,to_user_id:toid }, function (result) {
+        //             console.log(result);
+        //              if(result == 1){
+        //                 alert('留言成功！');
+        //                 window.location.reload()
 
-                     }else{
-                        alert('留言失败！');
-                     }
-                });
-              },
-              onCancel: function(e) {
-                alert('不想说!');
-              }
+        //              }else{
+        //                 alert('留言失败！');
+        //              }
+        //         });
+        //       },
+        //       onCancel: function(e) {
+        //         alert('不想说!');
+        //       }
+        //     });
+        //   });
+        // });
+
+        $('#ziliaoWrap').find('.newLiuyan').add('#doc-confirm-toggle').on('click', function () {
+            var nowID = $(this).attr('dataId');
+            var toId = $(this).attr('data-id');
+                
+            $('#doc-modal-90').modal({
+                relatedTarget: this,
+                onConfirm: function (options) {
+                },
+                closeOnConfirm: false,
+                onCancel: function () { 
+                }
             });
-          });
+
+            document.getElementById('shangchaungBtn2').onclick = function(){
+                upZiliaoFun(this);
+            }
+            function upZiliaoFun(obj){
+                var ziwenjian2 = $(obj).parentsUntil('ziliaoDiv2').find('#ziwenjian2')[0].files[0];//文件
+                var ziwenming2 = $(obj).parentsUntil('ziliaoDiv2').find('#ziwenming2')[0].value;//标题
+                var zimiaoshu2 = $(obj).parentsUntil('ziliaoDiv2').find('#zimiaoshu2')[0].value;//文件描述  
+                var nowId = nowID;
+                var toid = toId;
+
+                // console.log('附件：'+ziwenjian2);
+                // console.log('标题：'+ziwenming2);
+                // console.log('内容：'+zimiaoshu2);
+                // console.log('id'+nowId);
+                // console.log('toid'+toid);
+                var formData = new FormData();
+                formData.append("file",ziwenjian2);
+                formData.append("title",ziwenming2);
+                formData.append("content",zimiaoshu2);
+                formData.append("type",nowId);
+                formData.append("project_id",'<?php echo $id;?>');
+                formData.append("toid",toid);
+                $.ajax({ 
+                    url : "<?php echo site_url('/UserCenter/add_message')?>", 
+                    type : 'POST', 
+                    data : formData, 
+                    processData : false, 
+                    // 告诉jQuery不要去设置Content-Type请求头
+                    contentType : false,
+                    beforeSend:function(){
+                        console.log("正在进行，请稍候");
+                    },
+                    success : function(res) { 
+                        console.log(res)
+                        // if(res == 1){
+                        //     alert('新增成功！');
+                        //     window.location.reload()
+                        // }else{
+                        //      alert('新增失败！');
+                        //     window.location.reload()
+                        // }
+                    }, 
+                    error : function(res) { 
+                        console.log("error");
+                    } 
+                });
+            }
         });
+        // 点击展开各个阶段
+        $('.TCimg123').click(function(){
+            if ($(this).parentsUntil(".taskConDetaileWrapDDDDD").find(".taskConDetaile23Wrap").css("display") == 'none') {
+                $(this).parentsUntil(".taskConDetaileWrapDDDDD").find(".taskConDetaile23Wrap").css("display","block");
+            }else{
+                $(this).parentsUntil(".taskConDetaileWrapDDDDD").find(".taskConDetaile23Wrap").css("display","none");
+            }        
+            
+
+        })
   </script>
 
 </body>

@@ -1068,6 +1068,33 @@ class Project extends Public_Controller
         }
 
         
+        //项目提成
+        function Commission(){
+            if($_POST){
+                $data = $this->input->post();
+                foreach ($data['id'] as $key => $value) {
+                    $arr['price'] = $data['price'][$key];
+                    $c = $value;
+                    $d = $this->public_model->updata('h_project_group','id',$value,$arr);
+                }
 
+                if($d){
+                    echo "<script>alert('操作成功！');window.location.href='".site_url('/Project/Commission/'.$data['projectId'])."';</script>";
+                }else{
+                    echo "<script>alert('操作失败！');window.location.href='".site_url('/Project/Commission/'.$data['projectId'])."';</script>";
+                }
+            }else{
+                $id = intval($this->uri->segment('3'));
+                if($id == '0'){
+                    $this->load->view('404.html');
+                }else{
+                    //获取任务人员
+                    $data['group'] = $this->public_model->select_where_many('h_project_group','project_id',$id,'state','1');
+                    
+                    $data['id'] = $id;
+                    $this->load->view('/project/taskTichen.html',$data);
+                }
+            }
+        }
 
 }
