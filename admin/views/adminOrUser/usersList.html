@@ -58,7 +58,7 @@
                                         <div class="am-form-group">
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">
-                                                    <button type="button" class="am-btn am-btn-default am-btn-success"><a data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><span class="am-icon-plus"></span> 新增</a></button>
+                                                    <a class="" data-am-modal="{target: '#addUser',closeViaDimmer: 0, width:600}"><button type="button" class="am-btn am-btn-default am-btn-success" style="font-size: 1.2rem;"><span class="am-icon-plus"></span> 新增</button></a>
                                                      <!-- 非管理人员 无此按钮-->
                                                     <?php if($_SESSION['users']['gid'] == '1'):?>
                                                      <a href="javascript:;" class="am-btn am-btn-default am-btn-warning file">
