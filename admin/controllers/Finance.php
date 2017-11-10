@@ -577,7 +577,7 @@ class Finance extends Public_Controller {
 
     //财务合同详情
     function contract_info(){
-        $id = intval($this->uri->segment('3'));
+        $id = $this->uri->segment('3');
         if($id == '0'){
             $this->load->view('404.html');
         }else{
@@ -655,9 +655,6 @@ class Finance extends Public_Controller {
 
                 if(!empty($user)){
                     $data['handler'] = $user['user_id'];
-                }else{
-                    $error[] = $currentRow;
-                    continue;   
                 }
                 $data['receivables'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取d列的值
                 $data['detailed'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取d列的值
@@ -668,10 +665,10 @@ class Finance extends Public_Controller {
     
                         //删除临时文件
                     @unlink($inputFileName);
-                    exit;
+                    break;
     
                 } 
-                //新增合同
+                //新增合同收支
                 if($this->public_model->insert($this->contract_account,$data)){
                     $yes[] = $currentRow;
                 }else{
@@ -679,8 +676,8 @@ class Finance extends Public_Controller {
                 }
             }
             $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
-            
-            //            //日志
+            // var_dump($ret);
+            // // //            //日志
             
             $arr = array(
                 'log_url'=>$this->uri->uri_string(),

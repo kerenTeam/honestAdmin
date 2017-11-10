@@ -77,6 +77,13 @@
                                             </a>
                                         </span>
                                     </p>
+                                     <p>任务纪录导入:
+                                        <span> 
+                                            <a href="javascript:;" class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile10"/>    
+                                            </a>
+                                        </span>
+                                    </p>
                                     <p>送审版导入:
                                         <span> 
                                             <a href="javascript:;" data-id='1' class="am-btn am-btn-default ">
@@ -127,6 +134,7 @@
                                     <p>合同导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/contract.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
                                     
                                     <p>项目导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/project.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>任务纪录导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/task.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
                                     <p>送审版导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
                                     <p>修订版导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
                                     <p>最终版导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/taskState.xlsx" class="am-btn am-btn-warning">下载</a></span></p>              
@@ -190,7 +198,7 @@
 
 <script>     
         $('#projectFile3').change(function () {
-            alert('projectFile3')
+              // alert('projectFile3')
             var URL = '<?php echo site_url("/Project/import_Project");?>'
 
             var formData = new FormData();
@@ -204,7 +212,8 @@
                 contentType: false,
                 success: function (data) {
                     alert(data);
-                    window.location.reload()
+                    // console.log(data);
+                   window.location.reload()
                 }
             });
         })
@@ -301,11 +310,11 @@
             $.ajax({
                 url: URL,
                 type: 'POST',
-                // headers: headers,
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    // console.log(data);
                     alert(data);
                     window.location.reload()
                 }
@@ -346,6 +355,30 @@
 
             var formData = new FormData();
             formData.append('pics', $('#projectFile9')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+ <script>     
+        $('#projectFile10').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Project/importProjectTask");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile10')[0].files[0]);
             formData.append('type', dataId);
 
             $.ajax({

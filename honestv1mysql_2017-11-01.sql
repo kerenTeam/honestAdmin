@@ -7,7 +7,7 @@
 #
 # Host: 120.78.73.217 (MySQL 5.5.5-10.1.22-MariaDB)
 # Database: honestv1mysql
-# Generation Time: 2017-10-24 05:50:49 +0000
+# Generation Time: 2017-11-01 09:14:11 +0000
 # ************************************************************
 
 
@@ -124,9 +124,14 @@ LOCK TABLES `h_contract` WRITE;
 
 INSERT INTO `h_contract` (`contract_id`, `contract_year`, `contract_number`, `province`, `city`, `area`, `plate`, `industry`, `army`, `service_tyep`, `sign_date`, `sign_user`, `contract_price`, `addtime`, `title`, `customer_id`, `del_state`, `contract_situation`, `estimate_price`, `review_price`, `prepay`, `expenditure`, `remaks`, `completion_status`, `complete_time`, `contract_file`, `entrust_file`, `receivables_state`, `lssued_state`, `projectNum`)
 VALUES
-	(541,'2013','13AB001','四川','阿坝',NULL,'12','10',0,'23','2017-09-29','225','10000','2017-10-18 16:08:59','黑水县冰川加气站',9,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
-	(536,'2017','201710152','安徽','池州市','东至县','35','14',0,'31','2017-10-15','2','234234','2017-10-15 16:28:54','324234',9,0,NULL,'234','23423423','423432','423423','4234234234',0,NULL,NULL,NULL,'1',1,1),
-	(537,'2017','201710153','江西','萍乡市','上栗县','34','14',0,'31','2017-10-14','141','2342342','2017-10-15 16:54:41','3424234',9,0,NULL,'42343434','2342342','23424','234234','24234234',0,NULL,'upload/contract/3424234.docx','upload/entrust/34242341.docx','1',0,0);
+	(546,'2013','13CD001','四川','成都',NULL,'36','6',1,'23','2013-01-01','140','195000','2017-11-01 11:19:19','中国电子科技集团公司第十研究所XXX生产能力建设项目（含评审费）',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
+	(545,'2013','13BZH002','四川','成都',NULL,'34','6',0,'23','2013-01-01','142','30000','2017-11-01 11:19:19','四川新路设备吊装工程有限公司（成都傲鼎新路件运输有限公司）安全生产标准化三级达标咨询（项目停止，不退款）',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
+	(543,'2013','13AB001','四川','阿坝',NULL,'35','6',0,'23','2013-01-01','225','10000','2017-11-01 11:19:19','黑水县冰川加气站',12,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',1,1),
+	(544,'2013','13AB002','四川','阿坝',NULL,'35','6',0,'23','2013-01-01','225','10000','2017-11-01 11:19:19','红原县白河液化气储配站',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
+	(547,'2013','13CD002','四川','成都',NULL,'34','6',1,'24','2013-01-01','140','98000','2017-11-01 11:19:19','中国电子科技集团公司第十研究所XXX研制保障条件建设项目（含评审费）',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
+	(548,'2013','13CD003','四川','成都',NULL,'35','6',0,'25','2013-01-01',NULL,'5000','2017-11-01 11:19:20','四川鑫达实业有限公司青羊加油站',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
+	(549,'2013','13CD004','四川','成都',NULL,'5','6',0,'22','2013-01-01','225','35000','2017-11-01 11:19:20','家得润生态房屋有限公司（含评审费）',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',0,1),
+	(550,'2013','13CD007','四川','成都',NULL,'34','6',0,'21','2013-01-01',NULL,'5000','2017-11-01 11:19:20','成都申华贸易有限公司经营危险化学品',14,0,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,'1',1,1);
 
 /*!40000 ALTER TABLE `h_contract` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -163,12 +168,11 @@ LOCK TABLES `h_contract_account` WRITE;
 
 INSERT INTO `h_contract_account` (`id`, `type`, `contract_id`, `price`, `voucher`, `time`, `handler`, `receivables`, `detailed`, `reimbursement`, `approval`, `billing_type`, `invoice_num`, `remaks`, `expenditure_type`, `contract_number`, `create_time`)
 VALUES
-	(1,1,541,'5000','123','12-10-2017','142','现金','',NULL,NULL,NULL,NULL,'',NULL,NULL,NULL),
-	(2,3,541,'5000',NULL,'14-10-2017',NULL,NULL,NULL,NULL,NULL,'','232323','',NULL,NULL,NULL),
-	(3,2,541,'1000',NULL,'43031',NULL,'现金',NULL,'225','142',NULL,NULL,NULL,3,'13AB001',NULL),
-	(4,2,541,'1000',NULL,'2017-10-23',NULL,'现金',NULL,'225','142',NULL,NULL,NULL,3,'13AB001',NULL),
-	(5,3,541,'1200',NULL,'2013-04-03',NULL,NULL,NULL,NULL,NULL,NULL,'1234566543','2342342',NULL,'13AB001',NULL),
-	(6,3,541,'1200',NULL,'2013-04-03',NULL,NULL,NULL,NULL,NULL,NULL,'1234566543','2342342',NULL,'13AB001',NULL);
+	(27,1,543,'10000',NULL,'2013-01-01',NULL,'银行转账','合同收入',NULL,NULL,NULL,NULL,NULL,NULL,'13AB001',NULL),
+	(28,1,544,'10000',NULL,'2013-01-01',NULL,'银行转账','合同收入',NULL,NULL,NULL,NULL,NULL,NULL,'13AB002',NULL),
+	(29,1,546,'195000',NULL,'2013-02-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'13CD001',NULL),
+	(30,1,547,'98000',NULL,'2013-07-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'13CD002',NULL),
+	(31,1,548,'5000',NULL,'2013-01-01',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'13CD003',NULL);
 
 /*!40000 ALTER TABLE `h_contract_account` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -209,8 +213,9 @@ LOCK TABLES `h_customer` WRITE;
 
 INSERT INTO `h_customer` (`id`, `contract_number`, `title`, `industry`, `address`, `postcode`, `province`, `city`, `area`, `phone1`, `phone2`, `facsimile`, `tax_on`, `open_bank`, `bank_account`, `email`, `http`, `remarks`, `linkman`, `state`, `addtime`)
 VALUES
-	(9,'13AB001','示例1','1','南充市丝绸路1号',NULL,'四川','南充','顺庆区','12345678',NULL,NULL,'123123','123123','213123','123123',NULL,'123123','142',1,'2017-09-29 21:54:06'),
-	(10,'id编号','名称',NULL,'id编号','名称',NULL,'id编号','名称',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,1,'2017-10-24 11:51:10');
+	(13,'13NC001','中国石油天然气股份有限公司','1','南充市丝绸路1号',NULL,'四川','南充',NULL,'13508087992',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'142',1,'2017-11-01 11:12:48'),
+	(14,'13CD001','中国电子科技集团公司','10',NULL,NULL,'四川','成都',NULL,'028-87555291',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'140',1,'2017-11-01 11:12:48'),
+	(12,'13AB001','示例1','1','南充市丝绸路1号',NULL,'四川','南充','顺庆区','12345678',NULL,NULL,'123123','123123','213123','123123',NULL,'123123','142',1,'2017-11-01 11:12:48');
 
 /*!40000 ALTER TABLE `h_customer` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -244,8 +249,9 @@ LOCK TABLES `h_customer_contacts` WRITE;
 
 INSERT INTO `h_customer_contacts` (`id`, `company_id`, `name`, `company_name`, `department`, `duties`, `phone`, `qq`, `wechat`, `email`, `tel`, `facsimile`, `link_man`, `remaks`)
 VALUES
-	(7,9,'张捷','示例1','1','1','1582727232',NULL,NULL,'2323',NULL,'12','142',NULL),
-	(8,10,NULL,'名称',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+	(9,12,'张捷','示例1','1','1','1582727232',NULL,NULL,'2323',NULL,'12','142',NULL),
+	(10,13,'张捷','中国石油天然气股份有限公司','1','1','13508087992',NULL,NULL,NULL,NULL,NULL,'142',NULL),
+	(11,14,'张蓉','中国电子科技集团公司',NULL,NULL,'028-87555291',NULL,NULL,NULL,NULL,NULL,'140',NULL);
 
 /*!40000 ALTER TABLE `h_customer_contacts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -282,15 +288,22 @@ CREATE TABLE `h_project` (
   `remarks` varchar(255) DEFAULT NULL COMMENT '备注',
   `responsible_user` int(11) DEFAULT NULL COMMENT '第一负责人',
   `scene_time` varchar(23) DEFAULT NULL COMMENT '去现场时间',
+  `signature` varchar(255) DEFAULT NULL COMMENT '署名',
   PRIMARY KEY (`id`,`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `h_project` WRITE;
 /*!40000 ALTER TABLE `h_project` DISABLE KEYS */;
 
-INSERT INTO `h_project` (`c_id`, `id`, `c_number`, `year`, `title`, `province`, `city`, `town`, `contacts`, `contacts_address`, `phone`, `signing`, `signing_date`, `military`, `technology_id`, `service_id`, `industry_id`, `addtime`, `del_state`, `cycle`, `requirement`, `project_status`, `remarks`, `responsible_user`, `scene_time`)
+INSERT INTO `h_project` (`c_id`, `id`, `c_number`, `year`, `title`, `province`, `city`, `town`, `contacts`, `contacts_address`, `phone`, `signing`, `signing_date`, `military`, `technology_id`, `service_id`, `industry_id`, `addtime`, `del_state`, `cycle`, `requirement`, `project_status`, `remarks`, `responsible_user`, `scene_time`, `signature`)
 VALUES
-	(537,96,'201710153','2017','123456789','福建','南平市','建瓯市','7',NULL,NULL,NULL,NULL,0,36,22,3,'2017-10-20 17:03:44',0,'','',1,'',142,'');
+	(546,99,'13CD001','2013','中国电子科技集团公司','四川','成都',NULL,'11',NULL,NULL,NULL,NULL,0,35,27,1,'2017-11-01 15:03:45',0,NULL,NULL,1,NULL,140,NULL,'李铭陈刚朱建立'),
+	(544,100,'13AB002','2013','红原县白河液化气储配站','四川','阿坝','红原','11',NULL,NULL,NULL,NULL,0,35,24,1,'2017-11-01 15:22:57',0,'41408',NULL,NULL,NULL,140,NULL,NULL),
+	(546,101,'13CD001','2013','中国电子科技集团公司','四川','成都',NULL,'11',NULL,NULL,NULL,NULL,0,35,27,1,'2017-11-01 15:22:58',0,NULL,NULL,NULL,NULL,140,NULL,NULL),
+	(547,102,'13CD002','2013','成都天泽减速机制造有限公司','四川','成都','郫县','11',NULL,NULL,NULL,NULL,0,35,27,10,'2017-11-01 15:22:58',0,'41288',NULL,1,NULL,142,NULL,'李铭陈刚朱建立'),
+	(548,103,'13CD003','2013','成都威腾树脂化工有限公司','四川','成都','龙泉','11',NULL,NULL,NULL,NULL,0,35,24,6,'2017-11-01 15:22:59',0,NULL,NULL,1,NULL,NULL,NULL,'秦林刘海峰朱建立'),
+	(549,104,'13CD004','2013','成都申华贸易有限公司','四川','成都','新都','11',NULL,NULL,NULL,NULL,0,35,24,5,'2017-11-01 15:22:59',0,'41284',NULL,1,NULL,NULL,NULL,'陈刚李颜红龙朝晖朱建立'),
+	(545,105,'13BZH002','2013','成都荆竹花涂料有限公司','四川','成都',NULL,'11',NULL,NULL,NULL,NULL,0,35,24,6,'2017-11-01 15:22:59',0,NULL,NULL,1,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `h_project` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -322,8 +335,10 @@ LOCK TABLES `h_project_edition` WRITE;
 
 INSERT INTO `h_project_edition` (`record_id`, `type`, `situation`, `deliver_time`, `express_num`, `express_name`, `project_id`, `file_name`, `file_path`, `state`, `auditor`, `create_time`)
 VALUES
-	(68,1,'信息','2017-10-18 00:00:00','2323','345',93,'23223',NULL,0,NULL,NULL),
-	(69,2,'2013/5/29交雷静瑶','2013-05-29 00:00:00',NULL,NULL,90,NULL,NULL,0,NULL,NULL);
+	(72,1,'2013/5/29交雷静瑶','2013-05-29 00:00:00',NULL,NULL,99,NULL,NULL,0,NULL,'2017-11-01 16:49:25'),
+	(73,1,'2013/1/17交雷静瑶','2013-01-17 00:00:00',NULL,NULL,102,NULL,NULL,0,NULL,'2017-11-01 16:49:25'),
+	(74,1,'已邮2013/5/16','2013-05-15 00:00:00',NULL,NULL,NULL,NULL,NULL,0,NULL,'2017-11-01 16:49:25'),
+	(75,1,'已邮2013/6/25,2013/7/4退回','2013-06-24 00:00:00',NULL,NULL,100,NULL,NULL,0,NULL,'2017-11-01 16:49:26');
 
 /*!40000 ALTER TABLE `h_project_edition` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -341,18 +356,35 @@ CREATE TABLE `h_project_group` (
   `addtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `type` int(11) DEFAULT '1' COMMENT '任务类型。1第一编织人。 2技术负责人。 3 审核人。4项目负责人。5现场人员 6其他职员',
   `state` int(1) DEFAULT '1' COMMENT '人员状态。 1正常。0取消任务',
+  `price` int(11) DEFAULT NULL COMMENT '提成金额',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 LOCK TABLES `h_project_group` WRITE;
 /*!40000 ALTER TABLE `h_project_group` DISABLE KEYS */;
 
-INSERT INTO `h_project_group` (`id`, `project_id`, `user_id`, `addtime`, `type`, `state`)
+INSERT INTO `h_project_group` (`id`, `project_id`, `user_id`, `addtime`, `type`, `state`, `price`)
 VALUES
-	(17,96,142,'2017-10-20 17:03:44',1,1),
-	(19,96,144,'2017-10-20 17:48:16',6,1),
-	(20,96,181,'2017-10-24 13:42:01',2,1),
-	(21,96,143,'2017-10-24 13:42:16',6,1);
+	(22,97,140,'2017-11-01 14:58:16',1,1,NULL),
+	(23,98,140,'2017-11-01 15:00:42',1,1,NULL),
+	(24,99,140,'2017-11-01 15:03:45',1,1,NULL),
+	(25,100,140,'2017-11-01 15:22:57',1,1,NULL),
+	(26,101,140,'2017-11-01 15:22:58',1,1,NULL),
+	(27,102,142,'2017-11-01 15:22:58',1,1,NULL),
+	(28,103,140,'2017-11-01 15:22:59',1,1,NULL),
+	(29,104,142,'2017-11-01 15:22:59',1,1,NULL),
+	(30,105,140,'2017-11-01 15:22:59',1,1,NULL),
+	(52,103,258,'2017-11-01 16:36:35',4,1,NULL),
+	(53,103,273,'2017-11-01 16:36:35',2,1,NULL),
+	(54,104,268,'2017-11-01 16:36:35',4,1,NULL),
+	(55,104,139,'2017-11-01 16:36:35',3,1,NULL),
+	(56,104,273,'2017-11-01 16:36:36',2,1,NULL),
+	(57,99,199,'2017-11-01 16:36:36',4,1,NULL),
+	(58,99,139,'2017-11-01 16:36:36',3,1,NULL),
+	(59,99,268,'2017-11-01 16:36:36',2,1,NULL),
+	(60,102,199,'2017-11-01 16:36:36',4,1,NULL),
+	(61,102,139,'2017-11-01 16:36:37',3,1,NULL),
+	(62,102,268,'2017-11-01 16:36:37',2,1,NULL);
 
 /*!40000 ALTER TABLE `h_project_group` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -370,34 +402,13 @@ CREATE TABLE `h_project_message` (
   `content` varchar(11) DEFAULT NULL COMMENT '留言内容',
   `to_user_id` int(11) DEFAULT '0' COMMENT '恢复留言id',
   `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '时间',
+  `file_name` varchar(50) DEFAULT NULL COMMENT '文件名称',
+  `file_path` varchar(255) DEFAULT NULL COMMENT '文件路径',
+  `title` varchar(50) DEFAULT NULL COMMENT '标题',
+  `type` int(11) DEFAULT NULL COMMENT '留言阶段',
   PRIMARY KEY (`m_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `h_project_message` WRITE;
-/*!40000 ALTER TABLE `h_project_message` DISABLE KEYS */;
-
-INSERT INTO `h_project_message` (`m_id`, `user_id`, `project_id`, `content`, `to_user_id`, `create_time`)
-VALUES
-	(1,142,77,'2342432',0,'2017-10-17 10:55:12'),
-	(2,142,77,'12344',0,'2017-10-17 10:55:20'),
-	(3,142,77,'123',0,'2017-10-17 10:55:18'),
-	(12,142,77,'12',0,'2017-10-17 10:55:29'),
-	(11,142,77,'2',0,'2017-10-17 10:55:27'),
-	(10,142,77,'',0,'2017-10-17 10:55:32'),
-	(9,142,77,'123',0,'2017-10-17 10:55:16'),
-	(13,142,77,'12',0,'2017-10-17 10:55:23'),
-	(14,142,77,'2323',0,'2017-10-17 10:55:25'),
-	(15,142,77,'1231233123',10,'2017-10-17 10:41:33'),
-	(16,142,77,'1231233123',10,'2017-10-17 10:41:47'),
-	(17,142,77,'二房东舒服',14,'2017-10-17 10:42:04'),
-	(18,142,77,'2345654',0,'2017-10-17 11:05:05'),
-	(19,1,93,'3243',0,'2017-10-19 14:54:40'),
-	(20,1,93,'32453',19,'2017-10-19 14:57:31'),
-	(21,1,93,'xinad',0,'2017-10-20 11:05:19'),
-	(22,1,96,'123456',0,'2017-10-24 13:34:55');
-
-/*!40000 ALTER TABLE `h_project_message` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table h_project_record
@@ -416,17 +427,6 @@ CREATE TABLE `h_project_record` (
   PRIMARY KEY (`record_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `h_project_record` WRITE;
-/*!40000 ALTER TABLE `h_project_record` DISABLE KEYS */;
-
-INSERT INTO `h_project_record` (`record_id`, `type`, `file_name`, `file_path`, `create_time`, `content`, `project_id`)
-VALUES
-	(1,1,'1213',NULL,NULL,'21324234234',93),
-	(2,1,'资料1','upload/file/17-10-20资料12.png',NULL,'',93),
-	(3,1,'资料1','upload/file/17-10-20资料13.png','2017-10-20 14:56:06','45345345',93);
-
-/*!40000 ALTER TABLE `h_project_record` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table h_project_task
@@ -484,17 +484,6 @@ CREATE TABLE `h_project_type` (
   PRIMARY KEY (`type_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `h_project_type` WRITE;
-/*!40000 ALTER TABLE `h_project_type` DISABLE KEYS */;
-
-INSERT INTO `h_project_type` (`type_id`, `content`, `type`, `completion`, `updataTime`, `project_id`)
-VALUES
-	(1,'233',1,55,'2017-10-20 00:00:00',93),
-	(2,NULL,2,46,'2017-10-20 00:00:00',93),
-	(3,NULL,1,37,'2017-10-24 00:00:00',96);
-
-/*!40000 ALTER TABLE `h_project_type` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table h_system_log
@@ -520,390 +509,21 @@ LOCK TABLES `h_system_log` WRITE;
 
 INSERT INTO `h_system_log` (`log_id`, `log_url`, `user_id`, `username`, `log_time`, `log_ip`, `log_sql`, `log_status`, `log_message`)
 VALUES
-	(1,'Member/add_power',1,'admin',NULL,'127.0.0.1',NULL,NULL,'新增了一个权限，权限级别为顶级'),
-	(2,'Member/add_power_level',1,'admin','2017-08-14 15:29:42','127.0.0.1',NULL,1,'新增权限成功,权限名称为3456'),
-	(3,'Member/add_power_level',1,'admin','2017-08-14 15:31:18','127.0.0.1',NULL,1,'新增权限成功,权限名称为3456'),
-	(4,'Member/add_power_level',1,'admin','2017-08-14 15:31:38','127.0.0.1',NULL,1,'新增权限成功,权限名称为3456'),
-	(5,'Member/add_power_level',1,'admin','2017-08-14 15:32:06','127.0.0.1',NULL,1,'新增权限成功,权限名称为3456'),
-	(6,'Member/add_power_level',1,'admin','2017-08-14 15:34:52','127.0.0.1',NULL,1,'新增权限成功,权限名称为系统设置'),
-	(7,'Member/add_power_level',1,'admin','2017-08-14 15:35:31','127.0.0.1',NULL,1,'新增权限成功,权限名称为2222'),
-	(8,'Member/edit_power',1,'admin','2017-08-14 15:58:49','127.0.0.1',NULL,1,'编辑权限成功,权限名称为3456123'),
-	(9,'Member/edit_power',1,'admin','2017-08-14 15:59:02','127.0.0.1',NULL,1,'编辑权限成功,权限名称为3456123'),
-	(10,'Member/del_power',1,'admin','2017-08-14 16:06:19','127.0.0.1',NULL,1,'删除权限成功'),
-	(11,'Member/del_power',1,'admin','2017-08-14 16:06:29','127.0.0.1',NULL,1,'删除权限成功'),
-	(12,'Member/add_userGroup',1,'admin','2017-08-15 09:37:38','127.0.0.1',NULL,1,'新增用户组成功,用户组名称为超级管理员'),
-	(13,'Member/add_userGroup',1,'admin','2017-08-15 09:54:55','127.0.0.1',NULL,1,'新增用户组成功,用户组名称为人力资源'),
-	(14,'Member/edit_userGroup',1,'admin','2017-08-15 10:42:13','127.0.0.1',NULL,1,'修改用户组成功,用户组名称为人力资源11'),
-	(15,'Member/edit_userGroup',1,'admin','2017-08-15 10:42:42','127.0.0.1',NULL,1,'修改用户组成功,用户组名称为人力资源1'),
-	(16,'Member/edit_userGroup',1,'admin','2017-08-15 10:42:51','127.0.0.1',NULL,1,'修改用户组成功,用户组名称为人力资源1'),
-	(17,'Member/edit_power',1,'admin','2017-08-15 11:29:45','127.0.0.1',NULL,1,'编辑权限成功,权限名称为管理员 | 用户'),
-	(18,'Member/edit_power',1,'admin','2017-08-15 11:31:03','127.0.0.1',NULL,1,'编辑权限成功,权限名称为管理员 | 用户'),
-	(19,'Member/edit_power',1,'admin','2017-08-15 11:31:26','127.0.0.1',NULL,1,'编辑权限成功,权限名称为权限管理'),
-	(20,'Member/edit_power',1,'admin','2017-08-15 11:31:56','127.0.0.1',NULL,1,'编辑权限成功,权限名称为添加权限'),
-	(21,'Member/edit_power',1,'admin','2017-08-15 11:32:09','127.0.0.1',NULL,1,'编辑权限成功,权限名称为管理员 | 用户'),
-	(22,'Member/add_power_level',1,'admin','2017-08-15 11:35:43','127.0.0.1',NULL,1,'新增权限成功,权限名称为编辑权限'),
-	(23,'Member/add_power_level',1,'admin','2017-08-15 11:36:05','127.0.0.1',NULL,1,'新增权限成功,权限名称为删除权限'),
-	(24,'Member/add_power_level',1,'admin','2017-08-15 11:37:22','127.0.0.1',NULL,1,'新增权限成功,权限名称为成员组管理'),
-	(25,'Member/edit_power',1,'admin','2017-08-15 11:37:40','127.0.0.1',NULL,1,'编辑权限成功,权限名称为编辑权限'),
-	(26,'Member/edit_power',1,'admin','2017-08-15 11:37:54','127.0.0.1',NULL,1,'编辑权限成功,权限名称为删除权限'),
-	(27,'Member/add_power_level',1,'admin','2017-08-15 12:03:42','127.0.0.1',NULL,1,'新增权限成功,权限名称为新增成员组'),
-	(28,'Member/add_power_level',1,'admin','2017-08-15 12:04:22','127.0.0.1',NULL,1,'新增权限成功,权限名称为编辑成员组'),
-	(29,'Member/add_power_level',1,'admin','2017-08-15 12:04:57','127.0.0.1',NULL,1,'新增权限成功,权限名称为删除成员组'),
-	(30,'Member/add_power_level',1,'admin','2017-08-15 12:05:45','127.0.0.1',NULL,1,'新增权限成功,权限名称为修改成员组权限'),
-	(31,'Member/edit_userGroup',1,'admin','2017-08-15 14:17:51','127.0.0.1',NULL,1,'修改用户组成功,用户组名称为人力资源123456'),
-	(32,'Member/edit_userGroup',1,'admin','2017-08-15 14:19:41','127.0.0.1',NULL,1,'修改用户组成功,用户组名称为人力资源123'),
-	(33,'Member/del_power',1,'admin','2017-08-15 17:41:44','127.0.0.1',NULL,1,'删除权限成功'),
-	(34,'Member/del_power',1,'admin','2017-08-15 17:41:51','127.0.0.1',NULL,1,'删除权限成功'),
-	(35,'Member/edit_power',1,'admin','2017-08-15 17:43:18','127.0.0.1',NULL,1,'编辑权限成功,权限名称为客户管理'),
-	(36,'Member/group_power',1,'admin','2017-08-15 17:43:41','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为1'),
-	(37,'Member/group_power',1,'admin','2017-08-16 09:31:35','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为2'),
-	(38,'Member/group_power',1,'admin','2017-08-16 09:36:59','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为2'),
-	(39,'Member/group_power',1,'admin','2017-08-16 09:37:14','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为2'),
-	(40,'Member/group_power',1,'admin','2017-08-16 09:37:31','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为2'),
-	(41,'Member/group_power',1,'admin','2017-08-16 09:39:43','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为1'),
-	(42,'Member/group_power',1,'admin','2017-08-16 09:45:42','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为1'),
-	(43,'Member/group_power',1,'admin','2017-08-16 09:45:54','127.0.0.1',NULL,0,'修改用户组权限成功,用户组名称id为1'),
-	(44,'Member/del_userGroup',1,'admin','2017-08-16 10:16:33','127.0.0.1',NULL,1,'删除用户组成功,用户组id为2'),
-	(45,'Member/add_userGroup',1,'admin','2017-08-16 10:23:43','127.0.0.1',NULL,1,'新增用户组成功,用户组名称为测试用户组'),
-	(46,'Member/group_power',1,'admin','2017-08-16 10:24:11','127.0.0.1',NULL,1,'修改用户组权限成功,用户组名称id为3'),
-	(47,'Member/add_power_level',1,'admin','2017-08-16 10:29:49','127.0.0.1',NULL,1,'新增权限成功,权限名称为用户列表'),
-	(48,'Member/add_user',1,'admin','2017-08-22 17:21:11','::1',NULL,1,'新增用户成功,用户名称为测试三'),
-	(49,'Member/user_communication',1,'admin','2017-08-23 10:18:31','::1',NULL,1,'新增用户联系人成功,用户名称为测试三'),
-	(50,'Member/user_communication',1,'admin','2017-08-23 10:20:11','::1',NULL,1,'修改用户联系人成功,用户名称为测试三1'),
-	(51,'Member/user_communication',1,'admin','2017-08-23 10:20:50','::1',NULL,1,'修改用户联系人成功,用户名称为测试三1'),
-	(52,'Member/user_laborContract',1,'admin','2017-08-23 11:03:03','::1',NULL,1,'修改用户联系人成功,用户名称为测试三'),
-	(53,'Member/user_laborContract',1,'admin','2017-08-23 11:04:40','::1',NULL,1,'新增用户联系人成功,用户名称为测试三'),
-	(54,'Member/add_power',1,'admin','2017-08-24 15:00:23','::1',NULL,1,'新增权限成功,权限名称为分类管理'),
-	(55,'Member/add_power_level',1,'admin','2017-08-24 15:01:20','::1',NULL,1,'新增权限成功,权限名称为行业类别'),
-	(56,'Member/add_power_level',1,'admin','2017-08-24 15:01:58','::1',NULL,1,'新增权限成功,权限名称为服务类别'),
-	(57,'Member/add_power_level',1,'admin','2017-08-24 15:02:32','::1',NULL,1,'新增权限成功,权限名称为技术板块'),
-	(58,'Member/group_power',1,'admin','2017-08-24 15:02:49','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(59,'Member/add_power_level',1,'admin','2017-08-24 15:26:00','::1',NULL,1,'新增权限成功,权限名称为新增行业分类'),
-	(60,'Member/group_power',1,'admin','2017-08-24 15:54:46','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(61,'Category/add_industry',1,'admin','2017-08-24 15:55:26','::1',NULL,1,'新增行业类别成功,行业名称为时间'),
-	(62,'Category/add_industry',1,'admin','2017-08-24 15:55:43','::1',NULL,1,'新增行业类别成功,行业名称为到底'),
-	(63,'Category/add_industry',1,'admin','2017-08-24 16:03:42','::1',NULL,1,'新增行业类别成功,行业名称为矿产'),
-	(64,'Category/add_industry',1,'admin','2017-08-24 16:04:02','::1',NULL,1,'新增行业类别成功,行业名称为石油'),
-	(65,'Category/add_industry',1,'admin','2017-08-24 16:04:59','::1',NULL,1,'新增行业类别成功,行业名称为工业'),
-	(66,'Member/add_power_level',1,'admin','2017-08-24 16:11:15','::1',NULL,1,'新增权限成功,权限名称为编辑行业类别'),
-	(67,'Member/group_power',1,'admin','2017-08-24 16:11:27','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(68,'Category/edit_industry',1,'admin','2017-08-24 16:12:26','::1',NULL,1,'新增行业类别成功,行业名称为工业1'),
-	(69,'Category/edit_industry',1,'admin','2017-08-24 16:12:50','::1',NULL,1,'新增行业类别成功,行业名称为石油1'),
-	(70,'Member/add_power_level',1,'admin','2017-08-24 16:15:58','::1',NULL,1,'新增权限成功,权限名称为删除行业类别'),
-	(71,'Category/add_service',1,'admin','2017-08-24 16:26:13','::1',NULL,1,'新增服务类别成功,服务名称为信息安全'),
-	(72,'Category/add_service',1,'admin','2017-08-24 16:27:22','::1',NULL,1,'新增服务类别成功,服务名称为信息安全'),
-	(73,'Category/add_service',1,'admin','2017-08-24 16:29:50','::1',NULL,1,'新增服务类别成功,服务名称为12345'),
-	(74,'Member/add_power_level',1,'admin','2017-08-24 17:11:32','::1',NULL,1,'新增权限成功,权限名称为新增服务类型'),
-	(75,'Member/add_power_level',1,'admin','2017-08-24 17:12:00','::1',NULL,1,'新增权限成功,权限名称为编辑服务类型'),
-	(76,'Member/add_power_level',1,'admin','2017-08-24 17:12:30','::1',NULL,1,'新增权限成功,权限名称为删除服务类型'),
-	(77,'Member/add_power_level',1,'admin','2017-08-24 17:12:56','::1',NULL,1,'新增权限成功,权限名称为新增技术板块'),
-	(78,'Member/add_power_level',1,'admin','2017-08-24 17:13:57','::1',NULL,1,'新增权限成功,权限名称为编辑技术板块'),
-	(79,'Member/add_power_level',1,'admin','2017-08-24 17:14:33','::1',NULL,1,'新增权限成功,权限名称为删除技术板块'),
-	(80,'Customer/add_customer',1,'admin','2017-08-24 18:58:53','::1',NULL,1,'新增客户成功,客户名称为'),
-	(81,'Member/add_power',1,'admin','2017-08-25 09:05:03','::1',NULL,1,'新增权限成功,权限名称为合同管理'),
-	(82,'Member/add_power',1,'admin','2017-08-25 09:05:41','::1',NULL,1,'新增权限成功,权限名称为项目管理'),
-	(83,'Project/add_project',1,'admin','2017-08-25 09:22:31','::1',NULL,1,'新增项目成功,项目名称为456787'),
-	(84,'Project/add_project',1,'admin','2017-08-25 10:40:27','::1',NULL,1,'新增项目成功,项目名称为测试项目'),
-	(85,'Member/add_power_level',1,'admin','2017-08-25 16:30:36','::1',NULL,1,'新增权限成功,权限名称为新增客户'),
-	(86,'Member/add_power_level',1,'admin','2017-08-25 17:56:01','::1',NULL,1,'新增权限成功,权限名称为新增客户联系人'),
-	(87,'Member/group_power',1,'admin','2017-08-25 17:56:23','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(88,'Customer/add_customer_user',1,'admin','2017-08-25 17:58:01','::1',NULL,1,'新增客户联系人成功,联系人名称为ddf'),
-	(89,'Customer/add_customer',1,'admin','2017-08-27 10:26:30','::1',NULL,1,'新增客户成功,客户名称为测试1'),
-	(90,'Member/add_power_level',1,'admin','2017-08-27 11:29:15','::1',NULL,1,'新增权限成功,权限名称为修改客户联系人'),
-	(91,'Member/add_power_level',1,'admin','2017-08-27 11:29:36','::1',NULL,1,'新增权限成功,权限名称为删除客户'),
-	(92,'Member/group_power',1,'admin','2017-08-27 11:29:48','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(93,'Customer/edit_customer_user',1,'admin','2017-08-27 11:30:25','::1',NULL,1,'修改客户联系人成功,联系人名称为ddf1'),
-	(94,'Customer/edit_customer_status',1,'admin','2017-08-27 11:36:17','::1',NULL,1,'删除客户联系人成功,联系人id为1'),
-	(95,'Member/add_power_level',1,'admin','2017-08-27 17:36:58','::1',NULL,1,'新增权限成功,权限名称为新增合同'),
-	(96,'Member/add_power_level',1,'admin','2017-08-27 17:37:19','::1',NULL,1,'新增权限成功,权限名称为编辑合同'),
-	(97,'Member/add_power_level',1,'admin','2017-08-27 17:37:49','::1',NULL,1,'新增权限成功,权限名称为删除合同'),
-	(98,'Member/group_power',1,'admin','2017-08-27 17:38:00','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(99,'Contract/add_contract',1,'admin','2017-08-27 17:40:18','::1',NULL,1,'新增合同成功,合同名称为w32'),
-	(100,'Contract/add_contract',1,'admin','2017-08-27 17:44:52','::1',NULL,1,'新增合同成功,合同名称为456532456'),
-	(101,'Contract/edit_contract',1,'admin','2017-08-27 17:47:04','::1',NULL,1,'修改合同成功,合同名称为sdfsdf'),
-	(102,'Contract/del_contract_state',1,'admin','2017-08-27 18:10:10','::1',NULL,1,'删除合同成功,合同id为'),
-	(103,'Contract/del_contract_state',1,'admin','2017-08-27 18:13:53','::1',NULL,1,'删除合同成功,合同id为'),
-	(104,'Contract/del_contract_state',1,'admin','2017-08-27 18:14:24','::1',NULL,1,'删除合同成功,合同id为'),
-	(105,'Contract/del_contract_state',1,'admin','2017-08-27 18:14:52','::1',NULL,1,'删除合同成功,合同id为1'),
-	(106,'Contract/del_contract_state',1,'admin','2017-08-27 18:14:57','::1',NULL,1,'删除合同成功,合同id为1'),
-	(107,'Contract/del_contract_state',1,'admin','2017-08-27 18:14:59','::1',NULL,1,'删除合同成功,合同id为1'),
-	(108,'Contract/del_contract_state',1,'admin','2017-08-27 18:15:40','::1',NULL,1,'删除合同成功,合同id为2'),
-	(109,'Category/edit_industry',1,'admin','2017-08-30 09:48:16','::1',NULL,1,'修改行业类别成功,行业名称为城镇燃气'),
-	(110,'Category/edit_industry',1,'admin','2017-08-30 09:48:28','::1',NULL,1,'修改行业类别成功,行业名称为道路桥梁'),
-	(111,'Category/edit_industry',1,'admin','2017-08-30 09:48:38','::1',NULL,1,'修改行业类别成功,行业名称为电力'),
-	(112,'Category/edit_industry',1,'admin','2017-08-30 09:48:48','::1',NULL,1,'修改行业类别成功,行业名称为非煤矿山'),
-	(113,'Category/edit_industry',1,'admin','2017-08-30 09:49:01','::1',NULL,1,'修改行业类别成功,行业名称为工贸'),
-	(114,'Category/edit_industry',1,'admin','2017-08-30 09:49:09','::1',NULL,1,'修改行业类别成功,行业名称为化工'),
-	(115,'Category/add_industry',1,'admin','2017-08-30 09:49:18','::1',NULL,1,'新增行业类别成功,行业名称为机械电子'),
-	(116,'Category/add_industry',1,'admin','2017-08-30 09:49:26','::1',NULL,1,'新增行业类别成功,行业名称为加油加气站'),
-	(117,'Category/add_industry',1,'admin','2017-08-30 09:49:35','::1',NULL,1,'新增行业类别成功,行业名称为涉路施工'),
-	(118,'Category/add_industry',1,'admin','2017-08-30 09:49:48','::1',NULL,1,'新增行业类别成功,行业名称为石油天然气'),
-	(119,'Category/add_industry',1,'admin','2017-08-30 09:49:58','::1',NULL,1,'新增行业类别成功,行业名称为铁路'),
-	(120,'Category/add_industry',1,'admin','2017-08-30 09:51:54','::1',NULL,1,'新增行业类别成功,行业名称为尾矿'),
-	(121,'Category/add_industry',1,'admin','2017-08-30 09:52:06','::1',NULL,1,'新增行业类别成功,行业名称为冶金'),
-	(122,'Category/edit_service',1,'admin','2017-08-30 09:52:23','::1',NULL,1,'修改服务类别成功,服务名称为安标'),
-	(123,'Category/edit_service',1,'admin','2017-08-30 09:52:32','::1',NULL,1,'修改服务类别成功,服务名称为安标复审'),
-	(124,'Category/add_service',1,'admin','2017-08-30 09:52:40','::1',NULL,1,'新增服务类别成功,服务名称为安全评估'),
-	(125,'Category/add_service',1,'admin','2017-08-30 09:52:53','::1',NULL,1,'新增服务类别成功,服务名称为地灾'),
-	(126,'Category/add_service',1,'admin','2017-08-30 09:53:00','::1',NULL,1,'新增服务类别成功,服务名称为环评'),
-	(127,'Category/add_service',1,'admin','2017-08-30 09:53:47','::1',NULL,1,'新增服务类别成功,服务名称为控评'),
-	(128,'Category/add_service',1,'admin','2017-08-30 09:53:55','::1',NULL,1,'新增服务类别成功,服务名称为论证'),
-	(129,'Category/add_service',1,'admin','2017-08-30 09:54:03','::1',NULL,1,'新增服务类别成功,服务名称为能评'),
-	(130,'Category/add_service',1,'admin','2017-08-30 09:54:10','::1',NULL,1,'新增服务类别成功,服务名称为其它'),
-	(131,'Category/add_service',1,'admin','2017-08-30 09:54:17','::1',NULL,1,'新增服务类别成功,服务名称为现状'),
-	(132,'Category/add_service',1,'admin','2017-08-30 09:54:25','::1',NULL,1,'新增服务类别成功,服务名称为验收'),
-	(133,'Category/add_service',1,'admin','2017-08-30 09:54:34','::1',NULL,1,'新增服务类别成功,服务名称为应急预案'),
-	(134,'Category/add_service',1,'admin','2017-08-30 09:54:42','::1',NULL,1,'新增服务类别成功,服务名称为预评'),
-	(135,'Category/add_service',1,'admin','2017-08-30 09:54:50','::1',NULL,1,'新增服务类别成功,服务名称为职检'),
-	(136,'Category/add_service',1,'admin','2017-08-30 09:54:58','::1',NULL,1,'新增服务类别成功,服务名称为重大危险源'),
-	(137,'Category/add_service',1,'admin','2017-08-30 09:55:04','::1',NULL,1,'新增服务类别成功,服务名称为专篇'),
-	(138,'Category/add_service',1,'admin','2017-08-30 09:55:12','::1',NULL,1,'新增服务类别成功,服务名称为专项评价'),
-	(139,'Category/add_service',1,'admin','2017-08-30 09:55:23','::1',NULL,1,'新增服务类别成功,服务名称为咨询'),
-	(140,'Category/add_service',1,'admin','2017-08-30 09:55:29','::1',NULL,1,'新增服务类别成功,服务名称为综合分析'),
-	(141,'Category/edit_technology',1,'admin','2017-08-30 09:55:47','::1',NULL,1,'修改技术类别成功,技术名称为委外'),
-	(142,'Category/add_technology',1,'admin','2017-08-30 09:55:56','::1',NULL,1,'新增技术类别成功,技术名称为职卫'),
-	(143,'Category/add_technology',1,'admin','2017-08-30 09:56:03','::1',NULL,1,'新增技术类别成功,技术名称为安全'),
-	(144,'Category/add_technology',1,'admin','2017-08-30 09:56:15','::1',NULL,1,'新增技术类别成功,技术名称为咨询'),
-	(145,'Project/import_Project',1,'admin','2017-08-30 10:12:08','::1',NULL,1,'导入了项目信息，导入成功48条，失败0条，失败条目：'),
-	(146,'Project/del_project',1,'admin','2017-08-30 10:20:10','::1',NULL,1,'删除项目到回收站成功,项目id为1'),
-	(147,'Project/edit_project',1,'admin','2017-08-30 11:01:37','::1',NULL,1,'编辑项目成功,项目名称为南部县流马加油站新建项目'),
-	(148,'Customer/import_customer',1,'admin','2017-09-03 16:48:05','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(149,'Customer/add_customer_user',1,'admin','2017-09-03 16:53:48','::1',NULL,1,'新增客户联系人成功,联系人名称为12'),
-	(150,'Member/edit_power',1,'admin','2017-09-03 17:08:41','::1',NULL,1,'编辑权限成功,权限名称为职员组管理'),
-	(151,'Member/edit_power',1,'admin','2017-09-03 17:09:02','::1',NULL,1,'编辑权限成功,权限名称为职员列表'),
-	(152,'Member/import_userList',1,'admin','2017-09-03 17:18:22','::1',NULL,1,'导入了职员信息，导入成功135条，失败0条，失败条目：'),
-	(153,'Member/import_userList',1,'admin','2017-09-03 17:20:46','::1',NULL,1,'导入了职员信息，导入成功135条，失败0条，失败条目：'),
-	(154,'Member/add_power_level',1,'admin','2017-09-04 09:20:34','::1',NULL,1,'新增权限成功,权限名称为新增项目'),
-	(155,'Member/add_power_level',1,'admin','2017-09-04 09:21:25','::1',NULL,1,'新增权限成功,权限名称为编辑项目'),
-	(156,'Member/add_power_level',1,'admin','2017-09-04 09:23:01','::1',NULL,1,'新增权限成功,权限名称为导入项目'),
-	(157,'Member/add_power_level',1,'admin','2017-09-04 09:23:37','::1',NULL,1,'新增权限成功,权限名称为导入合同'),
-	(158,'Member/add_power_level',1,'admin','2017-09-04 09:23:58','::1',NULL,1,'新增权限成功,权限名称为新增职员'),
-	(159,'Member/edit_power',1,'admin','2017-09-04 09:39:41','::1',NULL,1,'编辑权限成功,权限名称为新增职员'),
-	(160,'Member/add_power_level',1,'admin','2017-09-04 09:40:23','::1',NULL,1,'新增权限成功,权限名称为编辑职员'),
-	(161,'Member/add_power_level',1,'admin','2017-09-04 09:42:48','::1',NULL,1,'新增权限成功,权限名称为导入职员'),
-	(162,'Member/group_power',1,'admin','2017-09-04 09:43:22','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(163,'Member/occupational',1,'admin','2017-09-07 18:22:49','::1',NULL,1,'新增用户职卫信息成功,用户id为139'),
-	(164,'Member/occupational',1,'admin','2017-09-07 18:24:18','::1',NULL,1,'新增用户职卫信息成功,用户id为139'),
-	(165,'Member/occupational',1,'admin','2017-09-07 18:25:07','::1',NULL,1,'编辑用户职卫信息成功,用户id为139'),
-	(166,'Member/security',1,'admin','2017-09-07 18:34:34','::1',NULL,1,'新增用户学历成功,用户id为139'),
-	(167,'Member/evaluate',1,'admin','2017-09-07 18:55:17','::1',NULL,1,'新增用户学历成功,用户id为139'),
-	(168,'Member/evaluate',1,'admin','2017-09-07 19:31:18','::1',NULL,1,'编辑用户学历成功,用户id为139'),
-	(169,'Member/expert',1,'admin','2017-09-07 19:41:38','::1',NULL,1,'新增专家信息成功,用户id为139'),
-	(170,'Member/expert',1,'admin','2017-09-07 19:41:48','::1',NULL,1,'新增专家信息成功,用户id为139'),
-	(171,'Member/expert',1,'admin','2017-09-07 19:42:28','::1',NULL,1,'编辑专家信息成功,用户id为139'),
-	(172,'Member/add_power',1,'admin','2017-09-07 21:11:49','::1',NULL,1,'新增权限成功,权限名称为任务管理'),
-	(173,'Member/group_power',1,'admin','2017-09-07 21:12:06','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(174,'Project/add_project',1,'admin','2017-09-07 22:54:19','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(175,'Project/add_project',1,'admin','2017-09-07 22:54:20','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(176,'Project/add_project',1,'admin','2017-09-07 22:54:24','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(177,'Project/add_project',1,'admin','2017-09-07 22:54:25','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(178,'Project/add_project',1,'admin','2017-09-07 22:54:26','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(179,'Project/add_project',1,'admin','2017-09-07 22:54:27','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(180,'Project/add_project',1,'admin','2017-09-07 22:54:28','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(181,'Project/add_project',1,'admin','2017-09-07 22:54:29','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(182,'Project/add_project',1,'admin','2017-09-07 22:54:30','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(183,'Project/add_project',1,'admin','2017-09-07 22:54:54','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(184,'Project/add_project',1,'admin','2017-09-07 22:54:55','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(185,'Project/add_project',1,'admin','2017-09-07 22:54:56','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(186,'Project/add_project',1,'admin','2017-09-07 22:54:57','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(187,'Project/add_project',1,'admin','2017-09-07 22:55:12','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(188,'Project/add_project',1,'admin','2017-09-07 22:55:13','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(189,'Project/add_project',1,'admin','2017-09-07 22:55:14','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(190,'Project/add_project',1,'admin','2017-09-07 22:55:34','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(191,'Project/add_project',1,'admin','2017-09-07 22:55:45','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(192,'Project/add_project',1,'admin','2017-09-07 22:55:49','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(193,'Project/add_project',1,'admin','2017-09-07 22:55:50','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(194,'Project/add_project',1,'admin','2017-09-07 22:55:50','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(195,'Project/add_project',1,'admin','2017-09-07 22:55:50','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(196,'Project/add_project',1,'admin','2017-09-07 22:55:51','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(197,'Project/add_project',1,'admin','2017-09-07 22:55:51','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(198,'Project/add_project',1,'admin','2017-09-07 22:55:52','::1',NULL,1,'新增项目成功,项目名称为23456'),
-	(199,'Project/add_project',1,'admin','2017-09-07 22:56:52','::1',NULL,1,'新增项目成功,项目名称为345678'),
-	(200,'Project/edit_project',1,'admin','2017-09-07 23:02:08','::1',NULL,1,'编辑项目成功,项目名称为345678所属'),
-	(201,'Project/edit_project',1,'admin','2017-09-07 23:03:05','::1',NULL,1,'编辑项目成功,项目名称为345678所属123'),
-	(202,'Project/edit_project',1,'admin','2017-09-07 23:08:43','::1',NULL,1,'编辑项目成功,项目名称为345678所属1231'),
-	(203,'Task/add_task',1,'admin','2017-09-08 11:59:58','::1',NULL,1,'新增任务成功,项目id为6'),
-	(204,'Task/edit_task',1,'admin','2017-09-08 15:25:07','::1',NULL,1,'编辑任务成功,项目id为6'),
-	(205,'Task/del_task',1,'admin','2017-09-08 15:27:51','::1',NULL,1,'删除任务成功,任务id为1'),
-	(206,'Task/add_task_edition',1,'admin','2017-09-09 11:53:37','::1',NULL,1,'新增任务送审版成功,任务id为2'),
-	(207,'Task/add_task_edition',1,'admin','2017-09-09 14:49:50','::1',NULL,1,'新增任务送审版成功,任务id为2'),
-	(208,'Task/final_edition',1,'admin','2017-09-09 14:51:14','::1',NULL,1,'新增任务最终版成功,任务id为2'),
-	(209,'Member/add_power',1,'admin','2017-09-09 15:06:48','::1',NULL,1,'新增权限成功,权限名称为个人中心'),
-	(210,'Member/group_power',1,'admin','2017-09-09 15:08:18','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(211,'Member/add_power_level',1,'admin','2017-09-09 15:09:23','::1',NULL,1,'新增权限成功,权限名称为个人信息'),
-	(212,'Member/add_power_level',1,'admin','2017-09-09 15:10:00','::1',NULL,1,'新增权限成功,权限名称为个人任务'),
-	(213,'Member/group_power',1,'admin','2017-09-09 15:10:11','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(214,'Member/add_power',1,'admin','2017-09-09 15:22:40','::1',NULL,1,'新增权限成功,权限名称为财务管理'),
-	(215,'Member/group_power',1,'admin','2017-09-09 15:22:59','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(216,'Finance/complete_add',1,'admin','2017-09-10 15:31:34','::1',NULL,1,'新增收入记录成功,合同id为'),
-	(217,'Finance/complete_add',1,'admin','2017-09-10 15:32:15','::1',NULL,1,'新增收入记录成功,合同id为6'),
-	(218,'Finance/complete_add',1,'admin','2017-09-10 15:33:17','::1',NULL,1,'新增收入记录成功,合同id为6'),
-	(219,'Finance/edit_complete',1,'admin','2017-09-10 15:33:56','::1',NULL,1,'修改收入记录成功,记录id为3'),
-	(220,'Finance/expenditure_add',1,'admin','2017-09-10 17:17:24','::1',NULL,1,'新增支出记录成功,合同id为6'),
-	(221,'Finance/edit_expenditure',1,'admin','2017-09-10 17:19:00','::1',NULL,1,'修改支出记录成功,记录id为2'),
-	(222,'Finance/edit_expenditure',1,'admin','2017-09-10 17:20:12','::1',NULL,1,'修改支出记录成功,记录id为6'),
-	(223,'Finance/expenditure_add',1,'admin','2017-09-10 17:36:34','::1',NULL,1,'新增支出记录成功,合同id为6'),
-	(224,'Finance/expenditure_add',1,'admin','2017-09-10 17:37:12','::1',NULL,1,'新增支出记录成功,合同id为6'),
-	(225,'Finance/billing_add',1,'admin','2017-09-10 18:09:20','::1',NULL,1,'新增开票记录成功,合同id为6'),
-	(226,'Finance/edit_billing',1,'admin','2017-09-10 18:11:18','::1',NULL,1,'修改开票记录成功,记录id为9'),
-	(227,'Finance/del_Balance',1,'admin','2017-09-10 18:19:51','::1',NULL,1,'删除收入记录成功,合同id为6'),
-	(228,'Finance/billing_add',1,'admin','2017-09-10 18:21:30','::1',NULL,1,'新增开票记录成功,合同id为6'),
-	(229,'Contract/add_contract',1,'admin','2017-09-13 19:47:17','::1',NULL,1,'新增合同成功,合同名称为2345打发士大夫'),
-	(230,'Contract/add_contract',1,'admin','2017-09-13 19:59:44','::1',NULL,1,'新增合同成功,合同名称为ytyrty'),
-	(231,'Contract/edit_contract',1,'admin','2017-09-14 09:46:26','::1',NULL,1,'修改合同成功,合同名称为ytyrty'),
-	(232,'Member/add_power',1,'admin','2017-09-14 10:02:02','::1',NULL,1,'新增权限成功,权限名称为系统日志'),
-	(233,'Member/group_power',1,'admin','2017-09-14 10:02:14','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(234,'Customer/add_customer',1,'admin','2017-09-15 11:09:05','::1',NULL,1,'新增客户成功,客户名称为成都市高兴'),
-	(235,'Contract/add_contract',1,'admin','2017-09-15 11:16:54','::1',NULL,1,'新增合同成功,合同名称为cedhi '),
-	(236,'Member/add_power_level',1,'admin','2017-09-28 13:43:08','::1',NULL,1,'新增权限成功,权限名称为导入客户信息'),
-	(237,'Project/edit_project',1,'admin','2017-09-29 11:56:17','::1',NULL,1,'编辑项目成功,项目名称为345678所属1231'),
-	(238,'Member/group_power',1,'admin','2017-09-29 13:55:46','::1',NULL,1,'修改用户组权限成功,用户组名称id为2'),
-	(239,'Customer/import_customer',1,'admin','2017-09-29 15:30:38','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(240,'contract/import_contract',1,'admin','2017-09-29 16:00:46','::1',NULL,1,'导入了商品信息，导入成功36条，失败0条，失败条目：'),
-	(241,'contract/import_contract',1,'admin','2017-09-29 16:04:08','::1',NULL,1,'导入了商品信息，导入成功36条，失败0条，失败条目：'),
-	(242,'contract/import_contract',1,'admin','2017-09-29 16:25:40','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(243,'contract/import_contract',1,'admin','2017-09-29 16:26:20','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(244,'contract/import_contract',1,'admin','2017-09-29 16:27:10','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(245,'Project/import_Project',1,'admin','2017-09-29 16:53:48','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(246,'Contract/del_contract_state',1,'admin','2017-09-29 16:55:29','::1',NULL,1,'删除合同成功,合同id为531'),
-	(247,'Contract/del_contract_state',1,'admin','2017-09-29 16:55:33','::1',NULL,1,'删除合同成功,合同id为532'),
-	(248,'Project/import_Project',1,'admin','2017-09-29 17:15:34','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(249,'Project/import_Project',1,'admin','2017-09-29 17:23:04','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(250,'Project/import_Project',1,'admin','2017-09-29 17:24:49','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(251,'Customer/import_customer',1,'admin','2017-09-29 21:46:58','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(252,'Customer/edit_customer_status',1,'admin','2017-09-29 21:47:48','::1',NULL,1,'删除客户联系人成功,联系人id为1'),
-	(253,'Customer/edit_customer_status',1,'admin','2017-09-29 21:49:44','::1',NULL,1,'删除客户联系人成功,联系人id为6'),
-	(254,'Customer/import_customer',1,'admin','2017-09-29 21:49:51','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(255,'Customer/edit_customer_status',1,'admin','2017-09-29 21:51:29','::1',NULL,1,'删除客户联系人成功,联系人id为7'),
-	(256,'Customer/import_customer',1,'admin','2017-09-29 21:52:06','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(257,'Customer/edit_customer_status',1,'admin','2017-09-29 21:53:33','::1',NULL,1,'删除客户联系人成功,联系人id为8'),
-	(258,'Customer/import_customer',1,'admin','2017-09-29 21:54:06','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(259,'contract/import_contract',1,'admin','2017-09-29 21:55:49','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(260,'contract/import_contract',1,'admin','2017-09-29 21:58:15','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(261,'Project/import_Project',1,'admin','2017-09-29 21:58:49','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(262,'Task/del_task',1,'admin','2017-09-29 22:07:48','::1',NULL,1,'删除任务成功,任务id为2'),
-	(263,'task/import_task',1,'admin','2017-09-29 22:42:53','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(264,'task/import_task',1,'admin','2017-09-29 22:43:48','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(265,'Task/add_task_edition',1,'admin','2017-09-29 23:10:23','::1',NULL,1,'编辑任务送审版成功,任务id为'),
-	(266,'Task/add_task_edition',1,'admin','2017-09-29 23:11:26','::1',NULL,1,'编辑任务送审版成功,任务id为'),
-	(267,'Task/add_task_edition',1,'admin','2017-09-29 23:11:42','::1',NULL,1,'编辑任务送审版成功,任务id为'),
-	(268,'Task/add_task_edition',1,'admin','2017-09-29 23:12:27','::1',NULL,1,'编辑任务送审版成功,任务id为'),
-	(269,'Task/add_task_edition',1,'admin','2017-09-29 23:25:06','::1',NULL,1,'编辑任务送审版成功,任务id为75'),
-	(270,'Task/revise_edition',1,'admin','2017-09-29 23:26:43','::1',NULL,1,'编辑任务修订版成功,任务id为75'),
-	(271,'Task/add_task',1,'admin','2017-09-29 23:31:10','::1',NULL,1,'新增任务成功,项目id为81'),
-	(272,'Task/final_edition',1,'admin','2017-09-29 23:38:25','::1',NULL,1,'新增任务最终版成功,任务id为76'),
-	(273,'Project/add_project',1,'admin','2017-09-30 00:48:57','::1',NULL,1,'新增项目成功,项目名称为213123'),
-	(274,'Project/add_project',1,'admin','2017-09-30 00:49:28','::1',NULL,1,'新增项目成功,项目名称为2345'),
-	(275,'Member/del_power',1,'admin','2017-09-30 10:17:29','::1',NULL,1,'删除权限成功'),
-	(276,'Member/add_power_level',1,'admin','2017-09-30 10:18:22','::1',NULL,1,'新增权限成功,权限名称为删除项目'),
-	(277,'Project/del_project',1,'admin','2017-09-30 12:42:08','::1',NULL,1,'删除项目到回收站成功,项目id为82'),
-	(278,'Project/del_project',1,'admin','2017-09-30 12:42:28','::1',NULL,1,'删除项目到回收站成功,项目id为83'),
-	(279,'Project/del_project',1,'admin','2017-09-30 12:42:49','::1',NULL,1,'删除项目到回收站成功,项目id为81'),
-	(280,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:45','::1',NULL,0,'确认任务完成,任务id为76'),
-	(281,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:46','::1',NULL,0,'确认任务完成,任务id为76'),
-	(282,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:48','::1',NULL,0,'确认任务完成,任务id为76'),
-	(283,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:49','::1',NULL,0,'确认任务完成,任务id为76'),
-	(284,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:50','::1',NULL,0,'确认任务完成,任务id为76'),
-	(285,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:52','::1',NULL,0,'确认任务完成,任务id为76'),
-	(286,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:53','::1',NULL,0,'确认任务完成,任务id为76'),
-	(287,'Task/edit_task_status/76',1,'admin','2017-10-14 11:56:53','::1',NULL,0,'确认任务完成,任务id为76'),
-	(288,'task/Import_projectState',1,'admin','2017-10-14 16:54:10','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(289,'task/Import_projectState',1,'admin','2017-10-14 16:55:00','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(290,'task/Import_projectState',1,'admin','2017-10-14 16:58:44','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(291,'task/Import_projectState',1,'admin','2017-10-14 17:01:19','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(292,'task/Import_projectState',1,'admin','2017-10-14 17:01:44','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(293,'task/Import_projectState',1,'admin','2017-10-14 17:04:01','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(294,'Task/add_task_edition',1,'admin','2017-10-15 13:02:40','::1',NULL,1,'新增任务记录成功,任务类型为1'),
-	(295,'Task/edit_task_edition',1,'admin','2017-10-15 16:12:48','::1',NULL,1,'编辑任务记录成功,任务类型为1,任务记录id是：65'),
-	(296,'Contract/add_contract',1,'admin','2017-10-15 16:28:54','::1',NULL,1,'新增合同成功,合同名称为324234'),
-	(297,'Contract/add_contract',1,'admin','2017-10-15 16:54:41','::1',NULL,1,'新增合同成功,合同名称为3424234'),
-	(298,'Project/del_project',1,'admin','2017-10-16 16:20:58','::1',NULL,1,'删除项目到回收站成功,项目id为82'),
-	(299,'Project/add_project',1,'admin','2017-10-16 16:32:49','::1',NULL,1,'新增项目成功,项目名称为测试项目'),
-	(300,'Task/add_task',1,'admin','2017-10-16 16:52:53','::1',NULL,1,'新增任务成功,项目id为84'),
-	(301,'Member/group_power',1,'admin','2017-10-16 16:56:00','::1',NULL,1,'修改用户组权限成功,用户组名称id为2'),
-	(302,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:22:26','::1',NULL,1,'新增留言成功,任务id为77'),
-	(303,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:27:09','::1',NULL,1,'新增留言成功,任务id为77'),
-	(304,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:28:40','::1',NULL,1,'新增留言成功,任务id为77'),
-	(305,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:31:53','::1',NULL,1,'新增留言成功,任务id为77'),
-	(306,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:31:57','::1',NULL,1,'新增留言成功,任务id为77'),
-	(307,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:33:49','::1',NULL,1,'新增留言成功,任务id为77'),
-	(308,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:33:51','::1',NULL,1,'新增留言成功,任务id为77'),
-	(309,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:33:55','::1',NULL,1,'新增留言成功,任务id为77'),
-	(310,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:34:56','::1',NULL,1,'新增留言成功,任务id为77'),
-	(311,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:36:27','::1',NULL,1,'新增留言成功,任务id为77'),
-	(312,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:36:34','::1',NULL,1,'新增留言成功,任务id为77'),
-	(313,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:37:01','::1',NULL,1,'新增留言成功,任务id为77'),
-	(314,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:37:16','::1',NULL,1,'新增留言成功,任务id为77'),
-	(315,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:37:24','::1',NULL,1,'新增留言成功,任务id为77'),
-	(316,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:41:33','::1',NULL,1,'新增留言成功,任务id为77'),
-	(317,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:41:47','::1',NULL,1,'新增留言成功,任务id为77'),
-	(318,'UserCenter/add_message',142,'唐蓉生','2017-10-17 10:42:04','::1',NULL,1,'新增留言成功,任务id为77'),
-	(319,'UserCenter/add_message',142,'唐蓉生','2017-10-17 11:05:05','::1',NULL,1,'新增留言成功,任务id为77'),
-	(320,'Contract/edit_contract',1,'admin','2017-10-17 16:57:48','::1',NULL,1,'修改合同成功,合同名称为3424234'),
-	(321,'Contract/del_contract_state',1,'admin','2017-10-18 10:34:44','::1',NULL,1,'删除合同成功,合同id为537'),
-	(322,'Contract/del_contract_state',1,'admin','2017-10-18 10:34:46','::1',NULL,1,'删除合同成功,合同id为537'),
-	(323,'Project/edit_project',1,'admin','2017-10-18 11:54:06','::1',NULL,1,'编辑项目成功,项目名称为3424234'),
-	(324,'Project/edit_project',1,'admin','2017-10-18 11:54:09','::1',NULL,1,'编辑项目成功,项目名称为3424234'),
-	(325,'Project/edit_project',1,'admin','2017-10-18 11:54:11','::1',NULL,1,'编辑项目成功,项目名称为3424234'),
-	(326,'Project/edit_project',1,'admin','2017-10-18 11:54:18','::1',NULL,1,'编辑项目成功,项目名称为3424234'),
-	(327,'Contract/add_project',1,'admin','2017-10-18 11:56:48','::1',NULL,1,'新增项目成功,项目名称为3424234'),
-	(328,'Contract/add_project',1,'admin','2017-10-18 12:10:50','::1',NULL,1,'新增项目成功,项目名称为3424234'),
-	(329,'Project/add_project',1,'admin','2017-10-18 15:07:26','::1',NULL,1,'新增项目成功,项目名称为12212'),
-	(330,'Project/edit_project',1,'admin','2017-10-18 15:25:47','::1',NULL,1,'编辑项目成功,项目名称为测试项目'),
-	(331,'contract/import_contract',1,'admin','2017-10-18 15:52:59','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(332,'Project/import_Project',1,'admin','2017-10-18 16:04:46','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(333,'Contract/del_contract_state',1,'admin','2017-10-18 16:05:12','::1',NULL,1,'删除合同成功,合同id为535'),
-	(334,'Project/del_project',1,'admin','2017-10-18 16:05:19','::1',NULL,1,'删除项目到回收站成功,项目id为89'),
-	(335,'Project/del_project',1,'admin','2017-10-18 16:05:20','::1',NULL,1,'删除项目到回收站成功,项目id为89'),
-	(336,'Project/import_Project',1,'admin','2017-10-18 16:06:36','::1',NULL,1,'导入了项目信息，导入成功0条，失败1条，失败条目：2'),
-	(337,'contract/import_contract',1,'admin','2017-10-18 16:09:00','::1',NULL,1,'导入了商品信息，导入成功1条，失败0条，失败条目：'),
-	(338,'Project/import_Project',1,'admin','2017-10-18 16:09:16','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(339,'Project/import_Project',1,'admin','2017-10-18 16:36:52','::1',NULL,1,'导入了项目信息，导入成功1条，失败10条，失败条目：3,4,5,6,7,8,9,10,11,12'),
-	(340,'Project/import_Project',1,'admin','2017-10-18 16:37:41','::1',NULL,1,'导入了项目信息，导入成功1条，失败10条，失败条目：3,4,5,6,7,8,9,10,11,12'),
-	(341,'Project/import_Project',1,'admin','2017-10-18 16:38:08','::1',NULL,1,'导入了项目信息，导入成功1条，失败10条，失败条目：3,4,5,6,7,8,9,10,11,12'),
-	(342,'Project/add_task_edition',1,'admin','2017-10-18 17:39:03','::1',NULL,1,'新增任务记录成功,任务类型为1'),
-	(343,'Project/add_task_edition',1,'admin','2017-10-18 17:39:22','::1',NULL,1,'新增任务记录成功,任务类型为1'),
-	(344,'Project/add_task_edition',1,'admin','2017-10-18 17:45:11','::1',NULL,1,'新增任务记录成功,任务类型为1'),
-	(345,'Project/Import_projectState',1,'admin','2017-10-18 18:03:22','::1',NULL,1,'导入了任务状态信息，导入成功2条，失败0条，失败条目：'),
-	(346,'Project/del_edition',1,'admin','2017-10-18 18:22:47','::1',NULL,1,'删除任务记录成功,任务记录id是：70'),
-	(347,'Finance/complete_add',1,'admin','2017-10-19 10:20:35','::1',NULL,1,'新增收入记录成功,合同id为541'),
-	(348,'Finance/billing_add',1,'admin','2017-10-19 10:21:21','::1',NULL,1,'新增开票记录成功,合同id为541'),
-	(349,'Finance/Import_expenditure',1,'admin','2017-10-19 11:58:52','::1',NULL,1,'导入了合同支出信息，导入成功1条，失败8条，失败条目：3,4,5,6,7,8,9,10'),
-	(350,'Finance/Import_expenditure',1,'admin','2017-10-19 12:07:19','::1',NULL,1,'导入了合同支出信息，导入成功1条，失败8条，失败条目：3,4,5,6,7,8,9,10'),
-	(351,'Finance/Import_billing',1,'admin','2017-10-19 12:22:17','::1',NULL,1,'导入了合同开票信息，导入成功1条，失败0条，失败条目：'),
-	(352,'UserCenter/add_message',1,'admin','2017-10-19 14:54:40','::1',NULL,1,'新增留言成功,项目id为'),
-	(353,'UserCenter/add_message',1,'admin','2017-10-19 14:57:31','::1',NULL,1,'新增留言成功,项目id为93'),
-	(354,'Project/add_project_group',1,'admin','2017-10-19 17:11:20','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(355,'Project/add_project_group',1,'admin','2017-10-19 18:00:24','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(356,'Project/import_Project',1,'admin','2017-10-19 18:27:44','::1',NULL,1,'导入了项目信息，导入成功1条，失败0条，失败条目：'),
-	(357,'Project/add_project_group',1,'admin','2017-10-20 09:50:59','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(358,'Project/add_project_group',1,'admin','2017-10-20 09:51:16','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(359,'Project/add_project_group',1,'admin','2017-10-20 09:52:27','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(360,'Project/add_project_group',1,'admin','2017-10-20 09:54:49','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(361,'Project/add_project_group',1,'admin','2017-10-20 09:55:40','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(362,'Project/add_project_group',1,'admin','2017-10-20 09:55:59','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(363,'Project/add_project_group',1,'admin','2017-10-20 09:59:37','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(364,'Project/add_project_group',1,'admin','2017-10-20 10:01:06','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(365,'Project/add_project_group',1,'admin','2017-10-20 10:05:05','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(366,'Project/add_project_group',1,'admin','2017-10-20 10:08:21','::1',NULL,1,'新增项目小组成员成功,项目id是：93'),
-	(367,'Project/del_projectGroup',1,'admin','2017-10-20 10:17:35','::1',NULL,1,'删除项目小组成员成功,纪录id是：16'),
-	(368,'UserCenter/add_message',1,'admin','2017-10-20 11:05:21','::1',NULL,1,'新增留言成功,项目id为93'),
-	(369,'Project/uploadProjectFile',1,'admin','2017-10-20 14:54:43','::1',NULL,1,'提交任务资料成功,纪录类型是：1'),
-	(370,'Project/uploadProjectFile',1,'admin','2017-10-20 14:56:06','::1',NULL,1,'提交任务资料成功,纪录类型是：1'),
-	(371,'Project/add_project',1,'admin','2017-10-20 17:01:53','::1',NULL,0,'新增项目失败,项目名称为12345678'),
-	(372,'Project/add_project',1,'admin','2017-10-20 17:03:44','::1',NULL,1,'新增项目成功,项目名称为123456789'),
-	(373,'Project/add_project_group',142,'唐蓉生','2017-10-20 17:48:16','::1',NULL,1,'新增项目小组成员成功,项目id是：96'),
-	(374,'Project/editProjectState/96',142,'唐蓉生','2017-10-20 18:25:28','::1',NULL,1,'修改项目完成状态成功,项目ID为96'),
-	(375,'Project/editProjectState/96',142,'唐蓉生','2017-10-20 18:25:30','::1',NULL,1,'修改项目完成状态成功,项目ID为96'),
-	(376,'Project/editProjectState/96',142,'唐蓉生','2017-10-20 18:25:31','::1',NULL,1,'修改项目完成状态成功,项目ID为96'),
-	(377,'Project/editProjectState/96',142,'唐蓉生','2017-10-20 18:25:38','::1',NULL,1,'修改项目完成状态成功,项目ID为96'),
-	(378,'Project/editProjectState/96',142,'唐蓉生','2017-10-20 18:25:41','::1',NULL,1,'修改项目完成状态成功,项目ID为96'),
-	(379,'Member/add_power',1,'admin','2017-10-24 10:05:59','::1',NULL,1,'新增权限成功,权限名称为导入历史纪录'),
-	(380,'Member/group_power',1,'admin','2017-10-24 10:06:23','::1',NULL,1,'修改用户组权限成功,用户组名称id为1'),
-	(381,'Customer/import_customer',1,'admin','2017-10-24 11:51:10','::1',NULL,1,'导入了客户信息，导入成功1条，失败0条，失败条目：'),
-	(382,'UserCenter/add_message',1,'admin','2017-10-24 13:34:57','::1',NULL,1,'新增留言成功,项目id为96'),
-	(383,'Project/add_project_group',142,'唐蓉生','2017-10-24 13:42:01','::1',NULL,1,'新增项目小组成员成功,项目id是：96'),
-	(384,'Project/add_project_group',142,'唐蓉生','2017-10-24 13:42:16','::1',NULL,1,'新增项目小组成员成功,项目id是：96');
+	(1,'Category/add_industry',1,'admin','2017-11-01 11:10:53','::1',NULL,1,'新增行业类别成功,行业名称为信息'),
+	(2,'Category/del_industry',1,'admin','2017-11-01 11:11:00','::1',NULL,1,'删除行业类别成功,行业id为37'),
+	(3,'contract/import_contract',1,'admin','2017-11-01 11:19:20','::1',NULL,1,'导入了商品信息，导入成功8条，失败0条，失败条目：'),
+	(4,'Project/import_Project',1,'admin','2017-11-01 14:58:16','::1',NULL,1,'导入了项目信息，导入成功1条，失败8条，失败条目：2,3,4,6,7,8,9,10'),
+	(5,'Project/import_Project',1,'admin','2017-11-01 15:00:42','::1',NULL,1,'导入了项目信息，导入成功1条，失败8条，失败条目：2,3,4,6,7,8,9,10'),
+	(6,'Project/import_Project',1,'admin','2017-11-01 15:03:45','::1',NULL,1,'导入了项目信息，导入成功1条，失败8条，失败条目：2,3,4,6,7,8,9,10'),
+	(7,'Project/import_Project',1,'admin','2017-11-01 15:06:42','::1',NULL,1,'导入了项目信息，导入成功0条，失败8条，失败条目：2,3,4,6,7,8,9,10'),
+	(8,'contract/import_contract',1,'admin','2017-11-01 15:16:41','::1',NULL,1,'导入了商品信息，导入成功8条，失败0条，失败条目：'),
+	(9,'Project/import_Project',1,'admin','2017-11-01 15:22:59','::1',NULL,1,'导入了项目信息，导入成功6条，失败3条，失败条目：2,4,10'),
+	(10,'Project/importProjectTask',1,'admin','2017-11-01 16:32:13','::1',NULL,1,'导入了项目信息，导入成功6条，失败0条，失败条目：'),
+	(11,'Project/importProjectTask',1,'admin','2017-11-01 16:36:37','::1',NULL,1,'导入了项目任务纪录信息，导入成功6条，失败0条，失败条目：'),
+	(12,'Project/Import_projectState',1,'admin','2017-11-01 16:49:26','::1',NULL,1,'导入了任务状态信息，导入成功4条，失败0条，失败条目：'),
+	(13,'Finance/Import_income',1,'admin','2017-11-01 16:54:04','::1',NULL,1,'导入了合同收入信息，导入成功0条，失败9条，失败条目：2,3,4,5,6,7,8,9,10'),
+	(14,'Finance/Import_expenditure',1,'admin','2017-11-01 17:00:19','::1',NULL,1,'导入了合同支出信息，导入成功0条，失败9条，失败条目：2,3,4,5,6,7,8,9,10'),
+	(15,'Finance/Import_income',1,'admin','2017-11-01 17:04:11','::1',NULL,1,'导入了合同收入信息，导入成功5条，失败0条，失败条目：');
 
 /*!40000 ALTER TABLE `h_system_log` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1005,15 +625,6 @@ CREATE TABLE `h_user_compact` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `h_user_compact` WRITE;
-/*!40000 ALTER TABLE `h_user_compact` DISABLE KEYS */;
-
-INSERT INTO `h_user_compact` (`id`, `user_id`, `username`, `sex`, `part`, `birth`, `card_id`, `entry_time`, `compact_start`, `compact_end`, `remark`)
-VALUES
-	(1,3,'测试三','男','1','45678','345678','','6789','3456789','3245234324');
-
-/*!40000 ALTER TABLE `h_user_compact` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table h_user_contacts
@@ -1035,15 +646,6 @@ CREATE TABLE `h_user_contacts` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
-LOCK TABLES `h_user_contacts` WRITE;
-/*!40000 ALTER TABLE `h_user_contacts` DISABLE KEYS */;
-
-INSERT INTO `h_user_contacts` (`id`, `user_id`, `username`, `phone1`, `phone2`, `qq`, `home_address`, `emergency`, `emergency_relation`, `link_phone`)
-VALUES
-	(1,3,'测试三1','456789','234567890','34535','3453453','345345','广东广东省','大师傅士大夫');
-
-/*!40000 ALTER TABLE `h_user_contacts` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table h_user_education

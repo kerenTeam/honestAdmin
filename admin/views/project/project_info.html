@@ -975,14 +975,13 @@
                         console.log("正在进行，请稍候");
                     },
                     success : function(res) { 
-                        console.log(res)
-                        // if(res == 1){
-                        //     alert('新增成功！');
-                        //     window.location.reload()
-                        // }else{
-                        //      alert('新增失败！');
-                        //     window.location.reload()
-                        // }
+                        if(res == 1){
+                            alert('新增成功！');
+                            window.location.reload()
+                        }else{
+                             alert('新增失败！');
+                            window.location.reload()
+                        }
                     }, 
                     error : function(res) { 
                         console.log("error");
