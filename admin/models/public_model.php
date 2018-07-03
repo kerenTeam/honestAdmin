@@ -158,6 +158,20 @@ class public_model extends CI_Model
         return $query->row_array();
     }
 
+    //返回回访纪录
+    function retVisit($page,$size){
+        $this->db->select('a.*,b.title,b.industry,b.phone1,b.linkman');
+        $this->db->from('h_customer_visit as a');
+        $this->db->join('h_customer as b', 'b.id = a.c_id','inner');
+        $query = $this->db->order_by('a.visit_time','desc')->limit($page,$size)->get();
+        return $query->result_array();
+    }
+
+    //获取客户列表标题等
+    function customerList(){
+        $query = $this->db->select('title,id')->order_by('id','desc')->get('h_customer');
+        return $query->result_array();
+    }
     
 
     

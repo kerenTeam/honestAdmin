@@ -906,4 +906,306 @@ class Finance extends Public_Controller {
         echo $arr['log_message'];
     }
 
+
+    //出纳 现金
+    function cashAccount(){
+        $name = date('Y-m-d');
+        $inputFileName = "upload/xls/" .$name .'.xls';
+        $type = $_POST['type'];
+        move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+        //引入类库
+        $this->load->library('excel');
+        if(!file_exists($inputFileName)){
+
+                echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Welcome/Import_Record')."'</script>";
+                exit;
+        }
+
+        $PHPReader = new PHPExcel_Reader_Excel2007();
+        
+        if(!$PHPReader->canRead($inputFileName)){
+            $PHPReader = new PHPExcel_Reader_Excel5();
+            if(!$PHPReader->canRead($inputFileName)){
+                echo 'no Excel';
+            return;
+            }
+        }   
+        $yes = array();
+        $error = array();
+                      
+        
+        $PHPExcel = $PHPReader->load($inputFileName);
+
+        $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+
+        $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+
+        $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+
+        $erp_orders_id = array();  //声明数组
+
+        for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+            //
+           
+            $time = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+            if(!empty($time)){
+                $data['createTime'] = gmdate("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($time));
+            }
+
+            $data['userName'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+            $data['collectType'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取c列的值
+            $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取c列的值
+            $data['price'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取c列的值
+            
+            if($type == '2'){
+
+                $data['travel'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取c列的值
+                $data['hotel'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取c列的值
+                $data['hospitality'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取c列的值
+                $data['meals'] = $PHPExcel->getActiveSheet()->getCell("I".$currentRow)->getValue();//获取c列的值
+                $data['gasoline'] = $PHPExcel->getActiveSheet()->getCell("J".$currentRow)->getValue();//获取c列的值
+                $data['roadToll'] = $PHPExcel->getActiveSheet()->getCell("K".$currentRow)->getValue();//获取c列的值
+                $data['parking'] = $PHPExcel->getActiveSheet()->getCell("L".$currentRow)->getValue();//获取c列的值
+                $data['repair'] = $PHPExcel->getActiveSheet()->getCell("M".$currentRow)->getValue();//获取c列的值
+                $data['traffic'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取c列的值
+                $data['EMS'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取c列的值
+
+            }
+            $data['type'] = $type;          
+            // $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
+            if($time == NULL){
+
+                    //删除临时文件
+                @unlink($inputFileName);
+                break;
+
+            } 
+
+            // //新增合同
+            if($this->public_model->insert('h_cashier_cash',$data)){
+                $yes[] = $currentRow;
+            }else{
+                $error[] = $currentRow;
+            }
+        }
+        $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+        
+        // //            //日志
+        
+        $arr = array(
+            'log_url'=>$this->uri->uri_string(),
+            'user_id'=>$_SESSION['users']['user_id'],
+            'username'=>$_SESSION['users']['username'],
+            'log_ip'=>get_client_ip(),
+            'log_status'=>'1',
+            'log_message'=>"导入了出纳现金收支信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+        );
+        add_system_log($arr);   
+        echo $arr['log_message'];
+
+    }
+    //出纳 银行
+    function bankAccount(){
+        $name = date('Y-m-d');
+        $inputFileName = "upload/xls/" .$name .'.xls';
+        $type = $_POST['type'];
+        move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+        //引入类库
+        $this->load->library('excel');
+        if(!file_exists($inputFileName)){
+
+                echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Welcome/Import_Record')."'</script>";
+                exit;
+        }
+
+        $PHPReader = new PHPExcel_Reader_Excel2007();
+        
+        if(!$PHPReader->canRead($inputFileName)){
+            $PHPReader = new PHPExcel_Reader_Excel5();
+            if(!$PHPReader->canRead($inputFileName)){
+                echo 'no Excel';
+            return;
+            }
+        }   
+        $yes = array();
+        $error = array();
+                      
+        
+        $PHPExcel = $PHPReader->load($inputFileName);
+
+        $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+
+        $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+
+        $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+
+        $erp_orders_id = array();  //声明数组
+
+        for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+            //
+           
+            $time = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+            if(!empty($time)){
+                $data['createTime'] = gmdate("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($time));
+            }
+
+            $data['bankName'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+            $data['collectType'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取c列的值
+            $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取c列的值
+            $data['price'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取c列的值
+            
+           
+            $data['type'] = $type;          
+            // $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("H".$currentRow)->getValue();//获取d列的值
+            if($time == NULL){
+
+                    //删除临时文件
+                @unlink($inputFileName);
+                break;
+
+            } 
+
+            // //新增合同
+            if($this->public_model->insert('h_cashier_bank',$data)){
+                $yes[] = $currentRow;
+            }else{
+                $error[] = $currentRow;
+            }
+        }
+        $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+        
+        // //            //日志
+        
+        $arr = array(
+            'log_url'=>$this->uri->uri_string(),
+            'user_id'=>$_SESSION['users']['user_id'],
+            'username'=>$_SESSION['users']['username'],
+            'log_ip'=>get_client_ip(),
+            'log_status'=>'1',
+            'log_message'=>"导入了出纳银行收支信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+        );
+        add_system_log($arr);   
+        echo $arr['log_message'];
+
+    }
+    //出纳 承兑
+    function acceptance(){
+        $name = date('Y-m-d');
+        $inputFileName = "upload/xls/" .$name .'.xls';
+        $type = $_POST['type'];
+        move_uploaded_file($_FILES["pics"]["tmp_name"],$inputFileName);
+        //引入类库
+        $this->load->library('excel');
+        if(!file_exists($inputFileName)){
+
+                echo "<script>alert('文件导入失败!');window.location.href='".site_url('/Welcome/Import_Record')."'</script>";
+                exit;
+        }
+
+        $PHPReader = new PHPExcel_Reader_Excel2007();
+        
+        if(!$PHPReader->canRead($inputFileName)){
+            $PHPReader = new PHPExcel_Reader_Excel5();
+            if(!$PHPReader->canRead($inputFileName)){
+                echo 'no Excel';
+            return;
+            }
+        }   
+        $yes = array();
+        $error = array();
+                      
+        
+        $PHPExcel = $PHPReader->load($inputFileName);
+
+        $currentSheet = $PHPExcel->getSheet(0);  //读取excel文件中的第一个工作表
+
+        $allColumn = $currentSheet->getHighestColumn(); //取得最大的列号
+
+        $allRow = $currentSheet->getHighestRow(); //取得一共有多少行
+
+        $erp_orders_id = array();  //声明数组
+
+        for($currentRow = 2;$currentRow <= $allRow;$currentRow++){
+            //
+           
+           
+            if($type == '1'){
+                $time = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+                if(!empty($time)){
+                    $data['dateTime'] = gmdate("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($time));
+                }
+
+                $data['company'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+                $data['bankName'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取c列的值
+                $data['draftNum'] = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取c列的值
+                $data['draftEnd'] = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取c列的值
+                $data['balance'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取c列的值
+                $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("G".$currentRow)->getValue();//获取c列的值
+                if($time == NULL){
+
+                    //删除临时文件
+                    @unlink($inputFileName);
+                    break;
+
+                } 
+
+            }else{
+                $destroyTime = $PHPExcel->getActiveSheet()->getCell("A".$currentRow)->getValue();//获取c列的值
+                if(!empty($destroyTime)){
+                    $data['destroyTime'] = gmdate("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($destroyTime));
+                }
+                $data['draftNum'] = $PHPExcel->getActiveSheet()->getCell("B".$currentRow)->getValue();//获取c列的值
+                $data['balance'] = $PHPExcel->getActiveSheet()->getCell("C".$currentRow)->getValue();//获取c列的值
+                $collectionTime = $PHPExcel->getActiveSheet()->getCell("D".$currentRow)->getValue();//获取c列的值
+                if(!empty($collectionTime)){
+                    $data['collectionTime'] = gmdate("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($collectionTime));
+                }
+                   
+                $arrival = $PHPExcel->getActiveSheet()->getCell("E".$currentRow)->getValue();//获取c列的值
+                if(!empty($arrival)){
+                    $data['arrival'] = gmdate("Y-m-d", PHPExcel_Shared_Date::ExcelToPHP($arrival));
+                }
+                $data['remarks'] = $PHPExcel->getActiveSheet()->getCell("F".$currentRow)->getValue();//获取c列的值
+                if($destroyTime == NULL){
+
+                        //删除临时文件
+                    @unlink($inputFileName);
+                    break;
+
+                } 
+
+            }
+           
+            $data['type'] = $type;          
+           
+            // //新增合同
+            if($this->public_model->insert('h_cashier_acceptance',$data)){
+                $yes[] = $currentRow;
+            }else{
+                $error[] = $currentRow;
+            }
+        }
+        $ret = array('yes'=>count($yes),'error'=>count($error),'yeslist'=>$yes,'errorlist'=>$error);
+        
+        // //            //日志
+        
+        $arr = array(
+            'log_url'=>$this->uri->uri_string(),
+            'user_id'=>$_SESSION['users']['user_id'],
+            'username'=>$_SESSION['users']['username'],
+            'log_ip'=>get_client_ip(),
+            'log_status'=>'1',
+            'log_message'=>"导入了出纳承兑收支信息，导入成功".$ret['yes']."条，失败".$ret['error']."条，失败条目：".implode(',',$ret['errorlist']),
+        );
+        add_system_log($arr);   
+        echo $arr['log_message'];
+
+    }
+
+
+
+
+
+
+
 }
