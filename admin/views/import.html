@@ -127,6 +127,48 @@
                                                 <input name="pics" type="file" id="projectFile9"/>    
                                             </a>
                                         </span>
+                                    </p>  
+                                    <p>现金日记账-收:
+                                        <span> 
+                                            <a href="javascript:;" data-id='1' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile11"/>    
+                                            </a>
+                                        </span>
+                                    </p> 
+                                    <p>现金日记账-支:
+                                        <span> 
+                                            <a href="javascript:;" data-id='2' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile12"/>    
+                                            </a>
+                                        </span>
+                                    </p>  
+                                    <p>银行存款日记账-收:
+                                        <span> 
+                                            <a href="javascript:;" data-id='1' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile13"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                     <p>银行存款日记账-支:
+                                        <span> 
+                                            <a href="javascript:;" data-id='2' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile14"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>承兑汇票-收:
+                                        <span> 
+                                            <a href="javascript:;" data-id='1' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile15"/>    
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p>承兑汇票-支:
+                                        <span> 
+                                            <a href="javascript:;" data-id='2' class="am-btn am-btn-default ">
+                                                <input name="pics" type="file" id="projectFile16"/>    
+                                            </a>
+                                        </span>
                                     </p>
                             </div>
                             <div class="am-u-sm-6">
@@ -143,6 +185,12 @@
                                     <p>财务收入导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/income.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
                                     <p>财务支出导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/expenditure.xls" class="am-btn am-btn-warning">下载</a></span></p>
                                     <p>财务开票导入模版下载： <span> <a href="<?php echo base_url();?>upload/xls/billing.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>现金日记账-收 <span> <a href="<?php echo base_url();?>upload/xls/现金支出.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>现金日记账-支 <span> <a href="<?php echo base_url();?>upload/xls/现金收入.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>银行存款日记账-收 <span> <a href="<?php echo base_url();?>upload/xls/银行收入.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>银行存款日记账-支 <span> <a href="<?php echo base_url();?>upload/xls/银行支出.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>承兑汇票-收 <span> <a href="<?php echo base_url();?>upload/xls/承兑收.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
+                                    <p>承兑汇票-支 <span> <a href="<?php echo base_url();?>upload/xls/承兑支出.xlsx" class="am-btn am-btn-warning">下载</a></span></p>
                             </div>
                     </div>
 
@@ -396,6 +444,143 @@
             });
         })
  </script>
+  <script>     
+        $('#projectFile11').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/cashAccount");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile11')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+   <script>     
+        $('#projectFile12').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/cashAccount");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile12')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        });
+        $('#projectFile13').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/bankAccount");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile13')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        });
+        $('#projectFile14').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/bankAccount");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile14')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+        $('#projectFile15').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/acceptance");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile15')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+        $('#projectFile16').change(function () {
+            var dataId = $(this).parent().attr('data-id');
+
+            var URL = '<?php echo site_url("/Finance/acceptance");?>'
+
+            var formData = new FormData();
+            formData.append('pics', $('#projectFile16')[0].files[0]);
+            formData.append('type', dataId);
+
+            $.ajax({
+                url: URL,
+                type: 'POST',
+                // headers: headers,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data);
+                    window.location.reload()
+                }
+            });
+        })
+ </script>
+ 
 
 
     <script src="<?php echo base_url('public/');?>/assets/js/amazeui.min.js"></script>

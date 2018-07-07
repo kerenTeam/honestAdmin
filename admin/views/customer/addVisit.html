@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+       <link rel="icon" type="image/png" href="<?php echo base_url('public/');?>/assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url('public/');?>/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <script src="<?php echo base_url('public/');?>/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/amazeui.datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('public/');?>/assets/css/app.css">
+    <script src="<?php echo base_url('public/');?>/assets/js/jquery.min.js"></script>
+
+
+    <style>
+        label {
+            color: #e6e6e6
+        }
+    </style>
+    <script>
+        console.log('来自iframe获取的数据', (window.location.href).split('?'))
+    </script>
+</head>
+
+<body data-type="widgets">
+    <script src="<?php echo base_url('/public');?>/assets/js/theme.js"></script>
+    <div class="am-g tpl-g">
+
+        <!-- 内容区域 -->
+        <div class="tpl-content-wrapper">
+            <div class="container-fluid am-cf ">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+                    <div class="page-header-heading"><span class="am-icon-user-secret page-header-heading-icon"></span> 客户管理 <small> - 回访纪录 - &nbsp; 新增 </small></div>
+                </div>
+            </div>
+        <div class="row-content am-cf">
+
+            <div class="row">
+                <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                    <div class="widget am-cf">
+                        <div class="am-u-sm-12">
+                            <form action="<?php echo site_url('/Customer/addVisit');?>" method="post" class="am-form tpl-form-line-form" data-am-validator>
+
+                                <fieldset>
+                                     <div class="am-u-sm-6">
+                                    
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">客户名称: </label>
+                                        <select name="c_id" data-am-selected="{searchBox: 1,maxHeight: 100}" required >
+                                            <option value="">请选择一项</option>
+                                            <?php foreach($customer as $v):?>
+                                                <option value="<?php echo $v['id'];?>"><?php echo $v['title'];?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                        <span class="am-form-caret"></span>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">回访日期: </label>
+                                        <input type="text" name="visit_time"  required  placeholder="2014-04-23 12:00:34" />
+                                         <span class="am-form-caret"></span>
+                                    </div>
+
+
+                                     <div class="am-form-group">
+                                        <label for="doc-vld-name-2">回访纪录</label>
+                                        <textarea rows="6" name="comment" required></textarea>
+                                        <span class="am-form-caret"></span>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">满意度</label>
+                                        <input type="radio" name="satisfied" value="1">满意
+                                        <input type="radio" name="satisfied" value="2">一般
+                                        <input type="radio" name="satisfied" value="3">不满意
+                                    </div>
+                                   
+
+                                    <div class="am-form-group">
+                                        <label for="doc-vld-name-2">备注: </label>
+                                        <textarea rows="4" name="remarks"></textarea>
+                                    </div> 
+                                </div>
+                
+                                </fieldset>
+
+                                <button class="am-btn am-btn-secondary" type="submit">提交</button>
+
+                                <br> &nbsp;
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+    <script src="<?php echo base_url('public/');?>/assets/js/amazeui.min.js"></script>
+    <script src="<?php echo base_url('public/');?>/assets/js/amazeui.datatables.min.js"></script>
+    <script src="<?php echo base_url('public/');?>/assets/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url('public/');?>/assets/js/app.js"></script>
+</body>
+
+</html>

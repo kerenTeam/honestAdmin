@@ -9,6 +9,7 @@ class Customer extends Public_Controller
     public $customer_user = 'customer_contacts';
     public $category = 'category';
     public $member = 'user_member';
+    public $visit = 'customer_visit';
     function __construct() {
         parent::__construct();
     }
@@ -497,6 +498,146 @@ class Customer extends Public_Controller
         echo $arr['log_message'];
     }
     
+
+    function visit(){
+         $config['per_page'] = 10;
+        //获取页码
+        $current_page=intval($this->input->get("size"));//index.php 后数第4个/
+
+        // $industry = $this->input->get('industry');
+        // $sear = $this->input->get('sear');
+        //分页配置
+        $config['full_tag_open'] = '<ul class="am-pagination tpl-pagination">';
+
+        $config['full_tag_close'] = '</ul>';
+
+        $config['first_tag_open'] = '<li>';
+
+        $config['first_tag_close'] = '</li>';
+
+        $config['prev_tag_open'] = '<li>';
+
+        $config['prev_tag_close'] = '</li>';
+
+        $config['next_tag_open'] = '<li>';
+
+        $config['next_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="am-active"><a>';
+
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['last_tag_open'] = '<li>';
+
+        $config['last_tag_close'] = '</li>';
+
+        $config['num_tag_open'] = '<li>';
+
+        $config['num_tag_close'] = '</li>';
+        $config['first_link']= '首页';
+
+        $config['next_link']= '下一页';
+
+        $config['prev_link']= '上一页';
+
+        $config['last_link']= '末页';
+
+
+        $list = $this->public_model->select($this->visit,'id');
+        // $list = search_customer($industry,$sear);
+       
+
+        $config['total_rows'] = count($list);
+
+        $config['page_query_string'] = TRUE;//关键配置
+        // $config['reuse_query_string'] = FALSE;
+        $config['query_string_segment'] = 'size';
+        $config['base_url'] = site_url('/Coustomer/visit');
+
+        // //分页数据\
+        $listpage = $this->public_model->retVisit($config['per_page'],$current_page);
+        // var_dump($listpage);
+        // exit;
+        $this->load->library('pagination');//加载ci pagination类
+
+        $this->pagination->initialize($config);
+
+        // var_dump($data);
+        $type = $this->public_model->select_where($this->category,'type','1','');
+  
+       
+        $data = array('lists'=>$listpage,'pages' => $this->pagination->create_links(),'industry'=>$type);
+        $this->load->view('customer/customerVisit.html',$data);
+    }
+
+    //新增回访纪录
+    function addVisit(){
+        if($_POST){
+            $data =$this->input->post();
+            if($this->public_model->insert($this->visit,$data)){
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"新增客户回访纪录成功,客户id为".$data['c_id'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作成功！');window.location.href='".site_url('/Customer/visit')."'</script>";    
+            }else{
+                 $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"新增客户回访纪录失败,客户id为".$data['c_id'],
+                );
+                add_system_log($arr);
+                echo "<script>alert('操作失败！');window.location.href='".site_url('/Customer/visit')."'</script>";   
+            }
+        }else{
+            //获取客户信息
+            $data['customer'] = $this->public_model->customerList();
+
+            $this->load->view('customer/addVisit.html',$data);
+        }
+    }
+
+    //编辑
+
+    //删除记录
+    function delVisit(){
+        if($_POST){
+            $data = $this->input->post();
+            if($this->public_model->delete($this->visit,'id',$data['id'])){
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'1',
+                    'log_message'=>"删除回访纪录成功,记录id为".$data['id'],
+                );
+                add_system_log($arr);
+                echo "1";  
+            }else{
+                $arr = array(
+                    'log_url'=>$this->uri->uri_string(),
+                    'user_id'=>$_SESSION['users']['user_id'],
+                    'username'=>$_SESSION['users']['username'],
+                    'log_ip'=>get_client_ip(),
+                    'log_status'=>'0',
+                    'log_message'=>"删除回访纪录失败,记录id为".$data['id'],
+                );
+                add_system_log($arr);
+                echo "2";  
+            }
+        }else{
+            echo "2";
+        }
+    }
     
 
 }
