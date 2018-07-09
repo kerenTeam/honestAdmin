@@ -394,14 +394,19 @@ class Contract extends Public_Controller
             $user = $this->public_model->select_info($this->member,'username',trim($name));
             $data['sign_user'] = $user['user_id'];
 
+            $name = $PHPExcel->getActiveSheet()->getCell("N" . $currentRow)->getValue();
+            //获取签盯人id
+            $user1 = $this->public_model->select_info($this->member, 'username', trim($name));
+            $data['entrust_user'] = $user1['user_id'];
+
 
             //获取d列的值
-            $data['estimate_price'] = $PHPExcel->getActiveSheet()->getCell("N".$currentRow)->getValue();//获取d列的值
-            $data['contract_price'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
-            $data['review_price'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
-            $data['prepay'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();//获取d列的值
-            $data['expenditure'] = $PHPExcel->getActiveSheet()->getCell("TR".$currentRow)->getValue();//获取d列的值
-            $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("S".$currentRow)->getValue();//获取d列的值
+            $data['estimate_price'] = $PHPExcel->getActiveSheet()->getCell("O".$currentRow)->getValue();//获取d列的值
+            $data['contract_price'] = $PHPExcel->getActiveSheet()->getCell("P".$currentRow)->getValue();//获取d列的值
+            $data['review_price'] = $PHPExcel->getActiveSheet()->getCell("Q".$currentRow)->getValue();//获取d列的值
+            $data['prepay'] = $PHPExcel->getActiveSheet()->getCell("R".$currentRow)->getValue();//获取d列的值
+            $data['expenditure'] = $PHPExcel->getActiveSheet()->getCell("S".$currentRow)->getValue();//获取d列的值
+            $data['remaks'] = $PHPExcel->getActiveSheet()->getCell("T".$currentRow)->getValue();//获取d列的值
          
             if($data['contract_year'] == NULL){
 

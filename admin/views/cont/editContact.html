@@ -113,6 +113,20 @@
                                                  <div class="am-u-sm-8" id="doc-select-4" required>
                                                     <input type="text" name='sign_date' value="<?php echo $contract['sign_date'];?>" class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
                                                 </div>
+
+                                                <label class="am-u-sm-3 am-form-label">委托人
+                                                    <span class="red">*</span>：</label>
+                                                <div class="am-u-sm-8">
+                                                
+                                                    <select name="entrust_user" data-am-selected="{searchBox: 1,maxHeight: 200}">
+                                                        <option value="">请选择一项</option>
+                                                        <?php foreach($users as $val):?>
+                                                        <option value="<?php echo $val['user_id'];?>" <?php if($val[ 'user_id']== $contract[ 'entrust_user']){echo "selected";}?>>
+                                                            <?php echo $val['username'];?>
+                                                        </option>
+                                                        <?php endforeach;?>
+                                                    </select>
+                                                </div>
         
                                                 <label class="am-u-sm-3 am-form-label">预估合同金额：</label>
                                                 <div class="am-u-sm-8">

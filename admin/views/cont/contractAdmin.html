@@ -144,6 +144,21 @@
                                          <div class="am-u-sm-8" id="doc-select-4" required>
                                             <input type="text" name='sign_date' class="am-form-field" placeholder="签订时间" data-am-datepicker readonly required />
                                         </div>
+                                        
+                                        <label class="am-u-sm-3 am-form-label">委托人
+                                            <span class="red">*</span>：</label>
+                                        <div class="am-u-sm-8">
+                                        
+                                            <select name="entrust_user" data-am-selected="{searchBox: 1,maxHeight: 200}">
+                                                <option value="">请选择一项</option>
+                                                <?php foreach($users as $val):?>
+                                                <option value="<?php echo $val['user_id'];?>">
+                                                    <?php echo $val['username'];?>
+                                                </option>
+                                                <?php endforeach;?>
+                                            </select>
+                                        </div>
+
 
                                         <label class="am-u-sm-3 am-form-label">预估合同金额:</label>
                                         <div class="am-u-sm-8">
@@ -257,8 +272,10 @@
                                     <th>合同名称</th>
                                     <th>合同金额</th>
                                     <th>客户名称</th>
+                                   
                                     <th>签订人</th>
                                     <th>签订时间</th>
+                                    <th>委托人</th>
                                     <th>地点 </th>
                                     <th>军地</th>
                                     <th>板块</th>
@@ -281,6 +298,7 @@
                                     <!-- <td class="groupName am-text-middle"><?php echo $val['contract_id']?></td> -->
                                     <td class="groupName am-text-middle"><?php echo get_username($val['sign_user']);?></td>
                                     <td class="aliasName am-text-middle"><?php echo $val['sign_date']?> </td>
+                                    <td class="aliasName am-text-middle"><?php echo get_username($val['entrust_user']);?> </td>
                                     <td class="groupName am-text-middle"><?php echo $val['province'].$val['city'].$val['area']?></td>
                                     <td class="groupName am-text-middle"><?php if($val['army'] == '1'){echo "是";}else{echo "否";}?></td>
                                     <td class="groupName am-text-middle"><?php echo get_industryTitle($val['plate']);?></td>
